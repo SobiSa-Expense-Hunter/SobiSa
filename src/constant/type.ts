@@ -16,3 +16,10 @@ export interface UserSelected {
   product: Product;
   savingAmount: number;
 }
+
+export interface Alternatives {
+  title: string;
+  image?: string;
+  price: number;
+  unit: string;
+}
