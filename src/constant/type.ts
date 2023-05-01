@@ -1,4 +1,4 @@
-interface NaverProductResponse {
+export interface NaverProductResponse {
   title: string;
   link: string;
   image: string;
@@ -6,13 +6,13 @@ interface NaverProductResponse {
   productType: number;
 }
 
-interface Product {
+export interface Product {
   title: string;
   image: string;
   price: number;
 }
 
-interface UserSelected {
+export interface UserSelected {
   product: Product;
   savingAmount: number;
 }
