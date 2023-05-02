@@ -2,12 +2,19 @@ import React from 'react';
 
 import styled from 'styled-components';
 
+import { StyledListBox } from '@/components/list/styles';
+
 import type { Product } from '@/constant/type';
 
-const ListBox = ({ product }: { product: Product }) => {
+interface ListBoxProps {
+  product: Product;
+  listClickHandler: (product: Product) => void;
+}
+
+const ListBox = ({ product, listClickHandler }: ListBoxProps) => {
   const { productId, image, price, title } = product;
   return (
-    <StyledListBox>
+    <StyledListBox onClick={() => listClickHandler(product)}>
       <StyledImgWrapper>
         <img src={image} alt={`${productId} img`} />
       </StyledImgWrapper>
@@ -19,18 +26,8 @@ const ListBox = ({ product }: { product: Product }) => {
 
 export default ListBox;
 
-const StyledListBox = styled.div`
-  background: #ffffff;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-`;
-
 const StyledImgWrapper = styled.div`
   img {
-    max-width: 50px;
+    max-width: 100px;
   }
-`;
-
-const DummyWrapper = styled.div`
-  height: calc(var(--vh, 1vh) * 100);
 `;

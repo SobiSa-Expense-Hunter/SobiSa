@@ -11,12 +11,14 @@ import type { NaverProductResponse, Product } from '@/constant/type';
 const initialVal: Product[] = [];
 
 function useSearchProducts(userSearch: string) {
+  // 임의로 설정해둔 params 필터
   const params: APIParams = {
     query: userSearch,
     display: 10,
     sort: SORT.SIM,
     filter: IMG_FILTER.SMALL,
   };
+
   const [products, setProducts] = useState<Product[]>([]);
   const queryRes = useInfiniteQuery<NaverProductResponse, Error>({
     queryKey: ['products', params],
@@ -26,16 +28,16 @@ function useSearchProducts(userSearch: string) {
     getNextPageParam: lastPage => lastPage.start ?? undefined,
   });
 
-  const { data: datas } = queryRes;
+  const { data: originDatas } = queryRes;
 
   useEffect(() => {
-    if (datas !== undefined) {
+    if (originDatas !== undefined) {
       setProducts(
-        datas.pages.reduce((acc, page) => {
+        originDatas.pages.reduce((acc, page) => {
           const processedPageData = page.items.map(item => {
             const tmpProduct: Product = {
               productId: item.productId,
-              title: item.title,
+              title: item.title.replaceAll('<b>', '').replaceAll('</b>', ''),
               image: item.image,
               price: Intl.NumberFormat().format(Number(item.lprice)),
             };
@@ -45,7 +47,7 @@ function useSearchProducts(userSearch: string) {
         }, initialVal),
       );
     }
-  }, [datas]);
+  }, [originDatas]);
 
   return { products, queryRes };
 }
