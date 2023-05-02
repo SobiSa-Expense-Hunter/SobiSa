@@ -13,7 +13,7 @@ const getProductsApi = async (userInput: string) => {
         query: userInput || '아무거나',
         display: 10,
         sort: SORT.SIM,
-        filter: IMG_FILTER.ALL,
+        filter: IMG_FILTER.SMALL,
       },
       headers: {
         'X-Naver-Client-Id': process.env.NEXT_PUBLIC_CLIENT_ID,
