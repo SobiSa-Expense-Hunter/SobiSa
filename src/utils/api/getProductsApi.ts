@@ -7,8 +7,6 @@ const SORT = { SIM: 'sim', DATE: 'date' } as const;
 const IMG_FILTER = { ALL: 'all', LARGE: 'large', MIDIUM: 'medium', SMALL: 'small' } as const;
 
 const getProductsApi = async (userInput: string) => {
-  // TO-DO: React query 적용 후 userInput을 담을 queryKey 설정
-  // const [_, userInput] = queryKey;
   try {
     const { data }: { data: NaverProductResponse[] } = await axios.get(URL, {
       params: {
