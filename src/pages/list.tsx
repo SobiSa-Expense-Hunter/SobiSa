@@ -1,7 +1,7 @@
-import { ListComponents } from '@/components/list';
+import { ListWrapper } from '@/components/list';
 
 const ListPage = () => {
-  return <ListComponents />;
+  return <ListWrapper />;
 };
 
 export default ListPage;
