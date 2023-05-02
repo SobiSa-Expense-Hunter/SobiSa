@@ -1,18 +1,9 @@
-// export interface NaverProductResponse {
-//   title: string;
-//   link: string;
-//   image: string;
-//   price: number;
-//   productType: number;
-// }
-
 export interface NaverProductItemResponse {
   brand: string;
   category1: string;
   category2: string;
   category3: string;
   category4: string;
-  price: string;
   image: string;
   link: string;
   lprice: string;
@@ -34,7 +25,8 @@ export interface NaverProductResponse {
 export interface Product {
   title: string;
   image: string;
-  price: number;
+  price: string;
+  productId: string;
 }
 
 export interface UserSelected {

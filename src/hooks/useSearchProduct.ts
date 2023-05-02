@@ -10,7 +10,8 @@ const initialVal: Product[] = [
   {
     title: '',
     image: '',
-    price: 0,
+    price: '',
+    productId: '',
   },
 ];
 
@@ -26,9 +27,10 @@ function useSearchProduct(userSearch: string) {
       setProducts(
         datas.items.reduce((acc, cur, idx) => {
           const tmpProduct: Product = {
-            title: cur.title,
+            productId: cur.productId,
+            title: cur.mallName + cur.category3,
             image: cur.image,
-            price: Number(cur.price),
+            price: Intl.NumberFormat().format(Number(cur.lprice)),
           };
           acc[idx] = tmpProduct;
           return acc;
