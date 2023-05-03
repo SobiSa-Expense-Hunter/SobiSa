@@ -4,13 +4,19 @@ const alternatives: Alternatives[] = [
   {
     title: '커피',
     price: 5000,
-    image:
-      'https://w7.pngwing.com/pngs/453/140/png-transparent-cafe-frappe-coffee-iced-coffee-computer-icons-coffee-cafe-coffee-artwork.png',
+    image: '☕️',
     unit: '잔',
   },
   {
     title: '버스',
     price: 1200,
+    image: '🚌',
+    unit: '번',
+  },
+  {
+    title: '맥북',
+    price: 1200000,
+    image: '🚌',
     unit: '번',
   },
 ];

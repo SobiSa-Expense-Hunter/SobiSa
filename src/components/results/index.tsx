@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import UserSelectedData from '@/__test__/dummy/UserSelectData';
 import alternatives from '@/constant';
+import Alternative from '@/components/results/Alternative';
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -13,9 +14,10 @@ const Wrapper = styled.div`
   max-width: 767px;
   min-width: 480px;
   padding: 30px;
+  cursor: default;
 `;
 
-const ProductWrapper = styled.div`
+const ProductContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +46,7 @@ const SavingsPeriod = styled.p`
   font-size: 20px;
 `;
 
-const AlternativesWrapper = styled.div`
+const AlternativesContainer = styled.div`
   margin: 10px;
   margin-top: 20px;
   display: flex;
@@ -60,32 +62,14 @@ const AlternativeWords = styled.p`
   font-size: 18px;
 `;
 
-const Alternative = styled.div`
-  display: flex;
-  align-items: center;
-  border-radius: 5px;
-  background: white;
-  justify-content: space-around;
-  padding: 20px;
-  height: 55px;
-  box-sizing: border-box;
-`;
-
-const AlternativeInfo = styled.p`
-  font-weight: 700;
-  font-size: 18px;
-  flex-grow: 1;
-`;
-const AlternativeIcons = styled.div`
-  flex-grow: 2;
-`;
-
-const CertificateWrapper = styled.div`
+const CertificateContainer = styled.div`
   width: 80%;
 `;
 const CertificateWords = styled.p`
   font-weight: 700;
+  font-size: 18px;
   line-height: 26px;
+  margin-top: 50px;
   text-align: center;
 `;
 const CertificateButton = styled.button`
@@ -94,13 +78,16 @@ const CertificateButton = styled.button`
   width: 100%;
   background: grey;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   border: 0px;
   border-radius: 5px;
   color: white;
   margin: 10px 0px;
+  margin-top: 20px;
   cursor: pointer;
 `;
+
+const ShareContainer = styled.div``;
 
 function Result() {
   const {
@@ -112,34 +99,28 @@ function Result() {
 
   return (
     <Wrapper>
-      <ProductWrapper>
+      <ProductContainer>
         <ProductTitle>{title}</ProductTitle>
         <ProductPrice>{price.toLocaleString()} 원</ProductPrice>
         <SavingsPeriod>{savingsPeriod}개월동안 모아야 해요!</SavingsPeriod>
         <ProductImage src={image} alt={title} />
-      </ProductWrapper>
-      <AlternativesWrapper>
+      </ProductContainer>
+      <AlternativesContainer>
         <AlternativeWords>이걸 가지는 대신 할 수 있는 일...</AlternativeWords>
         {alternatives.map(alternative => (
-          <Alternative key={alternative.title}>
-            <AlternativeInfo>
-              {alternative.title} {Math.floor(price / alternative.price)} {alternative.unit}
-            </AlternativeInfo>
-            <AlternativeIcons>
-              {Array(Math.floor(price / alternative.price))
-                .fill(0)
-                .slice(0, 10)
-                .map(_ => '☕️')}
-            </AlternativeIcons>
-          </Alternative>
+          <Alternative
+            alternative={alternative}
+            wantedProductPrice={price}
+            key={alternative.title}
+          />
         ))}
-      </AlternativesWrapper>
-      <CertificateWrapper>
+      </AlternativesContainer>
+      <CertificateContainer>
         <CertificateWords>
           이걸 보고도 갖고 싶으시다면, <br /> 임명장을 발급받아 보세요!
         </CertificateWords>
         <CertificateButton>임명장 받기</CertificateButton>
-      </CertificateWrapper>
+      </CertificateContainer>
     </Wrapper>
   );
 }
