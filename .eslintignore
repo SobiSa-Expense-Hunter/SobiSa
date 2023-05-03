@@ -3,3 +3,4 @@ next.config.js
 .next
 .husky
 public
+jest.config.js
