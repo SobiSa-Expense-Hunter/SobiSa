@@ -1,10 +1,14 @@
-import Result from '@/components/results';
-import React from 'react';
+import dynamic from 'next/dynamic';
+import React, { useEffect } from 'react';
+
+const DynamicResult = dynamic(() => import('@/components/results/index'), {
+  ssr: false,
+});
 
 function ResultPage() {
   return (
     <div>
-      <Result />
+      <DynamicResult />
     </div>
   );
 }

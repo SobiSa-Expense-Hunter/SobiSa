@@ -1,6 +1,6 @@
 import { Alternatives } from '@/constant/type';
 
-const alternatives: Alternatives[] = [
+export const alternatives: Alternatives[] = [
   {
     title: '커피',
     price: 5000,
@@ -13,12 +13,10 @@ const alternatives: Alternatives[] = [
     image: '🚌',
     unit: '번',
   },
-  {
-    title: '맥북',
-    price: 1200000,
-    image: '🚌',
-    unit: '번',
-  },
 ];
 
-export default alternatives;
+export const sharedMessage: ShareData = {
+  title: '소비사',
+  text: '소비 사냥꾼',
+  url: 'http://localhost:3001',
+};

@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import styled from 'styled-components';
 
 import UserSelectedData from '@/__test__/dummy/UserSelectData';
-import alternatives from '@/constant';
 import Alternative from '@/components/results/Alternative';
+import { shareOnFacebook, shareOnKakao, shareOnTwitter } from '@/components/results/share';
+import { alternatives, sharedMessage } from '@/constant';
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -87,7 +88,23 @@ const CertificateButton = styled.button`
   cursor: pointer;
 `;
 
-const ShareContainer = styled.div``;
+const ShareContainer = styled.div`
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+`;
+
+const ShareButton = styled.button`
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+  }
+`;
 
 function Result() {
   const {
@@ -96,7 +113,6 @@ function Result() {
   } = UserSelectedData;
 
   const savingsPeriod = Math.round(price / savingAmount);
-
   return (
     <Wrapper>
       <ProductContainer>
@@ -121,6 +137,29 @@ function Result() {
         </CertificateWords>
         <CertificateButton>임명장 받기</CertificateButton>
       </CertificateContainer>
+      <ShareContainer>
+        {navigator.share && navigator.canShare(sharedMessage) && (
+          <ShareButton onClick={() => window.navigator.share(sharedMessage)}>공유하기</ShareButton>
+        )}
+        <ShareButton onClick={shareOnTwitter}>
+          <img
+            src='https://play-lh.googleusercontent.com/8sc6LSo3dRf54GaLdQR8UZfzd_fgHgWMJlNxGLP1HWPEU7YY4UxkyHc8-qCNwtyiqO55'
+            alt='트위터 공유하기 버튼'
+          />
+        </ShareButton>
+        <ShareButton onClick={shareOnFacebook}>
+          <img
+            src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/1024px-2021_Facebook_icon.svg.png?20220821121039'
+            alt='페이스북 공유하기 버튼'
+          />
+        </ShareButton>
+        <ShareButton onClick={shareOnKakao}>
+          <img
+            src='https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png'
+            alt='카카오톡 공유 보내기 버튼'
+          />
+        </ShareButton>
+      </ShareContainer>
     </Wrapper>
   );
 }
