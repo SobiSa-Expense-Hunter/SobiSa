@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 import { ListBox } from '@/components/list';
 import { StyledListBox } from '@/components/list/styles';
-import { Product } from '@/constant/type';
 import useSearchProducts from '@/hooks/useSearchProduct';
+import { Product } from '@/types/product';
 
 const userSearch = '강아지 인형';
 

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+
 import { useServerInsertedHTML } from 'next/navigation';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
@@ -10,10 +11,11 @@ export default function StyledComponentsRegistry({ children }: { children: React
   const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
 
   useServerInsertedHTML(() => {
-    const styles = styledComponentsStyleSheet.getStyleElement();
+    const styles = styledComponentsStyleSheet.getStyleElement() as React.ReactNode;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     styledComponentsStyleSheet.instance.clearTag();
-    return { styles };
+    return styles;
   });
 
   if (typeof window !== 'undefined') return { children };
