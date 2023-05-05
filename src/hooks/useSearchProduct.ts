@@ -39,7 +39,7 @@ function useSearchProducts(userSearch: string) {
               productId: item.productId,
               title: item.title.replaceAll('<b>', '').replaceAll('</b>', ''),
               image: item.image,
-              price: Intl.NumberFormat().format(Number(item.lprice)),
+              price: Number(item.lprice),
             };
             return tmpProduct;
           });
