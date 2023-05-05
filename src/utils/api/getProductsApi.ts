@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { SHOP_URL } from '@/constant/list';
 
-import type { NaverProductResponse } from '@/constant/type';
+import type { NaverProductResponse } from '@/types/naverShopApi';
 
 const getProductsApi = async (params: object) => {
   const { data }: { data: NaverProductResponse } = await axios.get(SHOP_URL, {

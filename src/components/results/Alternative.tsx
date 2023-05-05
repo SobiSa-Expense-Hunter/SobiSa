@@ -1,9 +1,9 @@
 import React from 'react';
 
-import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import styled from 'styled-components';
 
-import { Alternatives } from '@/constant/type';
+import { Alternatives } from '@/types/result';
 
 const AlternativeWrapper = styled.div`
   display: flex;

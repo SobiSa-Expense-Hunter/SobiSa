@@ -1,5 +1,6 @@
+import React from 'react';
+
 import dynamic from 'next/dynamic';
-import React, { useEffect } from 'react';
 
 const DynamicResult = dynamic(() => import('@/components/results/index'), {
   ssr: false,

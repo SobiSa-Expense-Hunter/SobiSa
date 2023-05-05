@@ -1,10 +1,8 @@
-import React from 'react';
-
 import styled from 'styled-components';
 
 import { StyledListBox } from '@/components/list/styles';
 
-import type { Product } from '@/constant/type';
+import type { Product } from '@/types/product';
 
 interface ListBoxProps {
   product: Product;

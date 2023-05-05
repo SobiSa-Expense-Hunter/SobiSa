@@ -1,4 +1,4 @@
-import { Alternatives } from '@/constant/type';
+import { Alternatives } from '@/types/result';
 
 export const alternatives: Alternatives[] = [
   {

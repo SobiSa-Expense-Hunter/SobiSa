@@ -5,7 +5,8 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { IMG_FILTER, SORT } from '@/constant/list';
 import { getProductsApi } from '@/utils/api';
 
-import type { APIParams, NaverProductResponse, Product } from '@/constant/type';
+import type { APIParams, NaverProductResponse } from '@/types/naverShopApi';
+import type { Product } from '@/types/product';
 
 const initialVal: Product[] = [];
 

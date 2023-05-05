@@ -1,4 +1,4 @@
-import { UserSelected } from '@/constant/type';
+import { UserSelected } from '@/types/result';
 
 const Product = {
   title: 'Apple 2022 맥북 에어',

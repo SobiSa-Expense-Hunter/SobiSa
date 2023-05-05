@@ -3,11 +3,11 @@ import React from 'react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import Script from 'next/script';
+
+import { KakaoSDK } from '@/types/result';
 
 import type { AppProps } from 'next/app';
-import StyledComponentsRegistry from '@/lib/registry';
-import Script from 'next/script';
-import { KakaoSDK } from '@/constant/type';
 
 declare global {
   interface Window {
