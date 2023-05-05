@@ -18,6 +18,9 @@
     "project": "./tsconfig.json"
   },
   "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": "off",
+    "@typescript-eslint/no-use-before-define": "off",
     "import/order": [
       "error",
       {
