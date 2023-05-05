@@ -3,3 +3,4 @@
 
 echo 🐶 pre-commit is work!
 npm run lint:fix
+npm run prettier:fix
