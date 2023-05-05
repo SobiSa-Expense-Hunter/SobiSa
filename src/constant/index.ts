@@ -1,5 +1,11 @@
 import { Alternatives } from '@/types/result';
 
+const SearchAction = Object.freeze({
+  ADD_PRODUCT: 'ADD_PRODUCT',
+  ADD_SAVINGAMOUNT: 'ADD_SAVINGAMOUNT',
+});
+export default SearchAction;
+
 export const alternatives: Alternatives[] = [
   {
     title: '커피',
