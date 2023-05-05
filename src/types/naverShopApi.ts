@@ -1,6 +1,6 @@
 import { IMG_FILTER, SORT } from '@/constant/list';
 
-import type { CreateArrayWithLengthX, NumericRange } from '@/constant/rangeTypeGenerater';
+import type { CreateArrayWithLengthX, NumericRange } from '@/types/rangeTypeGenerater';
 
 export interface NaverProductItemResponse {
   brand: string;
