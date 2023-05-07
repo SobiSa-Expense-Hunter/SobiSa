@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Script from 'next/script';
 import { ThemeProvider } from 'styled-components';
 
+import GlobalStyle from '@/styles/GlobalStyle';
 import theme from '@/styles/theme';
 import { KakaoSDK } from '@/types/result';
 
@@ -31,6 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <Component {...pageProps} />
         <ReactQueryDevtools initialIsOpen={false} />
         <Script
