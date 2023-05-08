@@ -21,4 +21,4 @@ declare module 'styled-components' {
 }
 
 type Size = 's' | 'm' | 'l';
-type GrayRange = NumericRange<CreateArrayWithLengthX<0>, 6>;
+export type GrayRange = NumericRange<CreateArrayWithLengthX<0>, 6>;

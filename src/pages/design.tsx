@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import styled from 'styled-components';
 
+import { GrayRange } from '../../style';
 import { ItemImage, LineImage, MainImage } from '@/assets';
 import {
   BottomButton,
@@ -20,6 +21,8 @@ import {
   TopIcon,
   TwitterIcon,
 } from '@/styles/icons';
+import theme from '@/styles/theme';
+import { NumericRange } from '@/types/rangeTypeGenerater';
 
 const Main = styled.main`
   display: grid;
@@ -61,14 +64,14 @@ const Aside = styled.div`
       background-color: rgba(0, 0, 0, 0.02);
     }
 
-    a {
-      display: block;
-      text-decoration: none;
-      outline: none;
-    }
+    a,
+    a:link,
     a:hover,
     a:active,
     a:visited {
+      display: block;
+      text-decoration: none;
+      outline: none;
       color: #949494;
       text-decoration: none;
     }
@@ -143,6 +146,16 @@ const CodeRows = styled.pre`
   }
 `;
 
+const ColorContainer = styled.div`
+  display: inline-block;
+  width: 100%;
+  line-height: 100px;
+  vertical-align: center;
+  text-align: center;
+  background-color: ${props => props.color};
+  color: white;
+`;
+
 const design = () => {
   return (
     <Main>
@@ -160,6 +173,9 @@ const design = () => {
           </li>
           <li>
             <a href='#icons-container'>Icons</a>
+          </li>
+          <li>
+            <a href='#colors-container'>Colors</a>
           </li>
         </ul>
       </Aside>
@@ -282,6 +298,23 @@ const design = () => {
               <h3>LinkIcon</h3>
               <LinkIcon />
             </ItemContent>
+          </MiniItemContentsWrapper>
+        </Article>
+        <Article id='colors-container'>
+          <h2>Colors</h2>
+          <MiniItemContentsWrapper>
+            <ColorContainer color={theme.colors.mainColor}>mainColor</ColorContainer>
+            <ColorContainer color={theme.colors.subColor}>subColor</ColorContainer>
+            {Object.keys(theme.colors.gray).map(value => {
+              return (
+                <ColorContainer
+                  key={`gray_${value}`}
+                  color={theme.colors.gray[Number(value) as GrayRange]}
+                >
+                  gray[{value}]
+                </ColorContainer>
+              );
+            })}
           </MiniItemContentsWrapper>
         </Article>
       </Section>
