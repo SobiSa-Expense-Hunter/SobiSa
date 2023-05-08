@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+
 import React from 'react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -6,7 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Script from 'next/script';
 import { ThemeProvider } from 'styled-components';
 
-import { GlobalStyle } from '@/styles';
+import GlobalStyle from '@/styles/GlobalStyle';
 import theme from '@/styles/theme';
 import { KakaoSDK } from '@/types/result';
 
