@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import { ItemImage, LineImage, MainImage } from '@/assets';
-import Header from '@/components/common/Header';
 import {
   BottomButton,
   ModalButton,
@@ -11,6 +10,7 @@ import {
   ModalSubButton,
   ShareButton,
 } from '@/components/common/buttons';
+import FrameName from '@/components/common/frameName';
 import {
   FaceBookIcon,
   KakaoIcon,
@@ -28,7 +28,7 @@ const Main = styled.main`
   scroll-behavior: smooth;
 `;
 
-const Seciton = styled.section``;
+const Section = styled.section``;
 
 const Aside = styled.div`
   position: sticky;
@@ -150,17 +150,26 @@ const design = () => {
         <h1>스타일 가이드</h1>
         <ul>
           <li>
-            <a href='#buttons-container'>버튼</a>
+            <a href='#frame-name-container'>Frame Name</a>
           </li>
           <li>
-            <a href='#image-container'>캐릭터이미지</a>
+            <a href='#buttons-container'>Buttons</a>
           </li>
           <li>
-            <a href='#icons-container'>아이콘</a>
+            <a href='#image-container'>Images</a>
+          </li>
+          <li>
+            <a href='#icons-container'>Icons</a>
           </li>
         </ul>
       </Aside>
-      <Seciton>
+      <Section>
+        <Article id='frame-name-container'>
+          <h2>frame name</h2>
+          <FrameName>소비사 프로덕트</FrameName>
+          <FrameName>Apple 2022 맥북 에어</FrameName>
+          <FrameName>Sobisa! some product Sobisa! some product </FrameName>
+        </Article>
         <Article id='buttons-container'>
           <h2>buttons</h2>
           <MiniItemContentsWrapper>
@@ -275,7 +284,7 @@ const design = () => {
             </ItemContent>
           </MiniItemContentsWrapper>
         </Article>
-      </Seciton>
+      </Section>
     </Main>
   );
 };
