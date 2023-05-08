@@ -2,13 +2,13 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { HamburgerIcon, Left } from '@/assets/icons';
+import { HamburgerIcon, LeftIcon } from '@/assets/icons';
 import { Medium } from '@/styles/font';
 
 const Header = () => {
   return (
     <StyledHeaderWrapper>
-      <Left />
+      <LeftIcon />
       <StyleTextLogo>
         <div>SOBISA!</div>
       </StyleTextLogo>
