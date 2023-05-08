@@ -3,13 +3,14 @@ import React from 'react';
 import MainImage from '@/assets/image.svg';
 import ItemImage from '@/assets/image_item.svg';
 import LineImage from '@/assets/image_line.svg';
+import Header from '@/components/common/Header';
 import {
   BottomButton,
   ModalButton,
   ModalLongButton,
   ModalSubButton,
   ShareButton,
-} from '@/styles/buttons';
+} from '@/components/common/buttons';
 import {
   FaceBookIcon,
   KakaoIcon,
@@ -56,6 +57,9 @@ const design = () => {
         <TwitterIcon />
         <KakaoIcon />
         <LinkIcon />
+      </div>
+      <div>
+        <Header />
       </div>
     </div>
   );
