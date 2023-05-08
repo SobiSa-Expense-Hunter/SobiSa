@@ -3,13 +3,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { ItemImage, LineImage, MainImage } from '@/assets';
+import Header from '@/components/common/Header';
 import {
   BottomButton,
   ModalButton,
   ModalLongButton,
   ModalSubButton,
   ShareButton,
-} from '@/styles/buttons';
+} from '@/components/common/buttons';
 import {
   FaceBookIcon,
   KakaoIcon,
