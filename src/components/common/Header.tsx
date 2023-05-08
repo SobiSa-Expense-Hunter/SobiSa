@@ -1,16 +1,38 @@
 import React from 'react';
 
-import Hamburger from '@/assets/hamburger.svg';
-import Left from '@/assets/left.svg';
+import styled from 'styled-components';
+
+import { HamburgerIcon, Left } from '@/assets/icons';
+import { Medium } from '@/styles/font';
 
 const Header = () => {
   return (
-    <header>
+    <StyledHeaderWrapper>
       <Left />
-      <h1>SOBISA!</h1>
-      <Hamburger />
-    </header>
+      <StyleTextLogo>
+        <div>SOBISA!</div>
+      </StyleTextLogo>
+      <HamburgerIcon />
+    </StyledHeaderWrapper>
   );
 };
 
 export default Header;
+
+const StyledHeaderWrapper = styled.header`
+  display: flex;
+  align-items: center;
+  width: 310px;
+  height: 41px;
+  background-color: white;
+
+  svg {
+    cursor: pointer;
+  }
+`;
+
+const StyleTextLogo = styled(Medium)`
+  flex: 1;
+  user-select: none;
+  text-align: center;
+`;
