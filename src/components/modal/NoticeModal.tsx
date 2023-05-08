@@ -81,6 +81,7 @@ const ModalContainer = styled.div<{ show: boolean }>`
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 16px;
+  z-index: 9999;
   animation: 0.3s ${props => (props.show ? FadeIn : FadeOut)};
 `;
 const ModalBox = styled.div`
@@ -104,6 +105,7 @@ const Background = styled.div<{ show: boolean }>`
   position: fixed;
   width: 100%;
   height: 100%;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.3);
   animation: 0.3s ${props => (props.show ? FadeIn : FadeOut)};
 `;
