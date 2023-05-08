@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 
 const Button = styled.button`
-  display: flex;
+  appearance: none;
+  display: inline-flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 10px 20px;
-  background: #ff9d02;
+  background: ${props => props.theme.colors.mainColor};
+  border: 0;
   border-radius: 6px;
 
   font-style: normal;
@@ -19,6 +21,9 @@ const Button = styled.button`
   flex: none;
   order: 0;
   flex-grow: 0;
+
+  font-family: 'Pretendard';
+  cursor: pointer;
 `;
 
 export const ModalButton = styled(Button)`
@@ -29,8 +34,8 @@ export const ModalButton = styled(Button)`
 export const ModalSubButton = styled(Button)`
   width: 128px;
   height: 38px;
-  background: #cbcbcb;
-  color: #616161;
+  background: ${props => props.theme.colors.gray[2]};
+  color: ${props => props.theme.colors.gray[4]};
 `;
 
 export const ModalLongButton = styled(Button)`
