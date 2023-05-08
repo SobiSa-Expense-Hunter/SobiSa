@@ -11,6 +11,7 @@ import {
   ModalSubButton,
   ShareButton,
 } from '@/components/common/buttons';
+import FrameName from '@/components/common/frameName';
 import {
   FaceBookIcon,
   KakaoIcon,
@@ -31,6 +32,12 @@ const design = () => {
         </ul>
       </aside>
       <section>
+        <Section>
+          <h2> frame name</h2>
+          <FrameName>소비사 프로덕트</FrameName>
+          <FrameName>Apple 2022 맥북 에어</FrameName>
+          <FrameName>Sobisa! some product Sobisa! some product </FrameName>
+        </Section>
         <Section>
           <h2>buttons</h2>
           <ItemContent>
@@ -88,6 +95,10 @@ const design = () => {
           <ItemContent>
             <LinkIcon />
           </ItemContent>
+        </Section>
+        <Section>
+          <h2>header</h2>
+          <Header />
         </Section>
       </section>
     </main>
