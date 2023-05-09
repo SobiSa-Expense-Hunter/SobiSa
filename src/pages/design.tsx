@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { ItemImage, LineImage, MainImage } from '@/assets';
 import SearchInput from '@/components/SearchInput';
+import FrameName from '@/components/common/FrameName';
 import {
   BottomButton,
   ModalButton,
@@ -11,7 +12,6 @@ import {
   ModalSubButton,
   ShareButton,
 } from '@/components/common/buttons';
-import FrameName from '@/components/common/frameName';
 import {
   FaceBookIcon,
   KakaoIcon,
