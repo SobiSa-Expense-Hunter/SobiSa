@@ -3,14 +3,15 @@ import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
+import { TopIcon } from '@/assets/icons';
+import SearchInput from '@/components/SearchInput';
 import { ListBox } from '@/components/list';
-import { StyledListBox } from '@/components/list/styles';
+import { StyledListContainer } from '@/components/list/styles';
 import useSearchProducts from '@/hooks/useSearchProduct';
 import { Product } from '@/types/product';
 
-const userSearch = '강아지 인형';
-
 const ListPage = () => {
+  const userSearch = '강아지 인형';
   const { ref, inView } = useInView();
   const { products, queryRes } = useSearchProducts(userSearch);
   const { fetchNextPage, isLoading, hasNextPage, isFetching } = queryRes;
@@ -31,10 +32,18 @@ const ListPage = () => {
   };
 
   return (
-    <>
-      <UserSearchComponent>검색어 : {userSearch}</UserSearchComponent>
-      <TopBtn onClick={() => topBtnHandler()}>위로 가기</TopBtn>
-      <DummyWrapper>
+    <ListWrapper>
+      <FixedWrapper>
+        <BtnWrapper>
+          <TopBtn type='TopBtn' onClick={() => topBtnHandler()} />
+        </BtnWrapper>
+      </FixedWrapper>
+      <ListBoxWrapper>
+        <MarginBox margin='15px' />
+        <SearchInput />
+        <MarginBox margin='32px' />
+
+        {/* <div>검색어 : {userSearch}</div> */}
         {products.map(product => (
           <ListBox
             key={`${product.productId} key`}
@@ -42,7 +51,7 @@ const ListPage = () => {
             listClickHandler={listClickHandler}
           />
         ))}
-        <StyledListBox ref={ref} onClick={() => fetchNextPage()}>
+        <StyledListContainer ref={ref} onClick={() => fetchNextPage()}>
           {isFetching && hasNextPage ? (
             <p>로딩중..</p>
           ) : (
@@ -53,27 +62,40 @@ const ListPage = () => {
               </div>
             </>
           )}
-        </StyledListBox>
-      </DummyWrapper>
-    </>
+        </StyledListContainer>
+      </ListBoxWrapper>
+    </ListWrapper>
   );
 };
 
 export default ListPage;
 
-const DummyWrapper = styled.div`
-  height: calc(var(--vh, 1vh) * 100);
-  text-align: center;
-  margin: 0 10vw;
+const ListBoxWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
-const UserSearchComponent = styled(StyledListBox)`
-  position: fixed;
-  background-color: orange;
+const MarginBox = styled.div<{ margin: string }>`
+  height: ${props => props.margin};
 `;
 
-const TopBtn = styled(StyledListBox)`
+const TopBtn = styled(TopIcon)`
+  cursor: pointer;
+  position: absolute;
+  margin-left: 300px;
+`;
+
+const FixedWrapper = styled.div`
   position: fixed;
-  bottom: 0;
-  right: 10px;
+  bottom: 0px;
+  margin-bottom: 60px;
+`;
+
+const BtnWrapper = styled.div`
+  position: relative;
+`;
+
+const ListWrapper = styled.div`
+  height: 100%;
 `;
