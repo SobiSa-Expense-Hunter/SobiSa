@@ -15,6 +15,8 @@ export default function AppLayout({ children }: { children: ReactNode }) {
 
 const Centering = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 `;
 

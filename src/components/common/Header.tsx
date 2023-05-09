@@ -21,7 +21,8 @@ export default Header;
 
 const StyledHeaderWrapper = styled.header`
   display: flex;
-  position: fixed;
+  position: sticky;
+  top: 0;
   align-items: center;
   width: 310px;
   height: 41px;
