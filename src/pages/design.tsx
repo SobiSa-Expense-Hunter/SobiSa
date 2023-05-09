@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { ItemImage, LineImage, MainImage } from '@/assets';
+import { Indicator01, Indicator02, Indicator03, Indicator04 } from '@/assets/indicator';
 import SearchInput from '@/components/SearchInput';
 import FrameName from '@/components/common/FrameName';
 import {
@@ -179,8 +180,15 @@ const design = () => {
           <li>
             <a href='#colors-container'>Colors</a>
           </li>
+          <li>
+            <a href='#input-container'>Input</a>
+          </li>
+          <li>
+            <a href='#indicator-container'>Indicator</a>
+          </li>
         </ul>
       </Aside>
+
       <Section>
         <Article id='frame-name-container'>
           <h2>frame name</h2>
@@ -195,6 +203,7 @@ const design = () => {
             </CodeRows>
           </ItemContent>
         </Article>
+
         <Article id='buttons-container'>
           <h2>buttons</h2>
           <MiniItemContentsWrapper>
@@ -240,6 +249,7 @@ const design = () => {
             </ItemContent>
           </MiniItemContentsWrapper>
         </Article>
+
         <Article id='image-container'>
           <h2>Image</h2>
           <MiniItemContentsWrapper>
@@ -272,6 +282,7 @@ const design = () => {
             </ItemContent>
           </MiniItemContentsWrapper>
         </Article>
+
         <Article id='icons-container'>
           <h2>Icon</h2>
           <MiniItemContentsWrapper>
@@ -340,6 +351,7 @@ const design = () => {
             </ItemContent>
           </MiniItemContentsWrapper>
         </Article>
+
         <Article id='colors-container'>
           <h2>Colors</h2>
           <MiniItemContentsWrapper>
@@ -357,9 +369,18 @@ const design = () => {
             })}
           </MiniItemContentsWrapper>
         </Article>
-        <Article>
+
+        <Article id='input-container'>
           <h2>Input</h2>
           <SearchInput />
+        </Article>
+
+        <Article id='indicator-container'>
+          <h2>Indicator</h2>
+          <Indicator01 />
+          <Indicator02 />
+          <Indicator03 />
+          <Indicator04 />
         </Article>
       </Section>
     </Main>
