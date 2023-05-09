@@ -63,6 +63,8 @@ const FadeOut = keyframes`
 const Message = styled.p`
   max-width: 244px;
   text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   margin-top: 25px;
 `;
 const ModalContainer = styled.div<{ show: boolean }>`

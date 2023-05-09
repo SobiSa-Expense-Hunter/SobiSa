@@ -53,7 +53,10 @@ function SearchInput() {
         <SearchIcon />
       </SearchButton>
       {showModal && (
-        <NoticeModal onClose={() => setShowModal(false)} message='검색어를 입력해주세요!' />
+        <NoticeModal
+          onClose={() => setShowModal(false)}
+          message='검색어를 입력해주세요! ㅁㅇ너마어ㅏㅣ넘라ㅣㅇ넘라ㅣ언ㅁ라ㅣ언ㅁ렁ㄴ미러ㅏㅇㄴ미러ㅏ니ㅣ'
+        />
       )}
     </SearchInputContainer>
   );
@@ -78,12 +81,16 @@ const SearchInputBox = styled.div`
   height: 100%;
 `;
 const SearchEnterInput = styled.input`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   outline: none;
   border: none;
   border-radius: 8px;
   width: 100%;
   height: 100%;
   padding: 20px;
+  max-width: 210px;
   color: ${({ theme }) => theme.colors.mainColor};
   ::placeholder,
   ::-webkit-input-placeholder {
