@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 
 import Portal from '../Portal';
 import { NoticeIcon } from '@/assets/icons';
-import { ModalLongButton } from '@/components/common/buttons';
+import { ModalLongButton } from '@/components/common/Buttons';
 
 interface SearchErrorModalProps {
   onClose: () => void;

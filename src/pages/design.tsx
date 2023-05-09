@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
+import { GrayRange } from '@root/style';
 import styled from 'styled-components';
 
-import { GrayRange } from '../../style';
 import { ItemImage, LineImage, MainImage } from '@/assets';
 import SearchInput from '@/components/SearchInput';
 import {
@@ -11,8 +11,8 @@ import {
   ModalLongButton,
   ModalSubButton,
   ShareButton,
-} from '@/components/common/buttons';
-import FrameName from '@/components/common/frameName';
+} from '@/components/common/Buttons';
+import FrameName from '@/components/common/FrameName';
 import {
   FaceBookIcon,
   KakaoIcon,
