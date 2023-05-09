@@ -22,7 +22,6 @@ import {
   TwitterIcon,
 } from '@/styles/icons';
 import theme from '@/styles/theme';
-import { NumericRange } from '@/types/rangeTypeGenerater';
 
 const Main = styled.main`
   display: grid;
@@ -110,6 +109,7 @@ const ItemContent = styled.article`
   h3 {
     font-weight: bold;
   }
+  overflow: auto;
 `;
 
 const MiniItemContentsWrapper = styled.article`
@@ -122,8 +122,9 @@ const MiniItemContentsWrapper = styled.article`
   }
 `;
 
-const Item = styled.div`
+const ItemViewContainer = styled.div`
   display: flex;
+  gap: 10px;
 `;
 
 const Code = styled.code`
@@ -182,19 +183,26 @@ const design = () => {
       <Section>
         <Article id='frame-name-container'>
           <h2>frame name</h2>
-          <FrameName>소비사 프로덕트</FrameName>
-          <FrameName>Apple 2022 맥북 에어</FrameName>
-          <FrameName>Sobisa! some product Sobisa! some product </FrameName>
+          <ItemContent>
+            <ItemViewContainer style={{ flexDirection: 'column' }}>
+              <FrameName>소비사 프로덕트</FrameName>
+              <FrameName>Apple 2022 맥북 에어</FrameName>
+              <FrameName>Sobisa! some product Sobisa! some product </FrameName>
+            </ItemViewContainer>
+            <CodeRows>
+              <Code>&lt;FrameName&gt;소비사 프로덕트&lt;/FrameName&gt;</Code>
+            </CodeRows>
+          </ItemContent>
         </Article>
         <Article id='buttons-container'>
           <h2>buttons</h2>
           <MiniItemContentsWrapper>
             <ItemContent>
               <h3>ModalButton</h3>
-              <Item>
+              <ItemViewContainer>
                 <ModalButton>STATIC</ModalButton>
                 <ModalSubButton>STATIC</ModalSubButton>
-              </Item>
+              </ItemViewContainer>
               <CodeRows>
                 <Code>
                   &lt;ModalButton&gt;STATIC&lt;/ModalButton&gt;
@@ -204,27 +212,27 @@ const design = () => {
             </ItemContent>
             <ItemContent>
               <h3>ModalLongButton</h3>
-              <Item>
+              <ItemViewContainer>
                 <ModalLongButton>STATIC</ModalLongButton>
-              </Item>
+              </ItemViewContainer>
               <CodeRows>
                 <Code>&lt;ModalLongButton&gt;STATIC&lt;/ModalLongButton&gt;</Code>
               </CodeRows>
             </ItemContent>
             <ItemContent>
               <h3>BottomButton</h3>
-              <Item>
+              <ItemViewContainer>
                 <BottomButton>STATIC</BottomButton>
-              </Item>
+              </ItemViewContainer>
               <CodeRows>
                 <Code>&lt;BottomButton&gt;STATIC&lt;/BottomButton&gt;</Code>
               </CodeRows>
             </ItemContent>
             <ItemContent>
               <h3>ShareButton</h3>
-              <Item>
+              <ItemViewContainer>
                 <ShareButton>STATIC</ShareButton>
-              </Item>
+              </ItemViewContainer>
               <CodeRows>
                 <Code>&lt;ShareButton&gt;STATIC&lt;/ShareButton&gt;</Code>
               </CodeRows>
@@ -236,29 +244,29 @@ const design = () => {
           <MiniItemContentsWrapper>
             <ItemContent>
               <h3>MainImage</h3>
-              <Item>
+              <ItemViewContainer>
                 <MainImage />
-              </Item>
+              </ItemViewContainer>
               <CodeRows>
-                <Code>&lt;MainImage/&gt;</Code>
+                <Code>&lt;MainImage /&gt;</Code>
               </CodeRows>
             </ItemContent>
             <ItemContent>
               <h3>LineImage</h3>
-              <Item>
+              <ItemViewContainer>
                 <LineImage />
-              </Item>
+              </ItemViewContainer>
               <CodeRows>
-                <Code>&lt;LineImage/&gt;</Code>
+                <Code>&lt;LineImage /&gt;</Code>
               </CodeRows>
             </ItemContent>
             <ItemContent>
               <h3>ItemImage</h3>
-              <Item>
+              <ItemViewContainer>
                 <ItemImage />
-              </Item>
+              </ItemViewContainer>
               <CodeRows>
-                <Code>&lt;ItemImage/&gt;</Code>
+                <Code>&lt;ItemImage /&gt;</Code>
               </CodeRows>
             </ItemContent>
           </MiniItemContentsWrapper>
@@ -268,50 +276,81 @@ const design = () => {
           <MiniItemContentsWrapper>
             <ItemContent>
               <h3>NoticeIcon</h3>
-              <Item>
+              <ItemViewContainer>
                 <NoticeIcon />
-              </Item>
+              </ItemViewContainer>
+              <CodeRows>
+                <Code>&lt;NoticeIcon /&gt;</Code>
+              </CodeRows>
             </ItemContent>
             <ItemContent>
               <h3>TopIcon</h3>
-              <Item>
+              <ItemViewContainer>
                 <TopIcon />
-              </Item>
+              </ItemViewContainer>
+              <CodeRows>
+                <Code>&lt;TopIcon /&gt;</Code>
+              </CodeRows>
             </ItemContent>
             <ItemContent>
               <h3>LoadingIcon</h3>
-              <LoadingIcon />
+              <ItemViewContainer>
+                <LoadingIcon />
+              </ItemViewContainer>
+              <CodeRows>
+                <Code>&lt;LoadingIcon /&gt;</Code>
+              </CodeRows>
             </ItemContent>
             <ItemContent>
               <h3>FaceBookIcon</h3>
-              <FaceBookIcon />
+              <ItemViewContainer>
+                <FaceBookIcon />
+              </ItemViewContainer>
+              <CodeRows>
+                <Code>&lt;FaceBookIcon /&gt;</Code>
+              </CodeRows>
             </ItemContent>
             <ItemContent>
               <h3>TopIcon</h3>
-              <TwitterIcon />
+              <ItemViewContainer>
+                <TwitterIcon />
+              </ItemViewContainer>
+              <CodeRows>
+                <Code>&lt;TopIcon /&gt;</Code>
+              </CodeRows>
             </ItemContent>
             <ItemContent>
               <h3>KakaoIcon</h3>
-              <KakaoIcon />
+              <ItemViewContainer>
+                <KakaoIcon />
+              </ItemViewContainer>
+              <CodeRows>
+                <Code>&lt;KakaoIcon /&gt;</Code>
+              </CodeRows>
             </ItemContent>
             <ItemContent>
               <h3>LinkIcon</h3>
-              <LinkIcon />
+              <ItemViewContainer>
+                <LinkIcon />
+              </ItemViewContainer>
+              <CodeRows>
+                <Code>&lt;LinkIcon /&gt;</Code>
+              </CodeRows>
             </ItemContent>
           </MiniItemContentsWrapper>
         </Article>
         <Article id='colors-container'>
           <h2>Colors</h2>
           <MiniItemContentsWrapper>
-            <ColorContainer color={theme.colors.mainColor}>mainColor</ColorContainer>
-            <ColorContainer color={theme.colors.subColor}>subColor</ColorContainer>
+            <ColorContainer color={theme.colors.mainColor}>theme.colors.mainColor</ColorContainer>
+            <ColorContainer color={theme.colors.subColor}>theme.colors.subColor</ColorContainer>
             {Object.keys(theme.colors.gray).map(value => {
               return (
                 <ColorContainer
                   key={`gray_${value}`}
                   color={theme.colors.gray[Number(value) as GrayRange]}
                 >
-                  gray[{value}]
+                  theme.colors.gray[{value}]
                 </ColorContainer>
               );
             })}
