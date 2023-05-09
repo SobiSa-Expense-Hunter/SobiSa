@@ -20,6 +20,7 @@ const Centering = styled.div`
 
 const FixedWidth = styled.div`
   width: 375px;
+  padding: 0 16px;
   @media (max-width: 375px) {
     width: 100%;
   }
