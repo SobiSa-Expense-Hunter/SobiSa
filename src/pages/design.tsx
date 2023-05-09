@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { GrayRange } from '@root/style';
 import styled from 'styled-components';
 
 import { ItemImage, LineImage, MainImage } from '@/assets';
@@ -11,8 +10,8 @@ import {
   ModalLongButton,
   ModalSubButton,
   ShareButton,
-} from '@/components/common/Buttons';
-import FrameName from '@/components/common/FrameName';
+} from '@/components/common/buttons';
+import FrameName from '@/components/common/frameName';
 import {
   FaceBookIcon,
   KakaoIcon,
@@ -23,6 +22,7 @@ import {
   TwitterIcon,
 } from '@/styles/icons';
 import theme from '@/styles/theme';
+import { GrayRange } from '@root/style';
 
 const Main = styled.main`
   display: grid;

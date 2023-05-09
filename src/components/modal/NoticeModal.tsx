@@ -1,6 +1,5 @@
 import { NoticeIcon } from '@/assets/icons';
 import Portal from '@/components/Portal';
-import { ModalLongButton } from '@/components/common/Buttons';
 import {
   Background,
   ButtonBox,
@@ -9,6 +8,7 @@ import {
   ModalBox,
   ModalContainer,
 } from '@/components/common/Modal';
+import { ModalLongButton } from '@/components/common/buttons';
 import useModalAnimation from '@/hooks/useModalAnimation';
 
 interface SearchErrorModalProps {
