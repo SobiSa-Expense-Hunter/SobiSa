@@ -53,10 +53,7 @@ function SearchInput() {
         <SearchIcon />
       </SearchButton>
       {showModal && (
-        <NoticeModal
-          onClose={() => setShowModal(false)}
-          message='검색어를 입력해주세요! ㅁㅇ너마어ㅏㅣ넘라ㅣㅇ넘라ㅣ언ㅁ라ㅣ언ㅁ렁ㄴ미러ㅏㅇㄴ미러ㅏ니ㅣ'
-        />
+        <NoticeModal onClose={() => setShowModal(false)} message='검색어를 입력해주세요!' />
       )}
     </SearchInputContainer>
   );
