@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Script from 'next/script';
 import { ThemeProvider } from 'styled-components';
 
+import AppLayout from '@/components/layout/AppLayout';
 import GlobalStyle from '@/styles/GlobalStyle';
 import theme from '@/styles/theme';
 import { KakaoSDK } from '@/types/result';
@@ -21,7 +22,7 @@ declare global {
 
 const queryClient = new QueryClient();
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps, ...appProps }: AppProps) {
   // eslint-disable-next-line react/jsx-props-no-spreading
   const kakaoSDKInit = () => {
     if (window.Kakao.isInitialized() === false) {
@@ -29,11 +30,22 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   };
 
+  const getContent = () => {
+    if ([`/design`].includes(appProps.router.pathname)) {
+      return <Component {...pageProps} />;
+    }
+    return (
+      <AppLayout>
+        <Component {...pageProps} />
+      </AppLayout>
+    );
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Component {...pageProps} />
+        {getContent()}
         <ReactQueryDevtools initialIsOpen={false} />
         <Script
           src='https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js'

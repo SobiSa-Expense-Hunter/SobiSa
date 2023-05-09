@@ -11,6 +11,7 @@ export default function Document() {
           as='style'
           href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css'
         />
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
       <body>
         <div id='modal-root' />

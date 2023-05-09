@@ -3,17 +3,24 @@ import { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 import Portal from '../Portal';
+import { NoticeIcon } from '@/assets/icons';
+import { ModalLongButton } from '@/components/common/Buttons';
 
 interface SearchErrorModalProps {
   onClose: () => void;
+  message: string;
 }
 
-const SearchErrorModal = ({ onClose }: SearchErrorModalProps) => {
+const NoticeModal = ({ onClose, message }: SearchErrorModalProps) => {
   const [show, setShow] = useState(true);
   const animationTimer = useRef<NodeJS.Timer>();
 
   useEffect(() => {
-    return () => clearTimeout(animationTimer.current);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+      clearTimeout(animationTimer.current);
+    };
   }, []);
 
   const animationAfterClose = () => {
@@ -28,10 +35,10 @@ const SearchErrorModal = ({ onClose }: SearchErrorModalProps) => {
       <Background show={show} />
       <ModalContainer show={show}>
         <ModalBox>
-          <Message>검색어를 입력해주세요!</Message>
+          <NoticeIcon />
+          <Message>{message}</Message>
           <ButtonBox>
-            <ResponseButton onClick={animationAfterClose}>넵</ResponseButton>
-            <ResponseButton onClick={animationAfterClose}>알겠어요.</ResponseButton>
+            <ModalLongButton onClick={animationAfterClose}>네!</ModalLongButton>
           </ButtonBox>
         </ModalBox>
       </ModalContainer>
@@ -54,7 +61,11 @@ const FadeOut = keyframes`
     opacity:0;
 }`;
 const Message = styled.p`
-  color: #ff9d02;
+  max-width: 244px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-top: 25px;
 `;
 const ModalContainer = styled.div<{ show: boolean }>`
   display: flex;
@@ -65,48 +76,39 @@ const ModalContainer = styled.div<{ show: boolean }>`
   max-height: 200px;
   height: 100%;
   width: 100%;
-  padding: 30px;
+  padding: 30px 23px 20px 23px;
   background-color: white;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 16px;
+  z-index: 9999;
   animation: 0.3s ${props => (props.show ? FadeIn : FadeOut)};
 `;
 const ModalBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+  position: relative;
 `;
 const ButtonBox = styled.div`
+  position: absolute;
+  bottom: 0;
   display: flex;
   width: 100%;
   height: auto;
-  flex-direction:row
-  align-items:flex-start;
-//   justify-content: space-between;
-    gap:8px;
-`;
-const ResponseButton = styled.button`
-  color: white;
-  padding: 10px;
-  width: 100%;
-  height: 38px;
-  background-color: #ff9d02;
-  border-radius: 8px;
-  outline: none;
-  border: none;
-  cursor: pointer;
+  flex-direction: row;
+  gap: 8px;
 `;
 const Background = styled.div<{ show: boolean }>`
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.3);
   animation: 0.3s ${props => (props.show ? FadeIn : FadeOut)};
 `;
-export default SearchErrorModal;
+export default NoticeModal;
