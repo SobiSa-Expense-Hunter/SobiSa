@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import SearchIcon from '@/assets/SearchIcon';
 
-import SearchErrorModal from './modal/SearchErrorModal';
+import NoticeModal from './modal/NoticeModal';
 
 function SearchInput() {
   const [search, setSearch] = useState<string>('');
@@ -22,7 +22,7 @@ function SearchInput() {
     try {
       if (event.key === 'Enter') {
         checkSearchWord();
-        router.push('/');
+        router.push('/list');
       }
     } catch (error) {
       setShowModal(true);
@@ -32,7 +32,7 @@ function SearchInput() {
   const handleSearchClickEvent = () => {
     try {
       checkSearchWord();
-      router.push('/');
+      router.push('/list');
     } catch (error) {
       setShowModal(true);
     }
@@ -43,7 +43,7 @@ function SearchInput() {
       <SearchInputBox>
         <SearchEnterInput
           type='text'
-          placeholder='지금 고민하는 그 물건'
+          placeholder='Search'
           value={search}
           onChange={e => setSearch(e.target.value)}
           onKeyDown={handleSearchKeyDownEvent}
@@ -52,7 +52,12 @@ function SearchInput() {
       <SearchButton type='button' onClick={handleSearchClickEvent}>
         <SearchIcon />
       </SearchButton>
-      {showModal && <SearchErrorModal onClose={() => setShowModal(false)} />}
+      {showModal && (
+        <NoticeModal
+          onClose={() => setShowModal(false)}
+          message='검색어를 입력해주세요! ㅁㅇ너마어ㅏㅣ넘라ㅣㅇ넘라ㅣ언ㅁ라ㅣ언ㅁ렁ㄴ미러ㅏㅇㄴ미러ㅏ니ㅣ'
+        />
+      )}
     </SearchInputContainer>
   );
 }
@@ -60,35 +65,39 @@ export default SearchInput;
 
 const SearchInputContainer = styled.div`
   box-sizing: border-box;
-  overflow: hidden;
   width: 100%;
-  height: 100%;
+  height: 60px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 3px solid #ff9d02;
+  border: 2px solid ${({ theme }) => theme.colors.mainColor};
   border-radius: 8px;
-  max-height: 60px;
+  max-width: 310px;
   jusify-content: space-between;
+  background-color: white;
 `;
 const SearchInputBox = styled.div`
   width: 80%;
   height: 100%;
-  padding: 20px;
 `;
 const SearchEnterInput = styled.input`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   outline: none;
   border: none;
   border-radius: 8px;
   width: 100%;
   height: 100%;
-  color: #ff9d02;
+  padding: 20px;
+  max-width: 210px;
+  color: ${({ theme }) => theme.colors.mainColor};
   ::placeholder,
   ::-webkit-input-placeholder {
-    color: #ff9d02;
+    color: ${({ theme }) => theme.colors.mainColor};
   }
   :-ms-input-placeholder {
-    color: #ff9d02;
+    color: ${({ theme }) => theme.colors.mainColor};
   }
 `;
 const SearchButton = styled.button`
@@ -98,8 +107,8 @@ const SearchButton = styled.button`
   justify-content: center;
   width: 20%;
   height: 100%;
-  padding: 20px 0;
-  background-color: #ff9d02;
+  padding: 0;
+  background-color: ${({ theme }) => theme.colors.mainColor};
   border: none;
   border-radius: 0 5px 5px 0;
   cursor: pointer;

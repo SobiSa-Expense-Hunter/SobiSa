@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { GrayRange } from '../../style';
 import { ItemImage, LineImage, MainImage } from '@/assets';
+import SearchInput from '@/components/SearchInput';
 import {
   BottomButton,
   ModalButton,
@@ -355,6 +356,10 @@ const design = () => {
               );
             })}
           </MiniItemContentsWrapper>
+        </Article>
+        <Article>
+          <h2>Input</h2>
+          <SearchInput />
         </Article>
       </Section>
     </Main>
