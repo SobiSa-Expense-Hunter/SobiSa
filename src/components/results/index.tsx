@@ -1,107 +1,72 @@
 import styled from 'styled-components';
 
 import UserSelectedData from '@/__test__/dummy/UserSelectData';
+import { LineImage } from '@/assets';
+import FrameName from '@/components/common/FrameName';
+import { BottomButton } from '@/components/common/buttons';
 import Alternative from '@/components/results/Alternative';
-import { shareOnFacebook, shareOnKakao, shareOnTwitter } from '@/components/results/share';
-import { alternatives, sharedMessage } from '@/constant';
+import { alternatives } from '@/constant';
+import { ExtraLarge, LargeOrange, Medium } from '@/styles/font';
 
 const Wrapper = styled.div`
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  background: #f2f2f2;
-  max-width: 767px;
-  min-width: 480px;
-  padding: 30px;
+  width: inherit;
   cursor: default;
+  padding: 0px 16px;
 `;
 
 const ProductContainer = styled.div`
+  margin: 16px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  line-height: 26px;
-  gap: 15px;
+  gap: 16px;
 `;
 
-const ProductTitle = styled.p`
-  font-weight: 700;
-  font-size: 16px;
-  margin: 0;
-  background: #e2e2e2;
-  padding: 5px 10px;
-  border-radius: 5px;
+const ProductWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 `;
 
-const ProductImage = styled.img``;
-
-const ProductPrice = styled.p`
-  font-weight: 700;
-  font-size: 26px;
+const ProductName = styled(FrameName)`
+  color: ${props => props.theme.colors.gray[5]};
+  font-size: ${props => props.theme.fontSize.s};
 `;
 
-const SavingsPeriod = styled.p`
-  font-weight: bold;
-  font-size: 20px;
+const ProductPrice = styled(ExtraLarge)`
+  color: ${props => props.theme.colors.gray[6]};
+`;
+
+const ProductImage = styled(LineImage)`
+  margin-top: 16px;
 `;
 
 const AlternativesContainer = styled.div`
-  margin: 10px;
-  margin-top: 20px;
+  margin: 16px 0;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 10px;
-  width: 400px;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
 `;
 
-const AlternativeWords = styled.p`
-  text-align: center;
-  font-weight: 700;
-  font-size: 18px;
+const AlternativeList = styled.div`
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;
 
 const CertificateContainer = styled.div`
-  width: 80%;
-`;
-const CertificateWords = styled.p`
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 26px;
-  margin-top: 50px;
-  text-align: center;
-`;
-const CertificateButton = styled.button`
-  appearance: none;
-  padding: 10px 20px;
-  width: 100%;
-  background: grey;
-  font-weight: 700;
-  font-size: 20px;
-  border: 0px;
-  border-radius: 5px;
-  color: white;
-  margin: 10px 0px;
-  margin-top: 20px;
-  cursor: pointer;
-`;
-
-const ShareContainer = styled.div`
-  padding: 20px;
   display: flex;
-  justify-content: center;
-  gap: 5px;
-`;
-
-const ShareButton = styled.button`
-  appearance: none;
-  border: 0;
-  cursor: pointer;
-  img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-  }
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+  margin: 16px 0 56px;
 `;
 
 function Result() {
@@ -114,50 +79,31 @@ function Result() {
   return (
     <Wrapper>
       <ProductContainer>
-        <ProductTitle>{title}</ProductTitle>
-        <ProductPrice>{price.toLocaleString()} 원</ProductPrice>
-        <SavingsPeriod>{savingsPeriod}개월동안 모아야 해요!</SavingsPeriod>
-        <ProductImage src={image} alt={title} />
+        <ProductName>{title}</ProductName>
+        <ProductWrapper>
+          <ProductPrice>{price.toLocaleString()} 원</ProductPrice>
+          <LargeOrange>{savingsPeriod}개월동안 모아야 해요!</LargeOrange>
+        </ProductWrapper>
+        <ProductImage />
       </ProductContainer>
       <AlternativesContainer>
-        <AlternativeWords>이걸 가지는 대신 할 수 있는 일...</AlternativeWords>
-        {alternatives.map(alternative => (
-          <Alternative
-            alternative={alternative}
-            wantedProductPrice={price}
-            key={alternative.title}
-          />
-        ))}
+        <Medium>이걸 가지는 대신 할 수 있는 일...</Medium>
+        <AlternativeList>
+          {alternatives.map(alternative => (
+            <Alternative
+              alternative={alternative}
+              wantedProductPrice={price}
+              key={alternative.title}
+            />
+          ))}
+        </AlternativeList>
       </AlternativesContainer>
       <CertificateContainer>
-        <CertificateWords>
+        <Medium>
           이걸 보고도 갖고 싶으시다면, <br /> 임명장을 발급받아 보세요!
-        </CertificateWords>
-        <CertificateButton>임명장 받기</CertificateButton>
+        </Medium>
+        <BottomButton>임명장 받기</BottomButton>
       </CertificateContainer>
-      <ShareContainer>
-        {navigator.share && navigator.canShare(sharedMessage) && (
-          <ShareButton onClick={() => window.navigator.share(sharedMessage)}>공유하기</ShareButton>
-        )}
-        <ShareButton onClick={shareOnTwitter}>
-          <img
-            src='https://play-lh.googleusercontent.com/8sc6LSo3dRf54GaLdQR8UZfzd_fgHgWMJlNxGLP1HWPEU7YY4UxkyHc8-qCNwtyiqO55'
-            alt='트위터 공유하기 버튼'
-          />
-        </ShareButton>
-        <ShareButton onClick={shareOnFacebook}>
-          <img
-            src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/1024px-2021_Facebook_icon.svg.png?20220821121039'
-            alt='페이스북 공유하기 버튼'
-          />
-        </ShareButton>
-        <ShareButton onClick={shareOnKakao}>
-          <img
-            src='https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png'
-            alt='카카오톡 공유 보내기 버튼'
-          />
-        </ShareButton>
-      </ShareContainer>
     </Wrapper>
   );
 }

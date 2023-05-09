@@ -30,3 +30,12 @@ export const Large = styled(DefalutFont)`
   font-weight: 600;
   font-size: 16px;
 `;
+
+export const LargeOrange = styled(Large)`
+  color: ${({ theme }) => theme.colors.mainColor};
+`;
+
+export const ExtraLarge = styled(DefalutFont)`
+  font-weight: 600;
+  font-size: 20px;
+`;
