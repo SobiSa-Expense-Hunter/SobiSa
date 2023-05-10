@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { ItemImage, LineImage, MainImage } from '@/assets';
+import { Indicator01, Indicator02, Indicator03, Indicator04 } from '@/assets/indicator';
 import SearchInput from '@/components/SearchInput';
 import FrameName from '@/components/common/FrameName';
 import {
@@ -12,6 +13,7 @@ import {
   ModalSubButton,
   ShareButton,
 } from '@/components/common/buttons';
+import * as Font from '@/styles/font';
 import {
   FaceBookIcon,
   KakaoIcon,
@@ -179,8 +181,18 @@ const design = () => {
           <li>
             <a href='#colors-container'>Colors</a>
           </li>
+          <li>
+            <a href='#input-container'>Input</a>
+          </li>
+          <li>
+            <a href='#indicator-container'>Indicator</a>
+          </li>
+          <li>
+            <a href='#font-container'>Font</a>
+          </li>
         </ul>
       </Aside>
+
       <Section>
         <Article id='frame-name-container'>
           <h2>frame name</h2>
@@ -195,6 +207,7 @@ const design = () => {
             </CodeRows>
           </ItemContent>
         </Article>
+
         <Article id='buttons-container'>
           <h2>buttons</h2>
           <MiniItemContentsWrapper>
@@ -240,6 +253,7 @@ const design = () => {
             </ItemContent>
           </MiniItemContentsWrapper>
         </Article>
+
         <Article id='image-container'>
           <h2>Image</h2>
           <MiniItemContentsWrapper>
@@ -272,6 +286,7 @@ const design = () => {
             </ItemContent>
           </MiniItemContentsWrapper>
         </Article>
+
         <Article id='icons-container'>
           <h2>Icon</h2>
           <MiniItemContentsWrapper>
@@ -340,6 +355,7 @@ const design = () => {
             </ItemContent>
           </MiniItemContentsWrapper>
         </Article>
+
         <Article id='colors-container'>
           <h2>Colors</h2>
           <MiniItemContentsWrapper>
@@ -357,9 +373,40 @@ const design = () => {
             })}
           </MiniItemContentsWrapper>
         </Article>
-        <Article>
+
+        <Article id='input-container'>
           <h2>Input</h2>
           <SearchInput />
+        </Article>
+
+        <Article id='indicator-container'>
+          <h2>Indicator</h2>
+          <Indicator01 />
+          <Indicator02 />
+          <Indicator03 />
+          <Indicator04 />
+        </Article>
+
+        <Article id='font-container'>
+          <h2>Font</h2>
+          <MiniItemContentsWrapper>
+            <ItemContent>
+              <h3>Pretendard</h3>
+              <Font.Small>Small</Font.Small>
+              <Font.SmallOrange>SmallOrange</Font.SmallOrange>
+              <Font.Medium>Medium</Font.Medium>
+              <Font.MediumOrange>MediumOrange</Font.MediumOrange>
+              <Font.Large>Large</Font.Large>
+              <Font.ResultCost>ResultCost</Font.ResultCost>
+            </ItemContent>
+            <ItemContent>
+              <h3>NeoDunggeunmo</h3>
+              <Font.AwardSmall>AwardSmall</Font.AwardSmall>
+              <Font.AwardMedium>AwardMedium</Font.AwardMedium>
+              <Font.AwardLarge>AwardLarge</Font.AwardLarge>
+              <Font.AwardResultCost>AwardResultCost</Font.AwardResultCost>
+            </ItemContent>
+          </MiniItemContentsWrapper>
         </Article>
       </Section>
     </Main>

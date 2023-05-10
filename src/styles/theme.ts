@@ -21,7 +21,14 @@ const theme: DefaultTheme = {
   size: {
     mobile: SIZE.mobile,
   },
-  fontSize: { s: '12pt', m: '14pt', l: '16pt' },
+  fontSize: {
+    xxs: '9pt',
+    xs: '10.5pt',
+    s: '12pt',
+    m: '14pt',
+    ml: '15pt',
+    l: '16pt',
+  },
 };
 
 export default theme;
