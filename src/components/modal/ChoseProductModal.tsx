@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import Portal from '@/components/Portal';
-import { ModalButton, ModalSubButton } from '@/components/common/Buttons';
 import {
   Background,
   ButtonBox,
@@ -10,6 +9,7 @@ import {
   ModalBox,
   ModalContainer,
 } from '@/components/common/Modal';
+import { ModalButton, ModalSubButton } from '@/components/common/buttons';
 import useModalAnimation from '@/hooks/useModalAnimation';
 import theme from '@/styles/theme';
 

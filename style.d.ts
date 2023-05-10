@@ -5,14 +5,25 @@ import 'styled-components';
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
-      mainColor: string;
-      subColor: string;
+      mainColor: '#FF9D02';
+      subColor: '#FFC467';
       gray: {
-        [key in GrayRange]: string;
+        0: '#F3F3F3';
+        1: '#EAEAEA';
+        2: '#CBCBCB';
+        3: '#B0B0B0';
+        4: '#616161';
+        5: '#3D3D3D';
+        6: '#242424';
       };
     };
     fontSize: {
-      [key in Size]: string;
+      xxs: '9pt';
+      xs: '10.5pt';
+      s: '12pt';
+      m: '14pt';
+      ml: '15pt';
+      l: '16pt';
     };
     size: {
       mobile: string;
