@@ -22,7 +22,7 @@ function SearchInput() {
     try {
       if (event.key === 'Enter') {
         checkSearchWord();
-        router.push('/list');
+        router.push({ pathname: '/list', query: { search } });
       }
     } catch (error) {
       setShowModal(true);
@@ -32,7 +32,7 @@ function SearchInput() {
   const handleSearchClickEvent = () => {
     try {
       checkSearchWord();
-      router.push('/list');
+      router.push({ pathname: '/list', query: { search } });
     } catch (error) {
       setShowModal(true);
     }
