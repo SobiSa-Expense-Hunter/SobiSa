@@ -21,7 +21,7 @@ export const Background = styled.div<{ show: boolean }>`
   height: 100%;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.3);
-  animation: 0.3s ${props => (props.show ? FadeIn : FadeOut)};
+  animation: 0.2s ${props => (props.show ? FadeIn : FadeOut)};
 `;
 
 export const ModalContainer = styled.div<{ show: boolean }>`
@@ -41,7 +41,7 @@ export const ModalContainer = styled.div<{ show: boolean }>`
   transform: translate(-50%, -50%);
   border-radius: 16px;
   z-index: 9999;
-  animation: 0.3s ${props => (props.show ? FadeIn : FadeOut)};
+  animation: 0.2s ${props => (props.show ? FadeIn : FadeOut)};
 `;
 export const ModalBox = styled.div`
   display: flex;
