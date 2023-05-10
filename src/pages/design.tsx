@@ -13,6 +13,7 @@ import {
   ModalSubButton,
   ShareButton,
 } from '@/components/common/buttons';
+import * as Font from '@/styles/font';
 import {
   FaceBookIcon,
   KakaoIcon,
@@ -185,6 +186,9 @@ const design = () => {
           </li>
           <li>
             <a href='#indicator-container'>Indicator</a>
+          </li>
+          <li>
+            <a href='#font-container'>Font</a>
           </li>
         </ul>
       </Aside>
@@ -381,6 +385,28 @@ const design = () => {
           <Indicator02 />
           <Indicator03 />
           <Indicator04 />
+        </Article>
+
+        <Article id='font-container'>
+          <h2>Font</h2>
+          <MiniItemContentsWrapper>
+            <ItemContent>
+              <h3>Pretendard</h3>
+              <Font.Small>Small</Font.Small>
+              <Font.SmallOrange>SmallOrange</Font.SmallOrange>
+              <Font.Medium>Medium</Font.Medium>
+              <Font.MediumOrange>MediumOrange</Font.MediumOrange>
+              <Font.Large>Large</Font.Large>
+              <Font.ResultCost>ResultCost</Font.ResultCost>
+            </ItemContent>
+            <ItemContent>
+              <h3>NeoDunggeunmo</h3>
+              <Font.AwardSmall>AwardSmall</Font.AwardSmall>
+              <Font.AwardMedium>AwardMedium</Font.AwardMedium>
+              <Font.AwardLarge>AwardLarge</Font.AwardLarge>
+              <Font.AwardResultCost>AwardResultCost</Font.AwardResultCost>
+            </ItemContent>
+          </MiniItemContentsWrapper>
         </Article>
       </Section>
     </Main>
