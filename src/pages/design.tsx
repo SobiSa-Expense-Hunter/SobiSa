@@ -359,16 +359,24 @@ const design = () => {
         <Article id='colors-container'>
           <h2>Colors</h2>
           <MiniItemContentsWrapper>
-            <ColorContainer color={theme.colors.mainColor}>theme.colors.mainColor</ColorContainer>
-            <ColorContainer color={theme.colors.subColor}>theme.colors.subColor</ColorContainer>
+            <ItemContent>
+              <ColorContainer color={theme.colors.mainColor}>
+                {theme.colors.mainColor}
+              </ColorContainer>
+              <h3>theme.colors.mainColor</h3>
+            </ItemContent>
+            <ItemContent>
+              <ColorContainer color={theme.colors.subColor}>{theme.colors.subColor}</ColorContainer>
+              <h3>theme.colors.subColor</h3>
+            </ItemContent>
             {Object.keys(theme.colors.gray).map(value => {
               return (
-                <ColorContainer
-                  key={`gray_${value}`}
-                  color={theme.colors.gray[Number(value) as GrayRange]}
-                >
-                  theme.colors.gray[{value}]
-                </ColorContainer>
+                <ItemContent key={`gray_${value}`}>
+                  <ColorContainer color={theme.colors.gray[Number(value) as GrayRange]}>
+                    {theme.colors.gray[Number(value) as GrayRange]}
+                  </ColorContainer>
+                  <h3>theme.colors.gray[{value}]</h3>
+                </ItemContent>
               );
             })}
           </MiniItemContentsWrapper>
