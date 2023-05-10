@@ -1,38 +1,64 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+import { useRouter } from 'next/router';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
 import { TopIcon } from '@/assets/icons';
 import SearchInput from '@/components/SearchInput';
+import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
 import { ListBox } from '@/components/list';
 import { StyledListContainer } from '@/components/list/styles';
+import ChoseProductModal from '@/components/modal/ChoseProductModal';
 import useSearchProducts from '@/hooks/useSearchProduct';
 import { Product } from '@/types/product';
 
 const ListPage = () => {
-  const userSearch = '강아지 인형';
-  const { ref, inView } = useInView();
+  const router = useRouter();
+  const [userSearch, setUserSearch] = useState('강아지');
+  const [showModal, setShowModal] = useState(false);
+  const [userSelected, setUserSelected] = useState<Product>();
   const { products, queryRes } = useSearchProducts(userSearch);
+  const { ref, inView } = useInView();
   const { fetchNextPage, isLoading, hasNextPage, isFetching } = queryRes;
+
+  const dispatch = useSearchDispatch();
+  // MEMO: 잘 들어갔는지 확인을 위해 임시로 Store 객체를 불러왔습니다.
+  const state = useSearchStore();
 
   useEffect(() => {
     if (inView && hasNextPage) fetchNextPage();
   }, [fetchNextPage, hasNextPage, inView]);
 
+  useEffect(() => {
+    // if (state) console.log(state);
+  }, [state]);
+
   if (isLoading || products === undefined) return <p>로딩중..</p>;
 
   const listClickHandler = (product: Product) => {
-    // eslint-disable-next-line no-restricted-globals
-    confirm(`${product.title} 제품을 선택하신게 맞나요? / 금액: ${product.price} `);
+    setUserSelected(product);
+    setShowModal(true);
   };
 
   const topBtnHandler = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const onSubmit = () => {
+    if (!userSelected) return;
+
+    dispatch({
+      type: 'ADD_PRODUCT',
+      item: userSelected,
+    });
+    // router.push('/result');
+  };
+
+  const onClose = () => setShowModal(false);
+
   return (
-    <ListWrapper>
+    <Container>
       <FixedWrapper>
         <BtnWrapper>
           <TopBtn type='TopBtn' onClick={() => topBtnHandler()} />
@@ -43,14 +69,23 @@ const ListPage = () => {
         <SearchInput />
         <MarginBox margin='32px' />
 
-        {/* <div>검색어 : {userSearch}</div> */}
-        {products.map(product => (
-          <ListBox
-            key={`${product.productId} key`}
-            product={product}
-            listClickHandler={listClickHandler}
-          />
-        ))}
+        <form onSubmit={onSubmit}>
+          {products.map(product => (
+            <ListBox
+              key={`${product.productId} key`}
+              product={product}
+              listClickHandler={listClickHandler}
+            />
+          ))}
+          {showModal && userSelected && (
+            <ChoseProductModal
+              onClose={onClose}
+              onSubmit={onSubmit}
+              title={userSelected.title}
+              image={userSelected.image}
+            />
+          )}
+        </form>
         <StyledListContainer ref={ref} onClick={() => fetchNextPage()}>
           {isFetching && hasNextPage ? (
             <p>로딩중..</p>
@@ -64,7 +99,7 @@ const ListPage = () => {
           )}
         </StyledListContainer>
       </ListBoxWrapper>
-    </ListWrapper>
+    </Container>
   );
 };
 
@@ -96,6 +131,6 @@ const BtnWrapper = styled.div`
   position: relative;
 `;
 
-const ListWrapper = styled.div`
+const Container = styled.div`
   height: 100%;
 `;
