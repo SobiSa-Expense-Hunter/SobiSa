@@ -1,19 +1,23 @@
+/* eslint-disable import/no-cycle */
 import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
-import { TopIcon } from '@/assets/icons';
+import { TopIcon, LoadingIcon } from '@/assets/icons';
 import SearchInput from '@/components/SearchInput';
 import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
 import { ListBox } from '@/components/list';
+import NotFound from '@/components/list/NotFound';
 import { StyledListContainer } from '@/components/list/styles';
+import Loading from '@/components/loading';
 import ChoseProductModal from '@/components/modal/ChoseProductModal';
 import useSearchProducts from '@/hooks/useSearchProduct';
-import { Product } from '@/types/product';
 
-const ListPage = () => {
+import type { Product } from '@/types/search';
+
+const List = () => {
   const router = useRouter();
   const [userSearch, setUserSearch] = useState('강아지');
   const [showModal, setShowModal] = useState(false);
@@ -34,7 +38,7 @@ const ListPage = () => {
     // if (state) console.log(state);
   }, [state]);
 
-  if (isLoading || products === undefined) return <p>로딩중..</p>;
+  if (isLoading || products === undefined) return <Loading />;
 
   const listClickHandler = (product: Product) => {
     setUserSelected(product);
@@ -58,7 +62,7 @@ const ListPage = () => {
   const onClose = () => setShowModal(false);
 
   return (
-    <Container>
+    <>
       <FixedWrapper>
         <BtnWrapper>
           <TopBtn type='TopBtn' onClick={() => topBtnHandler()} />
@@ -77,7 +81,7 @@ const ListPage = () => {
               listClickHandler={listClickHandler}
             />
           ))}
-          {showModal && userSelected && (
+          {showModal && userSelected?.title && userSelected.image && (
             <ChoseProductModal
               onClose={onClose}
               onSubmit={onSubmit}
@@ -86,24 +90,14 @@ const ListPage = () => {
             />
           )}
         </form>
-        <StyledListContainer ref={ref} onClick={() => fetchNextPage()}>
-          {isFetching && hasNextPage ? (
-            <p>로딩중..</p>
-          ) : (
-            <>
-              <p>더이상 로드할 내용이 없습니다</p>
-              <div>
-                <button type='button'>검색어 다시 입력하기</button>
-              </div>
-            </>
-          )}
-        </StyledListContainer>
+        {products.length === 0 && <NotFound />}
+        <div ref={ref}>{isFetching && hasNextPage && <LoadingIcon />}</div>
       </ListBoxWrapper>
-    </Container>
+    </>
   );
 };
 
-export default ListPage;
+export default List;
 
 const ListBoxWrapper = styled.div`
   display: flex;
@@ -111,7 +105,7 @@ const ListBoxWrapper = styled.div`
   align-items: center;
 `;
 
-const MarginBox = styled.div<{ margin: string }>`
+export const MarginBox = styled.div<{ margin: string }>`
   height: ${props => props.margin};
 `;
 
@@ -129,8 +123,4 @@ const FixedWrapper = styled.div`
 
 const BtnWrapper = styled.div`
   position: relative;
-`;
-
-const Container = styled.div`
-  height: 100%;
 `;

@@ -13,14 +13,14 @@ export default function AppLayout({ children }: { children: ReactNode }) {
   );
 }
 
-const Centering = styled.div`
+export const Centering = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
 
-const FixedWidth = styled.div`
+export const FixedWidth = styled.div`
   width: 375px;
   padding: 0 16px;
   @media (max-width: 375px) {
