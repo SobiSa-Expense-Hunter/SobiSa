@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 import { Centering } from '../layout/AppLayout';
-import { MarginBox } from '@/pages/list';
+import MarginBox from '@/components/common/marginBox';
 import * as Font from '@/styles/font';
 
 function Loading() {

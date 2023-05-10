@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { ItemImage } from '@/assets';
 import { Indicator01 } from '@/assets/indicator';
 import * as Buttons from '@/components/common/buttons';
-import { MarginBox } from '@/pages/list';
+import MarginBox from '@/components/common/marginBox';
 import * as Font from '@/styles/font';
 
 function NotFound() {
