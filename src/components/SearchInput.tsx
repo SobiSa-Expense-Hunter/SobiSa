@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-import SearchIcon from '@/assets/SearchIcon';
+import { MagnifyingGlassIcon } from '@/assets/icons';
 
 import NoticeModal from './modal/NoticeModal';
 
@@ -22,7 +22,7 @@ function SearchInput() {
     try {
       if (event.key === 'Enter') {
         checkSearchWord();
-        router.push('/list');
+        router.push({ pathname: '/list', query: { search } });
       }
     } catch (error) {
       setShowModal(true);
@@ -32,7 +32,7 @@ function SearchInput() {
   const handleSearchClickEvent = () => {
     try {
       checkSearchWord();
-      router.push('/list');
+      router.push({ pathname: '/list', query: { search } });
     } catch (error) {
       setShowModal(true);
     }
@@ -50,7 +50,7 @@ function SearchInput() {
         />
       </SearchInputBox>
       <SearchButton type='button' onClick={handleSearchClickEvent}>
-        <SearchIcon />
+        <MagnifyingGlassIcon />
       </SearchButton>
       {showModal && (
         <NoticeModal onClose={() => setShowModal(false)} message='검색어를 입력해주세요!' />
@@ -71,19 +71,21 @@ const SearchInputContainer = styled.div`
   border-radius: 8px;
   max-width: 310px;
   jusify-content: space-between;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.mainColor};
 `;
 const SearchInputBox = styled.div`
   width: 80%;
   height: 100%;
+  background-color: white;
+  border-radius: 6px 0 0 6px;
 `;
 const SearchEnterInput = styled.input`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  border-radius: 6px 0 0 6px;
   outline: none;
   border: none;
-  border-radius: 8px;
   width: 100%;
   height: 100%;
   padding: 20px;
