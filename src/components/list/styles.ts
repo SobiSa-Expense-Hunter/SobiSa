@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-// eslint-disable-next-line import/prefer-default-export
+import * as SVG from '@/assets/icons';
+
 export const StyledListContainer = styled.div<{ select?: boolean }>`
   cursor: pointer;
   &:hover {
@@ -18,4 +19,17 @@ export const StyledListContainer = styled.div<{ select?: boolean }>`
   border-width: 1px 0px 0px;
   border-style: solid;
   border-color: ${({ theme }) => theme.colors.mainColor};
+`;
+
+const rotation = keyframes`
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+`;
+
+export const LoadingSpinner = styled(SVG.LoadingIcon)`
+  animation: ${rotation} 1s linear infinite;
 `;
