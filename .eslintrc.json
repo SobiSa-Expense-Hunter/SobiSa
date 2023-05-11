@@ -4,7 +4,11 @@
     "es6": true,
     "node": true
   },
-  "plugins": ["import", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "import",
+    "@typescript-eslint",
+    "prettier"
+  ],
   "extends": [
     "airbnb",
     "airbnb-typescript",
@@ -18,6 +22,7 @@
     "project": "./tsconfig.json"
   },
   "rules": {
+    "react/jsx-props-no-spreading": "off",
     "react/react-in-jsx-scope": "off",
     "react/function-component-definition": "off",
     "@typescript-eslint/no-use-before-define": "off",
@@ -32,11 +37,24 @@
             "position": "before"
           }
         ],
-        "pathGroupsExcludedImportTypes": ["react"],
+        "pathGroupsExcludedImportTypes": [
+          "react"
+        ],
         "groups": [
-          ["builtin", "external"],
-          ["internal", "parent", "index"],
-          ["sibling", "type", "object"]
+          [
+            "builtin",
+            "external"
+          ],
+          [
+            "internal",
+            "parent",
+            "index"
+          ],
+          [
+            "sibling",
+            "type",
+            "object"
+          ]
         ],
         "alphabetize": {
           "order": "asc"
@@ -45,6 +63,9 @@
     ]
   },
   "settings": {
-    "import/resolver": { "typescript": "true", "node": "true" }
+    "import/resolver": {
+      "typescript": "true",
+      "node": "true"
+    }
   }
 }

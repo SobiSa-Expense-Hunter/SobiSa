@@ -17,7 +17,6 @@ class MyDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          // eslint-disable-next-line react/jsx-props-no-spreading
           enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
         });
 
