@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-import { StyledListBox } from '@/components/list/styles';
+import { StyledListContainer } from '@/components/list/styles';
+import { Medium, MediumOrange, Small } from '@/styles/font';
 
 import type { Product } from '@/types/product';
 
@@ -12,13 +13,16 @@ interface ListBoxProps {
 const ListBox = ({ product, listClickHandler }: ListBoxProps) => {
   const { productId, image, price, title } = product;
   return (
-    <StyledListBox onClick={() => listClickHandler(product)}>
+    <StyledListContainer onClick={() => listClickHandler(product)}>
       <StyledImgWrapper>
         <img src={image} alt={`${productId} img`} />
       </StyledImgWrapper>
-      <p>{title}</p>
-      <p>{price} 원</p>
-    </StyledListBox>
+      <TextItem>
+        <Title className='title'>{title}</Title>
+        <MediumOrange>{price} 원</MediumOrange>
+        <ItemClass>전자제품 {`>`} apple</ItemClass>
+      </TextItem>
+    </StyledListContainer>
   );
 };
 
@@ -28,4 +32,25 @@ const StyledImgWrapper = styled.div`
   img {
     max-width: 100px;
   }
+`;
+
+const TextItem = styled.div`
+  flex: 1;
+  display: grid;
+  flex-direction: column;
+  gap: 8px 0px;
+  width: 183px;
+
+  text-align: initial;
+  white-space: nowrap;
+`;
+
+const Title = styled(Medium)`
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const ItemClass = styled(Small)`
+  margin-top: 8px;
 `;
