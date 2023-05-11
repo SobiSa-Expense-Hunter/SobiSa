@@ -65,7 +65,7 @@ const List = () => {
     <>
       <FixedWrapper>
         <BtnWrapper>
-          <TopBtn type='TopBtn' onClick={() => topBtnHandler()} />
+          <TopBtn type='button' onClick={() => topBtnHandler()} />
         </BtnWrapper>
       </FixedWrapper>
       <ListBoxWrapper>
