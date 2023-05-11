@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
@@ -16,7 +17,9 @@ const Header = () => {
         </Button>
       )}
       <StyleTextLogo>
-        <Medium>SOBISA!</Medium>
+        <Link href='/search'>
+          <Medium>SOBISA!</Medium>
+        </Link>
       </StyleTextLogo>
     </HeaderWrapper>
   );

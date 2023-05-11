@@ -9,6 +9,9 @@ const GlobalStyle = createGlobalStyle`${css`
   button {
     cursor: pointer;
   }
+  a {
+    text-decoration: none;
+  }
   @font-face {
     font-family: 'NeoDunggeunmo';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.3/NeoDunggeunmo.woff')
