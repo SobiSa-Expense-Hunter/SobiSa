@@ -1,21 +1,24 @@
 import { useEffect, useState } from 'react';
 
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useInView } from 'react-intersection-observer';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
-import { TopIcon, LoadingIcon } from '@/assets/icons';
-import SearchInput from '@/components/SearchInput';
-import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
+import * as SVG from '@/assets/icons';
+import { useSearchDispatch } from '@/components/SearchProvider';
 import MarginBox from '@/components/common/marginBox';
-import NotFound from '@/components/list/NotFound';
-import Loading from '@/components/loading';
+import { Centering } from '@/components/layout/AppLayout';
 import ChoseProductModal from '@/components/modal/ChoseProductModal';
 import useSearchProducts from '@/hooks/useSearchProduct';
 
 import ListBox from './ListBox';
-import { StyledListContainer } from './styles';
+import Loading from './Loading';
+import { LoadingSpinner } from './styles';
 import type { Product } from '@/types/search';
+
+const NotFound = dynamic(() => import('@/components/list/NotFound'));
+const SearchInput = dynamic(() => import('@/components/SearchInput'));
 
 const List = () => {
   const router = useRouter();
@@ -24,21 +27,25 @@ const List = () => {
   const [userSelected, setUserSelected] = useState<Product>();
   const { products, queryRes } = useSearchProducts(userSearch);
   const { ref, inView } = useInView();
-  const { fetchNextPage, isLoading, hasNextPage, isFetching } = queryRes;
 
   const dispatch = useSearchDispatch();
-  // MEMO: 잘 들어갔는지 확인을 위해 임시로 Store 객체를 불러왔습니다.
-  const state = useSearchStore();
+
+  const { fetchNextPage, isLoading, hasNextPage, isFetching } = queryRes;
 
   useEffect(() => {
     if (inView && hasNextPage) fetchNextPage();
   }, [fetchNextPage, hasNextPage, inView]);
 
-  useEffect(() => {
-    // if (state) console.log(state);
-  }, [state]);
-
   if (isLoading || products === undefined) return <Loading />;
+  if (products.length === 0)
+    return (
+      <Centering>
+        <MarginBox margin='15px' />
+        <SearchInput />
+        <MarginBox margin='32px' />
+        <NotFound />
+      </Centering>
+    );
 
   const listClickHandler = (product: Product) => {
     setUserSelected(product);
@@ -56,6 +63,7 @@ const List = () => {
       type: 'ADD_PRODUCT',
       item: userSelected,
     });
+    // MEMO: 이후 연결 할 때 사용 할 라우터 입니다.
     // router.push('/result');
   };
 
@@ -68,11 +76,13 @@ const List = () => {
           <TopBtn type='button' onClick={() => topBtnHandler()} />
         </BtnWrapper>
       </FixedWrapper>
-      <ListBoxWrapper>
+
+      <Centering>
         <MarginBox margin='15px' />
         <SearchInput />
         <MarginBox margin='32px' />
 
+        {products.length === 0 && <NotFound />}
         <form onSubmit={onSubmit}>
           {products.map(product => (
             <ListBox
@@ -81,6 +91,7 @@ const List = () => {
               listClickHandler={listClickHandler}
             />
           ))}
+
           {showModal && userSelected?.title && userSelected.image && (
             <ChoseProductModal
               onClose={onClose}
@@ -90,24 +101,21 @@ const List = () => {
             />
           )}
         </form>
-        {products.length === 0 && <NotFound />}
-        <LoadingWrapper ref={ref}>
-          {isFetching && hasNextPage && <LoadingIconAnimation />}
-        </LoadingWrapper>
-      </ListBoxWrapper>
+
+        <div ref={ref} />
+        {isFetching && hasNextPage && (
+          <Centering>
+            <LoadingSpinner />
+          </Centering>
+        )}
+      </Centering>
     </>
   );
 };
 
 export default List;
 
-const ListBoxWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const TopBtn = styled(TopIcon)`
+const TopBtn = styled(SVG.TopIcon)`
   cursor: pointer;
   position: absolute;
   margin-left: 300px;
@@ -121,25 +129,4 @@ const FixedWrapper = styled.div`
 
 const BtnWrapper = styled.div`
   position: relative;
-`;
-
-const LoadingWrapper = styled(StyledListContainer)`
-  background: white;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const rotation = keyframes`
-  from{
-    transform: rotate(0deg);
-  }
-  to{
-    transform: rotate(360deg);
-  }
-`;
-
-export const LoadingIconAnimation = styled(LoadingIcon)`
-  animation: ${rotation} 1s linear infinite;
 `;
