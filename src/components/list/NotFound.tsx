@@ -3,7 +3,6 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { ItemImage } from '@/assets';
 import { Indicator01 } from '@/assets/indicator';
 import * as Buttons from '@/components/common/buttons';
 import MarginBox from '@/components/common/marginBox';
@@ -19,7 +18,7 @@ function NotFound() {
       <Font.Small>오타를 내신건 아닌지.. </Font.Small>
       <Font.Small>어쩌구 다시 검색해보실래요?</Font.Small>
       <MarginBox margin='87px' />
-      <Buttons.BottomButton>STATIC</Buttons.BottomButton>
+      <Buttons.BottomButton>이전으로</Buttons.BottomButton>
       <MarginBox margin='66px' />
       <Indicator01 />
     </NotFoundWrapper>
