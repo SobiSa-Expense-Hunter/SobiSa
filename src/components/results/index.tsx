@@ -1,12 +1,14 @@
+import { useState } from 'react';
+
 import styled from 'styled-components';
 
 import UserSelectedData from '@/__test__/dummy/UserSelectData';
-import { LineImage } from '@/assets';
 import FrameName from '@/components/common/FrameName';
-import { BottomButton } from '@/components/common/buttons';
+import { ShareButton } from '@/components/common/buttons';
+import CertificateAndShareModal from '@/components/modal/CertificateAndShareModal';
 import Alternative from '@/components/results/Alternative';
 import { alternatives } from '@/constant';
-import { ExtraLarge, LargeOrange, Medium } from '@/styles/font';
+import { ExtraLarge, Large, LargeOrange, Medium } from '@/styles/font';
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,16 +35,13 @@ const ProductWrapper = styled.div`
 `;
 
 const ProductName = styled(FrameName)`
-  color: ${props => props.theme.colors.gray[5]};
-  font-size: ${props => props.theme.fontSize.s};
+  font-size: ${props => props.theme.fontSize.xxs};
 `;
 
-const ProductPrice = styled(ExtraLarge)`
-  color: ${props => props.theme.colors.gray[6]};
-`;
-
-const ProductImage = styled(LineImage)`
+const ProductImage = styled.img`
   margin-top: 16px;
+  height: 220px;
+  min-width: 220px;
 `;
 
 const AlternativesContainer = styled.div`
@@ -75,19 +74,34 @@ function Result() {
     savingAmount,
   } = UserSelectedData;
 
+  const [showModal, setShowModal] = useState(false);
+
   const savingsPeriod = Math.round(price / savingAmount);
+
+  const toggleModal = () => {
+    setShowModal(prev => !prev);
+  };
+
   return (
     <Wrapper>
       <ProductContainer>
         <ProductName>{title}</ProductName>
         <ProductWrapper>
-          <ProductPrice>{price.toLocaleString()} 원</ProductPrice>
-          <LargeOrange>{savingsPeriod}개월동안 모아야 해요!</LargeOrange>
+          <ExtraLarge>{price.toLocaleString()} 원</ExtraLarge>
+          <LargeOrange style={{ fontWeight: 500 }}>
+            {savingsPeriod}개월동안 모아야 해요!
+          </LargeOrange>
         </ProductWrapper>
-        <ProductImage />
+        <ProductImage
+          src={image}
+          alt={title}
+          onError={e => {
+            e.currentTarget.src = './assets/image/image.png';
+          }}
+        />
       </ProductContainer>
       <AlternativesContainer>
-        <Medium>이걸 가지는 대신 할 수 있는 일...</Medium>
+        <Medium style={{ fontWeight: 500 }}>이걸 가지는 대신 할 수 있는 일...</Medium>
         <AlternativeList>
           {alternatives.map(alternative => (
             <Alternative
@@ -99,11 +113,13 @@ function Result() {
         </AlternativeList>
       </AlternativesContainer>
       <CertificateContainer>
-        <Medium>
+        <Large style={{ fontWeight: 500 }}>
           이걸 보고도 갖고 싶으시다면, <br /> 임명장을 발급받아 보세요!
-        </Medium>
-        <BottomButton>임명장 받기</BottomButton>
+        </Large>
+        <ShareButton onClick={toggleModal}>임명장 받기</ShareButton>
       </CertificateContainer>
+
+      {showModal && <CertificateAndShareModal onClose={toggleModal} />}
     </Wrapper>
   );
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Medium } from '@/styles/font';
+import { Small } from '@/styles/font';
 
 const FrameName = ({ children }: { children: string }) => {
   return (
@@ -25,7 +25,9 @@ const FrameNameWrapper = styled.div`
   border-radius: 6px;
 `;
 
-const EllipsisText = styled(Medium)`
+const EllipsisText = styled(Small)`
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.gray[5]};
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

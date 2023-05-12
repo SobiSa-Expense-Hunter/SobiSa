@@ -3,7 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-import { Large, Medium } from '@/styles/font';
+import { Large } from '@/styles/font';
 import { Alternatives } from '@/types/result';
 
 const AlternativeWrapper = styled.div`

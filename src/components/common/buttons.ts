@@ -22,8 +22,19 @@ const Button = styled.button`
   order: 0;
   flex-grow: 0;
 
-  font-family: 'Pretendard';
+  font-family: 'Pretendard Variable';
   cursor: pointer;
+`;
+
+export const ImageButton = styled(Button)`
+  appearance: none;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  box-sizing: border-box;
+  height: fit-content;
+  background: inherit;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 `;
 
 export const ModalButton = styled(Button)`
