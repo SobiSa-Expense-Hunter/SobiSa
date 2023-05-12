@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-import { MagnifyingGlassIcon } from '@/assets/icons';
+import { MagnifyingGlassIcon } from '@/assets/Icons';
 
 import NoticeModal from './modal/NoticeModal';
 
@@ -70,7 +70,7 @@ const SearchInputContainer = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.mainColor};
   border-radius: 8px;
   max-width: 310px;
-  jusify-content: space-between;
+  justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.mainColor};
 `;
 const SearchInputBox = styled.div`

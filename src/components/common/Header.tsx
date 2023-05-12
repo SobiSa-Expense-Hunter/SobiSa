@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { HamburgerIcon, LeftIcon } from '@/assets/icons';
+import { LeftIcon, HamburgerIcon } from '@/assets/Icons';
 import { Medium } from '@/styles/font';
 
 const Header = () => {
