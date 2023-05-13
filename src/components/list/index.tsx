@@ -121,7 +121,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
 
 export default List;
 
-function ListLayout({ children }: { children: React.ReactElement }) {
+export function ListLayout({ children }: { children: React.ReactElement }) {
   return (
     <Centering>
       <MarginBox margin='15px' />
