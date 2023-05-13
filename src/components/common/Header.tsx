@@ -1,25 +1,44 @@
-import React from 'react';
-
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-import { HamburgerIcon, LeftIcon } from '@/assets/icons';
+import { LeftIcon } from '@/assets/icons';
 import { Medium } from '@/styles/font';
 
 const Header = () => {
+  const router = useRouter();
+  const isHome = router.asPath === '/search';
+
   return (
-    <StyledHeaderWrapper>
-      <LeftIcon />
+    <HeaderWrapper>
+      {isHome ? null : (
+        <Button onClick={() => router.back()}>
+          <LeftIcon />
+        </Button>
+      )}
       <StyleTextLogo>
-        <div>SOBISA!</div>
+        <Link href='/search'>
+          <Medium>SOBISA!</Medium>
+        </Link>
       </StyleTextLogo>
-      <HamburgerIcon />
-    </StyledHeaderWrapper>
+    </HeaderWrapper>
   );
 };
 
 export default Header;
 
-const StyledHeaderWrapper = styled.header`
+const Button = styled.button`
+  outline: none;
+  border: none;
+  background: none;
+  height: 100%;
+  display: flex;
+  padding: 0;
+  position: absolute;
+  left: 0;
+`;
+
+const HeaderWrapper = styled.header`
   display: flex;
   position: sticky;
   top: 0;
@@ -27,10 +46,7 @@ const StyledHeaderWrapper = styled.header`
   width: 310px;
   height: 41px;
   background-color: white;
-
-  svg {
-    cursor: pointer;
-  }
+  z-index: 1000;
 `;
 
 const StyleTextLogo = styled(Medium)`
