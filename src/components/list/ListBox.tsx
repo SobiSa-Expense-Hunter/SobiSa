@@ -11,7 +11,7 @@ interface ListBoxProps {
 }
 
 const ListBox = ({ product, listClickHandler }: ListBoxProps) => {
-  const { productId, image, price, title } = product;
+  const { productId, image, price, title, brand, category1, category2 } = product;
   return (
     <StyledListContainer onClick={() => listClickHandler(product)}>
       <StyledImgWrapper>
@@ -19,8 +19,8 @@ const ListBox = ({ product, listClickHandler }: ListBoxProps) => {
       </StyledImgWrapper>
       <TextItem>
         <Title className='title'>{title}</Title>
-        <MediumOrange>{price} 원</MediumOrange>
-        <ItemClass>전자제품 {`>`} apple</ItemClass>
+        <MediumOrange>{price.toLocaleString()} 원</MediumOrange>
+        <ItemClass>{`${category1} > ${brand === '' ? category2 : brand}`}</ItemClass>
       </TextItem>
     </StyledListContainer>
   );

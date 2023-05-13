@@ -39,6 +39,9 @@ function useSearchProducts(userSearch: string) {
               title: item.title.replaceAll('<b>', '').replaceAll('</b>', ''),
               image: item.image,
               price: Number(item.lprice),
+              brand: item.brand,
+              category1: item.category1,
+              category2: item.category2,
             };
             return tmpProduct;
           });
