@@ -1,7 +1,5 @@
 import React from 'react';
 
-import styled from 'styled-components';
-
 import { FaceBookIcon } from '@/assets/SocialIcons';
 import { ImageButton } from '@/components/common/buttons';
 

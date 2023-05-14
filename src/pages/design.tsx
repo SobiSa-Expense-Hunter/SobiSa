@@ -405,7 +405,7 @@ const design = () => {
               <Font.AwardXXSmall>AwardSmall</Font.AwardXXSmall>
               <Font.AwardXSmall>AwardMedium</Font.AwardXSmall>
               <Font.AwardSmall>AwardLarge</Font.AwardSmall>
-              <Font.AwardResultCost>AwardResultCost</Font.AwardResultCost>
+              <Font.AwardXXLarge>AwardResultCost</Font.AwardXXLarge>
             </ItemContent>
           </MiniItemContentsWrapper>
         </Article>

@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { LayoutGroup, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
+import UserSelectedData from '@/__test__/dummy/UserSelectData';
 import { ArrowIcon } from '@/assets/Icons';
 import {
   CharacterBlackSticker,
@@ -10,9 +11,10 @@ import {
   SobisaTextFillLogoSticker,
   SobisaTextLogoSticker,
 } from '@/assets/Stickers';
+import { alternatives } from '@/constant';
 import {
   AwardXLarge,
-  AwardResultCost,
+  AwardXXLarge,
   AwardXXSmall,
   AwardXSmall,
   AwardSmallOrange,
@@ -26,51 +28,52 @@ const CertificateContainer = styled.div`
   background: right top url('./assets/image/receipt.png') #ffffff;
   background-blend-mode: multiply, normal;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+  & > div:not(div:last-of-type) {
+    border-bottom: 1px solid ${props => props.theme.colors.gray[4]};
+  }
 `;
 
-const FlexEnd = styled.div`
+const ColumnFlex = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   gap: 16px;
 `;
 
-const SmallFlexColumn = styled.div`
-  display: flex;
-  flex-direction: column;
+const SmallColumnFlex = styled(ColumnFlex)`
   gap: 8px;
 `;
 
-const SmallFlexRow = styled.div`
+const ColumnFlexEnd = styled(ColumnFlex)`
+  align-items: flex-end;
+`;
+const ColumnFlexEndWithBorderBottom = styled(ColumnFlexEnd)`
+  padding: 16px 0px;
+`;
+
+const SmallFlexEnd = styled(ColumnFlexEnd)`
+  gap: 8px;
+`;
+
+const RowFlex = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 8px;
-`;
-
-const SmallFlexEnd = styled(FlexEnd)`
-  gap: 8px;
-`;
-
-const DefaultContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
   gap: 16px;
-  padding: 16px 0px;
-  border-bottom: 1px solid ${props => props.theme.colors.gray[4]};
 `;
 
-const RowContentContainer = styled.div`
+const SmallRowFlex = styled(RowFlex)`
+  gap: 8px;
+`;
+
+const ContentColumnFlex = styled(ColumnFlex)`
+  padding: 16px 0px;
+`;
+
+const ContentRowFlex = styled(RowFlex)`
   width: 100%;
-  display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-`;
-
-const ContentContainer = styled(DefaultContentContainer)`
-  border-top: 1px solid ${props => props.theme.colors.gray[4]};
 `;
 
 const QRCodeImage = styled.img`
@@ -79,7 +82,7 @@ const QRCodeImage = styled.img`
   mix-blend-mode: multiply;
 `;
 
-const MediumGapContentContainer = styled(DefaultContentContainer)`
+const MediumGapContentColumnFlex = styled(ContentColumnFlex)`
   gap: 12px;
   padding-bottom: 0px;
   border-bottom: 0px;
@@ -90,7 +93,7 @@ const MediumGapContentContainer = styled(DefaultContentContainer)`
   }
 `;
 
-const ContentSpaceElement = styled.div`
+const TextSpacer = styled.div`
   flex-grow: 1;
   display: inline-block;
   box-sizing: border-box;
@@ -110,85 +113,94 @@ const Sticker = styled(motion.span)`
 const StickerStamp = styled(motion.span)``;
 
 const Certificate = () => {
+  const {
+    product: { title, price: wantedProductPrice },
+    savingAmount,
+  } = UserSelectedData;
+  const savingsPeriod = Math.round(wantedProductPrice / savingAmount);
+
   return (
     <CertificateContainer>
-      <FlexEnd style={{ marginBottom: '16px' }}>
+      <ColumnFlexEndWithBorderBottom style={{ paddingTop: 0 }}>
         <SmallFlexEnd>
           <AwardXXSmall>No.0001</AwardXXSmall>
           <AwardXXSmall>{new Date().toISOString().substring(0, 19).replace('T', ' ')}</AwardXXSmall>
         </SmallFlexEnd>
-        <AwardXLarge style={{ textOverflow: 'ellipsis' }}>Apple 2022 맥북</AwardXLarge>
-      </FlexEnd>
-      <ContentContainer>
-        <RowContentContainer>
+        <AwardXLarge
+          style={{
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            width: '100%',
+          }}
+        >
+          {title}
+        </AwardXLarge>
+      </ColumnFlexEndWithBorderBottom>
+      <ContentColumnFlex>
+        <ContentRowFlex>
           <AwardXSmallGray6>할부기간</AwardXSmallGray6>
-          <ContentSpaceElement />
-          <AwardXXSmall>12개월</AwardXXSmall>
-        </RowContentContainer>
+          <TextSpacer />
+          <AwardXXSmall>{savingsPeriod}개월</AwardXXSmall>
+        </ContentRowFlex>
         <AwardXSmallGray6>기회비용</AwardXSmallGray6>
-        <SmallFlexColumn style={{ marginLeft: 20 }}>
-          <RowContentContainer>
-            <AwardXXSmall>공양미</AwardXXSmall>
-            <ContentSpaceElement />
-            <AwardXXSmall>300석</AwardXXSmall>
-          </RowContentContainer>
-
-          <RowContentContainer>
-            <AwardXXSmall>공양미</AwardXXSmall>
-            <ContentSpaceElement />
-            <AwardXXSmall>300석</AwardXXSmall>
-          </RowContentContainer>
-
-          <RowContentContainer>
-            <AwardXXSmall>공양미</AwardXXSmall>
-            <ContentSpaceElement />
-            <AwardXXSmall>300석</AwardXXSmall>
-          </RowContentContainer>
-        </SmallFlexColumn>
-      </ContentContainer>
-      <DefaultContentContainer style={{ alignItems: 'flex-end' }}>
+        <SmallColumnFlex style={{ marginLeft: 20 }}>
+          {alternatives.map(alternative => (
+            <ContentRowFlex key={`receipt_${alternative.title}`}>
+              <AwardXXSmall>{alternative.title}</AwardXXSmall>
+              <TextSpacer />
+              <AwardXXSmall>
+                {Math.floor(wantedProductPrice / alternative.price).toLocaleString()}
+                {alternative.unit}
+              </AwardXXSmall>
+            </ContentRowFlex>
+          ))}
+        </SmallColumnFlex>
+      </ContentColumnFlex>
+      <ContentColumnFlex style={{ alignItems: 'flex-end' }}>
         <AwardXSmall style={{ alignSelf: 'flex-start' }}>총 금액</AwardXSmall>
-        <AwardResultCost>1,450,000,000₩</AwardResultCost>
-      </DefaultContentContainer>
-      <DefaultContentContainer>
-        <RowContentContainer>
-          <QRCodeImage src='./assets/image/qrcode.png' />
+        <AwardXXLarge>
+          <span>{wantedProductPrice.toLocaleString()}</span>
+          <span style={{ marginLeft: 4 }}>₩</span>
+        </AwardXXLarge>
+      </ContentColumnFlex>
+      <ContentColumnFlex>
+        <ContentRowFlex>
+          <QRCodeImage src='./assets/image/qrcode.png' alt='소비사로 이동하기 qr코드' />
           <SmallFlexEnd>
             <AwardSmallOrange style={{ textAlign: 'right' }}>
               당신의 지갑 지킴이,
               <br />
               소비사!
             </AwardSmallOrange>
-            <SmallFlexRow>
-              <SmallFlexRow style={{ gap: '6px' }}>
-                <ArrowIcon />
-                <ArrowIcon />
-                <ArrowIcon />
-                <ArrowIcon />
-                <ArrowIcon />
-                <ArrowIcon />
-              </SmallFlexRow>
+            <SmallRowFlex>
+              <SmallRowFlex style={{ gap: '6px' }}>
+                {Array.from({ length: 6 }, (_, i) => i + 1).map(v => (
+                  <ArrowIcon key={`arrow_${v}`} />
+                ))}
+              </SmallRowFlex>
               <AwardXXSmall>홈페이지 바로가기</AwardXXSmall>
-            </SmallFlexRow>
+            </SmallRowFlex>
           </SmallFlexEnd>
-        </RowContentContainer>
-      </DefaultContentContainer>
-      <MediumGapContentContainer>
+        </ContentRowFlex>
+      </ContentColumnFlex>
+      <MediumGapContentColumnFlex>
         <AwardXSmall>사기 전 충분히 고민했나요?</AwardXSmall>
-        <RowContentContainer>
+        <ContentRowFlex>
           <AwardXXSmall>https://www.youtube.com/watch</AwardXXSmall>
           <StickerStamp
             initial={{ scale: 5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{
+              delay: 0.8,
               opacity: { ease: 'linear' },
               layout: { duration: 1 },
             }}
           >
             <SobisaTextLogoSticker />
           </StickerStamp>
-        </RowContentContainer>
-      </MediumGapContentContainer>
+        </ContentRowFlex>
+      </MediumGapContentColumnFlex>
 
       <Sticker
         initial={{ scale: 3, opacity: 0 }}

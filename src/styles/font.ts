@@ -85,7 +85,7 @@ export const AwardXLarge = styled(NeoDunggeunmo)`
   color: ${({ theme }) => theme.colors.gray[5]};
 `;
 
-export const AwardResultCost = styled(NeoDunggeunmo)`
+export const AwardXXLarge = styled(NeoDunggeunmo)`
   font-weight: 500;
   font-size: ${({ theme }) => theme.fontSize.xxl};
   color: ${({ theme }) => theme.colors.gray[5]};
