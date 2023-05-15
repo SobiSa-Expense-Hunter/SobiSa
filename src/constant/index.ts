@@ -26,3 +26,8 @@ export const sharedMessage: ShareData = {
   text: '소비 사냥꾼',
   url: 'http://localhost:3001',
 };
+
+export const InputRegExp = Object.freeze({
+  emptyString: /^$/,
+  numberAndComma: /^[\d,]+$/,
+});
