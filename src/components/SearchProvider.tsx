@@ -8,7 +8,7 @@ const SearchDispatchContext = createContext<Dispatch<Action> | null>(null);
 const reducer = (state: UserSelected, action: Action) => {
   switch (action.type) {
     case 'ADD_PRODUCT': {
-      const productUpdated = { ...state, product: action.item, savingAmout: 0 };
+      const productUpdated = { ...state, product: action.item, savingAmount: 0 };
       return productUpdated;
     }
     case 'ADD_SAVINGAMOUNT': {
