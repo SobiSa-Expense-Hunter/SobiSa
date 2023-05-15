@@ -28,7 +28,7 @@ export const SmallOrange = styled(Small)`
 export const Medium = styled(DefalutFont)`
   font-weight: 600;
   font-size: ${({ theme }) => theme.fontSize.xs};
-  color: ${({ theme }) => theme.colors.gray[5]};
+  color: ${({ theme }) => theme.colors.gray[6]};
 `;
 
 export const MediumOrange = styled(Medium)`
