@@ -98,6 +98,7 @@ const SearchEnterInput = styled.input`
   :-ms-input-placeholder {
     color: ${({ theme }) => theme.colors.mainColor};
   }
+  font-size: 16px;
 `;
 const SearchButton = styled.button`
   box-sizing: border-box;

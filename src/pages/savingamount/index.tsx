@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-import { Indicator01 } from '@/assets/indicator';
+import { Indicator01 } from '@/assets/Indicators';
 import { useSearchStore } from '@/components/SearchProvider';
 import { BottomButton } from '@/components/common/buttons';
 import NoticeModal from '@/components/modal/NoticeModal';
@@ -102,5 +102,6 @@ const Input = styled.input`
     background-color: white;
     cursor: not-allowed;
   }
+  font-size: 16px;
 `;
 export default SavingAmount;
