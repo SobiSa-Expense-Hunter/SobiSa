@@ -15,6 +15,6 @@ function Loading() {
 export default Loading;
 
 const LoadingWrapper = styled(Centering)`
-  height: 100vh;
+  height: 519px;
   width: 100%;
 `;

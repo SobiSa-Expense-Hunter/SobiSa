@@ -11,7 +11,6 @@ import type { Product } from '@/types/product';
 const initialVal: Product[] = [];
 
 function useSearchProducts(userSearch: string) {
-  // 임의로 설정해둔 params 필터
   const params: APIParams = {
     query: userSearch,
     display: 10,
@@ -40,6 +39,9 @@ function useSearchProducts(userSearch: string) {
               title: item.title.replaceAll('<b>', '').replaceAll('</b>', ''),
               image: item.image,
               price: Number(item.lprice),
+              brand: item.brand,
+              category1: item.category1,
+              category2: item.category2,
             };
             return tmpProduct;
           });
