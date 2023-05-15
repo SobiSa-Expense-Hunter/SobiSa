@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const DefalutFont = styled.span`
-  font-family: 'Pretendard';
+  font-family: 'Pretendard Variable';
   font-style: normal;
   line-height: 150%;
   letter-spacing: -0.022em;
