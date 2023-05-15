@@ -30,6 +30,14 @@ const rotation = keyframes`
   }
 `;
 
-export const LoadingSpinner = styled(SVG.LoadingIcon)`
+const SpinnerWrapper = styled.div`
   animation: ${rotation} 1s linear infinite;
 `;
+
+export const LoadingSpinner = () => {
+  return (
+    <SpinnerWrapper>
+      <SVG.LoadingIcon />
+    </SpinnerWrapper>
+  );
+};

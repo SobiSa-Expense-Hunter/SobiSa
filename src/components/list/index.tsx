@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
-import * as SVG from '@/assets/icons';
-import { Indicator02 } from '@/assets/indicator';
+import * as SVG from '@/assets/Icons';
+import { Indicator02 } from '@/assets/Indicators';
 import { useSearchDispatch } from '@/components/SearchProvider';
 import MarginBox from '@/components/common/marginBox';
 import { Centering } from '@/components/layout/AppLayout';
@@ -18,9 +18,9 @@ import type { NaverProductResponse } from '@/types/naverShopApi';
 import type { Product } from '@/types/product';
 import type { UseInfiniteQueryResult } from '@tanstack/react-query';
 
-const NotFound = dynamic(() => import('@/components/list/NotFound'));
-const SearchInput = dynamic(() => import('@/components/SearchInput'));
 const Loading = dynamic(() => import('./Loading'));
+const SearchInput = dynamic(() => import('@/components/SearchInput'));
+const NotFound = dynamic(() => import('@/components/list/NotFound'));
 
 export interface ListPageProps {
   products: Product[];
@@ -49,7 +49,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
       </ListLayout>
     );
 
-  if (products.length === 0 || isError)
+  if (isError || products.length === 0)
     return (
       <ListLayout>
         <NotFound />
@@ -82,7 +82,9 @@ const List = ({ products, queryRes }: ListPageProps) => {
     <>
       <FixedWrapper>
         <BtnWrapper>
-          <TopBtn type='button' onClick={() => topBtnHandler()} />
+          <TopBtn type='button' onClick={() => topBtnHandler()}>
+            <SVG.TopIcon />
+          </TopBtn>
         </BtnWrapper>
       </FixedWrapper>
 
@@ -133,10 +135,16 @@ export function ListLayout({ children }: { children: React.ReactElement }) {
   );
 }
 
-const TopBtn = styled(SVG.TopIcon)`
+const TopBtn = styled.button`
   cursor: pointer;
   position: absolute;
   margin-left: 300px;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  background: inherit;
 `;
 
 const FixedWrapper = styled.div`
