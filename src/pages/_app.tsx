@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Script from 'next/script';
 import { ThemeProvider } from 'styled-components';
 
+import SearchProvider from '@/components/SearchProvider';
 import AppLayout from '@/components/layout/AppLayout';
 import GlobalStyle from '@/styles/GlobalStyle';
 import theme from '@/styles/theme';
@@ -43,17 +44,19 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        {getContent()}
-        <ReactQueryDevtools initialIsOpen={false} />
-        <Script
-          src='https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js'
-          integrity='sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx'
-          crossOrigin='anonymous'
-          onLoad={kakaoSDKInit}
-        />
-      </ThemeProvider>
+      <SearchProvider>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          {getContent()}
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Script
+            src='https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js'
+            integrity='sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx'
+            crossOrigin='anonymous'
+            onLoad={kakaoSDKInit}
+          />
+        </ThemeProvider>
+      </SearchProvider>
     </QueryClientProvider>
   );
 }
