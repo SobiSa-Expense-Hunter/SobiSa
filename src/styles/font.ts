@@ -39,33 +39,54 @@ export const Large = styled(DefalutFont)`
   font-size: ${({ theme }) => theme.fontSize.s};
 `;
 
-export const ResultCost = styled(DefalutFont)`
+export const LargeOrange = styled(Large)`
+  color: ${({ theme }) => theme.colors.mainColor};
+`;
+
+export const ExtraLarge = styled(DefalutFont)`
   font-weight: 600;
   font-size: ${({ theme }) => theme.fontSize.ml};
   color: ${({ theme }) => theme.colors.gray[6]};
 `;
 
 // ------ 임명장 폰트 ------
-export const AwardSmall = styled(NeoDunggeunmo)`
+export const AwardXXSmall = styled(NeoDunggeunmo)`
   font-weight: 500;
   font-size: ${({ theme }) => theme.fontSize.xxs};
   color: ${({ theme }) => theme.colors.gray[4]};
 `;
 
-export const AwardMedium = styled(NeoDunggeunmo)`
+export const AwardXSmall = styled(NeoDunggeunmo)`
   font-weight: 500;
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.colors.gray[5]};
 `;
 
-export const AwardLarge = styled(NeoDunggeunmo)`
+export const AwardSmall = styled(NeoDunggeunmo)`
   font-weight: 500;
   font-size: ${({ theme }) => theme.fontSize.s};
-  color: ${({ theme }) => theme.colors.gray[6]};
+  color: ${({ theme }) => theme.colors.gray[5]};
 `;
 
-export const AwardResultCost = styled(NeoDunggeunmo)`
+export const AwardSmallOrange = styled(AwardSmall)`
+  font-weight: 400;
+  color: ${({ theme }) => theme.colors.mainColor};
+`;
+
+export const AwardMedium = styled(NeoDunggeunmo)`
   font-weight: 500;
-  font-size: ${({ theme }) => theme.fontSize.ml};
-  color: ${({ theme }) => theme.colors.gray[6]};
+  font-size: ${({ theme }) => theme.fontSize.m};
+  color: ${({ theme }) => theme.colors.gray[5]};
+`;
+
+export const AwardXLarge = styled(NeoDunggeunmo)`
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  color: ${({ theme }) => theme.colors.gray[5]};
+`;
+
+export const AwardXXLarge = styled(NeoDunggeunmo)`
+  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontSize.xxl};
+  color: ${({ theme }) => theme.colors.gray[5]};
 `;

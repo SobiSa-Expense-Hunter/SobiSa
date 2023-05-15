@@ -3,25 +3,28 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
+import { Large } from '@/styles/font';
 import { Alternatives } from '@/types/result';
 
 const AlternativeWrapper = styled.div`
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  border-radius: 5px;
-  background: white;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 20px;
-  height: 55px;
+  height: 64px;
   box-sizing: border-box;
-  gap: 20px;
+  gap: 16px;
+  width: inherit;
+  background-color: ${props => props.theme.colors.gray[0]};
+  border: 1px solid ${props => props.theme.colors.gray[3]};
+  border-radius: 6px;
 `;
 
-const AlternativeInfo = styled.p`
-  font-weight: 700;
-  font-size: 18px;
-  flex-grow: 1;
-  min-width: 100px;
+const AlternativeInfo = styled(Large)`
+  min-width: 80px;
+  white-space: nowrap;
+  color: ${props => props.theme.colors.gray[3]};
+  font-weight: 500;
 `;
 const AlternativeIcons = styled(motion.div)`
   height: 100%;

@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 
-import * as SVG from '@/assets/icons';
+import * as SVG from '@/assets/Icons';
 
 export const StyledListContainer = styled.div<{ select?: boolean }>`
   cursor: pointer;

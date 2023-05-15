@@ -24,6 +24,8 @@ declare module 'styled-components' {
       m: '14pt';
       ml: '15pt';
       l: '16pt';
+      xl: '21pt';
+      xxl: '27pt';
     };
     size: {
       mobile: string;

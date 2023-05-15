@@ -1,4 +1,4 @@
-import { NoticeIcon } from '@/assets/icons';
+import { NoticeIcon } from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import {
   Background,

@@ -2,8 +2,10 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { ItemImage, LineImage, MainImage } from '@/assets';
-import { Indicator01, Indicator02, Indicator03, Indicator04 } from '@/assets/indicator';
+import { LinkIcon, LoadingIcon, NoticeIcon, TopIcon } from '@/assets/Icons';
+import { ItemImage, LineImage, MainImage } from '@/assets/Images';
+import { Indicator01, Indicator02, Indicator03, Indicator04 } from '@/assets/Indicators';
+import { FaceBookIcon, KakaoIcon, TwitterIcon } from '@/assets/SocialIcons';
 import SearchInput from '@/components/SearchInput';
 import FrameName from '@/components/common/FrameName';
 import {
@@ -14,15 +16,6 @@ import {
   ShareButton,
 } from '@/components/common/buttons';
 import * as Font from '@/styles/font';
-import {
-  FaceBookIcon,
-  KakaoIcon,
-  LinkIcon,
-  LoadingIcon,
-  NoticeIcon,
-  TopIcon,
-  TwitterIcon,
-} from '@/styles/icons';
 import theme from '@/styles/theme';
 import { GrayRange } from '@root/style';
 
@@ -405,14 +398,14 @@ const design = () => {
               <Font.Medium>Medium</Font.Medium>
               <Font.MediumOrange>MediumOrange</Font.MediumOrange>
               <Font.Large>Large</Font.Large>
-              <Font.ResultCost>ResultCost</Font.ResultCost>
+              <Font.ExtraLarge>ResultCost</Font.ExtraLarge>
             </ItemContent>
             <ItemContent>
               <h3>NeoDunggeunmo</h3>
-              <Font.AwardSmall>AwardSmall</Font.AwardSmall>
-              <Font.AwardMedium>AwardMedium</Font.AwardMedium>
-              <Font.AwardLarge>AwardLarge</Font.AwardLarge>
-              <Font.AwardResultCost>AwardResultCost</Font.AwardResultCost>
+              <Font.AwardXXSmall>AwardSmall</Font.AwardXXSmall>
+              <Font.AwardXSmall>AwardMedium</Font.AwardXSmall>
+              <Font.AwardSmall>AwardLarge</Font.AwardSmall>
+              <Font.AwardXXLarge>AwardResultCost</Font.AwardXXLarge>
             </ItemContent>
           </MiniItemContentsWrapper>
         </Article>
