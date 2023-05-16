@@ -15,7 +15,14 @@ const ListBox = ({ product, listClickHandler }: ListBoxProps) => {
   const { productId, image, price, title, brand, category1, category2 } = product;
   return (
     <StyledListContainer onClick={() => listClickHandler(product)}>
-      <Image src={image} alt={`${productId} img`} width={111} height={111} />
+      <Image
+        src={image}
+        alt={`${productId} img`}
+        width={111}
+        height={111}
+        placeholder='blur'
+        blurDataURL='/assets/icons/placeholder_box.svg'
+      />
       <TextItem>
         <Title className='title'>{title}</Title>
         <MediumOrange>{price.toLocaleString()} 원</MediumOrange>

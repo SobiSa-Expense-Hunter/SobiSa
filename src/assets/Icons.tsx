@@ -35,3 +35,14 @@ export const MagnifyingGlassIcon = () => {
 export const ArrowIcon = () => {
   return <Image src={`${ICON_PATH}/arrow.svg`} width={8} height={8} alt='메뉴' />;
 };
+
+export const PlaceHolderBox = () => {
+  return (
+    <Image
+      src={`${ICON_PATH}/placeholder_box.svg`}
+      width={111}
+      height={110}
+      alt='로딩 이미지 플레이스홀더'
+    />
+  );
+};
