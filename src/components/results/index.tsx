@@ -1,11 +1,13 @@
 import { useState } from 'react';
 
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-import UserSelectedData from '@/__test__/dummy/UserSelectData';
+import { useSearchStore } from '@/components/SearchProvider';
 import FrameName from '@/components/common/FrameName';
 import { ShareButton } from '@/components/common/buttons';
 import CertificateAndShareModal from '@/components/modal/CertificateAndShareModal';
+import NoticeModal from '@/components/modal/NoticeModal';
 import Alternative from '@/components/results/Alternative';
 import { alternatives } from '@/constant';
 import { ExtraLarge, Large, LargeOrange, Medium } from '@/styles/font';
@@ -42,6 +44,7 @@ const ProductImage = styled.img`
   margin-top: 16px;
   height: 220px;
   min-width: 220px;
+  max-width: 90%;
 `;
 
 const AlternativesContainer = styled.div`
@@ -69,18 +72,43 @@ const CertificateContainer = styled.div`
 `;
 
 function Result() {
+  const [showModal, setShowModal] = useState(false);
   const {
     product: { title, image, price },
     savingAmount,
-  } = UserSelectedData;
+  } = useSearchStore();
+  const router = useRouter();
 
-  const [showModal, setShowModal] = useState(false);
+  if (!title || !price) {
+    return (
+      <NoticeModal
+        onClose={() => router.replace('/list')}
+        message='구매할 상품이 정상적으로 선택되지 않았습니다'
+      />
+    );
+  }
+
+  if (savingAmount === undefined || savingAmount === 0) {
+    return (
+      <NoticeModal
+        onClose={() => router.replace('/savingamount')}
+        message='저축할 금액이 입력되지 않았습니다.'
+      />
+    );
+  }
 
   const savingsPeriod = Math.round(price / savingAmount);
 
   const toggleModal = () => {
     setShowModal(prev => !prev);
   };
+
+  const randomAlternatives = (() => {
+    const newAlternatives = alternatives
+      .filter(obj => obj.price < price)
+      .sort(() => 0.5 - Math.random());
+    return newAlternatives.length > 5 ? newAlternatives.slice(0, 4) : newAlternatives;
+  })();
 
   return (
     <Wrapper>
@@ -103,7 +131,7 @@ function Result() {
       <AlternativesContainer>
         <Medium style={{ fontWeight: 500 }}>이걸 가지는 대신 할 수 있는 일...</Medium>
         <AlternativeList>
-          {alternatives.map(alternative => (
+          {randomAlternatives.map(alternative => (
             <Alternative
               alternative={alternative}
               wantedProductPrice={price}
@@ -119,7 +147,9 @@ function Result() {
         <ShareButton onClick={toggleModal}>임명장 받기</ShareButton>
       </CertificateContainer>
 
-      {showModal && <CertificateAndShareModal onClose={toggleModal} />}
+      {showModal && (
+        <CertificateAndShareModal onClose={toggleModal} alternatives={randomAlternatives} />
+      )}
     </Wrapper>
   );
 }

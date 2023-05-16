@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-import UserSelectedData from '@/__test__/dummy/UserSelectData';
 import { ArrowIcon } from '@/assets/Icons';
 import {
   CharacterBlackSticker,
@@ -11,7 +11,8 @@ import {
   SobisaTextFillLogoSticker,
   SobisaTextLogoSticker,
 } from '@/assets/Stickers';
-import { alternatives } from '@/constant';
+import { useSearchStore } from '@/components/SearchProvider';
+import NoticeModal from '@/components/modal/NoticeModal';
 import {
   AwardXLarge,
   AwardXXLarge,
@@ -19,6 +20,7 @@ import {
   AwardXSmall,
   AwardSmallOrange,
 } from '@/styles/font';
+import { Alternatives } from '@/types/result';
 
 const CertificateContainer = styled.div`
   position: relative;
@@ -112,12 +114,26 @@ const Sticker = styled(motion.span)`
 
 const StickerStamp = styled(motion.span)``;
 
-const Certificate = () => {
+const Certificate = ({ alternatives }: { alternatives: Alternatives[] }) => {
   const {
-    product: { title, price: wantedProductPrice },
+    product: { title, price },
     savingAmount,
-  } = UserSelectedData;
-  const savingsPeriod = Math.round(wantedProductPrice / savingAmount);
+  } = useSearchStore();
+  const router = useRouter();
+
+  if (savingAmount === undefined || savingAmount === 0) {
+    return <NoticeModal onClose={() => router.back} message='저축할 금액이 입력되지 않았습니다.' />;
+  }
+  if (!title || !price) {
+    return (
+      <NoticeModal
+        onClose={() => router.replace('/list')}
+        message='구매할 상품이 정상적으로 선택되지 않았습니다'
+      />
+    );
+  }
+
+  const savingsPeriod = Math.round(price / savingAmount);
 
   return (
     <CertificateContainer>
@@ -132,6 +148,7 @@ const Certificate = () => {
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             width: '100%',
+            textAlign: 'right',
           }}
         >
           {title}
@@ -150,7 +167,7 @@ const Certificate = () => {
               <AwardXXSmall>{alternative.title}</AwardXXSmall>
               <TextSpacer />
               <AwardXXSmall>
-                {Math.floor(wantedProductPrice / alternative.price).toLocaleString()}
+                {Math.floor(price / alternative.price).toLocaleString()}
                 {alternative.unit}
               </AwardXXSmall>
             </ContentRowFlex>
@@ -160,7 +177,7 @@ const Certificate = () => {
       <ContentColumnFlex style={{ alignItems: 'flex-end' }}>
         <AwardXSmall style={{ alignSelf: 'flex-start' }}>총 금액</AwardXSmall>
         <AwardXXLarge>
-          <span>{wantedProductPrice.toLocaleString()}</span>
+          <span>{price.toLocaleString()}</span>
           <span style={{ marginLeft: 4 }}>₩</span>
         </AwardXXLarge>
       </ContentColumnFlex>

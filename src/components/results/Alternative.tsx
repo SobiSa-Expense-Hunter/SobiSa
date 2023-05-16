@@ -18,13 +18,15 @@ const AlternativeWrapper = styled.div`
   background-color: ${props => props.theme.colors.gray[0]};
   border: 1px solid ${props => props.theme.colors.gray[3]};
   border-radius: 6px;
+  overflow: hidden;
 `;
 
 const AlternativeInfo = styled(Large)`
   min-width: 80px;
-  white-space: nowrap;
   color: ${props => props.theme.colors.gray[3]};
   font-weight: 500;
+  word-break: keep-all;
+  white-space: pre-line;
 `;
 const AlternativeIcons = styled(motion.div)`
   height: 100%;
@@ -35,8 +37,9 @@ const AlternativeIcons = styled(motion.div)`
 `;
 
 const AlternativeIconsWrapper = styled.div`
-  flex-grow: 5;
+  flex-grow: 1;
   overflow: hidden;
+  max-width: 184px;
 `;
 
 interface AlternativeProps {
@@ -44,26 +47,25 @@ interface AlternativeProps {
   wantedProductPrice: number;
 }
 
-const slideVariants = {
-  from: { x: '100%' },
-  animate: { x: '-500%' },
-};
+const slideVariants = {};
 
 function Alternative({ alternative, wantedProductPrice }: AlternativeProps) {
   const amounts = Math.floor(wantedProductPrice / alternative.price);
+  if (amounts <= 0) return null;
 
   return (
     <AlternativeWrapper key={alternative.title}>
       <AlternativeInfo>
-        {alternative.title} {amounts} {alternative.unit}
+        {alternative.title} {amounts}&nbsp;
+        {alternative.unit}
       </AlternativeInfo>
       <AlternativeIconsWrapper>
-        {amounts > 10 ? (
+        {amounts > 7 ? (
           <AlternativeIcons
-            variants={slideVariants}
-            initial='from'
-            animate='animate'
-            transition={{ type: 'linear', duration: 20, repeat: Infinity }}
+            layout
+            initial={{ translateX: '100%' }}
+            animate={{ translateX: '-200%' }}
+            transition={{ type: 'linear', duration: 10, repeat: Infinity }}
           >
             {Array(amounts)
               .fill(0)

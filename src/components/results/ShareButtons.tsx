@@ -14,7 +14,7 @@ const ShareButtons = () => {
     <ShareButtonsContainer>
       <FacebookButton pageUrl={url} />
       <TwitterButton sendText={title} pageUrl={url} />
-      <KakaoButton title={title} description={text} mobileWebUrl={url} webUrl={url} />
+      <KakaoButton title={title} description={text} mobileWebUrl={url} webUrl={url} imgUrl='' />
       <NativeShareButton description={text} />
     </ShareButtonsContainer>
   );
@@ -28,3 +28,5 @@ const ShareButtonsContainer = styled.div`
   gap: 8px;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1));
 `;
+
+const imgUpload = () => {};

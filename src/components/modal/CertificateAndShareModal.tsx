@@ -6,9 +6,11 @@ import { ShareButton } from '@/components/common/buttons';
 import Certificate from '@/components/results/Certificate';
 import ShareButtons from '@/components/results/ShareButtons';
 import useModalAnimation from '@/hooks/useModalAnimation';
+import { Alternatives } from '@/types/result';
 
 interface CertificateAndShareModalProps {
   onClose: () => void;
+  alternatives: Alternatives[];
 }
 
 const CertificateAndShareContainer = styled(ModalContainer)`
@@ -18,14 +20,14 @@ const CertificateAndShareContainer = styled(ModalContainer)`
   gap: 32px;
 `;
 
-const CertificateAndShareModal = ({ onClose }: CertificateAndShareModalProps) => {
+const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShareModalProps) => {
   const { show, animationAfterClose } = useModalAnimation(onClose);
 
   return (
     <Portal>
       <Background show={show} />
       <CertificateAndShareContainer show={show}>
-        <Certificate />
+        <Certificate alternatives={alternatives} />
         <ShareButtons />
         <ShareButton
           onClick={animationAfterClose}
