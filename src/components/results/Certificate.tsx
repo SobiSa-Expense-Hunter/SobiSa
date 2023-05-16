@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ForwardedRef, forwardRef } from 'react';
 
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
@@ -24,6 +24,9 @@ import { Alternatives } from '@/types/result';
 
 const CertificateContainer = styled.div`
   position: relative;
+`;
+
+const CertificateWrapper = styled.div`
   width: 310px;
   min-height: 632px;
   padding: 30px 20px 40px 20px;
@@ -114,7 +117,10 @@ const Sticker = styled(motion.span)`
 
 const StickerStamp = styled(motion.span)``;
 
-const Certificate = ({ alternatives }: { alternatives: Alternatives[] }) => {
+const Certificate = (
+  { alternatives }: { alternatives: Alternatives[] },
+  ref: ForwardedRef<HTMLDivElement>,
+) => {
   const {
     product: { title, price },
     savingAmount,
@@ -137,88 +143,91 @@ const Certificate = ({ alternatives }: { alternatives: Alternatives[] }) => {
 
   return (
     <CertificateContainer>
-      <ColumnFlexEndWithBorderBottom style={{ paddingTop: 0 }}>
-        <SmallFlexEnd>
-          <AwardXXSmall>No.0001</AwardXXSmall>
-          <AwardXXSmall>{new Date().toISOString().substring(0, 19).replace('T', ' ')}</AwardXXSmall>
-        </SmallFlexEnd>
-        <AwardXLarge
-          style={{
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            width: '100%',
-            textAlign: 'right',
-          }}
-        >
-          {title}
-        </AwardXLarge>
-      </ColumnFlexEndWithBorderBottom>
-      <ContentColumnFlex>
-        <ContentRowFlex>
-          <AwardXSmallGray6>할부기간</AwardXSmallGray6>
-          <TextSpacer />
-          <AwardXXSmall>{savingsPeriod}개월</AwardXXSmall>
-        </ContentRowFlex>
-        <AwardXSmallGray6>기회비용</AwardXSmallGray6>
-        <SmallColumnFlex style={{ marginLeft: 20 }}>
-          {alternatives.map(alternative => (
-            <ContentRowFlex key={`receipt_${alternative.title}`}>
-              <AwardXXSmall>{alternative.title}</AwardXXSmall>
-              <TextSpacer />
-              <AwardXXSmall>
-                {Math.floor(price / alternative.price).toLocaleString()}
-                {alternative.unit}
-              </AwardXXSmall>
-            </ContentRowFlex>
-          ))}
-        </SmallColumnFlex>
-      </ContentColumnFlex>
-      <ContentColumnFlex style={{ alignItems: 'flex-end' }}>
-        <AwardXSmall style={{ alignSelf: 'flex-start' }}>총 금액</AwardXSmall>
-        <AwardXXLarge>
-          <span>{price.toLocaleString()}</span>
-          <span style={{ marginLeft: 4 }}>₩</span>
-        </AwardXXLarge>
-      </ContentColumnFlex>
-      <ContentColumnFlex>
-        <ContentRowFlex>
-          <QRCodeImage src='./assets/image/qrcode.png' alt='소비사로 이동하기 qr코드' />
+      <CertificateWrapper ref={ref}>
+        <ColumnFlexEndWithBorderBottom style={{ paddingTop: 0 }}>
           <SmallFlexEnd>
-            <AwardSmallOrange style={{ textAlign: 'right' }}>
-              당신의 지갑 지킴이,
-              <br />
-              소비사!
-            </AwardSmallOrange>
-            <SmallRowFlex>
-              <SmallRowFlex style={{ gap: '6px' }}>
-                {Array.from({ length: 6 }, (_, i) => i + 1).map(v => (
-                  <ArrowIcon key={`arrow_${v}`} />
-                ))}
-              </SmallRowFlex>
-              <AwardXXSmall>홈페이지 바로가기</AwardXXSmall>
-            </SmallRowFlex>
+            <AwardXXSmall>No.0001</AwardXXSmall>
+            <AwardXXSmall>
+              {new Date().toISOString().substring(0, 19).replace('T', ' ')}
+            </AwardXXSmall>
           </SmallFlexEnd>
-        </ContentRowFlex>
-      </ContentColumnFlex>
-      <MediumGapContentColumnFlex>
-        <AwardXSmall>사기 전 충분히 고민했나요?</AwardXSmall>
-        <ContentRowFlex>
-          <AwardXXSmall>https://www.youtube.com/watch</AwardXXSmall>
-          <StickerStamp
-            initial={{ scale: 5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{
-              delay: 0.8,
-              opacity: { ease: 'linear' },
-              layout: { duration: 1 },
+          <AwardXLarge
+            style={{
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              width: '100%',
+              textAlign: 'right',
             }}
           >
-            <SobisaTextLogoSticker />
-          </StickerStamp>
-        </ContentRowFlex>
-      </MediumGapContentColumnFlex>
-
+            {title}
+          </AwardXLarge>
+        </ColumnFlexEndWithBorderBottom>
+        <ContentColumnFlex>
+          <ContentRowFlex>
+            <AwardXSmallGray6>할부기간</AwardXSmallGray6>
+            <TextSpacer />
+            <AwardXXSmall>{savingsPeriod}개월</AwardXXSmall>
+          </ContentRowFlex>
+          <AwardXSmallGray6>기회비용</AwardXSmallGray6>
+          <SmallColumnFlex style={{ marginLeft: 20 }}>
+            {alternatives.map(alternative => (
+              <ContentRowFlex key={`receipt_${alternative.title}`}>
+                <AwardXXSmall>{alternative.title}</AwardXXSmall>
+                <TextSpacer />
+                <AwardXXSmall>
+                  {Math.floor(price / alternative.price).toLocaleString()}
+                  {alternative.unit}
+                </AwardXXSmall>
+              </ContentRowFlex>
+            ))}
+          </SmallColumnFlex>
+        </ContentColumnFlex>
+        <ContentColumnFlex style={{ alignItems: 'flex-end' }}>
+          <AwardXSmall style={{ alignSelf: 'flex-start' }}>총 금액</AwardXSmall>
+          <AwardXXLarge>
+            <span>{price.toLocaleString()}</span>
+            <span style={{ marginLeft: 4 }}>₩</span>
+          </AwardXXLarge>
+        </ContentColumnFlex>
+        <ContentColumnFlex>
+          <ContentRowFlex>
+            <QRCodeImage src='./assets/image/qrcode.png' alt='소비사로 이동하기 qr코드' />
+            <SmallFlexEnd>
+              <AwardSmallOrange style={{ textAlign: 'right' }}>
+                당신의 지갑 지킴이,
+                <br />
+                소비사!
+              </AwardSmallOrange>
+              <SmallRowFlex>
+                <SmallRowFlex style={{ gap: '6px' }}>
+                  {Array.from({ length: 6 }, (_, i) => i + 1).map(v => (
+                    <ArrowIcon key={`arrow_${v}`} />
+                  ))}
+                </SmallRowFlex>
+                <AwardXXSmall>홈페이지 바로가기</AwardXXSmall>
+              </SmallRowFlex>
+            </SmallFlexEnd>
+          </ContentRowFlex>
+        </ContentColumnFlex>
+        <MediumGapContentColumnFlex>
+          <AwardXSmall>사기 전 충분히 고민했나요?</AwardXSmall>
+          <ContentRowFlex>
+            <AwardXXSmall>https://www.youtube.com/watch</AwardXXSmall>
+            <StickerStamp
+              initial={{ scale: 5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{
+                delay: 0.8,
+                opacity: { ease: 'linear' },
+                layout: { duration: 1 },
+              }}
+            >
+              <SobisaTextLogoSticker />
+            </StickerStamp>
+          </ContentRowFlex>
+        </MediumGapContentColumnFlex>
+      </CertificateWrapper>
       <Sticker
         initial={{ scale: 3, opacity: 0 }}
         animate={{ scale: 1, opacity: 1, transform: 'rotate(-21.33deg)' }}
@@ -226,7 +235,7 @@ const Certificate = ({ alternatives }: { alternatives: Alternatives[] }) => {
           layout: { duration: 2 },
           delay: 0.1,
         }}
-        style={{ left: 227, top: -24 }}
+        style={{ left: 227, top: -22.85 }}
       >
         <SobisaTextFillLogoSticker />
       </Sticker>
@@ -258,4 +267,4 @@ const Certificate = ({ alternatives }: { alternatives: Alternatives[] }) => {
   );
 };
 
-export default Certificate;
+export default forwardRef(Certificate);
