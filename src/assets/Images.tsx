@@ -3,7 +3,16 @@ import Image from 'next/image';
 const IMG_PATH = '/assets';
 
 export const MainImage = () => {
-  return <Image src={`${IMG_PATH}/image.svg`} width={220} height={220} alt='소비사 캐릭터' />;
+  return (
+    <Image
+      src={`${IMG_PATH}/image/main.png`}
+      width={220}
+      height={220}
+      alt='소비사 main img'
+      quality={100}
+      loading='lazy'
+    />
+  );
 };
 export const LineImage = () => {
   return <Image src={`${IMG_PATH}/image_line.svg`} width={220} height={220} alt='소비사 캐릭터' />;
