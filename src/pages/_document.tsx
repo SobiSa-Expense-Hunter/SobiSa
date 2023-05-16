@@ -37,12 +37,10 @@ class MyDocument extends Document {
 
   render(): JSX.Element {
     return (
-      <Html lang='en'>
+      <Html lang='ko'>
         <Head>
           <link
-            rel='preload'
-            as='font'
-            type='font/woff2'
+            rel='stylesheet'
             href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css'
           />
           <meta name='viewport' content='initial-scale=1.0, width=device-width' />
