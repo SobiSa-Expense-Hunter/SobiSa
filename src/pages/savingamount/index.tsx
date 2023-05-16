@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import { Indicator01 } from '@/assets/Indicators';
 import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
-
 import { BottomButton } from '@/components/common/buttons';
 import NoticeModal from '@/components/modal/NoticeModal';
 import { InputRegExp } from '@/constant';
