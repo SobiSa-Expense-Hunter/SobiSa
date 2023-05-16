@@ -7,7 +7,7 @@ import { Medium } from '@/styles/font';
 
 const Header = () => {
   const router = useRouter();
-  const isHome = router.asPath === '/search';
+  const isHome = router.asPath === '/';
 
   return (
     <HeaderWrapper>
@@ -17,7 +17,7 @@ const Header = () => {
         </Button>
       )}
       <StyleTextLogo>
-        <Link href='/search'>
+        <Link href='/'>
           <Medium>SOBISA!</Medium>
         </Link>
       </StyleTextLogo>
