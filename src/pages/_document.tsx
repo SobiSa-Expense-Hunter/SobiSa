@@ -40,8 +40,9 @@ class MyDocument extends Document {
       <Html lang='en'>
         <Head>
           <link
-            rel='stylesheet'
-            as='style'
+            rel='preload'
+            as='font'
+            type='font/woff2'
             href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css'
           />
           <meta name='viewport' content='initial-scale=1.0, width=device-width' />

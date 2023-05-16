@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { Indicator01 } from '@/assets/Indicators';
-import { useSearchStore } from '@/components/SearchProvider';
+import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
+
 import { BottomButton } from '@/components/common/buttons';
 import NoticeModal from '@/components/modal/NoticeModal';
 import { InputRegExp } from '@/constant';
@@ -14,7 +15,9 @@ const SavingAmount = () => {
   const [amount, setAmount] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [typingModal, setTypingModal] = useState(false);
+
   const store = useSearchStore();
+  const dispatch = useSearchDispatch();
   const router = useRouter();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,13 +32,17 @@ const SavingAmount = () => {
   };
 
   const handleSubmit = () => {
-    const isFillAll = store.product && store.savingAmount;
-    if (!isFillAll) {
+    if (!amount) {
       setTypingModal(true);
+    } else {
+      dispatch({
+        type: 'ADD_SAVINGAMOUNT',
+        item: Number(amount.replaceAll(',', '')),
+      });
+      router.push('/result');
     }
-
-    // router.push()
   };
+
   return (
     <Container>
       <InputContainer>
