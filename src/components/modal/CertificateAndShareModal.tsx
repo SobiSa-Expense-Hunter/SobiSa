@@ -3,6 +3,7 @@ import { useCallback, useRef } from 'react';
 import { toPng } from 'html-to-image';
 import styled from 'styled-components';
 
+import { DownloadIcon } from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import { Background, ModalContainer } from '@/components/common/Modal';
 import { BottomButton, ShareButton } from '@/components/common/buttons';
@@ -53,7 +54,7 @@ const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShare
     try {
       const dataUrl = await toPng(ref.current, { cacheBust: true });
       const { data } = await uploadImage(dataUrl);
-      console.log(data.display_url);
+
       callback(data.display_url);
     } catch (e) {
       callback('');
@@ -62,17 +63,16 @@ const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShare
 
   return (
     <Portal>
-      <Background show={show} />
+      <Background show={show} onClick={animationAfterClose} />
       <CertificateAndShareContainer show={show}>
         <Certificate alternatives={alternatives} ref={ref} />
         <ShareButtons shareImage={shareImage} />
         <ShareButton
-          onClick={animationAfterClose}
+          onClick={certificateDownload}
           style={{ marginTop: -12, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}
         >
-          다음에 할게요!
+          이미지 저장하기! <DownloadIcon />
         </ShareButton>
-        <BottomButton onClick={certificateDownload}>임명장 저장하기</BottomButton>
       </CertificateAndShareContainer>
     </Portal>
   );

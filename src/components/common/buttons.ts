@@ -27,6 +27,7 @@ const Button = styled.button`
 `;
 
 export const ImageButton = styled(Button)`
+  position: relative;
   appearance: none;
   border: 0;
   border-radius: 50%;
@@ -35,6 +36,9 @@ export const ImageButton = styled(Button)`
   height: fit-content;
   background: inherit;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
 `;
 
 export const ModalButton = styled(Button)`
@@ -65,4 +69,5 @@ export const ShareButton = styled(Button)`
   width: 310px;
   height: 61px;
   font-size: 14px;
+  gap: 8px;
 `;

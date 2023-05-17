@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { KakaoIcon } from '@/assets/SocialIcons';
+import { KakaoIconImg } from '@/assets/SocialIcons';
 import { ImageButton } from '@/components/common/buttons';
 
 interface KakaoButtonProps {
@@ -53,8 +53,12 @@ const KakaoButton = ({
   };
 
   return (
-    <ImageButton type='button' onClick={() => shareImage(shareOnKakao)}>
-      <KakaoIcon />
+    <ImageButton
+      type='button'
+      onClick={() => shareImage(shareOnKakao)}
+      style={{ background: '#FFE812' }}
+    >
+      <KakaoIconImg />
     </ImageButton>
   );
 };

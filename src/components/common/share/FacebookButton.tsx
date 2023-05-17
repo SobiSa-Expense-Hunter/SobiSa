@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FaceBookIcon } from '@/assets/SocialIcons';
+import { FaceBookIconImg } from '@/assets/SocialIcons';
 import { ImageButton } from '@/components/common/buttons';
 
 interface FacebookButtonProps {
@@ -13,8 +13,8 @@ const FacebookButton = ({ pageUrl }: FacebookButtonProps) => {
   };
 
   return (
-    <ImageButton type='button' onClick={shareOnFacebook}>
-      <FaceBookIcon />
+    <ImageButton type='button' onClick={shareOnFacebook} style={{ background: '#1877F2' }}>
+      <FaceBookIconImg />
     </ImageButton>
   );
 };

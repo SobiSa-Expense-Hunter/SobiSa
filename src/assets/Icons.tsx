@@ -35,3 +35,7 @@ export const MagnifyingGlassIcon = () => {
 export const ArrowIcon = () => {
   return <Image src={`${ICON_PATH}/arrow.svg`} width={8} height={8} alt='메뉴' />;
 };
+
+export const DownloadIcon = () => {
+  return <Image src={`${ICON_PATH}/download.svg`} width={12} height={13} alt='다운로드' />;
+};

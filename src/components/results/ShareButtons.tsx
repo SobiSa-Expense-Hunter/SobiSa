@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import FacebookButton from '@/components/common/share/FacebookButton';
 import KakaoButton from '@/components/common/share/KakaoButton';
+import LinkButton from '@/components/common/share/LinkButton';
 import NativeShareButton from '@/components/common/share/NativeShareButton';
 import TwitterButton from '@/components/common/share/TwitterButton';
 import { sharedMessage } from '@/constant';
@@ -25,6 +26,7 @@ const ShareButtons = ({
         webUrl={url}
         shareImage={shareImage}
       />
+      <LinkButton pageUrl={url} />
       <NativeShareButton description={text} />
     </ShareButtonsContainer>
   );
@@ -38,5 +40,3 @@ const ShareButtonsContainer = styled.div`
   gap: 8px;
   filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.1));
 `;
-
-const imgUpload = () => {};

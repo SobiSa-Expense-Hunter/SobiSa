@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LinkIcon } from '@/assets/Icons';
+import { NavigatorShareIcon } from '@/assets/SocialIcons';
 import { ImageButton } from '@/components/common/buttons';
 
 const NativeShareButton = ({ description }: { description: string }) => {
@@ -11,8 +11,12 @@ const NativeShareButton = ({ description }: { description: string }) => {
   const sendData: ShareData = { text: description };
 
   return (
-    <ImageButton type='button' onClick={() => navigator.share(sendData)}>
-      <LinkIcon />
+    <ImageButton
+      type='button'
+      onClick={() => navigator.share(sendData)}
+      style={{ background: '#EAEAEA' }}
+    >
+      <NavigatorShareIcon />
     </ImageButton>
   );
 };
