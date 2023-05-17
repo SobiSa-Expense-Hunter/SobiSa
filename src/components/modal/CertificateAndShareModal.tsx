@@ -10,6 +10,7 @@ import Certificate from '@/components/results/Certificate';
 import ShareButtons from '@/components/results/ShareButtons';
 import useModalAnimation from '@/hooks/useModalAnimation';
 import { Alternatives } from '@/types/result';
+import uploadImage from '@/utils/api/uploadImageApi';
 
 interface CertificateAndShareModalProps {
   onClose: () => void;
@@ -41,16 +42,30 @@ const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShare
         link.click();
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
       });
   }, [ref]);
+
+  const shareImage = async (callback: (imgUrl: string) => void) => {
+    if (ref.current === null) {
+      return;
+    }
+    try {
+      const dataUrl = await toPng(ref.current, { cacheBust: true });
+      const { data } = await uploadImage(dataUrl);
+      console.log(data.display_url);
+      callback(data.display_url);
+    } catch (e) {
+      callback('');
+    }
+  };
 
   return (
     <Portal>
       <Background show={show} />
       <CertificateAndShareContainer show={show}>
         <Certificate alternatives={alternatives} ref={ref} />
-        <ShareButtons />
+        <ShareButtons shareImage={shareImage} />
         <ShareButton
           onClick={animationAfterClose}
           style={{ marginTop: -12, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}
