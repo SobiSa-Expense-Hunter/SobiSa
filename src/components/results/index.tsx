@@ -9,7 +9,7 @@ import { ShareButton } from '@/components/common/buttons';
 import CertificateAndShareModal from '@/components/modal/CertificateAndShareModal';
 import NoticeModal from '@/components/modal/NoticeModal';
 import Alternative from '@/components/results/Alternative';
-import { alternatives } from '@/constant';
+import alternatives from '@/constant/Alternatives';
 import { ExtraLarge, Large, LargeOrange, Medium } from '@/styles/font';
 
 const Wrapper = styled.div`
