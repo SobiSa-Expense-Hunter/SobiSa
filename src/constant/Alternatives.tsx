@@ -60,7 +60,7 @@ const alternatives: Alternatives[] = [
   {
     title: '커피',
     price: 5000,
-    image: `${EMOJI_PATH}/emoji_carnation.png`,
+    image: `${EMOJI_PATH}/emoji_coffee.png`,
     unit: '잔 마시기',
   },
   {
@@ -84,7 +84,7 @@ const alternatives: Alternatives[] = [
   {
     title: '따릉이 1년권',
     price: 30000,
-    image: `${EMOJI_PATH}/emoji_doll.png`,
+    image: `${EMOJI_PATH}/emoji_bicycle.png`,
     unit: '개',
   },
   {
