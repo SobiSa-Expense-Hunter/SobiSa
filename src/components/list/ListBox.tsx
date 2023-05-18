@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styled from 'styled-components';
 
 import { StyledListContainer } from '@/components/list/styles';
@@ -14,9 +15,14 @@ const ListBox = ({ product, listClickHandler }: ListBoxProps) => {
   const { productId, image, price, title, brand, category1, category2 } = product;
   return (
     <StyledListContainer onClick={() => listClickHandler(product)}>
-      <StyledImgWrapper>
-        <img src={image} alt={`${productId} img`} />
-      </StyledImgWrapper>
+      <Image
+        src={image}
+        alt={`${productId} img`}
+        width={111}
+        height={111}
+        placeholder='blur'
+        blurDataURL='/assets/icons/placeholder_box.svg'
+      />
       <TextItem>
         <Title className='title'>{title}</Title>
         <MediumOrange>{price.toLocaleString()} 원</MediumOrange>
@@ -27,12 +33,6 @@ const ListBox = ({ product, listClickHandler }: ListBoxProps) => {
 };
 
 export default ListBox;
-
-const StyledImgWrapper = styled.div`
-  img {
-    max-width: 100px;
-  }
-`;
 
 const TextItem = styled.div`
   flex: 1;

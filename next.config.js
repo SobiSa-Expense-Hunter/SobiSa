@@ -37,6 +37,9 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: ['shopping-phinf.pstatic.net', 'localhost'],
+  },
 };
 
 module.exports = nextConfig;
