@@ -22,6 +22,12 @@ const AlternativeWrapper = styled.div`
   overflow: hidden;
 `;
 
+const AlternativeTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
 const AlternativeInfo = styled(Large)`
   font-weight: 500;
   word-break: keep-all;
@@ -46,8 +52,8 @@ const AlternativeIcon = styled.span<{ url: string }>`
 `;
 
 const AlternativeIconsWrapper = styled.div`
-  flex-grow: 1;
   overflow: hidden;
+  padding: 0px 10px;
 `;
 
 interface AlternativeProps {
@@ -74,14 +80,16 @@ function Alternative({
 
   return (
     <AlternativeWrapper key={title}>
-      <AlternativeInfo>
-        {title}
-        {`(${price.toLocaleString()}원)`}
-      </AlternativeInfo>
-      <ExtraLarge style={{ textAlign: 'right', fontSize: '17pt' }}>
-        {amounts}&nbsp;
-        {unit}
-      </ExtraLarge>
+      <AlternativeTextWrapper>
+        <AlternativeInfo>
+          {title}
+          {`(${price.toLocaleString()}원)`}
+        </AlternativeInfo>
+        <ExtraLarge style={{ textAlign: 'right', fontSize: '17pt' }}>
+          {amounts}&nbsp;
+          {unit}
+        </ExtraLarge>
+      </AlternativeTextWrapper>
       <AlternativeIconsWrapper>
         {amounts > 8 ? (
           <AlternativeIcons

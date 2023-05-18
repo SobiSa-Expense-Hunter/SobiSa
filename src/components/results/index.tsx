@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
+import { Indicator01 } from '@/assets/Indicators';
 import { useSearchStore } from '@/components/SearchProvider';
 import FrameName from '@/components/common/FrameName';
 import { ShareButton } from '@/components/common/buttons';
@@ -68,7 +69,7 @@ const CertificateContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 56px;
-  margin: 16px 0 56px;
+  margin: 28px 0 56px;
 `;
 
 function Result() {
@@ -105,9 +106,9 @@ function Result() {
 
   const randomAlternatives = (() => {
     const newAlternatives = alternatives
-      .filter(obj => obj.price < price)
+      .filter(obj => obj.price <= price)
       .sort(() => 0.5 - Math.random());
-    return newAlternatives.length > 5 ? newAlternatives.slice(0, 4) : newAlternatives;
+    return newAlternatives.length > 5 ? newAlternatives.slice(0, 3) : newAlternatives;
   })();
 
   return (
@@ -144,7 +145,10 @@ function Result() {
         <Large style={{ fontWeight: 500 }}>
           이걸 보고도 갖고 싶으시다면, <br /> 임명장을 발급받아 보세요!
         </Large>
-        <ShareButton onClick={toggleModal}>임명장 받기</ShareButton>
+        <ShareButton onClick={toggleModal} style={{ marginTop: 8 }}>
+          임명장 받기
+        </ShareButton>
+        <Indicator01 />
       </CertificateContainer>
 
       {showModal && (

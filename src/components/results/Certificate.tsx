@@ -8,6 +8,7 @@ import { ArrowIcon } from '@/assets/Icons';
 import {
   CharacterBlackSticker,
   CharacterColorSticker,
+  ExpensiveTextSticker,
   SobisaTextFillLogoSticker,
   SobisaTextLogoSticker,
 } from '@/assets/Stickers';
@@ -262,6 +263,19 @@ const Certificate = (
         style={{ left: 20, top: -37 }}
       >
         <CharacterColorSticker />
+      </Sticker>
+
+      <Sticker
+        initial={{ scale: 3, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1, transform: 'rotate(15.52deg)' }}
+        transition={{
+          opacity: { ease: 'linear' },
+          layout: { duration: 2 },
+          delay: 0.3,
+        }}
+        style={{ left: -58, top: 434 }}
+      >
+        <ExpensiveTextSticker />
       </Sticker>
     </CertificateContainer>
   );

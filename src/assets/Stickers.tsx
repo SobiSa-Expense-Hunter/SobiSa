@@ -39,3 +39,7 @@ export const SobisaTextLogoSticker = () => (
     alt='소비사 텍스트 로고 스티커'
   />
 );
+
+export const ExpensiveTextSticker = () => (
+  <Image src={`${STICKER_PATH}/sticker_expensive.svg`} width={144} height={32} alt='비싸다' />
+);
