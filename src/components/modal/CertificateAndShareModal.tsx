@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { DownloadIcon } from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import { Background, ModalContainer } from '@/components/common/Modal';
-import { BottomButton, ShareButton } from '@/components/common/buttons';
+import { ShareButton } from '@/components/common/buttons';
 import Certificate from '@/components/results/Certificate';
 import ShareButtons from '@/components/results/ShareButtons';
 import useModalAnimation from '@/hooks/useModalAnimation';
@@ -22,8 +22,19 @@ const CertificateAndShareContainer = styled(ModalContainer)`
   background-color: transparent;
   max-width: fit-content;
   max-height: fit-content;
+
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+
+  justify-content: flex-start;
+  overflow-y: auto;
+`;
+
+const CertificateAndShareWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 32px;
-  padding-top: 50px;
 `;
 
 const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShareModalProps) => {
@@ -63,16 +74,25 @@ const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShare
 
   return (
     <Portal>
-      <Background show={show} onClick={animationAfterClose} />
-      <CertificateAndShareContainer show={show}>
-        <Certificate alternatives={alternatives} ref={ref} />
-        <ShareButtons shareImage={shareImage} />
-        <ShareButton
-          onClick={certificateDownload}
-          style={{ marginTop: -12, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}
-        >
-          이미지 저장하기! <DownloadIcon />
-        </ShareButton>
+      <Background show={show} />
+      <CertificateAndShareContainer
+        show={show}
+        onClick={e => {
+          if (e.target instanceof HTMLDivElement && e.target.id === 'container')
+            animationAfterClose();
+        }}
+        id='container'
+      >
+        <CertificateAndShareWrapper>
+          <Certificate alternatives={alternatives} ref={ref} />
+          <ShareButtons shareImage={shareImage} />
+          <ShareButton
+            onClick={certificateDownload}
+            style={{ marginTop: -12, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}
+          >
+            이미지 저장하기! <DownloadIcon />
+          </ShareButton>
+        </CertificateAndShareWrapper>
       </CertificateAndShareContainer>
     </Portal>
   );
