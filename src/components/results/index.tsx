@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
@@ -12,6 +12,7 @@ import NoticeModal from '@/components/modal/NoticeModal';
 import Alternative from '@/components/results/Alternative';
 import alternatives from '@/constant/Alternatives';
 import { ExtraLarge, Large, LargeOrange, Medium } from '@/styles/font';
+import { Alternatives } from '@/types/result';
 
 const Wrapper = styled.div`
   display: flex;
@@ -79,6 +80,16 @@ function Result() {
     savingAmount,
   } = useSearchStore();
   const router = useRouter();
+  const [randomAlternatives, setRandomAlternatives] = useState<Alternatives[]>(alternatives);
+
+  useEffect(() => {
+    const newAlternatives = alternatives
+      .filter(obj => obj.price <= (price ?? 0))
+      .sort(() => 0.5 - Math.random());
+    setRandomAlternatives(
+      newAlternatives.length > 5 ? newAlternatives.slice(0, 3) : newAlternatives,
+    );
+  }, [price]);
 
   if (!title || !price) {
     return (
@@ -103,13 +114,6 @@ function Result() {
   const toggleModal = () => {
     setShowModal(prev => !prev);
   };
-
-  const randomAlternatives = (() => {
-    const newAlternatives = alternatives
-      .filter(obj => obj.price <= price)
-      .sort(() => 0.5 - Math.random());
-    return newAlternatives.length > 5 ? newAlternatives.slice(0, 3) : newAlternatives;
-  })();
 
   return (
     <Wrapper>
