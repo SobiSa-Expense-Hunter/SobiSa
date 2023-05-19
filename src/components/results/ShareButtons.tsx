@@ -19,13 +19,7 @@ const ShareButtons = ({
     <ShareButtonsContainer>
       <FacebookButton pageUrl={url} />
       <TwitterButton sendText={title} pageUrl={url} />
-      <KakaoButton
-        title={title}
-        description={text}
-        mobileWebUrl={url}
-        webUrl={url}
-        shareImage={shareImage}
-      />
+      <KakaoButton title={title} description={text} webUrl={url} shareImage={shareImage} />
       <LinkButton pageUrl={url} />
       <NativeShareButton description={text} />
     </ShareButtonsContainer>
