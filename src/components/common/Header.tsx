@@ -46,7 +46,6 @@ const HeaderWrapper = styled.header`
   width: 310px;
   height: 41px;
   background-color: white;
-  z-index: 1000;
 `;
 
 const StyleTextLogo = styled(Medium)`

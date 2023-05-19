@@ -4,17 +4,29 @@ import styled from 'styled-components';
 
 import FacebookButton from '@/components/common/share/FacebookButton';
 import KakaoButton from '@/components/common/share/KakaoButton';
+import LinkButton from '@/components/common/share/LinkButton';
 import NativeShareButton from '@/components/common/share/NativeShareButton';
 import TwitterButton from '@/components/common/share/TwitterButton';
 import { sharedMessage } from '@/constant';
 
-const ShareButtons = () => {
+const ShareButtons = ({
+  shareImage,
+}: {
+  shareImage: (callback: (imgUrl: string) => void) => Promise<void>;
+}) => {
   const { title = '', text = '', url = '' } = sharedMessage;
   return (
     <ShareButtonsContainer>
       <FacebookButton pageUrl={url} />
       <TwitterButton sendText={title} pageUrl={url} />
-      <KakaoButton title={title} description={text} mobileWebUrl={url} webUrl={url} />
+      <KakaoButton
+        title={title}
+        description={text}
+        mobileWebUrl={url}
+        webUrl={url}
+        shareImage={shareImage}
+      />
+      <LinkButton pageUrl={url} />
       <NativeShareButton description={text} />
     </ShareButtonsContainer>
   );
