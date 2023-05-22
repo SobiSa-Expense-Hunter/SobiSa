@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -93,7 +93,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
           <form onSubmit={onSubmit}>
             {products.map(product => (
               <ListBox
-                key={`${product.productId} key`}
+                key={`${product.productId}`}
                 product={product}
                 listClickHandler={listClickHandler}
               />
