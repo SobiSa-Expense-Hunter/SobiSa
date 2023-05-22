@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { v4 as uuidv4 } from 'uuid';
 
 import { IMG_FILTER, SORT } from '@/constant/list';
 import { getProductsApi } from '@/utils/api';
@@ -35,7 +36,7 @@ function useSearchProducts(userSearch: string) {
         originDatas.pages.reduce((acc, page) => {
           const processedPageData = page.items.map(item => {
             const tmpProduct: Product = {
-              productId: item.productId,
+              productId: `${item.productId} ${uuidv4()}`,
               title: item.title.replaceAll('<b>', '').replaceAll('</b>', ''),
               image: item.image,
               price: Number(item.lprice),
