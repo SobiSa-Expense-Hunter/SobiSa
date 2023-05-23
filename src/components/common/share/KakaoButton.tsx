@@ -7,11 +7,19 @@ interface KakaoButtonProps {
   title: string;
   description: string;
   webUrl: string;
-  shareImage: (callback: (imgUrl: string) => void) => Promise<void>;
+  shareImage?: ((callback: (imgUrl: string) => void) => Promise<void>) | null;
 }
 
 const KakaoButton = ({ title, description, webUrl, shareImage }: KakaoButtonProps) => {
-  const shareOnKakao = (imgUrl: string) => {
+  const onClick = () => {
+    if (shareImage) {
+      shareImage(shareOnKakao);
+    } else {
+      shareOnKakao();
+    }
+  };
+
+  const shareOnKakao = (imgUrl?: string) => {
     if (!window.Kakao) return;
 
     window.Kakao.Share.sendDefault({
@@ -19,7 +27,7 @@ const KakaoButton = ({ title, description, webUrl, shareImage }: KakaoButtonProp
       content: {
         title,
         description,
-        imageUrl: imgUrl,
+        imageUrl: imgUrl ?? '',
         link: {
           webUrl,
         },
@@ -28,14 +36,14 @@ const KakaoButton = ({ title, description, webUrl, shareImage }: KakaoButtonProp
   };
 
   return (
-    <ImageButton
-      type='button'
-      onClick={() => shareImage(shareOnKakao)}
-      style={{ background: '#FFE812' }}
-    >
+    <ImageButton type='button' onClick={onClick} style={{ background: '#FFE812' }}>
       <KakaoIconImg />
     </ImageButton>
   );
+};
+
+KakaoButton.defaultProps = {
+  shareImage: null,
 };
 
 export default KakaoButton;
