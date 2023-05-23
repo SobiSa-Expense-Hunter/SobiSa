@@ -18,8 +18,8 @@ function Home() {
   const { title = '', text = '', url = '' } = sharedMessage;
   return (
     <Container>
-      <Font.Medium>더 쉽고 재미있게</Font.Medium>
-      <Font.Large>소비사의 계산기를 사용해보세요!</Font.Large>
+      <Font.Medium>지금 뭘 사고 싶나요?</Font.Medium>
+      <Font.Large>소비사와 같이 고민해 봐요!</Font.Large>
       <ImageBox>
         <MainImage />
       </ImageBox>
