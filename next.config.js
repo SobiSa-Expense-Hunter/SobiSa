@@ -39,6 +39,7 @@ const nextConfig = {
   },
   images: {
     domains: ['shopping-phinf.pstatic.net', 'localhost'],
+    unoptimized: true,
   },
 };
 
