@@ -16,6 +16,7 @@ const AlternativeWrapper = styled.div`
   box-sizing: border-box;
   gap: 16px;
   width: inherit;
+  max-width: 310px;
   background-color: ${props => props.theme.colors.gray[0]};
   border: 1px solid ${props => props.theme.colors.gray[3]};
   border-radius: 12px;

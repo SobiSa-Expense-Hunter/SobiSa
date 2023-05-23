@@ -80,13 +80,11 @@ const List = ({ products, queryRes }: ListPageProps) => {
 
   return (
     <>
-      <FixedWrapper>
-        <BtnWrapper>
-          <TopBtn type='button' onClick={() => topBtnHandler()}>
-            <SVG.TopIcon />
-          </TopBtn>
-        </BtnWrapper>
-      </FixedWrapper>
+      <Fixed>
+        <TopBtn type='button' onClick={() => topBtnHandler()}>
+          <SVG.TopIcon />
+        </TopBtn>
+      </Fixed>
 
       <ListLayout>
         <>
@@ -135,24 +133,22 @@ export function ListLayout({ children }: { children: React.ReactElement }) {
   );
 }
 
+const Fixed = styled.div`
+  position: fixed;
+  bottom: 26px;
+`;
+
 const TopBtn = styled.button`
   cursor: pointer;
   position: absolute;
-  margin-left: 300px;
+  display: flex;
+  transform: translate(-50%, -100%);
 
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   border: none;
   background: inherit;
-`;
-
-const FixedWrapper = styled.div`
-  position: fixed;
-  bottom: 0px;
-  margin-bottom: 60px;
-`;
-
-const BtnWrapper = styled.div`
-  position: relative;
+  justify-content: flex-end;
+  min-width: 310px;
 `;

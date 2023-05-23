@@ -7,8 +7,10 @@ import Header from '../common/Header';
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <Centering>
-      <Header />
-      <FixedWidth>{children}</FixedWidth>
+      <FixedWidth>
+        <Header />
+        {children}
+      </FixedWidth>
     </Centering>
   );
 }
@@ -24,7 +26,13 @@ export const FixedWidth = styled.div`
   width: 375px;
   padding: 0 16px;
   background-color: white;
-  min-height: calc(100vh - 41px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-height: 100vh;
+
   @media (max-width: 375px) {
     width: 100%;
   }
