@@ -39,3 +39,7 @@ export const ArrowIcon = () => {
 export const DownloadIcon = () => {
   return <Image src={`${ICON_PATH}/download.svg`} width={12} height={13} alt='다운로드' />;
 };
+
+export const InitializationIcon = () => {
+  return <Image src={`${ICON_PATH}/Initialization.svg`} width={20} height={20} alt='초기화' />;
+};
