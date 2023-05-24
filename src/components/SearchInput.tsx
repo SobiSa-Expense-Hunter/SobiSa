@@ -43,7 +43,7 @@ function SearchInput() {
       <SearchInputBox>
         <SearchEnterInput
           type='text'
-          placeholder='Search'
+          placeholder='살까 말까하는 그 물건...'
           value={search}
           onChange={e => setSearch(e.target.value)}
           onKeyDown={handleSearchKeyDownEvent}
@@ -93,11 +93,18 @@ const SearchEnterInput = styled.input`
   color: ${({ theme }) => theme.colors.mainColor};
   ::placeholder,
   ::-webkit-input-placeholder {
-    color: ${({ theme }) => theme.colors.mainColor};
+    color: ${({ theme }) => theme.colors.gray[3]};
   }
   :-ms-input-placeholder {
-    color: ${({ theme }) => theme.colors.mainColor};
+    color: ${({ theme }) => theme.colors.gray[3]};
   }
+
+  /*INPUT-FONT */
+  font-family: 'Pretendard Variable';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.022em;
 `;
 const SearchButton = styled.button`
   box-sizing: border-box;
