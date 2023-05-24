@@ -138,6 +138,18 @@ const Scroll = styled.div`
   height: 80vh;
   overflow-y: auto;
   padding-bottom: 50px;
+  padding: 15px 15px;
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-thumb {
+    width: 4px;
+    border-radius: 2px;
+    background-clip: padding-box;
+    border: 10px solid transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.gray[2]};
+  }
 `;
 
 const Fixed = styled.div`
