@@ -69,7 +69,7 @@ const SearchInputContainer = styled.div`
   align-items: center;
   border: 2px solid ${({ theme }) => theme.colors.mainColor};
   border-radius: 8px;
-  min-width: 310px;
+  max-width: 310px;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.mainColor};
 `;
