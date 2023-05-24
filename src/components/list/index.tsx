@@ -73,7 +73,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
       item: userSelected,
     });
 
-    router.push('/savingamount');
+    router.push('/keyword');
   };
 
   const onClose = () => setShowModal(false);
