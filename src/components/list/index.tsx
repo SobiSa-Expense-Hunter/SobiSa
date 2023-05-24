@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -115,6 +115,8 @@ const List = ({ products, queryRes }: ListPageProps) => {
           )}
         </>
       </ListLayout>
+      <MarginBox margin='10px' />
+      <Indicator02 />
     </>
   );
 };
@@ -127,11 +129,16 @@ export function ListLayout({ children }: { children: React.ReactElement }) {
       <MarginBox margin='15px' />
       <SearchInput />
       <MarginBox margin='32px' />
-      {children}
-      <Indicator02 />
+      <Scroll>{children}</Scroll>
     </Centering>
   );
 }
+
+const Scroll = styled.div`
+  height: 80vh;
+  overflow-y: auto;
+  padding-bottom: 50px;
+`;
 
 const Fixed = styled.div`
   position: fixed;
