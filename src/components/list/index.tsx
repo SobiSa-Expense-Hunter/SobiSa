@@ -142,7 +142,8 @@ const Centering = styled.div`
 `;
 
 const Scroll = styled.div`
-  height: 80vh;
+  // 100vh - header + margin
+  height: calc(100vh - 41px - 15px - 32px - 60px - 20px);
   overflow-y: auto;
   padding-bottom: 50px;
   padding: 15px 15px;
