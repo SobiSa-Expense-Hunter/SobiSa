@@ -48,17 +48,12 @@ const ChoseProductModal = ({ onClose, onSubmit, title, image }: ChoseProductModa
 export default ChoseProductModal;
 
 const ImageBox = styled.div`
-  width: 100%;
-  height: 100%;
-  max-width: 111px;
-  max-height: 111px;
   position: relative;
 `;
 
 const ProductImage = styled.img`
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+  width: 111px;
+  height: 111px;
 `;
 
 const ChoseModalContainer = styled(ModalContainer)`
