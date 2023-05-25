@@ -23,6 +23,7 @@ export const Centering = styled.div`
 `;
 
 export const FixedWidth = styled.div`
+  overflow-y: auto;
   width: 375px;
   padding: 0 16px;
   background-color: white;
