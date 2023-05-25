@@ -56,7 +56,7 @@ const SavingAmount = () => {
           <Medium>동안</Medium>
         </InputBox>
         <InputBox>
-          <Input value={amount} onChange={e => handleChange(e)} />
+          <Input pattern='[0-9]*' value={amount} onChange={e => handleChange(e)} />
           <Medium>원을 모은다면?</Medium>
         </InputBox>
       </InputContainer>
@@ -131,6 +131,8 @@ const TitleInput = styled.textarea`
 
 const Input = styled.input`
   ${DefaultInput}
+
   height: 50px;
 `;
+
 export default SavingAmount;
