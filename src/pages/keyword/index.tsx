@@ -10,12 +10,11 @@ import MarginBox from '@/components/common/marginBox';
 import * as Style from '@/components/keyword/style';
 import * as Font from '@/styles/font';
 
-const devTitle = `내셔널지오그래픽 코어 오리지날 슬링백 N235ACR890`;
+const devTitle = ` 내셔널지오그래픽 코어 오리지날 슬링백 N235ACR890`;
 
 const KeywordPage = () => {
   const store = useSearchStore();
-  const allKeyword = store?.product?.title?.split(' ') || devTitle.split(' ');
-
+  const allKeyword = store?.product?.title?.trim().split(' ') || devTitle.trim().split(' ');
   const [selectedKeywords, setSelectedKeywords] = useState([allKeyword[0]]);
   const [alertMessage, setAlertMessage] = useState(`${allKeyword[0].length} 글자`);
 
