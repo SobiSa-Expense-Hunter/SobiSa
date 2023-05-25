@@ -86,7 +86,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
       </Fixed>
 
       <ListLayout>
-        <>
+        <Scroll>
           <form onSubmit={onSubmit}>
             {products.map(product => (
               <ListBox
@@ -112,7 +112,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
               <LoadingSpinner />
             </Centering>
           )}
-        </>
+        </Scroll>
       </ListLayout>
       <MarginBox margin='10px' />
       <Indicator02 />
@@ -128,7 +128,7 @@ export function ListLayout({ children }: { children: React.ReactElement }) {
       <MarginBox margin='15px' />
       <SearchInput />
       <MarginBox margin='32px' />
-      <Scroll>{children}</Scroll>
+      {children}
     </Centering>
   );
 }
