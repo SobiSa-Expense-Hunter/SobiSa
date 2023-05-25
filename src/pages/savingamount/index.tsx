@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Indicator01 } from '@/assets/Indicators';
 import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
@@ -9,6 +9,8 @@ import { BottomButton } from '@/components/common/buttons';
 import NoticeModal from '@/components/modal/NoticeModal';
 import { InputRegExp } from '@/constant';
 import { Medium } from '@/styles/font';
+
+const devTitle = ` 내셔널지오그래픽 코어 오리지날 슬링백 N235ACR890`;
 
 const SavingAmount = () => {
   const [amount, setAmount] = useState('');
@@ -46,7 +48,7 @@ const SavingAmount = () => {
     <Container>
       <InputContainer>
         <InputBox>
-          <Input value={store.product.title} disabled />
+          <TitleInput value={store.product.title || devTitle} disabled />
           <Medium>을(를) 갖기 위해</Medium>
         </InputBox>
         <InputBox>
@@ -54,7 +56,7 @@ const SavingAmount = () => {
           <Medium>동안</Medium>
         </InputBox>
         <InputBox>
-          <Input type='text' value={amount} onChange={e => handleChange(e)} />
+          <Input value={amount} onChange={e => handleChange(e)} />
           <Medium>원을 모은다면?</Medium>
         </InputBox>
       </InputContainer>
@@ -94,7 +96,7 @@ const BottomBtn = styled(BottomButton)`
   margin-bottom: 20px;
 `;
 const InputBox = styled.div`
-  width: 231px;
+  width: 310px;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -105,14 +107,16 @@ const InputContainer = styled.div`
   flex-direction: column;
   gap: 16px;
 `;
-const Input = styled.input`
-  width: 128px;
-  height: 38px;
+
+const DefaultInput = css`
+  width: 194px;
   outline: none;
   border: 1px solid ${({ theme }) => theme.colors.gray[2]};
   padding: 10px 20px;
   border-radius: 6px;
+  overflow: hidden;
   text-overflow: ellipsis;
+  word-break: keep-all;
 
   &:disabled {
     background-color: white;
@@ -127,5 +131,15 @@ const Input = styled.input`
   letter-spacing: -0.022em;
 
   color: ${({ theme }) => theme.colors.gray[3]};
+`;
+
+const TitleInput = styled.textarea`
+  ${DefaultInput}
+  resize: none;
+`;
+
+const Input = styled.input`
+  ${DefaultInput}
+  height: 50px;
 `;
 export default SavingAmount;
