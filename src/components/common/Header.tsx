@@ -45,7 +45,12 @@ const HeaderWrapper = styled.header`
   align-items: center;
   width: 310px;
   height: 41px;
+  min-height: 41px;
   background-color: white;
+  margin-top: 17px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const StyleTextLogo = styled(Medium)`

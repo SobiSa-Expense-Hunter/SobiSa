@@ -7,7 +7,7 @@ export const HamburgerIcon = () => {
 };
 
 export const LeftIcon = () => {
-  return <Image src={`${ICON_PATH}/left.svg`} width={50} height={50} alt='이전 페이지로 이동' />;
+  return <Image src={`${ICON_PATH}/left.svg`} width={40} height={40} alt='이전 페이지로 이동' />;
 };
 
 export const LinkIcon = () => {

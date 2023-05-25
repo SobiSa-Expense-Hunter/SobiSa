@@ -7,8 +7,10 @@ import Header from '../common/Header';
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <Centering>
-      <Header />
-      <FixedWidth>{children}</FixedWidth>
+      <FixedWidth>
+        <Header />
+        {children}
+      </FixedWidth>
     </Centering>
   );
 }
@@ -21,9 +23,17 @@ export const Centering = styled.div`
 `;
 
 export const FixedWidth = styled.div`
+  overflow-y: auto;
   width: 375px;
   padding: 0 16px;
-  @media (max-width: 375px) {
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100svh;
+  @media (max-width: 768px) {
     width: 100%;
   }
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 `;

@@ -7,11 +7,7 @@ const DynamicResult = dynamic(() => import('@/components/results/index'), {
 });
 
 function ResultPage() {
-  return (
-    <div>
-      <DynamicResult />
-    </div>
-  );
+  return <DynamicResult />;
 }
 
 export default ResultPage;
