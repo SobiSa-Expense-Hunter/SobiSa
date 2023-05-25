@@ -28,7 +28,7 @@ const ChoseProductModal = ({ onClose, onSubmit, title, image }: ChoseProductModa
       <Background show={show} />
       <ChoseModalContainer show={show}>
         <ModalBox>
-          <ContentBox height='169px'>
+          <ContentBox>
             <Message>{title}</Message>
             <ImageBox>
               <ProductImage src={image} alt='제품사진' />
@@ -62,5 +62,5 @@ const ProductImage = styled.img`
 `;
 
 const ChoseModalContainer = styled(ModalContainer)`
-  max-height: 273px;
+  min-height: 273px;
 `;

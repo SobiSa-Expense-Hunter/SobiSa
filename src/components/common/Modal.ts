@@ -1,5 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
+import { Medium } from '@/styles/font';
+
 const FadeIn = keyframes`
 0%{
     opacity:0;
@@ -32,9 +34,7 @@ export const ModalContainer = styled.div<{ show: boolean }>`
   justify-content: center;
   align-items: center;
   max-width: 310px;
-  max-height: 173px;
-  height: 100%;
-  width: 100%;
+  min-height: 173px;
   padding: 30px 23px 20px 23px;
   background-color: white;
   position: fixed;
@@ -51,34 +51,28 @@ export const ModalBox = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  position: relative;
+  gap: 16px;
 `;
 
 export const ButtonBox = styled.div`
-  position: absolute;
-  bottom: 0;
   display: flex;
-  width: 100%;
   height: auto;
   flex-direction: row;
   gap: 8px;
 `;
 
-export const Message = styled.p<{ color?: string }>`
+export const Message = styled(Medium)<{ color?: string }>`
   text-align: center;
-  width: 100%;
-  max-width: 244px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  word-wrap: break-word;
+  word-break: keep-all;
   color: ${props => (props.color ? props.color : 'black')};
 `;
 
-export const ContentBox = styled.div<{ height: string }>`
-  height: ${props => props.height};
+export const ContentBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
 `;

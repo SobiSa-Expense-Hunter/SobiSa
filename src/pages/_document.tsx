@@ -42,6 +42,7 @@ class MyDocument extends Document {
           <link
             rel='stylesheet'
             href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css'
+            crossOrigin='anonymous'
           />
           <meta name='viewport' content='initial-scale=1.0, width=device-width' />
 
