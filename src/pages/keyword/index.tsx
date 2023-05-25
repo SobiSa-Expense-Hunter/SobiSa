@@ -1,21 +1,42 @@
 import React, { useState } from 'react';
 
 import { useRouter } from 'next/router';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
 import * as Icon from '@/assets/Icons';
 import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
 import { BottomButton } from '@/components/common/buttons';
 import MarginBox from '@/components/common/marginBox';
-import { Centering } from '@/components/layout/AppLayout';
 import * as Font from '@/styles/font';
 
+const devTitle = `내셔널지오그래픽 코어 오리지날 슬링백 N235ACR890`;
+
 const KeywordPage = () => {
-  const devTitle = `내셔널지오그래픽 코어 오리지날 슬링백 N235ACR890`;
   const store = useSearchStore();
+  const [nonSelectkeywords, setNonSelectKeywords] = useState(
+    store?.product?.title?.split(' ') || devTitle.split(' '),
+  );
+  const [selectedKeywords, setSelectedKeywords] = useState([devTitle.split(' ')[0]]);
+  const [alertMessage, setAlertMessage] = useState(`${devTitle.split(' ')[0].length} 글자`);
+
   const dispatch = useSearchDispatch();
   const router = useRouter();
+
+  const keywordHandler = (selectKeyword: string) => {
+    const prevLength = String(selectedKeywords).replaceAll(/[,]/g, '').length;
+    const selectedKeywordLength = selectKeyword.length;
+
+    if (selectedKeywords.includes(selectKeyword)) {
+      setSelectedKeywords(selectedKeywords.filter(prevKeyword => prevKeyword !== selectKeyword));
+      setAlertMessage(`${prevLength - selectedKeywordLength} 글자`);
+    } else if (prevLength + selectedKeywordLength <= 14) {
+      setSelectedKeywords([...selectedKeywords, selectKeyword]);
+      setAlertMessage(`${prevLength + selectedKeywordLength} 글자`);
+    } else if (prevLength + selectedKeywordLength > 14) {
+      setAlertMessage(`14글자 미만으로 입력해주세요.`);
+    }
+  };
 
   return (
     <Container>
@@ -25,19 +46,21 @@ const KeywordPage = () => {
         <KeywordPageFont.Sub>멋진 임명장을 위해선 7~14글자 사이가 좋아요!</KeywordPageFont.Sub>
         <MarginBox margin='24px' />
         <Keyword>
-          {devTitle.split(' ').map(v => (
-            <KeywordWrapper key={uuidv4()}>
-              <KeywordFont>{v}</KeywordFont>
+          {nonSelectkeywords.map(keyword => (
+            <KeywordWrapper
+              key={uuidv4()}
+              onClick={() => keywordHandler(keyword)}
+              isSelected={selectedKeywords.includes(keyword)}
+            >
+              {keyword}
             </KeywordWrapper>
           ))}
         </Keyword>
         <MarginBox margin='56px' />
         <FlexColWrapper>
-          <GrayInput disabled value={devTitle} />
+          <GrayInput disabled value={String(selectedKeywords).replaceAll(',', ' ')} />
           <FlexRowWrapper>
-            <Font.SmallOrange style={{ flex: 1 }}>
-              입력은 14글자보다 짧게 해주세요.
-            </Font.SmallOrange>
+            <Font.SmallOrange style={{ flex: 1 }}>{alertMessage}</Font.SmallOrange>
             <Icon.InitializationIcon />
           </FlexRowWrapper>
         </FlexColWrapper>
@@ -94,17 +117,23 @@ const Keyword = styled.div`
   gap: 8px 6px;
 `;
 
-const KeywordWrapper = styled.button`
+const KeywordWrapper = styled.button<{ isSelected: boolean }>`
+  background: ${({ isSelected, theme }) => {
+    if (isSelected) return theme.colors.mainColor;
+    return theme.colors.gray[0];
+  }};
+
   padding: 10px 15px;
-  background: ${({ theme }) => theme.colors.mainColor};
 
   border-radius: 10px;
   border-style: none;
-`;
 
-const KeywordFont = styled(Font.Medium)`
+  font-family: 'Pretendard Variable';
   font-weight: 600;
-  color: white;
+  color: ${({ isSelected, theme }) => {
+    if (isSelected) return 'white';
+    return theme.colors.gray[3];
+  }};
 `;
 
 const GrayInput = styled.input`
