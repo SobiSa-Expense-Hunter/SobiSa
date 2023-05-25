@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react';
 
-import { toPng } from 'html-to-image';
+import { toSvg } from 'html-to-image';
 import styled from 'styled-components';
 
 import { DownloadIcon } from '@/assets/Icons';
@@ -37,6 +37,29 @@ const CertificateAndShareWrapper = styled.div`
   gap: 32px;
 `;
 
+const toPng = async (node: HTMLDivElement) => {
+  const { offsetWidth: width, offsetHeight: height } = node;
+  const svgDataUrl = await toSvg(node);
+
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  canvas.style.width = `${width}`;
+  canvas.style.height = `${height}`;
+  const context = canvas.getContext('2d');
+  if (context === null) return '';
+  const img = new Image();
+  img.src = svgDataUrl;
+  await img.decode();
+  context.drawImage(img, 0, 0, canvas.width, canvas.height);
+  return new Promise((resolve: (url: string) => void) => {
+    setTimeout(() => {
+      const url = canvas.toDataURL();
+      resolve(url);
+    }, 300);
+  });
+};
+
 const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShareModalProps) => {
   const { show, animationAfterClose } = useModalAnimation(onClose);
   const ref = useRef<HTMLDivElement>(null);
@@ -46,16 +69,12 @@ const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShare
       return;
     }
 
-    toPng(ref.current, { cacheBust: true })
-      .then(dataUrl => {
-        const link = document.createElement('a');
-        link.download = 'my-image-name.png';
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    toPng(ref.current).then(dataUrl => {
+      const link = document.createElement('a');
+      link.download = '임명장.png';
+      link.href = dataUrl;
+      link.click();
+    });
   }, [ref]);
 
   const shareImage = async (callback: (imgUrl: string) => void) => {
@@ -63,7 +82,7 @@ const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShare
       return;
     }
     try {
-      const dataUrl = await toPng(ref.current, { cacheBust: true });
+      const dataUrl = await toPng(ref.current);
       const { data } = await uploadImage(dataUrl);
 
       callback(data.display_url);
