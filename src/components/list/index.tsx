@@ -139,11 +139,12 @@ const Centering = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  overflow: hidden;
 `;
 
 const Scroll = styled.div`
   // 100vh - header + margin
-  height: calc(100vh - 41px - 15px - 32px - 60px - 20px);
+  height: 100%;
   overflow-y: auto;
   padding-bottom: 50px;
   padding: 15px 15px;

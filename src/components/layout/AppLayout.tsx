@@ -30,10 +30,12 @@ export const FixedWidth = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  min-height: 100vh;
+  height: 100svh;
 
   @media (max-width: 375px) {
+    width: 100%;
+  }
+  @media all and (orientation: portrait) {
     width: 100%;
   }
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);

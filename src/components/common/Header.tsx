@@ -47,6 +47,10 @@ const HeaderWrapper = styled.header`
   height: 41px;
   min-height: 41px;
   background-color: white;
+  margin-top: 17px;
+  @media all and (orientation: portrait) {
+    width: 100%;
+  }
 `;
 
 const StyleTextLogo = styled(Medium)`
