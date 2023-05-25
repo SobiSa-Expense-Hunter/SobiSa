@@ -87,3 +87,8 @@ export const GrayInput = styled.input`
 
   color: ${({ theme }) => theme.colors.gray[3]};
 `;
+
+export const ResetBtn = styled.button`
+  border: none;
+  background: none;
+`;
