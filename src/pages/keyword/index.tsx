@@ -35,9 +35,13 @@ const KeywordPage = () => {
   };
 
   const nextPageHandler = () => {
+    if (String(selectedKeywords) === '') {
+      setAlertMessage(`키워드를 하나 이상 선택하세요.`);
+      return;
+    }
     dispatch({
       type: 'ADD_PRODUCT',
-      item: { ...store.product, title: String(selectedKeywords).replaceAll(/[,]/g, ' ') },
+      item: { ...store.product, title: String(selectedKeywords).replaceAll(',', ' ') },
     });
     router.push('/savingamount');
   };
