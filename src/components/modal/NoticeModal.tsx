@@ -24,7 +24,7 @@ const NoticeModal = ({ onClose, message }: SearchErrorModalProps) => {
       <Background show={show} />
       <ModalContainer show={show}>
         <ModalBox>
-          <ContentBox height='69px'>
+          <ContentBox>
             <NoticeIcon />
             <Message>{message}</Message>
           </ContentBox>
