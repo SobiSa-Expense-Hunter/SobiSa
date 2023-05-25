@@ -115,7 +115,6 @@ const List = ({ products, queryRes }: ListPageProps) => {
         </Scroll>
       </ListLayout>
       <MarginBox margin='10px' />
-      <Indicator02 />
     </>
   );
 };

@@ -59,11 +59,11 @@ const SavingAmount = () => {
         </InputBox>
       </InputContainer>
       <ButtonBox onClick={handleSubmit}>
-        <BottomButton>다음으로</BottomButton>
+        <BottomBtn>다음으로</BottomBtn>
       </ButtonBox>
-      <div style={{ marginTop: '56px', display: 'flex', justifyContent: 'center' }}>
+      {/* <div style={{ marginTop: '56px', display: 'flex', justifyContent: 'center' }}>
         <Indicator01 />
-      </div>
+      </div> */}
       {showModal && (
         <NoticeModal onClose={() => setShowModal(false)} message='숫자만 입력해주세요!' />
       )}
@@ -79,10 +79,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 const ButtonBox = styled.div`
-  margin-top: 321px;
+  margin-top: min(321px, 30svh);
   display: flex;
   justify-content: center;
+`;
+
+const BottomBtn = styled(BottomButton)`
+  margin-bottom: 20px;
 `;
 const InputBox = styled.div`
   width: 231px;
