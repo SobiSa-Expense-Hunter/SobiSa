@@ -31,7 +31,12 @@ export const FixedWidth = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100svh;
+  height: 100vh;
+
+  @supports (height: 100svh) {
+    height: 100svh;
+  }
+
   @media (max-width: 768px) {
     width: 100%;
   }
