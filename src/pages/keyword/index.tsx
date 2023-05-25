@@ -29,9 +29,17 @@ const KeywordPage = () => {
     else setAlertMessage(`${titleLen} 글자`);
   };
 
-  const TitleResetHandler = () => {
+  const titleResetHandler = () => {
     setSelectedKeywords(['']);
     setAlertMessage(`0 글자`);
+  };
+
+  const nextPageHandler = () => {
+    dispatch({
+      type: 'ADD_PRODUCT',
+      item: { ...store.product, title: String(selectedKeywords).replaceAll(/[,]/g, ' ') },
+    });
+    router.push('/savingamount');
   };
 
   return (
@@ -58,14 +66,14 @@ const KeywordPage = () => {
         <Style.GrayInput disabled value={String(selectedKeywords).replaceAll(',', ' ')} />
         <Style.FlexRowWrapper>
           <Font.SmallOrange style={{ flex: 1 }}>{alertMessage}</Font.SmallOrange>
-          <Style.ResetBtn type='button' onClick={TitleResetHandler}>
+          <Style.ResetBtn type='button' onClick={titleResetHandler}>
             <Icon.InitializationIcon />
           </Style.ResetBtn>
         </Style.FlexRowWrapper>
       </Style.FlexColWrapper>
 
       <Style.ButtonBox>
-        <BottomButton>다음으로</BottomButton>
+        <BottomButton onClick={nextPageHandler}>다음으로</BottomButton>
       </Style.ButtonBox>
     </Style.Container>
   );
