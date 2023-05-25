@@ -27,7 +27,18 @@ const CertificateAndShareContainer = styled(ModalContainer)`
   padding-bottom: 10vh;
 
   justify-content: flex-start;
+  overflow: hidden;
   overflow-y: auto;
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-thumb {
+    width: 4px;
+    border-radius: 2px;
+    background-clip: padding-box;
+    border: 10px solid transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.gray[2]};
+  }
 `;
 
 const CertificateAndShareWrapper = styled.div`

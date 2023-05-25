@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -9,7 +9,6 @@ import * as SVG from '@/assets/Icons';
 import { Indicator02 } from '@/assets/Indicators';
 import { useSearchDispatch } from '@/components/SearchProvider';
 import MarginBox from '@/components/common/marginBox';
-import { Centering } from '@/components/layout/AppLayout';
 import ChoseProductModal from '@/components/modal/ChoseProductModal';
 
 import ListBox from './ListBox';
@@ -80,16 +79,14 @@ const List = ({ products, queryRes }: ListPageProps) => {
 
   return (
     <>
-      <FixedWrapper>
-        <BtnWrapper>
-          <TopBtn type='button' onClick={() => topBtnHandler()}>
-            <SVG.TopIcon />
-          </TopBtn>
-        </BtnWrapper>
-      </FixedWrapper>
+      <Fixed>
+        <TopBtn type='button' onClick={() => topBtnHandler()}>
+          <SVG.TopIcon />
+        </TopBtn>
+      </Fixed>
 
       <ListLayout>
-        <>
+        <Scroll>
           <form onSubmit={onSubmit}>
             {products.map(product => (
               <ListBox
@@ -115,8 +112,9 @@ const List = ({ products, queryRes }: ListPageProps) => {
               <LoadingSpinner />
             </Centering>
           )}
-        </>
+        </Scroll>
       </ListLayout>
+      <MarginBox margin='10px' />
     </>
   );
 };
@@ -130,29 +128,54 @@ export function ListLayout({ children }: { children: React.ReactElement }) {
       <SearchInput />
       <MarginBox margin='32px' />
       {children}
-      <Indicator02 />
     </Centering>
   );
 }
 
+const Centering = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+`;
+
+const Scroll = styled.div`
+  // 100vh - header + margin
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 50px;
+  padding: 15px 15px;
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-thumb {
+    width: 4px;
+    border-radius: 2px;
+    background-clip: padding-box;
+    border: 10px solid transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.gray[2]};
+  }
+`;
+
+const Fixed = styled.div`
+  position: fixed;
+  bottom: 26px;
+`;
+
 const TopBtn = styled.button`
   cursor: pointer;
   position: absolute;
-  margin-left: 300px;
+  display: flex;
+  transform: translate(-50%, -100%);
 
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   border: none;
   background: inherit;
-`;
-
-const FixedWrapper = styled.div`
-  position: fixed;
-  bottom: 0px;
-  margin-bottom: 60px;
-`;
-
-const BtnWrapper = styled.div`
-  position: relative;
+  justify-content: flex-end;
+  min-width: 310px;
 `;

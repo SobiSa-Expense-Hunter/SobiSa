@@ -30,8 +30,6 @@ function Home() {
         <KakaoButton title={title} description={text} webUrl={url} />
         <LinkButton pageUrl={url} />
       </LinkBox>
-      <MarginBox margin='169px' />
-      <Indicator01 />
     </Container>
   );
 }
@@ -40,15 +38,18 @@ export default Home;
 const ImageBox = styled.div`
   margin: 16px 0px;
 `;
+
 const LinkBox = styled.div`
   margin-top: 66px;
   display: flex;
   gap: 8px;
 `;
+
 const Container = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
 `;

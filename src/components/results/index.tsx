@@ -14,6 +14,22 @@ import alternatives from '@/constant/Alternatives';
 import { ExtraLarge, Large, LargeOrange, Medium } from '@/styles/font';
 import { Alternatives } from '@/types/result';
 
+const Container = styled.div`
+  width: 100%;
+  overflow-y: auto;
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-thumb {
+    width: 4px;
+    border-radius: 2px;
+    background-clip: padding-box;
+    border: 10px solid transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.gray[2]};
+  }
+`;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -63,6 +79,7 @@ const AlternativeList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  align-items: center;
 `;
 
 const CertificateContainer = styled.div`
@@ -116,49 +133,51 @@ function Result() {
   };
 
   return (
-    <Wrapper>
-      <ProductContainer>
-        <ProductName>{title}</ProductName>
-        <ProductWrapper>
-          <ExtraLarge>{price.toLocaleString()} 원</ExtraLarge>
-          <LargeOrange style={{ fontWeight: 500 }}>
-            {savingsPeriod}개월동안 모아야 해요!
-          </LargeOrange>
-        </ProductWrapper>
-        <ProductImage
-          src={image}
-          alt={title}
-          onError={e => {
-            e.currentTarget.src = './assets/image/image.png';
-          }}
-        />
-      </ProductContainer>
-      <AlternativesContainer>
-        <Medium style={{ fontWeight: 500 }}>이걸 가지는 대신 할 수 있는 일...</Medium>
-        <AlternativeList>
-          {randomAlternatives.map(alternative => (
-            <Alternative
-              alternative={alternative}
-              wantedProductPrice={price}
-              key={alternative.title}
-            />
-          ))}
-        </AlternativeList>
-      </AlternativesContainer>
-      <CertificateContainer>
-        <Large style={{ fontWeight: 500 }}>
-          이걸 보고도 갖고 싶으시다면, <br /> 임명장을 발급받아 보세요!
-        </Large>
-        <ShareButton onClick={toggleModal} style={{ marginTop: 8 }}>
-          임명장 받기
-        </ShareButton>
-        <Indicator01 />
-      </CertificateContainer>
+    <Container>
+      <Wrapper>
+        <ProductContainer>
+          <ProductName>{title}</ProductName>
+          <ProductWrapper>
+            <ExtraLarge>{price.toLocaleString()} 원</ExtraLarge>
+            <LargeOrange style={{ fontWeight: 500 }}>
+              {savingsPeriod}개월동안 모아야 해요!
+            </LargeOrange>
+          </ProductWrapper>
+          <ProductImage
+            src={image}
+            alt={title}
+            onError={e => {
+              e.currentTarget.src = './assets/image/image.png';
+            }}
+          />
+        </ProductContainer>
+        <AlternativesContainer>
+          <Medium style={{ fontWeight: 500 }}>이걸 가지는 대신 할 수 있는 일...</Medium>
+          <AlternativeList>
+            {randomAlternatives.map(alternative => (
+              <Alternative
+                alternative={alternative}
+                wantedProductPrice={price}
+                key={alternative.title}
+              />
+            ))}
+          </AlternativeList>
+        </AlternativesContainer>
+        <CertificateContainer>
+          <Large style={{ fontWeight: 500 }}>
+            이걸 보고도 갖고 싶으시다면, <br /> 임명장을 발급받아 보세요!
+          </Large>
+          <ShareButton onClick={toggleModal} style={{ marginTop: 8 }}>
+            임명장 받기
+          </ShareButton>
+          <Indicator01 />
+        </CertificateContainer>
 
-      {showModal && (
-        <CertificateAndShareModal onClose={toggleModal} alternatives={randomAlternatives} />
-      )}
-    </Wrapper>
+        {showModal && (
+          <CertificateAndShareModal onClose={toggleModal} alternatives={randomAlternatives} />
+        )}
+      </Wrapper>
+    </Container>
   );
 }
 

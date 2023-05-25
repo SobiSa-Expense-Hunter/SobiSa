@@ -3,15 +3,23 @@ import { reset } from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`${css`
   ${reset}
+
   * {
     box-sizing: border-box;
   }
+
+  body {
+    background-color: ${({ theme }) => theme.colors.gray[1]};
+  }
+
   button {
     cursor: pointer;
   }
+
   a {
     text-decoration: none;
   }
+
   @font-face {
     font-family: 'NeoDunggeunmo';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/NeoDunggeunmoPro-Regular.woff2')
