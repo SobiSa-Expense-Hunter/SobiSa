@@ -29,6 +29,11 @@ const KeywordPage = () => {
     else setAlertMessage(`${titleLen} 글자`);
   };
 
+  const TitleResetHandler = () => {
+    setSelectedKeywords(['']);
+    setAlertMessage(`0 글자`);
+  };
+
   return (
     <Style.Container>
       <Style.KeywordPageFont.Main>표시할 상품 키워드를 선택해 주세요.</Style.KeywordPageFont.Main>
@@ -53,12 +58,13 @@ const KeywordPage = () => {
         <Style.GrayInput disabled value={String(selectedKeywords).replaceAll(',', ' ')} />
         <Style.FlexRowWrapper>
           <Font.SmallOrange style={{ flex: 1 }}>{alertMessage}</Font.SmallOrange>
-          <Icon.InitializationIcon />
+          <Style.ResetBtn type='button' onClick={TitleResetHandler}>
+            <Icon.InitializationIcon />
+          </Style.ResetBtn>
         </Style.FlexRowWrapper>
       </Style.FlexColWrapper>
 
       <Style.ButtonBox>
-        {/* todo : /savingamount 이동 */}
         <BottomButton>다음으로</BottomButton>
       </Style.ButtonBox>
     </Style.Container>
