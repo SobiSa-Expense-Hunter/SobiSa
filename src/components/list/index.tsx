@@ -9,7 +9,6 @@ import * as SVG from '@/assets/Icons';
 import { Indicator02 } from '@/assets/Indicators';
 import { useSearchDispatch } from '@/components/SearchProvider';
 import MarginBox from '@/components/common/marginBox';
-import { Centering } from '@/components/layout/AppLayout';
 import ChoseProductModal from '@/components/modal/ChoseProductModal';
 
 import ListBox from './ListBox';
@@ -133,6 +132,14 @@ export function ListLayout({ children }: { children: React.ReactElement }) {
     </Centering>
   );
 }
+
+const Centering = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
 
 const Scroll = styled.div`
   height: 80vh;
