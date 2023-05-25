@@ -48,7 +48,7 @@ const HeaderWrapper = styled.header`
   min-height: 41px;
   background-color: white;
   margin-top: 17px;
-  @media all and (orientation: portrait) {
+  @media (max-width: 768px) {
     width: 100%;
   }
 `;
