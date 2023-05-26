@@ -1,16 +1,15 @@
 import { useState } from 'react';
 
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import styled, { css } from 'styled-components';
 
-import { Indicator01 } from '@/assets/Indicators';
 import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
 import { BottomButton } from '@/components/common/buttons';
-import NoticeModal from '@/components/modal/NoticeModal';
 import { InputRegExp } from '@/constant';
 import { Medium } from '@/styles/font';
 
-const devTitle = ` 내셔널지오그래픽 코어 오리지날 슬링백 N235ACR890`;
+const NoticeModal = dynamic(() => import('@/components/modal/NoticeModal'), { ssr: false });
 
 const SavingAmount = () => {
   const [amount, setAmount] = useState('');
@@ -20,6 +19,15 @@ const SavingAmount = () => {
   const store = useSearchStore();
   const dispatch = useSearchDispatch();
   const router = useRouter();
+
+  if (store.product.title === undefined || store.product.title === '') {
+    return (
+      <NoticeModal
+        onClose={() => router.replace('/list')}
+        message='물품이 제대로 선택되지 않았습니다.'
+      />
+    );
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -48,7 +56,7 @@ const SavingAmount = () => {
     <Container>
       <InputContainer>
         <InputBox>
-          <TitleSpan> {store.product.title || devTitle} </TitleSpan>
+          <TitleSpan> {store.product.title} </TitleSpan>
           <Medium>을(를) 갖기 위해</Medium>
         </InputBox>
         <InputBox>
