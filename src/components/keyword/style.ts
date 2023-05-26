@@ -6,6 +6,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 36px;
+  max-width: 310px;
+  width: 100%;
 `;
 
 export const KeywordPageFont = {
@@ -22,7 +24,7 @@ export const FlexRowWrapper = styled.div`
 `;
 
 export const ButtonBox = styled.div`
-  margin-top: 321px;
+  margin-top: min(321px, 30svh);
   display: flex;
   justify-content: center;
 `;

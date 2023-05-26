@@ -76,7 +76,9 @@ const KeywordPage = () => {
       </Style.FlexColWrapper>
 
       <Style.ButtonBox>
-        <BottomButton onClick={nextPageHandler}>다음으로</BottomButton>
+        <BottomButton style={{ marginBottom: '20px' }} onClick={nextPageHandler}>
+          다음으로
+        </BottomButton>
       </Style.ButtonBox>
     </Style.Container>
   );

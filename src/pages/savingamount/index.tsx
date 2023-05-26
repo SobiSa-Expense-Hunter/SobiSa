@@ -48,7 +48,7 @@ const SavingAmount = () => {
     <Container>
       <InputContainer>
         <InputBox>
-          <TitleInput value={store.product.title || devTitle} disabled />
+          <TitleSpan> {store.product.title || devTitle} </TitleSpan>
           <Medium>을(를) 갖기 위해</Medium>
         </InputBox>
         <InputBox>
@@ -63,9 +63,7 @@ const SavingAmount = () => {
       <ButtonBox onClick={handleSubmit}>
         <BottomBtn>다음으로</BottomBtn>
       </ButtonBox>
-      {/* <div style={{ marginTop: '56px', display: 'flex', justifyContent: 'center' }}>
-        <Indicator01 />
-      </div> */}
+
       {showModal && (
         <NoticeModal onClose={() => setShowModal(false)} message='숫자만 입력해주세요!' />
       )}
@@ -129,9 +127,8 @@ const DefaultInput = css`
   color: ${({ theme }) => theme.colors.gray[3]};
 `;
 
-const TitleInput = styled.textarea`
+const TitleSpan = styled.p`
   ${DefaultInput}
-  resize: none;
 `;
 
 const Input = styled.input`
