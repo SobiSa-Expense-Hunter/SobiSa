@@ -14,7 +14,7 @@ const devTitle = ` 내셔널지오그래픽 코어 오리지날 슬링백 N235AC
 
 const KeywordPage = () => {
   const store = useSearchStore();
-  const allKeyword = store?.product?.title?.trim().split(' ') || devTitle.trim().split(' ');
+  const allKeyword = store?.product?.initTitle?.trim().split(' ') || devTitle.trim().split(' ');
   const [selectedKeywords, setSelectedKeywords] = useState([allKeyword[0]]);
   const [alertMessage, setAlertMessage] = useState(`${allKeyword[0].length} 글자`);
 

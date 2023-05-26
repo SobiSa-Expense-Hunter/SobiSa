@@ -69,7 +69,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
 
     dispatch({
       type: 'ADD_PRODUCT',
-      item: userSelected,
+      item: { ...userSelected, initTitle: userSelected.title },
     });
 
     router.push('/keyword');
