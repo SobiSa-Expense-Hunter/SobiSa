@@ -81,7 +81,11 @@ const Container = styled.div`
 `;
 
 const ButtonBox = styled.div`
-  margin-top: min(321px, 30svh);
+  @supports (height: 30svh) {
+    margin-top: min(321px, 30svh);
+  }
+
+  margin-top: min(321px, 30vh);
   display: flex;
   justify-content: center;
 `;
