@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
 
 import { toSvg } from 'html-to-image';
 import styled from 'styled-components';
@@ -48,26 +48,45 @@ const CertificateAndShareWrapper = styled.div`
   gap: 32px;
 `;
 
+const createImage = async (url: string): Promise<HTMLImageElement> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () =>
+      setTimeout(() => {
+        resolve(img);
+      }, 200);
+    img.decode = async () => resolve(img);
+    img.onerror = reject;
+    img.crossOrigin = 'anonymous';
+    img.src = url;
+  });
+};
+
 const toPng = async (node: HTMLDivElement) => {
   const { offsetWidth: width, offsetHeight: height } = node;
+
   const svgDataUrl = await toSvg(node);
 
   const canvas = document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = height;
-  canvas.style.width = `${width}`;
-  canvas.style.height = `${height}`;
-  const context = canvas.getContext('2d');
+  const offscreenCanvas = canvas.transferControlToOffscreen();
+  offscreenCanvas.width = width;
+  offscreenCanvas.height = height;
+  const context = offscreenCanvas.getContext('2d', { alpha: false });
   if (context === null) return '';
-  const img = new Image();
-  img.src = svgDataUrl;
-  await img.decode();
-  context.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+  const img: HTMLImageElement = await createImage(svgDataUrl);
+
+  const onFrame = () => {
+    context.drawImage(img, 0, 0, width, height);
+    window.requestAnimationFrame(onFrame);
+  };
+  onFrame();
+
   return new Promise((resolve: (url: string) => void) => {
     setTimeout(() => {
-      const url = canvas.toDataURL();
+      const url = canvas.toDataURL('image/png', 1.0);
       resolve(url);
-    }, 300);
+    }, 500);
   });
 };
 
@@ -75,7 +94,7 @@ const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShare
   const { show, animationAfterClose } = useModalAnimation(onClose);
   const ref = useRef<HTMLDivElement>(null);
 
-  const certificateDownload = useCallback(() => {
+  const certificateDownload = () => {
     if (ref.current === null) {
       return;
     }
@@ -86,7 +105,7 @@ const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShare
       link.href = dataUrl;
       link.click();
     });
-  }, [ref]);
+  };
 
   const shareImage = async (callback: (imgUrl: string) => void) => {
     if (ref.current === null) {

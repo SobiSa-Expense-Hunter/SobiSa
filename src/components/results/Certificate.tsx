@@ -215,15 +215,7 @@ const Certificate = (
           <AwardXSmall>사기 전 충분히 고민했나요?</AwardXSmall>
           <ContentRowFlex>
             <AwardXXSmall>https://www.youtube.com/watch</AwardXXSmall>
-            <StickerStamp
-              initial={{ scale: 5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{
-                delay: 0.8,
-                opacity: { ease: 'linear' },
-                layout: { duration: 1 },
-              }}
-            >
+            <StickerStamp>
               <SobisaTextLogoSticker />
             </StickerStamp>
           </ContentRowFlex>
