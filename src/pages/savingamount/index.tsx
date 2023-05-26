@@ -98,6 +98,7 @@ const ButtonBox = styled.div`
   @supports (height: 30svh) {
     margin-top: min(321px, 30svh);
   }
+
   margin-top: min(321px, 30vh);
   display: flex;
   justify-content: center;
