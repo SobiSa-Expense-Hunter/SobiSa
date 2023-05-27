@@ -2,10 +2,11 @@ import { useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
 import { BottomButton } from '@/components/common/buttons';
+import { DefaultInput } from '@/components/common/input';
 import { InputRegExp } from '@/constant';
 import { Medium } from '@/styles/font';
 
@@ -56,11 +57,11 @@ const SavingAmount = () => {
     <Container>
       <InputContainer>
         <InputBox>
-          <TitleSpan> {store.product.title} </TitleSpan>
+          <Span> {store.product.title} </Span>
           <Medium>을(를) 갖기 위해</Medium>
         </InputBox>
         <InputBox>
-          <Input value='한 달' disabled />
+          <Span>한달</Span>
           <Medium>동안</Medium>
         </InputBox>
         <InputBox>
@@ -101,8 +102,8 @@ const BottomBtn = styled(BottomButton)`
   margin-bottom: 20px;
 `;
 const InputBox = styled.div`
-  width: 310px;
   display: flex;
+  width: 310px;
   align-items: center;
   gap: 16px;
 `;
@@ -113,33 +114,11 @@ const InputContainer = styled.div`
   gap: 16px;
 `;
 
-const DefaultInput = css`
-  width: 194px;
-  outline: none;
-  border: 1px solid ${({ theme }) => theme.colors.gray[2]};
-  padding: 10px 20px;
-  border-radius: 6px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: keep-all;
-
-  &:disabled {
-    background-color: white;
-    cursor: not-allowed;
-  }
-
-  /*INPUT-FONT */
-  font-family: 'Pretendard Variable';
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 150%;
-  letter-spacing: -0.022em;
-
-  color: ${({ theme }) => theme.colors.gray[3]};
-`;
-
-const TitleSpan = styled.p`
+const Span = styled.span`
   ${DefaultInput}
+  display: flex;
+  align-items: center;
+  min-height: 50px;
 `;
 
 const Input = styled.input`

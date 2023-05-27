@@ -63,7 +63,7 @@ function Keyword({ product, allKeyword }: { product: Product; allKeyword: string
       </Style.Keyword>
       <MarginBox margin='56px' />
       <Style.FlexColWrapper>
-        <Style.GrayInput disabled value={String(selectedKeywords).replaceAll(',', ' ')} />
+        <Style.Span>{String(selectedKeywords).replaceAll(',', ' ')}</Style.Span>
         <Style.FlexRowWrapper>
           <Font.SmallOrange style={{ flex: 1 }}>{alertMessage}</Font.SmallOrange>
           <Style.ResetBtn type='button' onClick={titleResetHandler}>
