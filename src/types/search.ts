@@ -11,14 +11,3 @@ export interface NaverProductResponse {
   price: number;
   productType: number;
 }
-
-// export interface Product {
-//   title?: string;
-//   image?: string;
-//   price?: number;
-// }
-
-export interface UserSelected {
-  product: Product;
-  savingAmount: number;
-}
