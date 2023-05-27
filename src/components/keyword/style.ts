@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { DefaultInput } from '@/components/common/input';
 import * as Font from '@/styles/font';
 
 export const Container = styled.div`
@@ -70,28 +71,11 @@ export const KeywordWrapper = styled.button<{ isSelected: boolean }>`
   }};
 `;
 
-export const GrayInput = styled.input`
+export const Span = styled.span`
+  ${DefaultInput};
+  min-height: 38px;
   width: 100%;
-  height: 38px;
-
-  outline: none;
-  border: 1px solid #cbcbcb;
-  padding: 10px 20px;
-  border-radius: 6px;
-  text-overflow: ellipsis;
-  &:disabled {
-    background-color: white;
-    cursor: not-allowed;
-  }
-
-  /*INPUT-FONT */
-  font-family: 'Pretendard Variable';
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 150%;
-  letter-spacing: -0.022em;
-
-  color: ${({ theme }) => theme.colors.gray[3]};
+  line-height: 100%;
 `;
 
 export const ResetBtn = styled.button`
