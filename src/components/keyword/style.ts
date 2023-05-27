@@ -24,7 +24,11 @@ export const FlexRowWrapper = styled.div`
 `;
 
 export const ButtonBox = styled.div`
-  margin-top: min(321px, 30svh);
+  @supports (height: 30svh) {
+    margin-top: min(321px, 30svh);
+  }
+  margin-top: min(321px, 30vh);
+
   display: flex;
   justify-content: center;
 `;
