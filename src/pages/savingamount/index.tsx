@@ -65,7 +65,12 @@ const SavingAmount = () => {
           <Medium>동안</Medium>
         </InputBox>
         <InputBox>
-          <Input pattern='[0-9]*' value={amount} onChange={e => handleChange(e)} />
+          <Input
+            pattern='[0-9]*'
+            inputMode='decimal'
+            value={amount}
+            onChange={e => handleChange(e)}
+          />
           <Medium>원을 모은다면?</Medium>
         </InputBox>
       </InputContainer>
