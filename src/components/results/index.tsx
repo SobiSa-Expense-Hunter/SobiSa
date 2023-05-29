@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-import { Indicator01 } from '@/assets/Indicators';
 import { useSearchStore } from '@/components/SearchProvider';
 import FrameName from '@/components/common/FrameName';
 import { ShareButton } from '@/components/common/buttons';
@@ -87,7 +86,7 @@ const CertificateContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 56px;
-  margin: 28px 0 56px;
+  margin: 28px 0;
 `;
 
 function Result() {
@@ -170,7 +169,6 @@ function Result() {
           <ShareButton onClick={toggleModal} style={{ marginTop: 8 }}>
             임명장 받기
           </ShareButton>
-          <Indicator01 />
         </CertificateContainer>
 
         {showModal && (

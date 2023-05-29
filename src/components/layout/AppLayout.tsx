@@ -3,13 +3,15 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import Header from '../common/Header';
+import Footer from '@/components/common/Footer';
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <Centering>
       <FixedWidth>
         <Header />
-        {children}
+        <Content>{children}</Content>
+        <Footer />
       </FixedWidth>
     </Centering>
   );
@@ -32,6 +34,7 @@ export const FixedWidth = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh;
+  justify-content: space-between;
 
   @supports (height: 100svh) {
     height: 100svh;
@@ -41,4 +44,12 @@ export const FixedWidth = styled.div`
     width: 100%;
   }
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+`;
+
+const Content = styled.div`
+  flex: 1;
+  width: inherit;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
 `;

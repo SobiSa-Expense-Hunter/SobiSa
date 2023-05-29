@@ -1,27 +1,36 @@
-import Image from 'next/image';
+import { AnimatePresence, motion } from 'framer-motion';
+import styled from 'styled-components';
 
-const INDICATOR_PATH = '/assets/indicator';
+const Current = styled(motion.span)`
+  width: 16px;
+  height: 4px;
+  background: ${props => props.theme.colors.gray[2]};
+  border-radius: 20px;
+`;
 
-export const Indicator01 = () => {
+const NotCurrent = styled(motion.span)`
+  width: 4px;
+  height: 4px;
+  background: ${props => props.theme.colors.gray[1]};
+  border-radius: 50%;
+`;
+
+const IndicatorWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+`;
+const Indicator = () => {
   return (
-    <Image src={`${INDICATOR_PATH}/indicator01.svg`} width={43} height={4} alt='인디케이터 1' />
+    <AnimatePresence>
+      <IndicatorWrapper>
+        <Current />
+        <NotCurrent />
+        <NotCurrent />
+        <NotCurrent />
+      </IndicatorWrapper>
+    </AnimatePresence>
   );
 };
-
-export const Indicator02 = () => {
-  return (
-    <Image src={`${INDICATOR_PATH}/indicator02.svg`} width={43} height={4} alt='인디케이터 2' />
-  );
-};
-
-export const Indicator03 = () => {
-  return (
-    <Image src={`${INDICATOR_PATH}/indicator03.svg`} width={43} height={4} alt='인디케이터 3' />
-  );
-};
-
-export const Indicator04 = () => {
-  return (
-    <Image src={`${INDICATOR_PATH}/indicator04.svg`} width={43} height={4} alt='인디케이터 4' />
-  );
-};
+export default Indicator;
