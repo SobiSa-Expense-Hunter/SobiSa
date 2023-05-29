@@ -118,6 +118,11 @@ const Sticker = styled(motion.span)`
 
 const StickerStamp = styled(motion.span)``;
 
+const ProductName = styled(AwardXLarge)<{ length: number }>`
+  text-align: right;
+  word-break: break-all;
+`;
+
 const Certificate = (
   { alternatives }: { alternatives: Alternatives[] },
   ref: ForwardedRef<HTMLDivElement>,
@@ -152,14 +157,7 @@ const Certificate = (
               {new Date().toISOString().substring(0, 19).replace('T', ' ')}
             </AwardXXSmall>
           </SmallFlexEnd>
-          <AwardXLarge
-            style={{
-              textAlign: 'right',
-              wordBreak: 'keep-all',
-            }}
-          >
-            {title}
-          </AwardXLarge>
+          <ProductName length={title.length}>{title}</ProductName>
         </ColumnFlexEndWithBorderBottom>
         <ContentColumnFlex>
           <ContentRowFlex>
