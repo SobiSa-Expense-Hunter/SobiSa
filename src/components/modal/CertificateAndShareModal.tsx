@@ -20,8 +20,9 @@ interface CertificateAndShareModalProps {
 
 const CertificateAndShareContainer = styled(ModalContainer)`
   background-color: transparent;
-  max-width: fit-content;
-  max-height: fit-content;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
 
   padding-top: 10vh;
   padding-bottom: 10vh;
