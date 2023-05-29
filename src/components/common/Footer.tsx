@@ -4,10 +4,7 @@ import styled from 'styled-components';
 import Indicator from '@/assets/Indicators';
 
 const FooterContainer = styled.div`
-  padding: 5vh 0 5vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
+  padding: 56px 0;
 `;
 
 const Footer = () => {

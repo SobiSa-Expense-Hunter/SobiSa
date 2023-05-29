@@ -25,6 +25,7 @@ export const Centering = styled.div`
 `;
 
 export const FixedWidth = styled.div`
+  overflow: hidden;
   overflow-y: auto;
   width: 375px;
   padding: 0 16px;
@@ -34,10 +35,11 @@ export const FixedWidth = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  justify-content: space-between;
+  max-height: 100vh;
 
   @supports (height: 100svh) {
     height: 100svh;
+    max-height: 100svh;
   }
 
   @media (max-width: 768px) {
@@ -47,9 +49,10 @@ export const FixedWidth = styled.div`
 `;
 
 const Content = styled.div`
-  flex: 1;
-  width: inherit;
-  height: inherit;
+  flex: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  height: calc(100% - 174px);
 `;

@@ -9,6 +9,8 @@ export const Container = styled.div`
   margin-top: 36px;
   max-width: 310px;
   width: 100%;
+  justify-content: space-between;
+  height: 100%;
 `;
 
 export const KeywordPageFont = {
@@ -25,11 +27,6 @@ export const FlexRowWrapper = styled.div`
 `;
 
 export const ButtonBox = styled.div`
-  @supports (height: 30svh) {
-    margin-top: min(321px, 30svh);
-  }
-  margin-top: min(321px, 30vh);
-
   display: flex;
   justify-content: center;
 `;
