@@ -16,7 +16,7 @@ const ListBox = ({ product, listClickHandler }: ListBoxProps) => {
   return (
     <StyledListContainer onClick={() => listClickHandler(product)}>
       <Image
-        src={image}
+        src={image || ''}
         alt={`${productId} img`}
         width={111}
         height={111}
@@ -25,7 +25,7 @@ const ListBox = ({ product, listClickHandler }: ListBoxProps) => {
       />
       <TextItem>
         <Title className='title'>{title}</Title>
-        <MediumOrange>{price.toLocaleString()} 원</MediumOrange>
+        <MediumOrange>{price?.toLocaleString()} 원</MediumOrange>
         <ItemClass>{`${category1} > ${brand === '' ? category2 : brand}`}</ItemClass>
       </TextItem>
     </StyledListContainer>

@@ -6,7 +6,6 @@ import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
 import * as SVG from '@/assets/Icons';
-import { Indicator02 } from '@/assets/Indicators';
 import { useSearchDispatch } from '@/components/SearchProvider';
 import MarginBox from '@/components/common/marginBox';
 import ChoseProductModal from '@/components/modal/ChoseProductModal';
@@ -69,10 +68,10 @@ const List = ({ products, queryRes }: ListPageProps) => {
 
     dispatch({
       type: 'ADD_PRODUCT',
-      item: userSelected,
+      item: { ...userSelected, initTitle: userSelected.title },
     });
 
-    router.push('/savingamount');
+    router.push('/keyword');
   };
 
   const onClose = () => setShowModal(false);
@@ -142,7 +141,6 @@ const Centering = styled.div`
 `;
 
 const Scroll = styled.div`
-  // 100vh - header + margin
   height: 100%;
   overflow-y: auto;
   padding-bottom: 50px;

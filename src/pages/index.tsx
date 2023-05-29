@@ -2,11 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import * as Icon from '@/assets/Icons';
 import { MainImage } from '@/assets/Images';
-import { Indicator01 } from '@/assets/Indicators';
 import SearchInput from '@/components/SearchInput';
-import MarginBox from '@/components/common/marginBox';
 import FacebookButton from '@/components/common/share/FacebookButton';
 import KakaoButton from '@/components/common/share/KakaoButton';
 import LinkButton from '@/components/common/share/LinkButton';

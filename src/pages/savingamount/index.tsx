@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-import { Indicator01 } from '@/assets/Indicators';
 import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
 import { BottomButton } from '@/components/common/buttons';
-import NoticeModal from '@/components/modal/NoticeModal';
+import { DefaultInput } from '@/components/common/input';
 import { InputRegExp } from '@/constant';
 import { Medium } from '@/styles/font';
+
+const NoticeModal = dynamic(() => import('@/components/modal/NoticeModal'), { ssr: false });
 
 const SavingAmount = () => {
   const [amount, setAmount] = useState('');
@@ -18,6 +20,15 @@ const SavingAmount = () => {
   const store = useSearchStore();
   const dispatch = useSearchDispatch();
   const router = useRouter();
+
+  if (store.product.title === undefined || store.product.title === '') {
+    return (
+      <NoticeModal
+        onClose={() => router.replace('/list')}
+        message='물품이 제대로 선택되지 않았습니다.'
+      />
+    );
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -46,24 +57,27 @@ const SavingAmount = () => {
     <Container>
       <InputContainer>
         <InputBox>
-          <Input value={store.product.title} disabled />
+          <Span> {store.product.title} </Span>
           <Medium>을(를) 갖기 위해</Medium>
         </InputBox>
         <InputBox>
-          <Input value='한 달' disabled />
+          <Span>한달</Span>
           <Medium>동안</Medium>
         </InputBox>
         <InputBox>
-          <Input type='text' value={amount} onChange={e => handleChange(e)} />
+          <Input
+            pattern='[0-9]*'
+            inputMode='decimal'
+            value={amount}
+            onChange={e => handleChange(e)}
+          />
           <Medium>원을 모은다면?</Medium>
         </InputBox>
       </InputContainer>
       <ButtonBox onClick={handleSubmit}>
         <BottomBtn>다음으로</BottomBtn>
       </ButtonBox>
-      {/* <div style={{ marginTop: '56px', display: 'flex', justifyContent: 'center' }}>
-        <Indicator01 />
-      </div> */}
+
       {showModal && (
         <NoticeModal onClose={() => setShowModal(false)} message='숫자만 입력해주세요!' />
       )}
@@ -81,7 +95,10 @@ const Container = styled.div`
 `;
 
 const ButtonBox = styled.div`
-  margin-top: min(321px, 30svh);
+  @supports (height: 30svh) {
+    margin-top: min(321px, 30svh);
+  }
+  margin-top: min(321px, 30vh);
   display: flex;
   justify-content: center;
 `;
@@ -90,8 +107,8 @@ const BottomBtn = styled(BottomButton)`
   margin-bottom: 20px;
 `;
 const InputBox = styled.div`
-  width: 231px;
   display: flex;
+  width: 310px;
   align-items: center;
   gap: 16px;
 `;
@@ -101,27 +118,18 @@ const InputContainer = styled.div`
   flex-direction: column;
   gap: 16px;
 `;
-const Input = styled.input`
-  width: 128px;
-  height: 38px;
-  outline: none;
-  border: 1px solid ${({ theme }) => theme.colors.gray[2]};
-  padding: 10px 20px;
-  border-radius: 6px;
-  text-overflow: ellipsis;
 
-  &:disabled {
-    background-color: white;
-    cursor: not-allowed;
-  }
-
-  /*INPUT-FONT */
-  font-family: 'Pretendard Variable';
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 150%;
-  letter-spacing: -0.022em;
-
-  color: ${({ theme }) => theme.colors.gray[3]};
+const Span = styled.span`
+  ${DefaultInput}
+  display: flex;
+  align-items: center;
+  min-height: 50px;
 `;
+
+const Input = styled.input`
+  ${DefaultInput}
+
+  height: 50px;
+`;
+
 export default SavingAmount;

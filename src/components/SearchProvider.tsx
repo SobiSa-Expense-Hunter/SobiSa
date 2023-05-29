@@ -1,6 +1,7 @@
 import { Dispatch, ReactNode, createContext, useContext, useReducer } from 'react';
 
-import { Action, UserSelected } from '@/types/search';
+import { UserSelected } from '@/types/product';
+import { Action } from '@/types/search';
 
 const SearchStateContext = createContext<UserSelected | null>(null);
 const SearchDispatchContext = createContext<Dispatch<Action> | null>(null);
