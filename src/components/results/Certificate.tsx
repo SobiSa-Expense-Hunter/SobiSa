@@ -120,7 +120,13 @@ const StickerStamp = styled(motion.span)``;
 
 const ProductName = styled(AwardXLarge)<{ length: number }>`
   text-align: right;
-  word-break: break-all;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  max-width: ${props => (props.length > 14 ? 'calc(100% - 16px)' : '100%')};
 `;
 
 const Certificate = (
