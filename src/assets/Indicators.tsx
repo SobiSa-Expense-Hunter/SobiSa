@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
+import { v4 } from 'uuid';
 
 const Current = styled(motion.span)`
   width: 16px;
@@ -21,14 +22,13 @@ const IndicatorWrapper = styled.div`
   align-items: center;
   gap: 5px;
 `;
-const Indicator = () => {
+const Indicator = ({ length, order }: { length: number; order: number }) => {
   return (
     <AnimatePresence>
       <IndicatorWrapper>
-        <Current />
-        <NotCurrent />
-        <NotCurrent />
-        <NotCurrent />
+        {Array(length)
+          .fill(0)
+          .map((_, i) => (order === i ? <Current /> : <NotCurrent />))}
       </IndicatorWrapper>
     </AnimatePresence>
   );

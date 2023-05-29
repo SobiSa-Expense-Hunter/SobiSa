@@ -1,7 +1,9 @@
 import { AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 
 import Indicator from '@/assets/Indicators';
+import { PATHS_ORDER } from '@/constant';
 
 const FooterContainer = styled.div`
   padding: 5vh 0;
@@ -11,10 +13,14 @@ const FooterContainer = styled.div`
 `;
 
 const Footer = () => {
+  const pathname = usePathname();
+  const { length } = PATHS_ORDER;
+  const order = PATHS_ORDER.indexOf(pathname) < 0 ? 0 : PATHS_ORDER.indexOf(pathname);
+
   return (
     <FooterContainer>
       <AnimatePresence>
-        <Indicator />
+        <Indicator length={length} order={order} />
       </AnimatePresence>
     </FooterContainer>
   );
