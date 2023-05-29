@@ -154,11 +154,8 @@ const Certificate = (
           </SmallFlexEnd>
           <AwardXLarge
             style={{
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              width: '100%',
               textAlign: 'right',
+              wordBreak: 'keep-all',
             }}
           >
             {title}
