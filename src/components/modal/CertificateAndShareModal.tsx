@@ -75,10 +75,13 @@ const toPng = async (node: HTMLDivElement) => {
   if (context === null) return '';
 
   const img: HTMLImageElement = await createImage(svgDataUrl);
-
+  let done = false;
   const onFrame = () => {
     context.drawImage(img, 0, 0, width, height);
-    window.requestAnimationFrame(onFrame);
+    if (canvas.toDataURL('image/png', 1.0).length > 204800) done = true;
+    if (!done) {
+      window.requestAnimationFrame(onFrame);
+    }
   };
   onFrame();
 
