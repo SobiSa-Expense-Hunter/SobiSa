@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -29,7 +29,6 @@ const List = ({ products, queryRes }: ListPageProps) => {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [userSelected, setUserSelected] = useState<Product>();
-  const listScroll = useRef<HTMLDivElement>(null);
 
   const { ref, inView } = useInView();
 
@@ -61,9 +60,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
   };
 
   const topBtnHandler = () => {
-    if (listScroll && listScroll.current) {
-      listScroll.current.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const onSubmit = () => {
@@ -88,7 +85,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
       </Fixed>
 
       <ListLayout>
-        <Scroll ref={listScroll}>
+        <Scroll>
           <form onSubmit={onSubmit}>
             {products.map(product => (
               <ListBox
