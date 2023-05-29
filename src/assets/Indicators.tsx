@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
-import { v4 } from 'uuid';
 
 const Current = styled(motion.span)`
   width: 16px;
