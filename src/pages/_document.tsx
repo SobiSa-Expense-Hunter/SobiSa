@@ -55,7 +55,7 @@ class MyDocument extends Document {
           <meta property='og:url' content='https://sobisa.vercel.app/' />
           <meta
             property='og:image'
-            content='https://https://sobisa.vercel.app/assets/image/thumbnail_image.png'
+            content='https://sobisa.vercel.app/assets/image/thumbnail_image.png'
           />
           <meta property='og:description' content='당신의 소비를 막아주는 소비사냥꾼' />
           <meta property='og:type' content='website' />
