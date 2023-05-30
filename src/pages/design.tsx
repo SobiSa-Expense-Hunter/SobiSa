@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { LinkIcon, LoadingIcon, NoticeIcon, TopIcon } from '@/assets/Icons';
 import { ItemImage, LineImage, MainImage } from '@/assets/Images';
-import { Indicator01, Indicator02, Indicator03, Indicator04 } from '@/assets/Indicators';
+import Indicator from '@/assets/Indicators';
 import { FaceBookIcon, KakaoIcon, TwitterIcon } from '@/assets/SocialIcons';
 import SearchInput from '@/components/SearchInput';
 import FrameName from '@/components/common/FrameName';
@@ -18,140 +18,6 @@ import {
 import * as Font from '@/styles/font';
 import theme from '@/styles/theme';
 import { GrayRange } from '@root/style';
-
-const Main = styled.main`
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  counter-reset: sec-counter;
-  scroll-behavior: smooth;
-`;
-
-const Section = styled.section``;
-
-const Aside = styled.div`
-  position: sticky;
-  height: 100vh;
-  font-size: 20px;
-  border-right: 1px solid #949494;
-  top: 0;
-  color: #949494;
-
-  h1 {
-    color: black;
-    font-size: 24px;
-    margin: 20px 0px;
-    padding: 20px;
-  }
-
-  ul {
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    position: -webkit-sticky;
-    position: sticky;
-
-    li {
-      line-height: 40px;
-      padding-left: 20px;
-      cursor: pointer;
-    }
-    li:hover {
-      background-color: rgba(0, 0, 0, 0.02);
-    }
-
-    a,
-    a:link,
-    a:hover,
-    a:active,
-    a:visited {
-      display: block;
-      text-decoration: none;
-      outline: none;
-      color: #949494;
-      text-decoration: none;
-    }
-  }
-`;
-
-const Article = styled.article`
-  width: 70vw;
-  display: inline-flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  border: 1px solid darkgray;
-  border-radius: 5px;
-  margin: 10px;
-  background-color: #ffffe8;
-  h2 {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  h2::before {
-    counter-increment: sec-counter;
-    content: counter(sec-counter) '. ';
-  }
-`;
-
-const ItemContent = styled.article`
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  gap: 25px;
-  border: 1px solid darkgray;
-  padding: 10px;
-  border-radius: 5px;
-  h3 {
-    font-weight: bold;
-  }
-  overflow: auto;
-`;
-
-const MiniItemContentsWrapper = styled.article`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(30%, auto));
-  gap: 10px;
-  ${ItemContent} {
-    align-items: center;
-    justify-items: center;
-  }
-`;
-
-const ItemViewContainer = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const Code = styled.code`
-  box-sizing: border-box;
-  background-color: #eee;
-  border-radius: 3px;
-  font-family: courier, monospace;
-  font-size: 0.9rem;
-`;
-
-const CodeRows = styled.pre`
-  background-color: #eee;
-  padding: 15px;
-  border-radius: 8px;
-  gap: 25px;
-  overflow: auto;
-  width: 100%;
-  code: {
-    background-color: #eee;
-  }
-`;
-
-const ColorContainer = styled.div`
-  display: inline-block;
-  width: 100%;
-  line-height: 100px;
-  vertical-align: center;
-  text-align: center;
-  background-color: ${props => props.color};
-  color: white;
-`;
 
 const design = () => {
   return (
@@ -382,10 +248,10 @@ const design = () => {
 
         <Article id='indicator-container'>
           <h2>Indicator</h2>
-          <Indicator01 />
-          <Indicator02 />
-          <Indicator03 />
-          <Indicator04 />
+          <Indicator length={4} order={0} />
+          <Indicator length={4} order={1} />
+          <Indicator length={4} order={2} />
+          <Indicator length={4} order={3} />
         </Article>
 
         <Article id='font-container'>
@@ -415,3 +281,137 @@ const design = () => {
 };
 
 export default design;
+
+const Main = styled.main`
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  counter-reset: sec-counter;
+  scroll-behavior: smooth;
+`;
+
+const Section = styled.section``;
+
+const Aside = styled.div`
+  position: sticky;
+  height: 100vh;
+  font-size: 20px;
+  border-right: 1px solid #949494;
+  top: 0;
+  color: #949494;
+
+  h1 {
+    color: black;
+    font-size: 24px;
+    margin: 20px 0px;
+    padding: 20px;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+
+    li {
+      line-height: 40px;
+      padding-left: 20px;
+      cursor: pointer;
+    }
+    li:hover {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    a,
+    a:link,
+    a:hover,
+    a:active,
+    a:visited {
+      display: block;
+      text-decoration: none;
+      outline: none;
+      color: #949494;
+      text-decoration: none;
+    }
+  }
+`;
+
+const Article = styled.article`
+  width: 70vw;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid darkgray;
+  border-radius: 5px;
+  margin: 10px;
+  background-color: #ffffe8;
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  h2::before {
+    counter-increment: sec-counter;
+    content: counter(sec-counter) '. ';
+  }
+`;
+
+const ItemContent = styled.article`
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 25px;
+  border: 1px solid darkgray;
+  padding: 10px;
+  border-radius: 5px;
+  h3 {
+    font-weight: bold;
+  }
+  overflow: auto;
+`;
+
+const MiniItemContentsWrapper = styled.article`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30%, auto));
+  gap: 10px;
+  ${ItemContent} {
+    align-items: center;
+    justify-items: center;
+  }
+`;
+
+const ItemViewContainer = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const Code = styled.code`
+  box-sizing: border-box;
+  background-color: #eee;
+  border-radius: 3px;
+  font-family: courier, monospace;
+  font-size: 0.9rem;
+`;
+
+const CodeRows = styled.pre`
+  background-color: #eee;
+  padding: 15px;
+  border-radius: 8px;
+  gap: 25px;
+  overflow: auto;
+  width: 100%;
+  code: {
+    background-color: #eee;
+  }
+`;
+
+const ColorContainer = styled.div`
+  display: inline-block;
+  width: 100%;
+  line-height: 100px;
+  vertical-align: center;
+  text-align: center;
+  background-color: ${props => props.color};
+  color: white;
+`;
