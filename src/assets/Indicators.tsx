@@ -1,5 +1,8 @@
+import { useState } from 'react';
+
 import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
 
 const Current = styled(motion.span)`
   width: 16px;
@@ -21,13 +24,14 @@ const IndicatorWrapper = styled.div`
   align-items: center;
   gap: 5px;
 `;
+
 const Indicator = ({ length, order }: { length: number; order: number }) => {
+  const [indexes, setIndexes] = useState<string[]>(Array.from({ length }, () => uuid()));
+
   return (
     <AnimatePresence>
       <IndicatorWrapper>
-        {Array(length)
-          .fill(0)
-          .map((_, i) => (order === i ? <Current /> : <NotCurrent />))}
+        {indexes.map((key, i) => (order === i ? <Current key={key} /> : <NotCurrent key={key} />))}
       </IndicatorWrapper>
     </AnimatePresence>
   );
