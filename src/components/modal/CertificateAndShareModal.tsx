@@ -69,28 +69,27 @@ const toPng = async (node: HTMLDivElement) => {
   const svgDataUrl = await toSvg(node);
 
   const canvas = document.createElement('canvas');
-  const offscreenCanvas = canvas.transferControlToOffscreen();
-  offscreenCanvas.width = width;
-  offscreenCanvas.height = height;
-  const context = offscreenCanvas.getContext('2d', { alpha: false });
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext('2d', { alpha: false });
   if (context === null) return '';
 
   const img: HTMLImageElement = await createImage(svgDataUrl);
-  let done = false;
-  const onFrame = () => {
-    context.drawImage(img, 0, 0, width, height);
-    if (canvas.toDataURL('image/png', 1.0).length > 204800) done = true;
-    if (!done) {
-      window.requestAnimationFrame(onFrame);
-    }
-  };
-  onFrame();
 
   return new Promise((resolve: (url: string) => void) => {
-    setTimeout(() => {
-      const url = canvas.toDataURL('image/png', 1.0);
-      resolve(url);
-    }, 500);
+    let done = false;
+    const onFrame = () => {
+      context.drawImage(img, 0, 0, width, height);
+      const dataUrl = canvas.toDataURL('image/png', 1.0);
+      if (dataUrl.length > 204800) {
+        done = true;
+        resolve(dataUrl);
+      }
+      if (!done) {
+        window.requestAnimationFrame(onFrame);
+      }
+    };
+    onFrame();
   });
 };
 
