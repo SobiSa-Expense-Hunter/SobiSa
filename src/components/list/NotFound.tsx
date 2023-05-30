@@ -19,7 +19,7 @@ function NotFound() {
       <Font.Small>검색하신 물건과 관련된 결과가 하나도 없습니다! </Font.Small>
       <Font.Small>오타를 내신 건 아닌가요?</Font.Small>
       <MarginBox margin='87px' />
-      <Link href='/search'>
+      <Link href='/' replace>
         <Buttons.BottomButton>이전으로</Buttons.BottomButton>
       </Link>
       <MarginBox margin='66px' />
