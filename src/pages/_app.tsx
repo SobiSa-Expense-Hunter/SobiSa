@@ -1,14 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ThemeProvider } from 'styled-components';
 
 import SearchProvider from '@/components/SearchProvider';
 import AppLayout from '@/components/layout/AppLayout';
+import * as ga from '@/lib/gtag';
 import GlobalStyle from '@/styles/GlobalStyle';
 import theme from '@/styles/theme';
 import { KakaoSDK } from '@/types/result';
@@ -24,6 +26,18 @@ declare global {
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps, ...appProps }: AppProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url: URL) => {
+      ga.pageview(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   // eslint-disable-next-line react/jsx-props-no-spreading
   const kakaoSDKInit = () => {
     if (window.Kakao.isInitialized() === false) {
