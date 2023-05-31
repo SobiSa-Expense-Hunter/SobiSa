@@ -31,7 +31,16 @@ const Indicator = ({ length, order }: { length: number; order: number }) => {
   return (
     <AnimatePresence>
       <IndicatorWrapper>
-        {indexes.map((key, i) => (order === i ? <Current key={key} /> : <NotCurrent key={key} />))}
+        {indexes.map((key, i) =>
+          i === order ? (
+            <Current
+              key={key}
+              animate={i > 0 && { x: [-15, 0], transition: { type: 'spring', stiffness: 70 } }}
+            />
+          ) : (
+            <NotCurrent key={key} />
+          ),
+        )}
       </IndicatorWrapper>
     </AnimatePresence>
   );
