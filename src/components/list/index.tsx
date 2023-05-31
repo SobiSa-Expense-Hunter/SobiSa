@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -29,6 +29,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [userSelected, setUserSelected] = useState<Product>();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const { ref, inView } = useInView();
 
@@ -60,7 +61,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
   };
 
   const topBtnHandler = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const onSubmit = () => {
@@ -85,7 +86,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
       </Fixed>
 
       <ListLayout>
-        <Scroll>
+        <Scroll ref={scrollRef}>
           <form onSubmit={onSubmit}>
             {products.map(product => (
               <ListBox
@@ -136,11 +137,11 @@ const Centering = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
   overflow: hidden;
 `;
 
 const Scroll = styled.div`
+  flex: auto;
   height: 100%;
   overflow-y: auto;
   padding-bottom: 50px;

@@ -22,7 +22,7 @@ function about() {
       <Font.Small>사용자 정보는 단순 결과를 위해서만 사용되며 </Font.Small>
       <Font.Small> 이외의 수단으로 사용되지 않는다는 것을 안내드립니다.</Font.Small>
       <MarginBox margin='128px' />
-      <Link href='/search'>
+      <Link href='/'>
         <Button.BottomButton>믿을게요!</Button.BottomButton>
       </Link>
     </Centering>

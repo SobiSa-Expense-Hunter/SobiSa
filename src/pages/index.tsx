@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { MainImage } from '@/assets/Images';
@@ -13,6 +14,15 @@ import * as Font from '@/styles/font';
 
 function Home() {
   const { title = '', text = '', url = '' } = sharedMessage;
+
+  const router = useRouter();
+  const VISTED = 'visited';
+
+  if (typeof window !== 'undefined' && !localStorage.getItem(VISTED)) {
+    localStorage.setItem(VISTED, 'true');
+    router.push('/about');
+  }
+
   return (
     <Container>
       <Font.Medium>지금 뭘 사고 싶나요?</Font.Medium>

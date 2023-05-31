@@ -23,101 +23,6 @@ import {
   AwardSmallOrange,
 } from '@/styles/font';
 
-const CertificateContainer = styled.div`
-  position: relative;
-`;
-
-const CertificateWrapper = styled.div`
-  width: 310px;
-  min-height: 632px;
-  padding: 30px 20px 40px 20px;
-  background: right top url('./assets/image/receipt.png') #ffffff;
-  background-blend-mode: multiply, normal;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-  & > div:not(div:last-of-type) {
-    border-bottom: 1px solid ${props => props.theme.colors.gray[4]};
-  }
-`;
-
-const ColumnFlex = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const SmallColumnFlex = styled(ColumnFlex)`
-  gap: 8px;
-`;
-
-const ColumnFlexEnd = styled(ColumnFlex)`
-  align-items: flex-end;
-`;
-const ColumnFlexEndWithBorderBottom = styled(ColumnFlexEnd)`
-  padding: 16px 0px;
-`;
-
-const SmallFlexEnd = styled(ColumnFlexEnd)`
-  gap: 8px;
-`;
-
-const RowFlex = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 16px;
-`;
-
-const SmallRowFlex = styled(RowFlex)`
-  gap: 8px;
-`;
-
-const ContentColumnFlex = styled(ColumnFlex)`
-  padding: 16px 0px;
-`;
-
-const ContentRowFlex = styled(RowFlex)`
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-`;
-
-const QRCodeImage = styled.img`
-  width: 72px;
-  height: 72px;
-  mix-blend-mode: multiply;
-`;
-
-const MediumGapContentColumnFlex = styled(ContentColumnFlex)`
-  gap: 12px;
-  padding-bottom: 0px;
-  border-bottom: 0px;
-  align-items: flex-start;
-
-  span {
-    color: ${props => props.theme.colors.gray[4]};
-  }
-`;
-
-const TextSpacer = styled.div`
-  flex-grow: 1;
-  display: inline-block;
-  box-sizing: border-box;
-  border: 1px dashed ${props => props.theme.colors.gray[4]};
-`;
-
-const AwardXSmallGray6 = styled(AwardXSmall)`
-  color: ${props => props.theme.colors.gray[6]};
-`;
-
-const Sticker = styled(motion.span)`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-`;
-
-const StickerStamp = styled(motion.span)``;
-
 const Certificate = (props: unknown, ref: ForwardedRef<HTMLDivElement>) => {
   const {
     product: { title, price },
@@ -150,17 +55,7 @@ const Certificate = (props: unknown, ref: ForwardedRef<HTMLDivElement>) => {
               {new Date().toISOString().substring(0, 19).replace('T', ' ')}
             </AwardXXSmall>
           </SmallFlexEnd>
-          <AwardXLarge
-            style={{
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              width: '100%',
-              textAlign: 'right',
-            }}
-          >
-            {title}
-          </AwardXLarge>
+          <ProductName length={title.length}>{title}</ProductName>
         </ColumnFlexEndWithBorderBottom>
         {isLessThanAlternatives ? (
           <>
@@ -316,3 +211,103 @@ const Certificate = (props: unknown, ref: ForwardedRef<HTMLDivElement>) => {
 };
 
 export default forwardRef(Certificate);
+
+const CertificateContainer = styled.div`
+  position: relative;
+`;
+
+const CertificateWrapper = styled.div`
+  width: 310px;
+  min-height: 632px;
+  padding: 30px 20px 40px 20px;
+  background: right top url('./assets/image/receipt.png') #ffffff;
+  background-blend-mode: multiply, normal;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+  & > div:not(div:last-of-type) {
+    border-bottom: 1px solid ${props => props.theme.colors.gray[4]};
+  }
+`;
+
+const ColumnFlex = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const SmallColumnFlex = styled(ColumnFlex)`
+  gap: 8px;
+`;
+
+const ColumnFlexEnd = styled(ColumnFlex)`
+  align-items: flex-end;
+`;
+const ColumnFlexEndWithBorderBottom = styled(ColumnFlexEnd)`
+  padding: 16px 0px;
+`;
+
+const SmallFlexEnd = styled(ColumnFlexEnd)`
+  gap: 8px;
+`;
+
+const RowFlex = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+`;
+
+const SmallRowFlex = styled(RowFlex)`
+  gap: 8px;
+`;
+
+const ContentColumnFlex = styled(ColumnFlex)`
+  padding: 16px 0px;
+`;
+
+const ContentRowFlex = styled(RowFlex)`
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+`;
+
+const QRCodeImage = styled.img`
+  width: 72px;
+  height: 72px;
+  mix-blend-mode: multiply;
+`;
+
+const MediumGapContentColumnFlex = styled(ContentColumnFlex)`
+  gap: 12px;
+  padding-bottom: 0px;
+  border-bottom: 0px;
+  align-items: flex-start;
+
+  span {
+    color: ${props => props.theme.colors.gray[4]};
+  }
+`;
+
+const TextSpacer = styled.div`
+  flex-grow: 1;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 1px dashed ${props => props.theme.colors.gray[4]};
+`;
+
+const AwardXSmallGray6 = styled(AwardXSmall)`
+  color: ${props => props.theme.colors.gray[6]};
+`;
+
+const Sticker = styled(motion.span)`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+`;
+
+const StickerStamp = styled(motion.span)``;
+
+const ProductName = styled(AwardXLarge)<{ length: number }>`
+  text-align: right;
+  word-break: 'keep-all';
+`;
