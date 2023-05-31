@@ -42,6 +42,7 @@ class MyDocument extends Document {
       <Html lang='ko'>
         <Head>
           <Script
+            strategy='afterInteractive'
             dangerouslySetInnerHTML={{
               __html: `
                   (function(c,l,a,r,i,t,y){
@@ -53,10 +54,12 @@ class MyDocument extends Document {
             }}
           />
           <Script
+            strategy='afterInteractive'
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
           />
           <Script
+            strategy='afterInteractive'
             dangerouslySetInnerHTML={{
               __html: `
                   window.dataLayer = window.dataLayer || [];
