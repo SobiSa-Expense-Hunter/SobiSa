@@ -16,10 +16,7 @@ import uploadImage from '@/utils/api/uploadImageApi';
 const createImage = async (url: string): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.onload = () =>
-      setTimeout(() => {
-        resolve(img);
-      }, 200);
+    img.onload = () => resolve(img);
     img.decode = async () => resolve(img);
     img.onerror = reject;
     img.crossOrigin = 'anonymous';
