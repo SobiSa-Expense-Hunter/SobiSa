@@ -9,7 +9,7 @@ export const StyledListContainer = styled.div<{ select?: boolean }>`
   }
   display: flex;
   align-items: center;
-  padding: 20px 0px;
+  padding: 20px 15px;
   gap: 16px;
   margin: 0;
 

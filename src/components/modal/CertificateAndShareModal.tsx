@@ -13,10 +13,19 @@ import useModalAnimation from '@/hooks/useModalAnimation';
 import { Alternatives } from '@/types/result';
 import uploadImage from '@/utils/api/uploadImageApi';
 
-interface CertificateAndShareModalProps {
-  onClose: () => void;
-  alternatives: Alternatives[];
-}
+const createImage = async (url: string): Promise<HTMLImageElement> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () =>
+      setTimeout(() => {
+        resolve(img);
+      }, 200);
+    img.decode = async () => resolve(img);
+    img.onerror = reject;
+    img.crossOrigin = 'anonymous';
+    img.src = url;
+  });
+};
 
 const toPng = async (node: HTMLDivElement) => {
   const { offsetWidth: width, offsetHeight: height } = node;
@@ -24,30 +33,34 @@ const toPng = async (node: HTMLDivElement) => {
   const svgDataUrl = await toSvg(node);
 
   const canvas = document.createElement('canvas');
-  const offscreenCanvas = canvas.transferControlToOffscreen();
-  offscreenCanvas.width = width;
-  offscreenCanvas.height = height;
-  const context = offscreenCanvas.getContext('2d', { alpha: false });
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext('2d', { alpha: false });
   if (context === null) return '';
 
   const img: HTMLImageElement = await createImage(svgDataUrl);
-  let done = false;
-  const onFrame = () => {
-    context.drawImage(img, 0, 0, width, height);
-    if (canvas.toDataURL('image/png', 1.0).length > 204800) done = true;
-    if (!done) {
-      window.requestAnimationFrame(onFrame);
-    }
-  };
-  onFrame();
 
   return new Promise((resolve: (url: string) => void) => {
-    setTimeout(() => {
-      const url = canvas.toDataURL('image/png', 1.0);
-      resolve(url);
-    }, 500);
+    let done = false;
+    const onFrame = () => {
+      context.drawImage(img, 0, 0, width, height);
+      const dataUrl = canvas.toDataURL('image/png', 1.0);
+      if (dataUrl.length > 204800) {
+        done = true;
+        resolve(dataUrl);
+      }
+      if (!done) {
+        window.requestAnimationFrame(onFrame);
+      }
+    };
+    onFrame();
   });
 };
+
+interface CertificateAndShareModalProps {
+  onClose: () => void;
+  alternatives: Alternatives[];
+}
 
 const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShareModalProps) => {
   const { show, animationAfterClose } = useModalAnimation(onClose);
@@ -137,17 +150,3 @@ const CertificateAndShareWrapper = styled.div`
   align-items: center;
   gap: 32px;
 `;
-
-const createImage = async (url: string): Promise<HTMLImageElement> => {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () =>
-      setTimeout(() => {
-        resolve(img);
-      }, 200);
-    img.decode = async () => resolve(img);
-    img.onerror = reject;
-    img.crossOrigin = 'anonymous';
-    img.src = url;
-  });
-};

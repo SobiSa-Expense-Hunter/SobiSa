@@ -57,17 +57,7 @@ const Certificate = (
               {new Date().toISOString().substring(0, 19).replace('T', ' ')}
             </AwardXXSmall>
           </SmallFlexEnd>
-          <AwardXLarge
-            style={{
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              width: '100%',
-              textAlign: 'right',
-            }}
-          >
-            {title}
-          </AwardXLarge>
+          <ProductName length={title.length}>{title}</ProductName>
         </ColumnFlexEndWithBorderBottom>
         <ContentColumnFlex>
           <ContentRowFlex>
@@ -274,3 +264,8 @@ const Sticker = styled(motion.span)`
 `;
 
 const StickerStamp = styled(motion.span)``;
+
+const ProductName = styled(AwardXLarge)<{ length: number }>`
+  text-align: right;
+  word-break: 'keep-all';
+`;
