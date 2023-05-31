@@ -1,4 +1,4 @@
-import React, { ForwardedRef, forwardRef } from 'react';
+import React, { ForwardedRef, forwardRef, useContext } from 'react';
 
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
@@ -14,6 +14,7 @@ import {
 } from '@/assets/Stickers';
 import { useSearchStore } from '@/components/SearchProvider';
 import NoticeModal from '@/components/modal/NoticeModal';
+import AlternativesContext from '@/components/results/AlternativesContext';
 import {
   AwardXLarge,
   AwardXXLarge,
@@ -21,7 +22,6 @@ import {
   AwardXSmall,
   AwardSmallOrange,
 } from '@/styles/font';
-import { Alternatives } from '@/types/result';
 
 const CertificateContainer = styled.div`
   position: relative;
@@ -118,15 +118,13 @@ const Sticker = styled(motion.span)`
 
 const StickerStamp = styled(motion.span)``;
 
-const Certificate = (
-  { alternatives }: { alternatives: Alternatives[] },
-  ref: ForwardedRef<HTMLDivElement>,
-) => {
+const Certificate = (props: unknown, ref: ForwardedRef<HTMLDivElement>) => {
   const {
     product: { title, price },
     savingAmount,
   } = useSearchStore();
   const router = useRouter();
+  const { alternatives, isLessThanAlternatives } = useContext(AlternativesContext);
 
   if (savingAmount === undefined || savingAmount === 0) {
     return <NoticeModal onClose={() => router.back} message='저축할 금액이 입력되지 않았습니다.' />;
@@ -140,7 +138,7 @@ const Certificate = (
     );
   }
 
-  const savingsPeriod = Math.round(price / savingAmount);
+  const savingsPeriod = Math.ceil(price / savingAmount);
 
   return (
     <CertificateContainer>
@@ -164,33 +162,76 @@ const Certificate = (
             {title}
           </AwardXLarge>
         </ColumnFlexEndWithBorderBottom>
-        <ContentColumnFlex>
-          <ContentRowFlex>
-            <AwardXSmallGray6>할부기간</AwardXSmallGray6>
-            <TextSpacer />
-            <AwardXXSmall>{savingsPeriod}개월</AwardXXSmall>
-          </ContentRowFlex>
-          <AwardXSmallGray6>기회비용</AwardXSmallGray6>
-          <SmallColumnFlex style={{ marginLeft: 20 }}>
-            {alternatives.map(alternative => (
-              <ContentRowFlex key={`receipt_${alternative.title}`}>
-                <AwardXXSmall>{alternative.title}</AwardXXSmall>
+        {isLessThanAlternatives ? (
+          <>
+            <ContentColumnFlex>
+              <ContentRowFlex>
+                <AwardXSmallGray6>할부기간</AwardXSmallGray6>
+                <TextSpacer />
+                <AwardXXSmall>일시불</AwardXXSmall>
+              </ContentRowFlex>
+            </ContentColumnFlex>
+            <ContentColumnFlex style={{ alignItems: 'flex-end' }}>
+              <AwardXSmall style={{ alignSelf: 'flex-start' }}>총 금액</AwardXSmall>
+              <AwardXXLarge>
+                <span>{price.toLocaleString()}</span>
+                <span style={{ marginLeft: 4 }}>₩</span>
+              </AwardXXLarge>
+            </ContentColumnFlex>
+            <ContentColumnFlex>
+              <ContentRowFlex>
+                <AwardXSmallGray6>기회비용</AwardXSmallGray6>
+                <TextSpacer />
+                <AwardXXSmall>(저축 : {savingAmount.toLocaleString()}원)</AwardXXSmall>
+              </ContentRowFlex>
+              <SmallColumnFlex style={{ marginLeft: 20 }}>
+                {alternatives.map(alternative => (
+                  <ContentRowFlex key={`receipt_${alternative.title}`}>
+                    <AwardXXSmall>{alternative.title}</AwardXXSmall>
+                    <TextSpacer />
+                    <AwardXXSmall>
+                      {Math.floor(savingAmount / alternative.price).toLocaleString()}
+                      {alternative.unit}
+                    </AwardXXSmall>
+                  </ContentRowFlex>
+                ))}
+              </SmallColumnFlex>
+            </ContentColumnFlex>
+          </>
+        ) : (
+          <>
+            <ContentColumnFlex>
+              <ContentRowFlex>
+                <AwardXSmallGray6>할부기간</AwardXSmallGray6>
                 <TextSpacer />
                 <AwardXXSmall>
-                  {Math.floor(price / alternative.price).toLocaleString()}
-                  {alternative.unit}
+                  {savingsPeriod === 1 ? '일시불' : `${savingsPeriod}개월`}
                 </AwardXXSmall>
               </ContentRowFlex>
-            ))}
-          </SmallColumnFlex>
-        </ContentColumnFlex>
-        <ContentColumnFlex style={{ alignItems: 'flex-end' }}>
-          <AwardXSmall style={{ alignSelf: 'flex-start' }}>총 금액</AwardXSmall>
-          <AwardXXLarge>
-            <span>{price.toLocaleString()}</span>
-            <span style={{ marginLeft: 4 }}>₩</span>
-          </AwardXXLarge>
-        </ContentColumnFlex>
+              <AwardXSmallGray6>기회비용</AwardXSmallGray6>
+              <SmallColumnFlex style={{ marginLeft: 20 }}>
+                {alternatives.map(alternative => (
+                  <ContentRowFlex key={`receipt_${alternative.title}`}>
+                    <AwardXXSmall>{alternative.title}</AwardXXSmall>
+                    <TextSpacer />
+                    <AwardXXSmall>
+                      {Math.floor(price / alternative.price).toLocaleString()}
+                      {alternative.unit}
+                    </AwardXXSmall>
+                  </ContentRowFlex>
+                ))}
+              </SmallColumnFlex>
+            </ContentColumnFlex>
+            <ContentColumnFlex style={{ alignItems: 'flex-end' }}>
+              <AwardXSmall style={{ alignSelf: 'flex-start' }}>총 금액</AwardXSmall>
+              <AwardXXLarge>
+                <span>{price.toLocaleString()}</span>
+                <span style={{ marginLeft: 4 }}>₩</span>
+              </AwardXXLarge>
+            </ContentColumnFlex>
+          </>
+        )}
+
         <ContentColumnFlex>
           <ContentRowFlex>
             <QRCodeImage src='./assets/image/qrcode.png' alt='소비사로 이동하기 qr코드' />
@@ -256,19 +297,20 @@ const Certificate = (
       >
         <CharacterColorSticker />
       </Sticker>
-
-      <Sticker
-        initial={{ scale: 3, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1, transform: 'rotate(15.52deg)' }}
-        transition={{
-          opacity: { ease: 'linear' },
-          layout: { duration: 2 },
-          delay: 0.3,
-        }}
-        style={{ left: -58, top: 434 }}
-      >
-        <ExpensiveTextSticker />
-      </Sticker>
+      {savingsPeriod !== 1 && (
+        <Sticker
+          initial={{ scale: 3, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1, transform: 'rotate(15.52deg)' }}
+          transition={{
+            opacity: { ease: 'linear' },
+            layout: { duration: 2 },
+            delay: 0.3,
+          }}
+          style={{ left: -58, top: 434 }}
+        >
+          <ExpensiveTextSticker />
+        </Sticker>
+      )}
     </CertificateContainer>
   );
 };

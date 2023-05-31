@@ -10,12 +10,10 @@ import { ShareButton } from '@/components/common/buttons';
 import Certificate from '@/components/results/Certificate';
 import ShareButtons from '@/components/results/ShareButtons';
 import useModalAnimation from '@/hooks/useModalAnimation';
-import { Alternatives } from '@/types/result';
 import uploadImage from '@/utils/api/uploadImageApi';
 
 interface CertificateAndShareModalProps {
   onClose: () => void;
-  alternatives: Alternatives[];
 }
 
 const CertificateAndShareContainer = styled(ModalContainer)`
@@ -94,7 +92,7 @@ const toPng = async (node: HTMLDivElement) => {
   });
 };
 
-const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShareModalProps) => {
+const CertificateAndShareModal = ({ onClose }: CertificateAndShareModalProps) => {
   const { show, animationAfterClose } = useModalAnimation(onClose);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -137,7 +135,7 @@ const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShare
         id='container'
       >
         <CertificateAndShareWrapper>
-          <Certificate alternatives={alternatives} ref={ref} />
+          <Certificate ref={ref} />
           <ShareButtons shareImage={shareImage} />
           <ShareButton
             onClick={certificateDownload}
