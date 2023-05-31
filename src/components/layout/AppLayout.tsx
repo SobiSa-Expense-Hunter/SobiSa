@@ -55,8 +55,8 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100% - 10vh - 62px);
+  height: calc(100% - 15vh - 45px);
   @supports (height: 10svh) {
-    height: calc(100% - 10svh - 62px);
+    height: calc(100% - 15svh - 45px);
   }
 `;

@@ -9,7 +9,7 @@ export const Container = styled.div`
   margin-top: 36px;
   max-width: 310px;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
   height: 100%;
 `;
 
