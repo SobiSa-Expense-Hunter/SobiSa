@@ -75,7 +75,7 @@ const SavingAmount = () => {
         </InputBox>
       </InputContainer>
       <ButtonBox onClick={handleSubmit}>
-        <BottomBtn>다음으로</BottomBtn>
+        <BottomButton>다음으로</BottomButton>
       </ButtonBox>
 
       {showModal && (
@@ -92,20 +92,15 @@ const Container = styled.div`
   margin-top: 101px;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  justify-content: space-around;
 `;
 
 const ButtonBox = styled.div`
-  @supports (height: 30svh) {
-    margin-top: min(321px, 30svh);
-  }
-  margin-top: min(321px, 30vh);
   display: flex;
   justify-content: center;
 `;
 
-const BottomBtn = styled(BottomButton)`
-  margin-bottom: 20px;
-`;
 const InputBox = styled.div`
   display: flex;
   width: 310px;

@@ -44,38 +44,37 @@ function Keyword({ product, allKeyword }: { product: Product; allKeyword: string
 
   return (
     <Style.Container>
-      <Style.KeywordPageFont.Main>표시할 상품 키워드를 선택해 주세요.</Style.KeywordPageFont.Main>
-      <MarginBox margin='4px' />
-      <Style.KeywordPageFont.Sub>
-        멋진 임명장을 위해선 7~14글자 사이가 좋아요!
-      </Style.KeywordPageFont.Sub>
-      <MarginBox margin='24px' />
-      <Style.Keyword>
-        {allKeyword.map(keyword => (
-          <Style.KeywordWrapper
-            key={uuidv4()}
-            onClick={() => keywordHandler(keyword)}
-            isSelected={selectedKeywords.includes(keyword)}
-          >
-            {keyword}
-          </Style.KeywordWrapper>
-        ))}
-      </Style.Keyword>
-      <MarginBox margin='56px' />
-      <Style.FlexColWrapper>
-        <Style.Span>{String(selectedKeywords).replaceAll(',', ' ')}</Style.Span>
-        <Style.FlexRowWrapper>
-          <Font.SmallOrange style={{ flex: 1 }}>{alertMessage}</Font.SmallOrange>
-          <Style.ResetBtn type='button' onClick={titleResetHandler}>
-            <Icon.InitializationIcon />
-          </Style.ResetBtn>
-        </Style.FlexRowWrapper>
-      </Style.FlexColWrapper>
-
+      <div>
+        <Style.KeywordPageFont.Main>표시할 상품 키워드를 선택해 주세요.</Style.KeywordPageFont.Main>
+        <MarginBox margin='4px' />
+        <Style.KeywordPageFont.Sub>
+          멋진 임명장을 위해선 7~14글자 사이가 좋아요!
+        </Style.KeywordPageFont.Sub>
+        <MarginBox margin='24px' />
+        <Style.Keyword>
+          {allKeyword.map(keyword => (
+            <Style.KeywordWrapper
+              key={uuidv4()}
+              onClick={() => keywordHandler(keyword)}
+              isSelected={selectedKeywords.includes(keyword)}
+            >
+              {keyword}
+            </Style.KeywordWrapper>
+          ))}
+        </Style.Keyword>
+        <MarginBox margin='56px' />
+        <Style.FlexColWrapper>
+          <Style.Span>{String(selectedKeywords).replaceAll(',', ' ')}</Style.Span>
+          <Style.FlexRowWrapper>
+            <Font.SmallOrange style={{ flex: 1 }}>{alertMessage}</Font.SmallOrange>
+            <Style.ResetBtn type='button' onClick={titleResetHandler}>
+              <Icon.InitializationIcon />
+            </Style.ResetBtn>
+          </Style.FlexRowWrapper>
+        </Style.FlexColWrapper>
+      </div>
       <Style.ButtonBox>
-        <BottomButton style={{ marginBottom: '20px' }} onClick={nextPageHandler}>
-          다음으로
-        </BottomButton>
+        <BottomButton onClick={nextPageHandler}>다음으로</BottomButton>
       </Style.ButtonBox>
     </Style.Container>
   );

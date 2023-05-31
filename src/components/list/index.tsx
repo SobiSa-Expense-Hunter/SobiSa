@@ -137,11 +137,11 @@ const Centering = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
   overflow: hidden;
 `;
 
 const Scroll = styled.div`
+  flex: auto;
   height: 100%;
   overflow-y: auto;
   padding-bottom: 50px;

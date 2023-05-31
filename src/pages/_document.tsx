@@ -63,6 +63,10 @@ class MyDocument extends Document {
           <meta name='twitter:title' content='소비사!: 소비 사냥꾼' />
 
           <link rel='apple-touch-icon' sizes='114x114' href='assets/image/sobisa_logo.png' />
+          <meta
+            name='viewport'
+            content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+          />
         </Head>
         <body>
           <div id='modal-root' />

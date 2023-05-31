@@ -13,42 +13,6 @@ import useModalAnimation from '@/hooks/useModalAnimation';
 import { Alternatives } from '@/types/result';
 import uploadImage from '@/utils/api/uploadImageApi';
 
-interface CertificateAndShareModalProps {
-  onClose: () => void;
-  alternatives: Alternatives[];
-}
-
-const CertificateAndShareContainer = styled(ModalContainer)`
-  background-color: transparent;
-  width: 100%;
-  max-width: 100%;
-  max-height: 100%;
-
-  padding-top: 10vh;
-  padding-bottom: 10vh;
-
-  justify-content: flex-start;
-  overflow: hidden;
-  overflow-y: auto;
-  &::-webkit-scrollbar,
-  &::-webkit-scrollbar-thumb {
-    width: 4px;
-    border-radius: 2px;
-    background-clip: padding-box;
-    border: 10px solid transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.gray[2]};
-  }
-`;
-
-const CertificateAndShareWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-`;
-
 const createImage = async (url: string): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -89,6 +53,11 @@ const toPng = async (node: HTMLDivElement) => {
     onFrame();
   });
 };
+
+interface CertificateAndShareModalProps {
+  onClose: () => void;
+  alternatives: Alternatives[];
+}
 
 const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShareModalProps) => {
   const { show, animationAfterClose } = useModalAnimation(onClose);
@@ -147,3 +116,34 @@ const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShare
   );
 };
 export default CertificateAndShareModal;
+
+const CertificateAndShareContainer = styled(ModalContainer)`
+  background-color: transparent;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+
+  justify-content: flex-start;
+  overflow: hidden;
+  overflow-y: auto;
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-thumb {
+    width: 4px;
+    border-radius: 2px;
+    background-clip: padding-box;
+    border: 10px solid transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.gray[2]};
+  }
+`;
+
+const CertificateAndShareWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+`;
