@@ -93,7 +93,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
 
 const ButtonBox = styled.div`

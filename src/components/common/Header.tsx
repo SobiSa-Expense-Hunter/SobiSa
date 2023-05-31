@@ -47,9 +47,12 @@ const HeaderWrapper = styled.header`
   height: 41px;
   min-height: 41px;
   background-color: white;
-  margin-top: 17px;
+  margin-top: 5vh;
   @media (max-width: 768px) {
     width: 100%;
+  }
+  @media (margin-top: 5svh) {
+    margin-top: 5vh;
   }
 `;
 
