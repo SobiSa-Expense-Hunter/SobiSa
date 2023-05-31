@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { DownloadIcon } from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import { Background, ModalContainer } from '@/components/common/Modal';
-import { ShareButton } from '@/components/common/buttons';
+import { CloseButton, ShareButton } from '@/components/common/buttons';
 import Certificate from '@/components/results/Certificate';
 import ShareButtons from '@/components/results/ShareButtons';
 import useModalAnimation from '@/hooks/useModalAnimation';
@@ -126,15 +126,9 @@ const CertificateAndShareModal = ({ onClose }: CertificateAndShareModalProps) =>
   return (
     <Portal>
       <Background show={show} />
-      <CertificateAndShareContainer
-        show={show}
-        onClick={e => {
-          if (e.target instanceof HTMLDivElement && e.target.id === 'container')
-            animationAfterClose();
-        }}
-        id='container'
-      >
+      <CertificateAndShareContainer show={show} id='container'>
         <CertificateAndShareWrapper>
+          <CloseButton style={{ alignSelf: 'flex-end' }} onClick={animationAfterClose} />
           <Certificate ref={ref} />
           <ShareButtons shareImage={shareImage} />
           <ShareButton
