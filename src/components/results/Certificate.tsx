@@ -23,7 +23,9 @@ import {
   AwardSmallOrange,
 } from '@/styles/font';
 
-const Certificate = (props: unknown, ref: ForwardedRef<HTMLDivElement>) => {
+type CertificateProps = unknown;
+
+const Certificate = (_: CertificateProps, ref: ForwardedRef<HTMLDivElement>) => {
   const {
     product: { title, price },
     savingAmount,
@@ -138,9 +140,11 @@ const Certificate = (props: unknown, ref: ForwardedRef<HTMLDivElement>) => {
               </AwardSmallOrange>
               <SmallRowFlex>
                 <SmallRowFlex style={{ gap: '6px' }}>
-                  {Array.from({ length: 6 }, (_, i) => i + 1).map(v => (
-                    <ArrowIcon key={`arrow_${v}`} />
-                  ))}
+                  {Array(6)
+                    .fill(0)
+                    .map((v, i) => (
+                      <ArrowIcon key={`arrow_${v}_${i + 1}`} />
+                    ))}
                 </SmallRowFlex>
                 <AwardXXSmall>홈페이지 바로가기</AwardXXSmall>
               </SmallRowFlex>
