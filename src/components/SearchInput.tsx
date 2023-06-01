@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { MagnifyingGlassIcon } from '@/assets/Icons';
@@ -12,31 +12,21 @@ function SearchInput() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const router = useRouter();
 
-  const checkSearchWord = () => {
-    if (!search) {
-      throw new Error('검색어를 입력해주세요');
-    }
-  };
-
   const handleSearchKeyDownEvent = (event: React.KeyboardEvent<HTMLElement>) => {
-    try {
-      if (event.key === 'Enter') {
-        checkSearchWord();
-        router.push({ pathname: '/list', query: { search } });
-      }
-    } catch (error) {
-      setShowModal(true);
-    }
+    if (event.key === 'Enter') searchParamOrShowAlert(router, search);
   };
 
-  const handleSearchClickEvent = () => {
+  const handleSearchClickEvent = () => searchParamOrShowAlert(router, search);
+
+  function searchParamOrShowAlert(thisRouter: NextRouter, searchText: string) {
     try {
-      checkSearchWord();
-      router.push({ pathname: '/list', query: { search } });
+      checkSearchWord(search);
+      thisRouter.push({ pathname: '/list', query: { searchText } });
     } catch (error) {
+      setSearch('');
       setShowModal(true);
     }
-  };
+  }
 
   return (
     <SearchInputContainer>
@@ -58,6 +48,14 @@ function SearchInput() {
     </SearchInputContainer>
   );
 }
+
+function checkSearchWord(search: string) {
+  const isWhitespaceOnly = /^\s*$/.test(search);
+  if (!search || isWhitespaceOnly) {
+    throw new Error('검색어를 입력해주세요');
+  }
+}
+
 export default SearchInput;
 
 const SearchInputContainer = styled.div`
