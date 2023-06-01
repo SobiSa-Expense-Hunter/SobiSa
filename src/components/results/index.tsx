@@ -14,10 +14,14 @@ import alternatives from '@/constant/Alternatives';
 import { ExtraLarge, Large, LargeOrange, Medium } from '@/styles/font';
 import { Alternatives } from '@/types/result';
 
+const getRandomAlternatives = (price: number) => {
+  return alternatives.filter(obj => obj.price <= price).sort(() => 0.5 - Math.random());
+};
+
 function Result() {
   const [showModal, setShowModal] = useState(false);
   const {
-    product: { title, image, price },
+    product: { title, image, price = 0 },
     savingAmount,
   } = useSearchStore();
   const router = useRouter();
@@ -33,17 +37,12 @@ function Result() {
   useEffect(() => {
     let isLessThanAlternatives = false;
     let newAlternatives: Alternatives[];
-    if (alternatives.every(obj => obj.price > (price ?? 0))) {
-      newAlternatives = alternatives
-        .filter(obj => obj.price <= (savingAmount ?? 0))
-        .sort(() => 0.5 - Math.random());
+    if (alternatives.every(obj => obj.price > price)) {
+      newAlternatives = getRandomAlternatives(savingAmount);
       isLessThanAlternatives = true;
     } else {
-      newAlternatives = alternatives
-        .filter(obj => obj.price <= (price ?? 0))
-        .sort(() => 0.5 - Math.random());
+      newAlternatives = getRandomAlternatives(price);
     }
-
     setAlternativesContextValue({
       alternatives: newAlternatives.length > 5 ? newAlternatives.slice(0, 3) : newAlternatives,
       isLessThanAlternatives,
