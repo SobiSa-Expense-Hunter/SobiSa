@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
 
 import Document, {
@@ -8,6 +9,7 @@ import Document, {
   DocumentContext,
   DocumentInitialProps,
 } from 'next/document';
+import Script from 'next/script';
 import { ServerStyleSheet } from 'styled-components';
 
 class MyDocument extends Document {
@@ -39,6 +41,27 @@ class MyDocument extends Document {
     return (
       <Html lang='ko'>
         <Head>
+          <Script strategy='afterInteractive' id='ms-clarity'>
+            {`
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", '${process.env.NEXT_PUBLIC_CLARITY_KEY}');
+            `}
+          </Script>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+          />
+          <Script id='google-analytics' strategy='afterInteractive'>
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){window.dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+            `}
+          </Script>
           <link
             rel='stylesheet'
             href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css'
