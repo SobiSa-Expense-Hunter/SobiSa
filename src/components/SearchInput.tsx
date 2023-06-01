@@ -85,8 +85,7 @@ const SearchEnterInput = styled.input`
   white-space: nowrap;
   border-radius: 6px 0 0 6px;
   outline: none;
-  border: solid 1px white;
-  width: 100%;
+  border: none;
   width: 100%;
   height: 100%;
   padding: 20px;
