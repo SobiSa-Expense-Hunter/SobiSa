@@ -24,7 +24,7 @@ function SearchInput() {
   function searchParamOrShowAlert(thisRouter: NextRouter, searchText: string) {
     try {
       checkSearchWord(search);
-      thisRouter.push({ pathname: '/list', query: { searchText } });
+      thisRouter.push({ pathname: '/list', query: { search: searchText } });
     } catch (error) {
       setSearch('');
       setShowModal(true);
