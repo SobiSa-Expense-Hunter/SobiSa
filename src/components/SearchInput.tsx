@@ -11,6 +11,9 @@ function SearchInput() {
   const [search, setSearch] = useState<string>('');
   const [showModal, setShowModal] = useState<boolean>(false);
   const router = useRouter();
+  const autoFocusRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => autoFocusRef.current?.focus(), []);
 
   const handleSearchKeyDownEvent = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Enter') searchParamOrShowAlert(router, search);
@@ -37,6 +40,7 @@ function SearchInput() {
           value={search}
           onChange={e => setSearch(e.target.value)}
           onKeyDown={handleSearchKeyDownEvent}
+          ref={autoFocusRef}
         />
       </SearchInputBox>
       <SearchButton type='button' onClick={handleSearchClickEvent}>
