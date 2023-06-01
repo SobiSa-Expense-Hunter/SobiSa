@@ -71,3 +71,13 @@ export const ShareButton = styled(Button)`
   font-size: 14px;
   gap: 8px;
 `;
+
+export const CloseButton = styled(Button)`
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-image: url(/assets/icons/close.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25));
+`;

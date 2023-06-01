@@ -6,17 +6,23 @@ import styled from 'styled-components';
 import { DownloadIcon } from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import { Background, ModalContainer } from '@/components/common/Modal';
-import { ShareButton } from '@/components/common/buttons';
+import { CloseButton, ShareButton } from '@/components/common/buttons';
 import Certificate from '@/components/results/Certificate';
 import ShareButtons from '@/components/results/ShareButtons';
 import useModalAnimation from '@/hooks/useModalAnimation';
-import { Alternatives } from '@/types/result';
 import uploadImage from '@/utils/api/uploadImageApi';
+
+interface CertificateAndShareModalProps {
+  onClose: () => void;
+}
 
 const createImage = async (url: string): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.onload = () => resolve(img);
+    img.onload = () =>
+      setTimeout(() => {
+        resolve(img);
+      }, 200);
     img.decode = async () => resolve(img);
     img.onerror = reject;
     img.crossOrigin = 'anonymous';
@@ -30,36 +36,32 @@ const toPng = async (node: HTMLDivElement) => {
   const svgDataUrl = await toSvg(node);
 
   const canvas = document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = height;
-  const context = canvas.getContext('2d', { alpha: false });
+  const offscreenCanvas = canvas.transferControlToOffscreen();
+  offscreenCanvas.width = width;
+  offscreenCanvas.height = height;
+  const context = offscreenCanvas.getContext('2d', { alpha: false });
   if (context === null) return '';
 
   const img: HTMLImageElement = await createImage(svgDataUrl);
+  let done = false;
+  const onFrame = () => {
+    context.drawImage(img, 0, 0, width, height);
+    if (canvas.toDataURL('image/png', 1.0).length > 204800) done = true;
+    if (!done) {
+      window.requestAnimationFrame(onFrame);
+    }
+  };
+  onFrame();
 
   return new Promise((resolve: (url: string) => void) => {
-    let done = false;
-    const onFrame = () => {
-      context.drawImage(img, 0, 0, width, height);
-      const dataUrl = canvas.toDataURL('image/png', 1.0);
-      if (dataUrl.length > 204800) {
-        done = true;
-        resolve(dataUrl);
-      }
-      if (!done) {
-        window.requestAnimationFrame(onFrame);
-      }
-    };
-    onFrame();
+    setTimeout(() => {
+      const url = canvas.toDataURL('image/png', 1.0);
+      resolve(url);
+    }, 500);
   });
 };
 
-interface CertificateAndShareModalProps {
-  onClose: () => void;
-  alternatives: Alternatives[];
-}
-
-const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShareModalProps) => {
+const CertificateAndShareModal = ({ onClose }: CertificateAndShareModalProps) => {
   const { show, animationAfterClose } = useModalAnimation(onClose);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -93,16 +95,10 @@ const CertificateAndShareModal = ({ onClose, alternatives }: CertificateAndShare
   return (
     <Portal>
       <Background show={show} />
-      <CertificateAndShareContainer
-        show={show}
-        onClick={e => {
-          if (e.target instanceof HTMLDivElement && e.target.id === 'container')
-            animationAfterClose();
-        }}
-        id='container'
-      >
+      <CertificateAndShareContainer show={show} id='container'>
         <CertificateAndShareWrapper>
-          <Certificate alternatives={alternatives} ref={ref} />
+          <CloseButton style={{ alignSelf: 'flex-end' }} onClick={animationAfterClose} />
+          <Certificate ref={ref} />
           <ShareButtons shareImage={shareImage} />
           <ShareButton
             onClick={certificateDownload}

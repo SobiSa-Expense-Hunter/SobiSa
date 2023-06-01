@@ -6,30 +6,48 @@ import styled from 'styled-components';
 import { useSearchStore } from '@/components/SearchProvider';
 import FrameName from '@/components/common/FrameName';
 import { ShareButton } from '@/components/common/buttons';
-import CertificateAndShareModal from '@/components/modal/CertificateAndShareModal';
 import NoticeModal from '@/components/modal/NoticeModal';
 import Alternative from '@/components/results/Alternative';
+import AlternativesContext from '@/components/results/AlternativesContext';
+import CertificateAndShareModal from '@/components/results/CertificateAndShareModal';
 import alternatives from '@/constant/Alternatives';
 import { ExtraLarge, Large, LargeOrange, Medium } from '@/styles/font';
 import { Alternatives } from '@/types/result';
 
+const getRandomAlternatives = (price: number) => {
+  return alternatives.filter(obj => obj.price <= price).sort(() => 0.5 - Math.random());
+};
+
 function Result() {
   const [showModal, setShowModal] = useState(false);
   const {
-    product: { title, image, price },
+    product: { title, image, price = 0 },
     savingAmount,
   } = useSearchStore();
   const router = useRouter();
-  const [randomAlternatives, setRandomAlternatives] = useState<Alternatives[]>(alternatives);
+
+  const [alternativesContextValue, setAlternativesContextValue] = useState({
+    alternatives,
+    isLessThanAlternatives: false,
+  });
+
+  const { alternatives: randomAlternatives, isLessThanAlternatives: lessThanAlternatives } =
+    alternativesContextValue;
 
   useEffect(() => {
-    const newAlternatives = alternatives
-      .filter(obj => obj.price <= (price ?? 0))
-      .sort(() => 0.5 - Math.random());
-    setRandomAlternatives(
-      newAlternatives.length > 5 ? newAlternatives.slice(0, 3) : newAlternatives,
-    );
-  }, [price]);
+    let isLessThanAlternatives = false;
+    let newAlternatives: Alternatives[];
+    if (alternatives.every(obj => obj.price > price)) {
+      newAlternatives = getRandomAlternatives(savingAmount);
+      isLessThanAlternatives = true;
+    } else {
+      newAlternatives = getRandomAlternatives(price);
+    }
+    setAlternativesContextValue({
+      alternatives: newAlternatives.length > 5 ? newAlternatives.slice(0, 3) : newAlternatives,
+      isLessThanAlternatives,
+    });
+  }, [price, savingAmount]);
 
   if (!title || !price) {
     return (
@@ -49,57 +67,63 @@ function Result() {
     );
   }
 
-  const savingsPeriod = Math.round(price / savingAmount);
+  const savingsPeriod = Math.ceil(price / savingAmount);
 
   const toggleModal = () => {
     setShowModal(prev => !prev);
   };
 
   return (
-    <Container>
-      <Wrapper>
-        <ProductContainer>
-          <ProductName>{title}</ProductName>
-          <ProductWrapper>
-            <ExtraLarge>{price.toLocaleString()} 원</ExtraLarge>
-            <LargeOrange style={{ fontWeight: 500 }}>
-              {savingsPeriod}개월동안 모아야 해요!
-            </LargeOrange>
-          </ProductWrapper>
-          <ProductImage
-            src={image}
-            alt={title}
-            onError={e => {
-              e.currentTarget.src = './assets/image/image.png';
-            }}
-          />
-        </ProductContainer>
-        <AlternativesContainer>
-          <Medium style={{ fontWeight: 500 }}>이걸 가지는 대신 할 수 있는 일...</Medium>
-          <AlternativeList>
-            {randomAlternatives.map(alternative => (
-              <Alternative
-                alternative={alternative}
-                wantedProductPrice={price}
-                key={alternative.title}
-              />
-            ))}
-          </AlternativeList>
-        </AlternativesContainer>
-        <CertificateContainer>
-          <Large style={{ fontWeight: 500 }}>
-            이걸 보고도 갖고 싶으시다면, <br /> 임명장을 발급받아 보세요!
-          </Large>
-          <ShareButton onClick={toggleModal} style={{ marginTop: 8 }}>
-            임명장 받기
-          </ShareButton>
-        </CertificateContainer>
+    <AlternativesContext.Provider value={alternativesContextValue}>
+      <Container>
+        <Wrapper>
+          <ProductContainer>
+            <ProductName>{title}</ProductName>
+            <ProductWrapper>
+              <ExtraLarge>{price.toLocaleString()} 원</ExtraLarge>
+              <LargeOrange style={{ fontWeight: 500 }}>
+                {savingsPeriod === 1
+                  ? '한달이면 살 수 있지만... 필요한가요?'
+                  : `${savingsPeriod}개월동안 모아야 해요!`}
+              </LargeOrange>
+            </ProductWrapper>
+            <ProductImage
+              src={image}
+              alt={title}
+              onError={e => {
+                e.currentTarget.src = './assets/image/image.png';
+              }}
+            />
+          </ProductContainer>
+          <AlternativesContainer>
+            <Medium style={{ fontWeight: 500 }}>
+              {lessThanAlternatives
+                ? `${savingAmount.toLocaleString()}원으로 할 수 있는 일...`
+                : `이걸 가지는 대신 할 수 있는 일...`}
+            </Medium>
+            <AlternativeList>
+              {randomAlternatives.map(alternative => (
+                <Alternative
+                  alternative={alternative}
+                  wantedProductPrice={lessThanAlternatives ? savingAmount : price}
+                  key={alternative.title}
+                />
+              ))}
+            </AlternativeList>
+          </AlternativesContainer>
+          <CertificateContainer>
+            <Large style={{ fontWeight: 500 }}>
+              이걸 보고도 갖고 싶으시다면, <br /> 임명장을 발급받아 보세요!
+            </Large>
+            <ShareButton onClick={toggleModal} style={{ marginTop: 8 }}>
+              임명장 받기
+            </ShareButton>
+          </CertificateContainer>
 
-        {showModal && (
-          <CertificateAndShareModal onClose={toggleModal} alternatives={randomAlternatives} />
-        )}
-      </Wrapper>
-    </Container>
+          {showModal && <CertificateAndShareModal onClose={toggleModal} />}
+        </Wrapper>
+      </Container>
+    </AlternativesContext.Provider>
   );
 }
 
