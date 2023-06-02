@@ -13,11 +13,6 @@ export const ListBoxSizeCss = css`
   height: 151px;
 `;
 
-export const ListBoxSize = styled.div`
-  ${ListBoxSizeCss}
-  justify-content: center;
-`;
-
 export const StyledListContainer = styled.div<{ select?: boolean }>`
   ${ListBoxSizeCss}
 
@@ -49,11 +44,6 @@ export const Scroll = styled.div`
   &::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.colors.gray[2]};
   }
-`;
-
-export const Fixed = styled.div`
-  position: fixed;
-  bottom: 26px;
 `;
 
 export const TopBtn = styled.button`
@@ -91,21 +81,4 @@ export const Title = styled(Font.Medium)`
 
 export const ItemClass = styled(Font.Small)`
   margin-top: 8px;
-`;
-
-/* Layout */
-export const FlexDefultCentering = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-`;
-
-export const JustifyFlexStart = styled(FlexDefultCentering)`
-  justify-content: flex-start;
-`;
-
-export const JustifyCenter = styled(FlexDefultCentering)`
-  justify-content: center;
 `;
