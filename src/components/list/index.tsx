@@ -1,25 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useInView } from 'react-intersection-observer';
-import styled from 'styled-components';
 
 import * as SVG from '@/assets/Icons';
 import { useSearchDispatch } from '@/components/SearchProvider';
 import MarginBox from '@/components/common/marginBox';
+import ListBox from '@/components/list/ListBox';
+import LoadingSpinner from '@/components/list/LoadingSpinner';
+import * as Style from '@/components/list/styles';
 import ChoseProductModal from '@/components/modal/ChoseProductModal';
 
-import ListBox from './ListBox';
-import { LoadingSpinner } from './styles';
 import type { NaverProductResponse } from '@/types/naverShopApi';
 import type { Product } from '@/types/product';
 import type { UseInfiniteQueryResult } from '@tanstack/react-query';
 
-const Loading = dynamic(() => import('./Loading'));
 const SearchInput = dynamic(() => import('@/components/SearchInput'));
 const NotFound = dynamic(() => import('@/components/list/NotFound'));
-
 export interface ListPageProps {
   products: Product[];
   queryRes: UseInfiniteQueryResult<NaverProductResponse, Error>;
@@ -30,9 +28,7 @@ const List = ({ products, queryRes }: ListPageProps) => {
   const [showModal, setShowModal] = useState(false);
   const [userSelected, setUserSelected] = useState<Product>();
   const scrollRef = useRef<HTMLDivElement>(null);
-
   const { ref, inView } = useInView();
-
   const dispatch = useSearchDispatch();
 
   const { fetchNextPage, isLoading, hasNextPage, isFetching, isError } = queryRes;
@@ -44,7 +40,9 @@ const List = ({ products, queryRes }: ListPageProps) => {
   if (isLoading || products === undefined)
     return (
       <ListLayout>
-        <Loading />
+        <Style.JustifyCenter>
+          <LoadingSpinner />
+        </Style.JustifyCenter>
       </ListLayout>
     );
 
@@ -79,14 +77,14 @@ const List = ({ products, queryRes }: ListPageProps) => {
 
   return (
     <>
-      <Fixed>
-        <TopBtn type='button' onClick={() => topBtnHandler()}>
+      <Style.Fixed>
+        <Style.TopBtn type='button' onClick={() => topBtnHandler()}>
           <SVG.TopIcon />
-        </TopBtn>
-      </Fixed>
+        </Style.TopBtn>
+      </Style.Fixed>
 
       <ListLayout>
-        <Scroll ref={scrollRef}>
+        <Style.Scroll ref={scrollRef}>
           <form onSubmit={onSubmit}>
             {products.map(product => (
               <ListBox
@@ -108,11 +106,11 @@ const List = ({ products, queryRes }: ListPageProps) => {
 
           <div ref={ref} />
           {isFetching && hasNextPage && (
-            <Centering>
+            <Style.ListBoxSize>
               <LoadingSpinner />
-            </Centering>
+            </Style.ListBoxSize>
           )}
-        </Scroll>
+        </Style.Scroll>
       </ListLayout>
       <MarginBox margin='10px' />
     </>
@@ -123,58 +121,11 @@ export default List;
 
 export function ListLayout({ children }: { children: React.ReactElement }) {
   return (
-    <Centering>
+    <Style.JustifyFlexStart>
       <MarginBox margin='15px' />
       <SearchInput />
       <MarginBox margin='32px' />
       {children}
-    </Centering>
+    </Style.JustifyFlexStart>
   );
 }
-
-const Centering = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-`;
-
-const Scroll = styled.div`
-  flex: auto;
-  height: 100%;
-  overflow-y: auto;
-  padding-bottom: 50px;
-  padding: 15px 15px;
-  &::-webkit-scrollbar,
-  &::-webkit-scrollbar-thumb {
-    width: 4px;
-    border-radius: 2px;
-    background-clip: padding-box;
-    border: 10px solid transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.gray[2]};
-  }
-`;
-
-const Fixed = styled.div`
-  position: fixed;
-  bottom: 26px;
-`;
-
-const TopBtn = styled.button`
-  cursor: pointer;
-  position: absolute;
-  display: flex;
-  transform: translate(-50%, -100%);
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  background: inherit;
-  justify-content: flex-end;
-  min-width: 310px;
-`;
