@@ -1,4 +1,4 @@
-export const SHOP_URL = '/v1/search/shop.json';
+export const SHOP_URL = 'https://openapi.naver.com/v1/search/shop.json';
 
 /* NAVER-SEARCH-API-GET-SETTING */
 export const SORT = { SIM: 'sim', DATE: 'date' } as const;
