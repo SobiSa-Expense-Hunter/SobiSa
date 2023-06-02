@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { MagnifyingGlassIcon } from '@/assets/Icons';
@@ -11,32 +11,25 @@ function SearchInput() {
   const [search, setSearch] = useState<string>('');
   const [showModal, setShowModal] = useState<boolean>(false);
   const router = useRouter();
+  const autoFocusRef = useRef<HTMLInputElement>(null);
 
-  const checkSearchWord = () => {
-    if (!search) {
-      throw new Error('검색어를 입력해주세요');
-    }
-  };
+  useEffect(() => autoFocusRef.current?.focus(), []);
 
   const handleSearchKeyDownEvent = (event: React.KeyboardEvent<HTMLElement>) => {
-    try {
-      if (event.key === 'Enter') {
-        checkSearchWord();
-        router.push({ pathname: '/list', query: { search } });
-      }
-    } catch (error) {
-      setShowModal(true);
-    }
+    if (event.key === 'Enter') searchParamOrShowAlert(router, search);
   };
 
-  const handleSearchClickEvent = () => {
+  const handleSearchClickEvent = () => searchParamOrShowAlert(router, search);
+
+  function searchParamOrShowAlert(thisRouter: NextRouter, searchText: string) {
     try {
-      checkSearchWord();
-      router.push({ pathname: '/list', query: { search } });
+      checkSearchWord(search);
+      thisRouter.push({ pathname: '/list', query: { search: searchText } });
     } catch (error) {
+      setSearch('');
       setShowModal(true);
     }
-  };
+  }
 
   return (
     <SearchInputContainer>
@@ -47,6 +40,7 @@ function SearchInput() {
           value={search}
           onChange={e => setSearch(e.target.value)}
           onKeyDown={handleSearchKeyDownEvent}
+          ref={autoFocusRef}
         />
       </SearchInputBox>
       <SearchButton type='button' onClick={handleSearchClickEvent}>
@@ -58,6 +52,14 @@ function SearchInput() {
     </SearchInputContainer>
   );
 }
+
+function checkSearchWord(search: string) {
+  const isWhitespaceOnly = /^\s*$/.test(search);
+  if (!search || isWhitespaceOnly) {
+    throw new Error('검색어를 입력해주세요');
+  }
+}
+
 export default SearchInput;
 
 const SearchInputContainer = styled.div`

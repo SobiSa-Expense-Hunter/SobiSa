@@ -10,6 +10,9 @@ const GlobalStyle = createGlobalStyle`${css`
 
   body {
     background-color: ${({ theme }) => theme.colors.gray[1]};
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 
   button {
