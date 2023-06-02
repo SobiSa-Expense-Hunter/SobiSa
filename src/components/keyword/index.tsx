@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as Icon from '@/assets/Icons';
 import { useSearchDispatch } from '@/components/SearchProvider';
 import { BottomButton } from '@/components/common/buttons';
-import MarginBox from '@/components/common/marginBox';
+import * as Layout from '@/components/common/layout';
 import * as Style from '@/components/keyword/style';
 import * as Font from '@/styles/font';
 import { Product } from '@/types/product';
@@ -43,40 +43,45 @@ function Keyword({ product, allKeyword }: { product: Product; allKeyword: string
   };
 
   return (
-    <Style.Container>
-      <div>
+    <Layout.VStack
+      justifyContent='space-around'
+      margin='36px 0 0'
+      height='100%'
+      width='100%'
+      maxWidth='310px'
+      alignItems='stretch'
+    >
+      <Layout.Box>
         <Style.KeywordPageFont.Main>표시할 상품 키워드를 선택해 주세요.</Style.KeywordPageFont.Main>
-        <MarginBox margin='4px' />
+        <Layout.Box height='4px' />
         <Style.KeywordPageFont.Sub>
           멋진 임명장을 위해선 7~14글자 사이가 좋아요!
         </Style.KeywordPageFont.Sub>
-        <MarginBox margin='24px' />
-        <Style.Keyword>
+        <Layout.Box height='24px' />
+        <Layout.HStack flexWrap='wrap' gap='8px 6px'>
           {allKeyword.map(keyword => (
-            <Style.KeywordWrapper
+            <Style.KeywordButton
               key={uuidv4()}
               onClick={() => keywordHandler(keyword)}
               isSelected={selectedKeywords.includes(keyword)}
             >
               {keyword}
-            </Style.KeywordWrapper>
+            </Style.KeywordButton>
           ))}
-        </Style.Keyword>
-        <MarginBox margin='56px' />
-        <Style.FlexColWrapper>
+        </Layout.HStack>
+        <Layout.Box margin='56px' />
+        <Layout.VStack alignItems='stretch' gap='16px'>
           <Style.Span>{String(selectedKeywords).replaceAll(',', ' ')}</Style.Span>
-          <Style.FlexRowWrapper>
+          <Layout.HStack alignItems='center'>
             <Font.SmallOrange style={{ flex: 1 }}>{alertMessage}</Font.SmallOrange>
             <Style.ResetBtn type='button' onClick={titleResetHandler}>
               <Icon.InitializationIcon />
             </Style.ResetBtn>
-          </Style.FlexRowWrapper>
-        </Style.FlexColWrapper>
-      </div>
-      <Style.ButtonBox>
-        <BottomButton onClick={nextPageHandler}>다음으로</BottomButton>
-      </Style.ButtonBox>
-    </Style.Container>
+          </Layout.HStack>
+        </Layout.VStack>
+      </Layout.Box>
+      <BottomButton onClick={nextPageHandler}>다음으로</BottomButton>
+    </Layout.VStack>
   );
 }
 
