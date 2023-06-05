@@ -19,10 +19,11 @@ function CustomError({ mainTitle, subTextLines, buttonText }: ErrorProps) {
         <Image src='/graphics/notFound.gif' alt='not Found' height={220} width={220} unoptimized />
         <Layout.Box height='32px' />
         <Font.MediumOrange>{mainTitle}</Font.MediumOrange>
-        <Layout.Box height='16px' />
-        {subTextLines.map(textLine => (
-          <Font.Small key={uuid()}> {textLine} </Font.Small>
-        ))}
+        <Layout.VStack margin='16px 0 0' maxWidth='310px' alignItems='center'>
+          {subTextLines.map(textLine => (
+            <Font.Small key={uuid()}> {textLine} </Font.Small>
+          ))}
+        </Layout.VStack>
         <Layout.Box height='87px' />
       </Layout.VStack>
       <Link href='/' replace>
