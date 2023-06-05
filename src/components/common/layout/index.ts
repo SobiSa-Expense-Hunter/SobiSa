@@ -9,6 +9,7 @@ interface FlexProps extends SizeAndMarginAndPaddingProps {
 }
 
 interface SizeAndMarginAndPaddingProps {
+  position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
   margin?: string;
   padding?: string;
   width?: string;
@@ -20,6 +21,7 @@ interface SizeAndMarginAndPaddingProps {
 }
 
 const SizeAndMarginAndPaddingProperty = css<SizeAndMarginAndPaddingProps>`
+  position: ${({ position }) => position || 'static'};
   width: ${({ width }) => width || ''};
   height: ${({ height }) => height || ''};
   margin: ${({ margin }) => margin || ''};
