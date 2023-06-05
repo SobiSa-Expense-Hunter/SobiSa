@@ -34,7 +34,7 @@ function Home() {
       <LinkBox>
         <FacebookButton pageUrl={url} />
         <TwitterButton pageUrl={url} sendText={text} />
-        <KakaoButton title={title} description={text} webUrl={url} />
+        <KakaoButton webUrl={url} />
         <LinkButton pageUrl={url} />
       </LinkBox>
     </Container>

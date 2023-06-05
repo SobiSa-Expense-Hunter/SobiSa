@@ -4,34 +4,19 @@ import { KakaoIconImg } from '@/assets/SocialIcons';
 import { ImageButton } from '@/components/common/buttons';
 
 interface KakaoButtonProps {
-  title: string;
-  description: string;
   webUrl: string;
-  shareImage?: ((callback: (imgUrl: string) => void) => Promise<void>) | null;
 }
 
-const KakaoButton = ({ title, description, webUrl, shareImage }: KakaoButtonProps) => {
+const KakaoButton = ({ webUrl }: KakaoButtonProps) => {
   const onClick = () => {
-    if (shareImage) {
-      shareImage(shareOnKakao);
-    } else {
-      shareOnKakao();
-    }
+    sendScrap();
   };
 
-  const shareOnKakao = (imgUrl?: string) => {
+  const sendScrap = () => {
     if (!window.Kakao) return;
 
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title,
-        description,
-        imageUrl: imgUrl ?? '',
-        link: {
-          webUrl,
-        },
-      },
+    window.Kakao.Share.sendScrap({
+      requestUrl: webUrl,
     });
   };
 
@@ -40,10 +25,6 @@ const KakaoButton = ({ title, description, webUrl, shareImage }: KakaoButtonProp
       <KakaoIconImg />
     </ImageButton>
   );
-};
-
-KakaoButton.defaultProps = {
-  shareImage: null,
 };
 
 export default KakaoButton;
