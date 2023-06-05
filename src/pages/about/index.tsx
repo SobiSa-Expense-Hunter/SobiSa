@@ -1,32 +1,56 @@
-import Link from 'next/link';
+import { useState } from 'react';
 
-import * as Button from '@/components/common/buttons';
-import MarginBox from '@/components/common/marginBox';
-import { Centering } from '@/components/layout/AppLayout';
-import * as Font from '@/styles/font';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { v4 as uuid } from 'uuid';
 
-function about() {
+import { BottomButton } from '@/components/common/buttons';
+
+const AboutInit = dynamic(() => import('@/components/about/AboutInit'));
+const AboutLayout = dynamic(() => import('@/components/about/AboutLayout'));
+
+function About() {
+  const [pageNum, setPageNum] = useState(0);
+  const router = useRouter();
+
+  const nextPageHandler = () => {
+    if (pageNum < AboutContents.length) setPageNum(prev => prev + 1);
+    else router.push('/');
+  };
+
   return (
-    <Centering>
-      <MarginBox margin='16px' />
-      <Font.Medium>안녕하세요.</Font.Medium>
-      <MarginBox margin='5px' />
-      <Font.Large>SOBISA! 입니다.</Font.Large>
-      <MarginBox margin='16px' />
-      <img src='graphics/about.png' alt='about img' />
-      <MarginBox margin='32px' />
-      <Font.Small>팀 소비사는 사이드 프로젝트를 위해 구성된 모임입니다. </Font.Small>
-      <Font.Small> 사고 싶은 물건의 가격과 내 소비를 비교하여</Font.Small>
-      <Font.Small>얼마나 걸릴지 알아보는데 목적이 있습니다.</Font.Small>
-      <MarginBox margin='16px' />
-      <Font.Small>사용자 정보는 단순 결과를 위해서만 사용되며 </Font.Small>
-      <Font.Small> 이외의 수단으로 사용되지 않는다는 것을 안내드립니다.</Font.Small>
-      <MarginBox margin='128px' />
-      <Link href='/'>
-        <Button.BottomButton>믿을게요!</Button.BottomButton>
-      </Link>
-    </Centering>
+    <>
+      {pageNum === 0 ? (
+        <AboutInit key={uuid()} />
+      ) : (
+        <AboutLayout
+          pageNum={pageNum}
+          mainTexts={AboutContents[pageNum - 1].mainTexts}
+          subTexts={AboutContents[pageNum - 1].subTexts}
+        />
+      )}
+      <BottomButton onClick={nextPageHandler}>다음으로</BottomButton>
+    </>
   );
 }
 
-export default about;
+export default About;
+
+const AboutContents = [
+  {
+    mainTexts: ['search for stuff', '물건 탐색'],
+    subTexts: ['살 예정이 있었던, 혹은 사고 싶었던', '물건을 검색해보세요!'],
+  },
+  {
+    mainTexts: ['enter information', '정보 입력'],
+    subTexts: ['사고 싶었던 물건의 가격과', '나의 여유 금액을 입력해 보세요!'],
+  },
+  {
+    mainTexts: ['input result', '입력 결과'],
+    subTexts: ['내가 물건을 사기 위해 걸리는 기간과', '기회비용을 알 수 있어요!'],
+  },
+  {
+    mainTexts: ['share', '공유하기'],
+    subTexts: ['소비사가 발행해준 영수증을', '친구들과 공유해보세요!'],
+  },
+];
