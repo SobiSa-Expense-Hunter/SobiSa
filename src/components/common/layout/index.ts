@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-interface FlexProps extends BoxProps {
+interface FlexProps extends SizeAndMarginAndPaddingProps {
   flexDirection?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
   justifyContent?: 'flex-start' | 'flex-end' | 'space-between' | 'center' | 'space-around';
   alignItems?: 'center' | 'flex-start' | 'flex-end' | 'stretch' | 'baseline';
@@ -8,55 +8,55 @@ interface FlexProps extends BoxProps {
   gap?: string;
 }
 
-interface BoxProps {
-  display?: 'none' | 'block' | 'inline' | 'inline-block' | 'flex';
+interface SizeAndMarginAndPaddingProps {
   margin?: string;
   padding?: string;
   width?: string;
   height?: string;
   maxWidth?: string;
   maxHeight?: string;
+  minWidth?: string;
+  minHeight?: string;
 }
 
-const SizeAndMarginAndPaddingProperty = css<FlexProps>`
-  width: ${({ width }) => width || 'none'};
-  height: ${({ height }) => height || 'none'};
-  margin: ${({ margin }) => margin || 'none'};
-  padding: ${({ padding }) => padding || 'none'};
-  max-width: ${({ maxWidth }) => maxWidth || 'none'};
-  max-height: ${({ maxHeight }) => maxHeight || 'none'};
+const SizeAndMarginAndPaddingProperty = css<SizeAndMarginAndPaddingProps>`
+  width: ${({ width }) => width || ''};
+  height: ${({ height }) => height || ''};
+  margin: ${({ margin }) => margin || ''};
+  padding: ${({ padding }) => padding || ''};
+  max-width: ${({ maxWidth }) => maxWidth || ''};
+  max-height: ${({ maxHeight }) => maxHeight || ''};
+  min-width: ${({ minWidth }) => minWidth || ''};
+  min-height: ${({ minHeight }) => minHeight || ''};
 `;
 
 const FlexProperty = css<FlexProps>`
-  justify-content: ${({ justifyContent }) => justifyContent || 'none'};
-  align-items: ${({ alignItems }) => alignItems || 'none'};
+  display: flex;
+  justify-content: ${({ justifyContent }) => justifyContent || ''};
+  align-items: ${({ alignItems }) => alignItems || ''};
   gap: ${({ gap }) => gap || '0'};
   flex-wrap: ${({ flexWrap }) => flexWrap || 'nowrap'};
+  flex-direction: ${({ flexDirection }) => flexDirection || ''};
 `;
 
-export const VStack = styled.div<FlexProps>`
-  display: flex;
+export const Flex = styled.div<FlexProps>`
+  ${FlexProperty}
+  ${SizeAndMarginAndPaddingProperty}
+`;
+
+export const VStack = styled(Flex)`
   flex-direction: column;
-
-  ${FlexProperty}
-  ${SizeAndMarginAndPaddingProperty}
 `;
 
-export const HStack = styled.div<FlexProps>`
-  display: flex;
+export const HStack = styled(Flex)`
   flex-direction: row;
-
-  ${FlexProperty}
-  ${SizeAndMarginAndPaddingProperty}
 `;
 
 export const Fixed = styled.div`
   position: fixed;
 `;
 
-export const Box = styled.div<FlexProps>`
-  display: ${({ display }) => display || 'block'};
-
-  ${FlexProperty}
+export const Box = styled.div<SizeAndMarginAndPaddingProps>`
+  display: 'block';
   ${SizeAndMarginAndPaddingProperty}
 `;

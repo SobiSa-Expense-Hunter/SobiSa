@@ -113,15 +113,14 @@ const List = ({ products, queryRes }: ListPageProps) => {
 
           <div ref={ref} />
           {isFetching && hasNextPage && (
-            <Layout.Box
+            <Layout.Flex
               width='310px'
               maxHeight='151px'
-              display='flex'
               justifyContent='center'
               alignItems='center'
             >
               <LoadingSpinner />
-            </Layout.Box>
+            </Layout.Flex>
           )}
         </Style.Scroll>
       </ListLayout>
