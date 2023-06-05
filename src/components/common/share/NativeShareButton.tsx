@@ -5,14 +5,13 @@ import { ImageButton } from '@/components/common/buttons';
 
 const NativeShareButton = ({ description }: { description: string }) => {
   const [show, setShow] = useState(false);
+  const sendData: ShareData = { text: description };
 
   useEffect(() => {
-    if (!(navigator.share === undefined || navigator.canShare() === false)) {
+    if (!(navigator.share === undefined || navigator.canShare({ text: description }) === false)) {
       setShow(true);
     }
-  }, []);
-
-  const sendData: ShareData = { text: description };
+  }, [description]);
 
   return show ? (
     <ImageButton
