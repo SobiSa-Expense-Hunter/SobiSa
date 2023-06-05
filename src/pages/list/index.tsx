@@ -10,7 +10,6 @@ function ListPage() {
   if (Array.isArray(search) || !search) search = '';
   const { products, queryRes } = useSearchProducts(search);
 
-  // TO-DO : SEARCH BAR 공백 예외 처리
   return <List products={products} queryRes={queryRes} />;
 }
 

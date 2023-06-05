@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 
 import * as SVG from '@/assets/Icons';
 import { useSearchDispatch } from '@/components/SearchProvider';
-import MarginBox from '@/components/common/marginBox';
+import * as Layout from '@/components/common/layout';
 import ListBox from '@/components/list/ListBox';
 import LoadingSpinner from '@/components/list/LoadingSpinner';
 import * as Style from '@/components/list/styles';
@@ -40,9 +40,9 @@ const List = ({ products, queryRes }: ListPageProps) => {
   if (isLoading || products === undefined)
     return (
       <ListLayout>
-        <Style.JustifyCenter>
+        <Layout.VStack width='100%' height='100%' alignItems='center' justifyContent='center'>
           <LoadingSpinner />
-        </Style.JustifyCenter>
+        </Layout.VStack>
       </ListLayout>
     );
 
@@ -77,11 +77,11 @@ const List = ({ products, queryRes }: ListPageProps) => {
 
   return (
     <>
-      <Style.Fixed>
+      <Layout.Fixed style={{ bottom: '26px' }}>
         <Style.TopBtn type='button' onClick={() => topBtnHandler()}>
           <SVG.TopIcon />
         </Style.TopBtn>
-      </Style.Fixed>
+      </Layout.Fixed>
 
       <ListLayout>
         <Style.Scroll ref={scrollRef}>
@@ -106,26 +106,31 @@ const List = ({ products, queryRes }: ListPageProps) => {
 
           <div ref={ref} />
           {isFetching && hasNextPage && (
-            <Style.ListBoxSize>
+            <Layout.Flex
+              width='310px'
+              maxHeight='151px'
+              justifyContent='center'
+              alignItems='center'
+            >
               <LoadingSpinner />
-            </Style.ListBoxSize>
+            </Layout.Flex>
           )}
         </Style.Scroll>
       </ListLayout>
-      <MarginBox margin='10px' />
+      <Layout.Box height='10px' />
     </>
   );
 };
 
 export default List;
 
-export function ListLayout({ children }: { children: React.ReactElement }) {
+function ListLayout({ children }: { children: React.ReactElement }) {
   return (
-    <Style.JustifyFlexStart>
-      <MarginBox margin='15px' />
+    <Layout.VStack height='100%' alignItems='center' width='100%'>
+      <Layout.Box height='32px' />
       <SearchInput />
-      <MarginBox margin='32px' />
+      <Layout.Box height='15px' />
       {children}
-    </Style.JustifyFlexStart>
+    </Layout.VStack>
   );
 }
