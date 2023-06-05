@@ -17,7 +17,7 @@ import type { Product } from '@/types/product';
 import type { UseInfiniteQueryResult } from '@tanstack/react-query';
 
 const SearchInput = dynamic(() => import('@/components/SearchInput'));
-const NotFound = dynamic(() => import('@/components/list/NotFound'));
+const CustomError = dynamic(() => import('@/components/common/error'));
 export interface ListPageProps {
   products: Product[];
   queryRes: UseInfiniteQueryResult<NaverProductResponse, Error>;
@@ -49,7 +49,14 @@ const List = ({ products, queryRes }: ListPageProps) => {
   if (isError || products.length === 0)
     return (
       <ListLayout>
-        <NotFound />
+        <CustomError
+          mainTitle='정말 그걸 검색하신 게 맞나요?'
+          subTextLines={[
+            '검색하신 물건과 관련된 결과가 하나도 없습니다!',
+            '오타를 내신 건 아닌가요?',
+          ]}
+          buttonText='이전으로'
+        />
       </ListLayout>
     );
 
