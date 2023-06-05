@@ -60,7 +60,7 @@ export const ModalLongButton = styled(Button)`
 
 export const BottomButton = styled(Button)`
   width: 310px;
-  height: 41px;
+  height: 55px;
   font-size: 14px;
 `;
 
