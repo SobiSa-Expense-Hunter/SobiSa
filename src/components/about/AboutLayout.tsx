@@ -1,7 +1,8 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-useless-fragment */
 import { useEffect, useState } from 'react';
 
-import { AnimatePresence, motion, useAnimate } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -21,10 +22,10 @@ interface AboutPageLayoutProps {
 
 function AboutLayout({ pageNum, mainTexts, subTexts }: AboutPageLayoutProps) {
   const [firstMainText, secondMainText] = mainTexts;
-
   return (
     <Layout.VStack width='100%' height='100%' padding='0 16px' style={{ overflow: 'hidden' }}>
       <MideaMargin />
+
       <Layout.HStack width='100%'>
         <Font.Large style={{ flex: '1' }}>{pageNum} / 4</Font.Large>
         <Link href='/'>
@@ -35,22 +36,24 @@ function AboutLayout({ pageNum, mainTexts, subTexts }: AboutPageLayoutProps) {
       <AnimatePresence mode='wait'>
         <motion.div
           key={uuid()}
-          variants={variants}
+          variants={switchScreen}
           initial='hidden'
           animate='enter'
           exit='exit'
-          transition={{ type: 'tween', duration: 0.4 }}
         >
           <Layout.VStack margin='16px 0 0'>
             <Font.ExtraLarge style={{ fontWeight: '700' }}>
-              <HiglightfBackground>{firstMainText}</HiglightfBackground>
+              <Style.Highlight>{firstMainText}</Style.Highlight>
             </Font.ExtraLarge>
+
             <Font.ExtraLarge style={{ fontWeight: '400' }}>{secondMainText}</Font.ExtraLarge>
+
             <Layout.Box height='16px' />
             {subTexts.map(text => (
               <Style.AboutFont.DetilGrayText key={uuid()}>{text}</Style.AboutFont.DetilGrayText>
             ))}
             <Layout.Box height='48px' />
+
             <Layout.VStack width='100%' position='relative' alignItems='center'>
               <ImageAnimation pageNum={pageNum} />
             </Layout.VStack>
@@ -64,15 +67,16 @@ function AboutLayout({ pageNum, mainTexts, subTexts }: AboutPageLayoutProps) {
 export default AboutLayout;
 
 const ImageAnimation = ({ pageNum }: { pageNum: number }) => {
-  const [isShowing, setIsShowing] = useState(true);
+  const [imgSrc, setImgSrc] = useState(`assets/image/about/phone_mockup/${pageNum}.png`);
 
   useEffect(() => {
+    if (pageNum !== 1) return;
     const timeout = setTimeout(() => {
-      setIsShowing(false);
-    }, 2000);
+      setImgSrc(`assets/image/about/phone_mockup/1-1.png`);
+    }, 1000);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [pageNum]);
 
   return (
     <>
@@ -84,43 +88,21 @@ const ImageAnimation = ({ pageNum }: { pageNum: number }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {isShowing ? (
-              <Image
-                src={`assets/image/about/phone_mockup/${pageNum}.png`}
-                width={295}
-                height={540}
-                alt='mockup img'
-                loading='lazy'
-              />
-            ) : (
-              <Image
-                src='assets/image/about/phone_mockup/1-1.png'
-                width={295}
-                height={540}
-                alt='mockup img'
-                loading='lazy'
-              />
-            )}
+            <Image
+              src={imgSrc}
+              width={295}
+              height={540}
+              alt='animation mockup img'
+              loading='lazy'
+            />
           </motion.div>
         </AnimatePresence>
       ) : (
-        <Image
-          src={`assets/image/about/phone_mockup/${pageNum}.png`}
-          width={295}
-          height={540}
-          alt='mockup img'
-          loading='lazy'
-        />
+        <Image src={imgSrc} width={295} height={540} alt='mockup img' loading='lazy' />
       )}
     </>
   );
 };
-
-export const HiglightfBackground = styled.div`
-  display: inline-block;
-  height: 1.3em;
-  background: linear-gradient(to top, ${({ theme }) => theme.colors.subColor} 60%, transparent 20%);
-`;
 
 const MideaMargin = styled(Layout.Box)`
   @media (pointer: coarse) {
@@ -131,8 +113,8 @@ const MideaMargin = styled(Layout.Box)`
   min-height: 77px;
 `;
 
-const variants: Variants = {
+const switchScreen: Variants = {
   hidden: { opacity: 0, x: 200, y: 0 },
-  enter: { opacity: 1, x: 0, y: 0 },
-  exit: { opacity: 0, x: -200, y: 0, transition: { type: 'tween', duration: 0.2 } },
+  enter: { opacity: 1, x: 0, y: 0, transition: { type: 'tween', duration: 0.4 } },
+  exit: { opacity: 0, x: -200, y: 0, transition: { type: 'tween', duration: 0.4 } },
 };

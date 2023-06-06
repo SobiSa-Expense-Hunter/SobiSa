@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { forwardRef } from 'react';
 import type { ForwardedRef } from 'react';
 
@@ -7,14 +6,30 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
+import CustomerBox from '@/components/about/CustomerBox';
 import * as Style from '@/components/about/style';
 import * as Layout from '@/components/common/layout';
 import * as Font from '@/styles/font';
 
-import { HiglightfBackground } from './AboutLayout';
-import CustomerBox from './CustomerBox';
-
 function AboutInit({ scrollRef }: { scrollRef: ForwardedRef<HTMLDivElement> }) {
+  const CustomerOpinionContents = [
+    {
+      mainText: '“이 물건 언제 샀더라..”',
+      subText: '물건을 언제 샀는지',
+      subTextOrange: '기억조차 안나는 J씨',
+    },
+    {
+      mainText: '“내 통장에 왜 이거밖에 없지?”',
+      subText: '과소비를 막지 않아',
+      subTextOrange: '통장이 거덜나버린 H씨',
+    },
+    {
+      mainText: '“그 땐 필요했는데..?!”',
+      subText: '필요하지 않은 물건을',
+      subTextOrange: '습관적으로 사는 Y씨',
+    },
+  ];
+
   return (
     <Style.Scroll height='100%' width='100%' padding='0 16px'>
       <motion.div
@@ -25,7 +40,7 @@ function AboutInit({ scrollRef }: { scrollRef: ForwardedRef<HTMLDivElement> }) {
         <MideaMargin />
         <Layout.VStack>
           <Font.ExtraLarge style={{ fontWeight: '800' }}>
-            <HiglightfBackground>혹시</HiglightfBackground>
+            <Style.Highlight>혹시</Style.Highlight>
           </Font.ExtraLarge>
           <Font.ExtraLarge style={{ fontWeight: '500' }}>이런 적 없으신가요?</Font.ExtraLarge>
           <Layout.Box height='16px' />
@@ -56,7 +71,7 @@ function AboutInit({ scrollRef }: { scrollRef: ForwardedRef<HTMLDivElement> }) {
       <motion.div
         initial={{ y: 90, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ type: 'easyIn', duration: 0.5 }}
+        transition={{ type: 'tween', duration: 0.5 }}
       >
         <Layout.Box height='29px' />
         <Layout.VStack alignItems='center'>
@@ -67,7 +82,7 @@ function AboutInit({ scrollRef }: { scrollRef: ForwardedRef<HTMLDivElement> }) {
       <Layout.Box minHeight='310px' />
       <Layout.VStack ref={scrollRef}>
         <Font.ExtraLarge style={{ fontWeight: '800' }}>
-          <HiglightfBackground>혹시</HiglightfBackground>
+          <Style.Highlight>혹시</Style.Highlight>
         </Font.ExtraLarge>
         <Font.ExtraLarge style={{ fontWeight: '500' }}>이런 적 없으신가요?</Font.ExtraLarge>
         <Layout.Box height='16px' />
@@ -95,21 +110,3 @@ const MideaMargin = styled(Layout.Box)`
   }
   height: 119px;
 `;
-
-const CustomerOpinionContents = [
-  {
-    mainText: '“이 물건 언제 샀더라..”',
-    subText: '물건을 언제 샀는지',
-    subTextOrange: '기억조차 안나는 J씨',
-  },
-  {
-    mainText: '“내 통장에 왜 이거밖에 없지?”',
-    subText: '과소비를 막지 않아',
-    subTextOrange: '통장이 거덜나버린 H씨',
-  },
-  {
-    mainText: '“그 땐 필요했는데..?!”',
-    subText: '필요하지 않은 물건을',
-    subTextOrange: '습관적으로 사는 Y씨',
-  },
-];

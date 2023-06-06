@@ -23,3 +23,9 @@ export const AboutFont = {
     color: ${({ theme }) => theme.colors.gray[4]};
   `,
 };
+
+export const Highlight = styled.div`
+  display: inline-block;
+  height: 1.3em;
+  background: linear-gradient(to top, ${({ theme }) => theme.colors.subColor} 60%, transparent 20%);
+`;
