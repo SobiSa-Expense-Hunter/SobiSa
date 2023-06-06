@@ -6,18 +6,10 @@ import * as Font from '@/styles/font';
 export const Scroll = styled(Layout.VStack)`
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 15px 15px;
 
   &::-webkit-scrollbar,
   &::-webkit-scrollbar-thumb {
-    width: 4px;
-    border-radius: 2px;
-    background-clip: padding-box;
-    border: 10px solid transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.gray[2]};
+    display: none;
   }
 `;
 

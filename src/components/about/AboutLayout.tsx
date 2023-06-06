@@ -1,4 +1,7 @@
-import { AnimatePresence, motion } from 'framer-motion';
+/* eslint-disable react/jsx-no-useless-fragment */
+import { useEffect, useState } from 'react';
+
+import { AnimatePresence, motion, useAnimate } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -18,6 +21,7 @@ interface AboutPageLayoutProps {
 
 function AboutLayout({ pageNum, mainTexts, subTexts }: AboutPageLayoutProps) {
   const [firstMainText, secondMainText] = mainTexts;
+
   return (
     <Layout.VStack width='100%' height='100%' padding='0 16px' style={{ overflow: 'hidden' }}>
       <MideaMargin />
@@ -38,7 +42,9 @@ function AboutLayout({ pageNum, mainTexts, subTexts }: AboutPageLayoutProps) {
           transition={{ type: 'tween', duration: 0.4 }}
         >
           <Layout.VStack margin='16px 0 0'>
-            <Font.ExtraLarge style={{ fontWeight: '700' }}>{firstMainText}</Font.ExtraLarge>
+            <Font.ExtraLarge style={{ fontWeight: '700' }}>
+              <HiglightfBackground>{firstMainText}</HiglightfBackground>
+            </Font.ExtraLarge>
             <Font.ExtraLarge style={{ fontWeight: '400' }}>{secondMainText}</Font.ExtraLarge>
             <Layout.Box height='16px' />
             {subTexts.map(text => (
@@ -46,13 +52,7 @@ function AboutLayout({ pageNum, mainTexts, subTexts }: AboutPageLayoutProps) {
             ))}
             <Layout.Box height='48px' />
             <Layout.VStack width='100%' position='relative' alignItems='center'>
-              <Image
-                src={`assets/image/about/phone_mockup/${pageNum}.png`}
-                width={295}
-                height={540}
-                alt='mockup img'
-                loading='lazy'
-              />
+              <ImageAnimation pageNum={pageNum} />
             </Layout.VStack>
           </Layout.VStack>
         </motion.div>
@@ -62,6 +62,65 @@ function AboutLayout({ pageNum, mainTexts, subTexts }: AboutPageLayoutProps) {
 }
 
 export default AboutLayout;
+
+const ImageAnimation = ({ pageNum }: { pageNum: number }) => {
+  const [isShowing, setIsShowing] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsShowing(false);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return (
+    <>
+      {pageNum === 1 ? (
+        <AnimatePresence mode='wait'>
+          <motion.div
+            key={uuid()}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {isShowing ? (
+              <Image
+                src={`assets/image/about/phone_mockup/${pageNum}.png`}
+                width={295}
+                height={540}
+                alt='mockup img'
+                loading='lazy'
+              />
+            ) : (
+              <Image
+                src='assets/image/about/phone_mockup/1-1.png'
+                width={295}
+                height={540}
+                alt='mockup img'
+                loading='lazy'
+              />
+            )}
+          </motion.div>
+        </AnimatePresence>
+      ) : (
+        <Image
+          src={`assets/image/about/phone_mockup/${pageNum}.png`}
+          width={295}
+          height={540}
+          alt='mockup img'
+          loading='lazy'
+        />
+      )}
+    </>
+  );
+};
+
+export const HiglightfBackground = styled.div`
+  display: inline-block;
+  height: 1.3em;
+  background: linear-gradient(to top, ${({ theme }) => theme.colors.subColor} 60%, transparent 20%);
+`;
 
 const MideaMargin = styled(Layout.Box)`
   @media (pointer: coarse) {
