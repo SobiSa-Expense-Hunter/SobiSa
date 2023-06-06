@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef } from 'react';
+/* eslint-disable import/no-cycle */
+import { useEffect, useState, useRef, RefObject } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -16,25 +17,34 @@ import * as Font from '@/styles/font';
 
 const OnboardingDimmed = dynamic(() => import('@/components/search/OnboardingDimmed'));
 
+export const HAS_EXPERIENCE_ONBOARDING = 'experienceOnboarding';
+export const IS_VISITED = 'visited';
+export const AFTER_ABOUT = 'afterAbout';
+
+export interface SearchInputOffset {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 function Home() {
   const { title = '', text = '', url = '' } = sharedMessage;
-  const [isVisted, setIsVisted] = useLocalStorage('visited', '');
-  const [isDimmedShown, setIsDimmedShown] = useLocalStorage('isDimmedShown', 'false');
+
+  const [isVisted, setIsVisted] = useLocalStorage(IS_VISITED, '');
+  const [experienceOnboarding, setExperienceOnboarding] = useLocalStorage(
+    HAS_EXPERIENCE_ONBOARDING,
+    '',
+  );
+  const [searchInputOffset, setsearchInputOffset] = useState<SearchInputOffset>();
+
   const searchInputRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  const leftOffset = searchInputRef?.current?.offsetLeft || 0;
-  const topOffset = searchInputRef?.current?.offsetTop || 0;
-  const searchWidth = searchInputRef?.current?.offsetWidth || 0;
-  const searchHeight = searchInputRef?.current?.offsetHeight || 0;
-  const widthPadding = 15;
-
-  const searchInputOffset: SearchInputOffset = {
-    x: searchWidth > 375 ? (searchWidth - 310) / 2 + widthPadding : leftOffset + widthPadding,
-    y: topOffset,
-    width: searchWidth > 310 ? 310 : searchWidth,
-    height: searchHeight,
-  };
+  useEffect(() => {
+    if (!searchInputRef.current) return;
+    setsearchInputOffset(calculatePositionOfSearchInput(searchInputRef));
+  }, [searchInputRef]);
 
   if (isVisted === '') {
     setIsVisted(new Date().toDateString());
@@ -43,7 +53,12 @@ function Home() {
 
   return (
     <Layout.VStack margin='20px 0 0' width='100%' alignItems='center'>
-      {isDimmedShown === 'false' && <OnboardingDimmed searchInputPosition={searchInputOffset} />}
+      {experienceOnboarding === AFTER_ABOUT && searchInputOffset && (
+        <OnboardingDimmed
+          searchInputPosition={searchInputOffset}
+          setLocalStorage={setExperienceOnboarding}
+        />
+      )}
       <Font.Medium>지금 뭘 사고 싶나요?</Font.Medium>
       <Font.Large>소비사와 같이 고민해 봐요!</Font.Large>
       <Layout.Box margin='16px 0px'>
@@ -63,9 +78,27 @@ function Home() {
 }
 export default Home;
 
-export interface SearchInputOffset {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+function calculatePositionOfSearchInput(ref: RefObject<HTMLDivElement>): SearchInputOffset {
+  const searchBox = {
+    leftOffset: ref?.current?.offsetLeft || 0,
+    topOffset: ref?.current?.offsetTop || 0,
+    width: ref?.current?.offsetWidth || 0,
+    height: ref?.current?.offsetHeight || 0,
+    leftPadding: 16,
+    maxWidth: 310,
+  };
+
+  const BackgroundDefaultWidth = 375;
+
+  const calculatePosition: SearchInputOffset = {
+    x:
+      searchBox.width > BackgroundDefaultWidth
+        ? (searchBox.width - searchBox.maxWidth) / 2 + searchBox.leftPadding
+        : searchBox.leftOffset + searchBox.leftPadding,
+    y: searchBox.topOffset,
+    width: searchBox.width > searchBox.maxWidth ? searchBox.maxWidth : searchBox.width,
+    height: searchBox.height,
+  };
+
+  return calculatePosition;
 }
