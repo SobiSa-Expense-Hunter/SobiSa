@@ -79,17 +79,24 @@ function AboutInit({ scrollRef }: { scrollRef: ForwardedRef<HTMLDivElement> }) {
         </Layout.VStack>
       </motion.div>
 
-      <Layout.Box minHeight='310px' />
-      <Layout.VStack ref={scrollRef}>
-        <Font.ExtraLarge style={{ fontWeight: '800' }}>
-          <Style.Highlight>혹시</Style.Highlight>
-        </Font.ExtraLarge>
-        <Font.ExtraLarge style={{ fontWeight: '500' }}>이런 적 없으신가요?</Font.ExtraLarge>
-        <Layout.Box height='16px' />
-        <Font.Medium>소비를 하고 후회하게 된</Font.Medium>
-        <Font.Medium>주변의 경험들을 모아봤어요.</Font.Medium>
-        <Layout.Box height='48px' />
-      </Layout.VStack>
+      <Layout.Box minHeight='40px' />
+      <motion.div
+        initial={{ y: 90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: 'tween', duration: 0.5 }}
+      >
+        <Layout.VStack ref={scrollRef}>
+          <Font.ExtraLarge style={{ fontWeight: '500' }}>소비사는</Font.ExtraLarge>
+          <Font.ExtraLarge style={{ fontWeight: '500' }}>
+            당신의 <Style.Highlight style={{ fontWeight: '800' }}>과소비</Style.Highlight>를
+            걱정합니다!
+          </Font.ExtraLarge>
+          <Layout.Box height='16px' />
+          <Font.Medium>내가 사고 싶은 물건이 정말 필요한 물건인지,</Font.Medium>
+          <Font.Medium>물건을 사지 않으면 어떤 것을 할 수 있는지 알 수 있어요.</Font.Medium>
+          <Layout.Box height='48px' />
+        </Layout.VStack>
+      </motion.div>
 
       <Layout.Box height='375px' />
       <Image
