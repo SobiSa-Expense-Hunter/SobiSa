@@ -1,20 +1,26 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable react/jsx-no-useless-fragment */
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
+import { AFTER_ABOUT, HAS_EXPERIENCE_ONBOARDING } from '..';
+import AboutInit from '@/components/about/AboutInit';
 import { BottomButton } from '@/components/common/buttons';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
-const AboutInit = dynamic(() => import('@/components/about/AboutInit'));
 const AboutLayout = dynamic(() => import('@/components/about/AboutLayout'));
 
 function About() {
   const [pageNum, setPageNum] = useState(0);
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [_, setExperienceOnboarding] = useLocalStorage(HAS_EXPERIENCE_ONBOARDING, '');
   let scrollClickCount = 1;
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => setExperienceOnboarding(AFTER_ABOUT), []);
   const scrollHandler = () => {
     if (scrollClickCount < 1) {
       setPageNum(prev => prev + 1);
@@ -35,7 +41,7 @@ function About() {
     <>
       {pageNum === 0 ? (
         <>
-          <AboutInit scrollRef={scrollRef} />
+          <AboutInit ref={scrollRef} />
           <BottomButton onClick={scrollHandler}>다음으로</BottomButton>
         </>
       ) : (
