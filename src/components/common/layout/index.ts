@@ -59,6 +59,6 @@ export const Fixed = styled.div`
 `;
 
 export const Box = styled.div<SizeAndMarginAndPaddingProps>`
-  display: 'block';
+  display: block;
   ${SizeAndMarginAndPaddingProperty}
 `;
