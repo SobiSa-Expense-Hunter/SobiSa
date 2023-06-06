@@ -12,26 +12,8 @@ import * as Layout from '@/components/common/layout';
 import * as Font from '@/styles/font';
 
 function AboutInit({ scrollRef }: { scrollRef: ForwardedRef<HTMLDivElement> }) {
-  const CustomerOpinionContents = [
-    {
-      mainText: '“이 물건 언제 샀더라..”',
-      subText: '물건을 언제 샀는지',
-      subTextOrange: '기억조차 안나는 J씨',
-    },
-    {
-      mainText: '“내 통장에 왜 이거밖에 없지?”',
-      subText: '과소비를 막지 않아',
-      subTextOrange: '통장이 거덜나버린 H씨',
-    },
-    {
-      mainText: '“그 땐 필요했는데..?!”',
-      subText: '필요하지 않은 물건을',
-      subTextOrange: '습관적으로 사는 Y씨',
-    },
-  ];
-
   return (
-    <Style.Scroll height='100%' width='100%' padding='0 16px'>
+    <Layout.VStack height='100%' width='100%' padding='0 16px' style={{ overflow: 'hidden' }}>
       <motion.div
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -105,7 +87,7 @@ function AboutInit({ scrollRef }: { scrollRef: ForwardedRef<HTMLDivElement> }) {
         height={542}
         alt='소비사 지갑텅텅 이미지'
       />
-    </Style.Scroll>
+    </Layout.VStack>
   );
 }
 
@@ -117,3 +99,21 @@ const MideaMargin = styled(Layout.Box)`
   }
   height: 119px;
 `;
+
+const CustomerOpinionContents = [
+  {
+    mainText: '“이 물건 언제 샀더라..”',
+    subText: '물건을 언제 샀는지',
+    subTextOrange: '기억조차 안나는 J씨',
+  },
+  {
+    mainText: '“내 통장에 왜 이거밖에 없지?”',
+    subText: '과소비를 막지 않아',
+    subTextOrange: '통장이 거덜나버린 H씨',
+  },
+  {
+    mainText: '“그 땐 필요했는데..?!”',
+    subText: '필요하지 않은 물건을',
+    subTextOrange: '습관적으로 사는 Y씨',
+  },
+];
