@@ -11,7 +11,7 @@ import * as Style from '@/components/about/style';
 import * as Layout from '@/components/common/layout';
 import * as Font from '@/styles/font';
 
-function AboutInit({ scrollRef }: { scrollRef: ForwardedRef<HTMLDivElement> }) {
+function AboutInit(_: unknown, ref: ForwardedRef<HTMLDivElement>) {
   return (
     <Layout.VStack height='100%' width='100%' padding='0 16px' style={{ overflow: 'hidden' }}>
       <motion.div
@@ -67,7 +67,7 @@ function AboutInit({ scrollRef }: { scrollRef: ForwardedRef<HTMLDivElement> }) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'tween', duration: 0.5 }}
       >
-        <Layout.VStack ref={scrollRef}>
+        <Layout.VStack ref={ref}>
           <Font.ExtraLarge style={{ fontWeight: '500' }}>소비사는</Font.ExtraLarge>
           <Font.ExtraLarge style={{ fontWeight: '500' }}>
             당신의 <Style.Highlight style={{ fontWeight: '800' }}>과소비</Style.Highlight>를
@@ -90,6 +90,8 @@ function AboutInit({ scrollRef }: { scrollRef: ForwardedRef<HTMLDivElement> }) {
     </Layout.VStack>
   );
 }
+
+AboutInit.displayName = 'AboutInit';
 
 export default forwardRef(AboutInit);
 
