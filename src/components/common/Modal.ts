@@ -24,7 +24,7 @@ export const Background = styled.div<{ show: boolean }>`
   width: 100%;
   height: 100%;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.6);
   animation: 0.2s ${props => (props.show ? FadeIn : FadeOut)};
 `;
 
