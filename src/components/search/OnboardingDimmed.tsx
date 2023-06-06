@@ -6,6 +6,7 @@ import * as Icon from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import { Background } from '@/components/common/Modal';
 import * as Layout from '@/components/common/layout';
+import useModalAnimation from '@/hooks/useModalAnimation';
 import * as Font from '@/styles/font';
 
 import type { SearchInputOffset } from '@/pages';
@@ -17,8 +18,14 @@ const inputVariants: Variants = {
   exit: { opacity: 0, transition: { type: 'tween', duration: 0.4 } },
 };
 
-function OnboardingDimmed({ searchInputPosition }: { searchInputPosition: SearchInputOffset }) {
-  const show = true;
+function OnboardingDimmed({
+  searchInputPosition,
+  setLocalStorage,
+}: {
+  searchInputPosition: SearchInputOffset;
+  setLocalStorage: (value: string) => void;
+}) {
+  const { show, animationAfterClose } = useModalAnimation(() => setLocalStorage('false'));
   const { x, y, width, height } = searchInputPosition;
 
   return (
@@ -50,7 +57,7 @@ function OnboardingDimmed({ searchInputPosition }: { searchInputPosition: Search
       >
         <Image src='assets/image/about/seachInput.png' fill alt='input img' />
       </MakePosition>
-      <Background show={show} />
+      <Background show={show} onClick={animationAfterClose} />
     </Portal>
   );
 }
