@@ -13,14 +13,21 @@ import * as Font from '@/styles/font';
 
 function AboutInit(_: unknown, ref: ForwardedRef<HTMLDivElement>) {
   return (
-    <Layout.VStack height='100%' width='100%' padding='0 16px' style={{ overflow: 'hidden' }}>
-      <motion.div
-        initial={{ y: 30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ type: 'tween' }}
-      >
+    <Layout.VStack
+      height='100%'
+      width='100%'
+      padding='0 16px'
+      style={{ overflow: 'hidden' }}
+      alignItems='center'
+    >
+      <Layout.VStack maxWidth='310px' width='100%'>
         <MideaMargin />
-        <Layout.VStack>
+        <motion.div
+          style={{ transform: 'none', display: 'contents' }}
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: 'tween' }}
+        >
           <Font.ExtraLarge style={{ fontWeight: '800' }}>
             <Style.Highlight>혹시</Style.Highlight>
           </Font.ExtraLarge>
@@ -29,8 +36,8 @@ function AboutInit(_: unknown, ref: ForwardedRef<HTMLDivElement>) {
           <Font.Medium>소비를 하고 후회하게 된</Font.Medium>
           <Font.Medium>주변의 경험들을 모아봤어요.</Font.Medium>
           <Layout.Box height='48px' />
-        </Layout.VStack>
-      </motion.div>
+        </motion.div>
+      </Layout.VStack>
 
       <Layout.VStack gap='16px' alignItems='stretch'>
         {CustomerOpinionContents.map(({ mainText, subText, subTextOrange }, idx) => (
@@ -61,32 +68,31 @@ function AboutInit(_: unknown, ref: ForwardedRef<HTMLDivElement>) {
         </Layout.VStack>
       </motion.div>
 
-      <Layout.Box minHeight='40px' />
-      <motion.div
-        initial={{ y: 90, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ type: 'tween', duration: 0.5 }}
-      >
-        <Layout.VStack ref={ref}>
-          <Font.ExtraLarge style={{ fontWeight: '500' }}>소비사는</Font.ExtraLarge>
-          <Font.ExtraLarge style={{ fontWeight: '500' }}>
-            당신의 <Style.Highlight style={{ fontWeight: '800' }}>과소비</Style.Highlight>를
-            걱정합니다!
-          </Font.ExtraLarge>
-          <Layout.Box height='16px' />
-          <Font.Medium>내가 사고 싶은 물건이 정말 필요한 물건인지,</Font.Medium>
-          <Font.Medium>물건을 사지 않으면 어떤 것을 할 수 있는지 알 수 있어요.</Font.Medium>
-          <Layout.Box height='48px' />
-        </Layout.VStack>
-      </motion.div>
-
-      <Layout.Box height='375px' />
-      <Image
-        src='assets/image/about/소비사_지갑텅텅.png'
-        width={375}
-        height={542}
-        alt='소비사 지갑텅텅 이미지'
-      />
+      <Layout.Box minHeight='40px' ref={ref} />
+      <Layout.VStack width='100%' maxWidth='310px' height='100vh'>
+        <motion.div
+          initial={{ y: 90, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: 'tween', duration: 0.5 }}
+        >
+          <Layout.VStack>
+            <Font.ExtraLarge style={{ fontWeight: '500' }}>소비사는</Font.ExtraLarge>
+            <Font.ExtraLarge style={{ fontWeight: '500' }}>
+              당신의 <Style.Highlight style={{ fontWeight: '800' }}>과소비</Style.Highlight>를
+              걱정합니다!
+            </Font.ExtraLarge>
+            <Layout.Box height='16px' />
+            <Font.Medium>내가 사고 싶은 물건이 정말 필요한 물건인지,</Font.Medium>
+            <Font.Medium>물건을 사지 않으면 어떤 것을 할 수 있는지 알 수 있어요.</Font.Medium>
+            <Layout.Box height='48px' />
+          </Layout.VStack>
+        </motion.div>
+        <img
+          src='assets/image/about/소비사_지갑텅텅.png'
+          alt='소비사 지갑텅텅 이미지'
+          style={{ objectFit: 'cover', width: '100%' }}
+        />
+      </Layout.VStack>
     </Layout.VStack>
   );
 }
@@ -94,6 +100,11 @@ function AboutInit(_: unknown, ref: ForwardedRef<HTMLDivElement>) {
 AboutInit.displayName = 'AboutInit';
 
 export default forwardRef(AboutInit);
+
+const ImageBox = styled.div`
+  position: relative;
+  width: 100%;
+`;
 
 const MideaMargin = styled(Layout.Box)`
   @media (pointer: coarse) {

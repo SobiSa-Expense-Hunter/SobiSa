@@ -13,7 +13,7 @@ interface CustomerProps {
 
 function CustomerBox({ imgNum, mainText, subText, subTextOrange }: CustomerProps) {
   return (
-    <StyledHStack height='94px' alignItems='center' padding='0 16px'>
+    <StyledHStack height='100%' alignItems='center' padding='20px 16px'>
       <Image
         src={`assets/image/about/customer/profile_${imgNum}.png`}
         width={54}

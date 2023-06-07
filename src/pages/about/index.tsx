@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { AFTER_ABOUT, EXPERIENCE_ONBOARDING } from '..';
 import AboutInit from '@/components/about/AboutInit';
 import { BottomButton } from '@/components/common/buttons';
+import * as Layout from '@/components/common/layout';
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 const AboutLayout = dynamic(() => import('@/components/about/AboutLayout'));
