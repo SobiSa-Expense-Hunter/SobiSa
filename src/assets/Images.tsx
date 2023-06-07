@@ -1,13 +1,14 @@
+/* eslint-disable react/require-default-props */
 import Image from 'next/image';
 
 const IMG_PATH = '/assets';
 
 interface ImageSizeProps {
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 }
 
-export const MainImage = ({ width, height }: ImageSizeProps) => {
+export const MainImage = ({ width = 220, height = 220 }: ImageSizeProps) => {
   return (
     <Image
       src={`${IMG_PATH}/image/main.png`}
