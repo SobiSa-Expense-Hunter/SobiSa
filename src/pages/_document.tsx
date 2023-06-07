@@ -72,7 +72,7 @@ class MyDocument extends Document {
           <title>소비사!: 소비사냥꾼</title>
 
           <meta property='apple-mobile-web-app-title' content='소비사!: 소비사냥꾼' />
-          <meta property='description' content='당신의 소비를 막아주는 소비사냥꾼' />
+          <meta property='description' content='그 물건을 사는 대신 뭘 할 수 있을까요?' />
 
           <meta property='og:title' content='소비사!: 소비 사냥꾼' />
           <meta property='og:url' content='https://sobisa.vercel.app/' />
@@ -80,10 +80,10 @@ class MyDocument extends Document {
             property='og:image'
             content='https://sobisa.vercel.app/assets/image/thumbnail_image.png'
           />
-          <meta property='og:description' content='당신의 소비를 막아주는 소비사냥꾼' />
+          <meta property='og:description' content='그 물건을 사는 대신 뭘 할 수 있을까요?' />
           <meta property='og:type' content='website' />
 
-          <meta name='twitter:title' content='소비사!: 소비 사냥꾼' />
+          <meta name='twitter:card' content='summary_large_image' />
 
           <link rel='apple-touch-icon' sizes='114x114' href='assets/image/sobisa_logo.png' />
           <meta
