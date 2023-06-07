@@ -4,6 +4,7 @@ import { NextRouter, useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { MagnifyingGlassIcon } from '@/assets/Icons';
+import detectMobileDevice from '@/utils/checkMobileDivice';
 
 import NoticeModal from './modal/NoticeModal';
 
@@ -13,7 +14,12 @@ function SearchInput() {
   const router = useRouter();
   const autoFocusRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => autoFocusRef.current?.focus(), []);
+  useEffect(() => {
+    const isMobile = detectMobileDevice(window.navigator.userAgent);
+    if (isMobile && router.asPath === '/') return;
+
+    autoFocusRef.current?.focus();
+  }, [router.asPath]);
 
   const handleSearchKeyDownEvent = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Enter') searchParamOrShowAlert(router, search);
