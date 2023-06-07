@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
 
 import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
-import { BottomButton } from '@/components/common/buttons';
+import { BottomButton, DefaultTagStyle } from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
 import * as Style from '@/components/savingamount/styles';
 import { InputRegExp } from '@/constant';
-import { Medium } from '@/styles/font';
+import useMouseScroll from '@/hooks/useMouseScroll';
+import * as Font from '@/styles/font';
 
 const NoticeModal = dynamic(() => import('@/components/modal/NoticeModal'), { ssr: false });
 
@@ -16,6 +18,8 @@ const SavingAmount = () => {
   const [amount, setAmount] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [typingModal, setTypingModal] = useState(false);
+  const dragScrollRef = useRef<HTMLDivElement>(null);
+  const { onMouseDown, onMouseEnter, onMouseLeave, onMouseMove } = useMouseScroll(dragScrollRef);
 
   const store = useSearchStore();
   const dispatch = useSearchDispatch();
@@ -57,13 +61,20 @@ const SavingAmount = () => {
     <Layout.VStack margin='103px 0 0' height='100%' justifyContent='space-around'>
       <Layout.VStack alignItems='flex-start' gap='16px'>
         <Layout.HStack alignItems='center' gap='16px'>
-          <Style.Span> {store.product.title} </Style.Span>
-          <Medium>을(를) 갖기 위해</Medium>
+          <Style.Span> {`${store.product.price?.toLocaleString()} ₩`} </Style.Span>
+          <Font.Medium>인</Font.Medium>
         </Layout.HStack>
+
+        <Layout.HStack alignItems='center' gap='16px'>
+          <Style.Span> {store.product.title} </Style.Span>
+          <Font.Medium>을(를) 갖기 위해</Font.Medium>
+        </Layout.HStack>
+
         <Layout.HStack alignItems='center' gap='16px'>
           <Style.Span>한달</Style.Span>
-          <Medium>동안</Medium>
+          <Font.Medium>동안</Font.Medium>
         </Layout.HStack>
+
         <Layout.HStack alignItems='center' gap='16px'>
           <Style.Input
             onChange={e => handleChange(e)}
@@ -71,8 +82,23 @@ const SavingAmount = () => {
             inputMode='decimal'
             value={amount}
           />
-          <Medium>원을 모은다면?</Medium>
+          <Font.Medium>원을 모은다면?</Font.Medium>
         </Layout.HStack>
+        <HScroll
+          gap='6px'
+          maxWidth='310px'
+          ref={dragScrollRef}
+          onMouseDown={onMouseDown}
+          onMouseLeave={onMouseLeave}
+          onMouseEnter={onMouseEnter}
+          onMouseMove={onMouseMove}
+        >
+          <MoneyInputButton>전액</MoneyInputButton>
+          <MoneyInputButton>10,000원</MoneyInputButton>
+          <MoneyInputButton>50,000원</MoneyInputButton>
+          <MoneyInputButton>100,000원</MoneyInputButton>
+          <MoneyInputButton>200,000원</MoneyInputButton>
+        </HScroll>
       </Layout.VStack>
       <Layout.Flex onClick={handleSubmit} justifyContent='center'>
         <BottomButton>다음으로</BottomButton>
@@ -89,3 +115,20 @@ const SavingAmount = () => {
 };
 
 export default SavingAmount;
+
+const MoneyInputButton = styled.button`
+  ${DefaultTagStyle}
+
+  :hover {
+    color: white;
+    background-color: ${({ theme }) => theme.colors.gray[2]};
+  }
+`;
+
+const HScroll = styled(Layout.HStack)`
+  overflow-x: scroll;
+  word-break: keep-all;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
