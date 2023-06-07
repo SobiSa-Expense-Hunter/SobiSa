@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { DefaultTagStyle } from '@/components/common/buttons';
 import { DefaultInput } from '@/components/common/input';
 import * as Font from '@/styles/font';
 
@@ -12,18 +13,12 @@ export const KeywordPageFont = {
 };
 
 export const KeywordButton = styled.button<{ isSelected: boolean }>`
+  ${DefaultTagStyle}
   background: ${({ isSelected, theme }) => {
     if (isSelected) return theme.colors.mainColor;
     return theme.colors.gray[0];
   }};
 
-  padding: 10px 15px;
-
-  border-radius: 10px;
-  border-style: none;
-
-  font-family: 'Pretendard Variable';
-  font-weight: 600;
   color: ${({ isSelected, theme }) => {
     if (isSelected) return 'white';
     return theme.colors.gray[3];
