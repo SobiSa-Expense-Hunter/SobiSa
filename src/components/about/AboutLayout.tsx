@@ -23,7 +23,7 @@ interface AboutPageLayoutProps {
 function AboutLayout({ pageNum, mainTexts, subTexts }: AboutPageLayoutProps) {
   const [firstMainText, secondMainText] = mainTexts;
   return (
-    <Layout.VStack width='100%' height='100%' padding='0 16px' style={{ overflow: 'hidden' }}>
+    <Layout.VStack style={{ overflow: 'hidden' }}>
       <MideaMargin />
 
       <Layout.HStack width='100%'>
@@ -87,22 +87,44 @@ const ImageAnimation = ({ pageNum }: { pageNum: number }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            style={{ width: '100%' }}
           >
-            <Image
-              src={imgSrc}
-              width={295}
-              height={540}
-              alt='animation mockup img'
-              loading='lazy'
-            />
+            <ImageSize>
+              <Image
+                src={imgSrc}
+                fill
+                alt='animation mockup img'
+                loading='lazy'
+                style={{ objectFit: 'contain' }}
+              />
+            </ImageSize>
           </motion.div>
         </AnimatePresence>
       ) : (
-        <Image src={imgSrc} width={295} height={540} alt='mockup img' loading='lazy' />
+        <ImageSize>
+          <Image
+            src={imgSrc}
+            fill
+            alt='mockup img'
+            loading='lazy'
+            style={{ objectFit: 'contain' }}
+          />
+        </ImageSize>
       )}
     </>
   );
 };
+
+const ImageSize = styled.div`
+  position: relative;
+  min-height: 540px; // image 원본 height 크기
+  height: 100%;
+  width: 100%;
+
+  @media (pointer: coarse) {
+    min-height: 400px; // 모바일일 경우 이미지 사이즈 조절
+  }
+`;
 
 const MideaMargin = styled(Layout.Box)`
   @media (pointer: coarse) {
