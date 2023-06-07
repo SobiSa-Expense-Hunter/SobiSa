@@ -57,7 +57,7 @@ const Certificate = (_: CertificateProps, ref: ForwardedRef<HTMLDivElement>) => 
               {new Date().toISOString().substring(0, 19).replace('T', ' ')}
             </AwardXXSmall>
           </SmallFlexEnd>
-          <ProductName length={title.length}>{title}</ProductName>
+          <ProductName>{title}</ProductName>
         </ColumnFlexEndWithBorderBottom>
         {isLessThanAlternatives ? (
           <>
@@ -311,7 +311,7 @@ const Sticker = styled(motion.span)`
 
 const StickerStamp = styled(motion.span)``;
 
-const ProductName = styled(AwardXLarge)<{ length: number }>`
+const ProductName = styled(AwardXLarge)`
   text-align: right;
-  word-break: 'keep-all';
+  word-break: keep-all;
 `;
