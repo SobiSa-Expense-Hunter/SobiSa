@@ -9,14 +9,7 @@ const nextConfig = {
   env: {
     kakaoJavaScriptKey: 'f3a4bb7bae4e518350182a657da0470e',
   },
-  async rewrites() {
-    return [
-      {
-        destination: 'https://openapi.naver.com/:path*',
-        source: '/:path*',
-      },
-    ];
-  },
+
   webpack: config => {
     const fileLoaderRule = config.module.rules.find(rule => rule.test?.test?.('.svg'));
     config.module.rules.push(
