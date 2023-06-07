@@ -6,7 +6,6 @@ import styled from 'styled-components';
 
 import * as Icon from '@/assets/Icons';
 import Portal from '@/components/Portal';
-import { Background } from '@/components/common/Modal';
 import * as Button from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
 import useModalAnimation from '@/hooks/useModalAnimation';
@@ -96,6 +95,16 @@ const WhiteBox = styled(FixedFlexZIndex2)`
 const Arrow = styled.div`
   position: relative;
   z-index: 2;
+`;
+
+const Background = styled.div<{ show: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 export default OnboardingDimmed;
