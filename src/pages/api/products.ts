@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         'X-Naver-Client-Secret': process.env.NEXT_PUBLIC_CLIENT_SECRET,
       },
     });
-    return res.json(data);
+    return res.status(200).json(data);
   } catch (err) {
     return res.end(err);
   }
