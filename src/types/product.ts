@@ -13,3 +13,7 @@ export interface UserSelected {
   product: Product;
   savingAmount: number;
 }
+
+export function isUserSelectedType(typeObj: any): typeObj is UserSelected {
+  return 'product' in typeObj && 'savingAmount' in typeObj;
+}
