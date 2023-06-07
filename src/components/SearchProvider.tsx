@@ -1,7 +1,8 @@
 import { Dispatch, ReactNode, createContext, useContext, useEffect, useReducer } from 'react';
 
-import { UserSelected, isUserSelectedType } from '@/types/product';
+import { UserSelected } from '@/types/product';
 import { Action } from '@/types/search';
+import isUserSelectedType from '@/utils/typeChecks';
 
 const STORAGE_KEY = 'UserSet';
 const SearchStateContext = createContext<UserSelected | null>(null);
