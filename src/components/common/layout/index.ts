@@ -2,7 +2,13 @@ import styled, { css } from 'styled-components';
 
 interface FlexProps extends SizeAndMarginAndPaddingProps {
   flexDirection?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
-  justifyContent?: 'flex-start' | 'flex-end' | 'space-between' | 'center' | 'space-around';
+  justifyContent?:
+    | 'flex-start'
+    | 'flex-end'
+    | 'space-between'
+    | 'center'
+    | 'space-around'
+    | 'space-evenly';
   alignItems?: 'center' | 'flex-start' | 'flex-end' | 'stretch' | 'baseline';
   flexWrap?: 'nowrap' | 'wrap';
   gap?: string;
