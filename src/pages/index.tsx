@@ -17,11 +17,11 @@ import * as Font from '@/styles/font';
 
 const OnboardingDimmed = dynamic(() => import('@/components/search/OnboardingDimmed'));
 
-export const HAS_EXPERIENCE_ONBOARDING = 'experienceOnboarding';
+export const EXPERIENCE_ONBOARDING = 'experienceOnboarding';
 export const IS_VISITED = 'visited';
 export const AFTER_ABOUT = 'afterAbout';
 
-export interface SearchInputOffset {
+export interface SearchInputPositionAndSize {
   x: number;
   y: number;
   width: number;
@@ -33,17 +33,18 @@ function Home() {
 
   const [isVisted, setIsVisted] = useLocalStorage(IS_VISITED, '');
   const [experienceOnboarding, setExperienceOnboarding] = useLocalStorage(
-    HAS_EXPERIENCE_ONBOARDING,
+    EXPERIENCE_ONBOARDING,
     '',
   );
-  const [searchInputOffset, setsearchInputOffset] = useState<SearchInputOffset>();
+  const [searchInputPositionAndSize, setSearchInputPositionAndSize] =
+    useState<SearchInputPositionAndSize>();
 
   const searchInputRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   useEffect(() => {
     if (!searchInputRef.current) return;
-    setsearchInputOffset(calculatePositionOfSearchInput(searchInputRef));
+    setSearchInputPositionAndSize(calculatePositionAndSizeOfSearchInput(searchInputRef));
   }, [searchInputRef]);
 
   if (isVisted === '') {
@@ -53,9 +54,9 @@ function Home() {
 
   return (
     <Layout.VStack margin='20px 0 0' width='100%' alignItems='center'>
-      {experienceOnboarding === AFTER_ABOUT && searchInputOffset && (
+      {experienceOnboarding === AFTER_ABOUT && searchInputPositionAndSize && (
         <OnboardingDimmed
-          searchInputPosition={searchInputOffset}
+          searchInputInfo={searchInputPositionAndSize}
           setLocalStorage={setExperienceOnboarding}
         />
       )}
@@ -78,26 +79,43 @@ function Home() {
 }
 export default Home;
 
-function calculatePositionOfSearchInput(ref: RefObject<HTMLDivElement>): SearchInputOffset {
-  const searchBox = {
-    leftOffset: ref?.current?.offsetLeft || 0,
-    topOffset: ref?.current?.offsetTop || 0,
-    width: ref?.current?.offsetWidth || 0,
-    height: ref?.current?.offsetHeight || 0,
-    leftPadding: 16,
+function calculatePositionAndSizeOfSearchInput(
+  searchInputRef: RefObject<HTMLDivElement>,
+): SearchInputPositionAndSize {
+  const searchInput = {
+    leftOffset: searchInputRef?.current?.offsetLeft || 0,
+    topOffset: searchInputRef?.current?.offsetTop || 0,
+    wrapperWidth: searchInputRef?.current?.offsetWidth || 0,
+    height: searchInputRef?.current?.offsetHeight || 0,
     maxWidth: 310,
   };
 
-  const BackgroundDefaultWidth = 375;
+  const whiteBackgroundWidthWhenTabletSize = 375;
+  const backgroundPaddiing = 16;
 
-  const calculatePosition: SearchInputOffset = {
-    x:
-      searchBox.width > BackgroundDefaultWidth
-        ? (searchBox.width - searchBox.maxWidth) / 2 + searchBox.leftPadding
-        : searchBox.leftOffset + searchBox.leftPadding,
-    y: searchBox.topOffset,
-    width: searchBox.width > searchBox.maxWidth ? searchBox.maxWidth : searchBox.width,
-    height: searchBox.height,
+  function calculatXOffset() {
+    // 뷰포트 너비가 375 이하인 경우
+    if (searchInput.wrapperWidth < searchInput.maxWidth) return searchInput.leftOffset;
+
+    //  뷰포트 너비가 768 이상인 경우 (태블릿 이상)
+    if (searchInput.wrapperWidth > whiteBackgroundWidthWhenTabletSize)
+      return getSearchInputLeftMargin() + backgroundPaddiing;
+
+    return searchInput.leftOffset + getSearchInputLeftMargin();
+
+    function getSearchInputLeftMargin() {
+      return (searchInput.wrapperWidth - searchInput.maxWidth) / 2;
+    }
+  }
+
+  const calculatePosition: SearchInputPositionAndSize = {
+    x: calculatXOffset(),
+    y: searchInput.topOffset,
+    width:
+      searchInput.wrapperWidth > searchInput.maxWidth
+        ? searchInput.maxWidth
+        : searchInput.wrapperWidth,
+    height: searchInput.height,
   };
 
   return calculatePosition;
