@@ -1,12 +1,4 @@
-import {
-  Dispatch,
-  ReactNode,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useReducer,
-} from 'react';
+import { Dispatch, ReactNode, createContext, useContext, useEffect, useReducer } from 'react';
 
 import { UserSelected } from '@/types/product';
 import { Action } from '@/types/search';
@@ -20,11 +12,11 @@ const reducer = (state: UserSelected, action: Action) => {
   switch (action.type) {
     case 'ADD_PRODUCT': {
       const productUpdated = { ...state, product: action.item, savingAmount: 0 };
-      return productUpdated;
+      return setDefaultState(productUpdated);
     }
     case 'ADD_SAVINGAMOUNT': {
       const amountUpdated = { ...state, savingAmount: action.item };
-      return amountUpdated;
+      return setDefaultState(amountUpdated);
     }
     case 'SET_DEFAULT': {
       return action.item;
@@ -34,20 +26,13 @@ const reducer = (state: UserSelected, action: Action) => {
   }
 };
 
-let isInit = false;
 const initState = { product: {}, savingAmount: 0 };
 const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [store, dispatch] = useReducer(reducer, initState);
-  useEffect(() => {
-    if (!isInit) {
-      dispatch({ item: getDefaultStateFromSessionStorage() ?? initState, type: 'SET_DEFAULT' });
-      isInit = true;
-    }
-  }, []);
 
   useEffect(() => {
-    setDefaultStateToSessionStorage(store);
-  }, [store]);
+    dispatch({ item: getDefaultState() ?? initState, type: 'SET_DEFAULT' });
+  }, []);
 
   return (
     <SearchStateContext.Provider value={store}>
@@ -56,12 +41,12 @@ const SearchProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const getDefaultStateFromSessionStorage = (): UserSelected => {
-  const item = typeof window === 'object' ? sessionStorage.getItem(STORAGE_KEY) : null;
+const getDefaultState = (): UserSelected => {
+  const item = sessionStorage.getItem(STORAGE_KEY);
   return item && isUserSelectedType(JSON.parse(item)) ? JSON.parse(item) : null;
 };
 
-const setDefaultStateToSessionStorage = (currentState: UserSelected) => {
+const setDefaultState = (currentState: UserSelected) => {
   sessionStorage.setItem(STORAGE_KEY, JSON.stringify(currentState));
   return currentState;
 };
