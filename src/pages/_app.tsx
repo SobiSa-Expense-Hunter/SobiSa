@@ -13,7 +13,7 @@ import AppLayout from '@/components/layout/AppLayout';
 import * as ga from '@/lib/gtag';
 import GlobalStyle from '@/styles/GlobalStyle';
 import theme from '@/styles/theme';
-import { KakaoSDK } from '@/types/result';
+import { KakaoSDK } from '@/types/kakaoSDK';
 
 import type { AppProps } from 'next/app';
 
