@@ -9,17 +9,13 @@ import NativeShareButton from '@/components/common/share/NativeShareButton';
 import TwitterButton from '@/components/common/share/TwitterButton';
 import { sharedMessage } from '@/constant';
 
-const ShareButtons = ({
-  shareImage,
-}: {
-  shareImage: (callback: (imgUrl: string) => void) => Promise<void>;
-}) => {
+const ShareButtons = () => {
   const { title = '', text = '', url = '' } = sharedMessage;
   return (
     <ShareButtonsContainer>
       <FacebookButton pageUrl={url} />
       <TwitterButton sendText={title} pageUrl={url} />
-      <KakaoButton title={title} description={text} webUrl={url} shareImage={shareImage} />
+      <KakaoButton webUrl={url} />
       <LinkButton pageUrl={url} />
       <NativeShareButton description={text} />
     </ShareButtonsContainer>

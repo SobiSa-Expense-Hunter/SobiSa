@@ -32,7 +32,7 @@ function Home() {
       <Layout.HStack margin='66px 0 0' gap='8px'>
         <FacebookButton pageUrl={url} />
         <TwitterButton pageUrl={url} sendText={text} />
-        <KakaoButton title={title} description={text} webUrl={url} />
+        <KakaoButton webUrl={url} />
         <LinkButton pageUrl={url} />
       </Layout.HStack>
     </Layout.VStack>
