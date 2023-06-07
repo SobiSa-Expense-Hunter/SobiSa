@@ -1,8 +1,10 @@
-import { Dispatch, ReactNode, createContext, useContext, useReducer } from 'react';
+import { Dispatch, ReactNode, createContext, useContext, useEffect, useReducer } from 'react';
 
 import { UserSelected } from '@/types/product';
 import { Action } from '@/types/search';
+import isUserSelectedType from '@/utils/typeChecks';
 
+const STORAGE_KEY = 'UserSet';
 const SearchStateContext = createContext<UserSelected | null>(null);
 const SearchDispatchContext = createContext<Dispatch<Action> | null>(null);
 
@@ -10,24 +12,43 @@ const reducer = (state: UserSelected, action: Action) => {
   switch (action.type) {
     case 'ADD_PRODUCT': {
       const productUpdated = { ...state, product: action.item, savingAmount: 0 };
-      return productUpdated;
+      return setDefaultState(productUpdated);
     }
     case 'ADD_SAVINGAMOUNT': {
-      const amoutUpdated = { ...state, savingAmount: action.item };
-      return amoutUpdated;
+      const amountUpdated = { ...state, savingAmount: action.item };
+      return setDefaultState(amountUpdated);
+    }
+    case 'SET_DEFAULT': {
+      return action.item;
     }
     default:
       throw new Error('Unhandled Action');
   }
 };
+
+const initState = { product: {}, savingAmount: 0 };
 const SearchProvider = ({ children }: { children: ReactNode }) => {
-  const [store, dispatch] = useReducer(reducer, { product: {}, savingAmount: 0 });
+  const [store, dispatch] = useReducer(reducer, initState);
+
+  useEffect(() => {
+    dispatch({ item: getDefaultState() ?? initState, type: 'SET_DEFAULT' });
+  }, []);
 
   return (
     <SearchStateContext.Provider value={store}>
       <SearchDispatchContext.Provider value={dispatch}>{children}</SearchDispatchContext.Provider>
     </SearchStateContext.Provider>
   );
+};
+
+const getDefaultState = (): UserSelected => {
+  const item = sessionStorage.getItem(STORAGE_KEY);
+  return item && isUserSelectedType(JSON.parse(item)) ? JSON.parse(item) : null;
+};
+
+const setDefaultState = (currentState: UserSelected) => {
+  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(currentState));
+  return currentState;
 };
 
 export const useSearchStore = () => {
