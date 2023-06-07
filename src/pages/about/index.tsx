@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import { AFTER_ABOUT, HAS_EXPERIENCE_ONBOARDING } from '..';
+import { AFTER_ABOUT, EXPERIENCE_ONBOARDING } from '..';
 import AboutInit from '@/components/about/AboutInit';
 import { BottomButton } from '@/components/common/buttons';
 import useLocalStorage from '@/hooks/useLocalStorage';
@@ -16,7 +16,7 @@ function About() {
   const [pageNum, setPageNum] = useState(0);
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [_, setExperienceOnboarding] = useLocalStorage(HAS_EXPERIENCE_ONBOARDING, '');
+  const [_, setExperienceOnboarding] = useLocalStorage(EXPERIENCE_ONBOARDING, '');
   let scrollClickCount = 1;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
