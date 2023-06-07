@@ -21,7 +21,7 @@ declare module 'styled-components' {
       xxs: '12px';
       xs: '14px';
       s: '16px';
-      m: '14pt';
+      m: '14px';
       ml: '20px';
       l: '21px';
       xl: '28px';
