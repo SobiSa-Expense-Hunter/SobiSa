@@ -2,11 +2,11 @@ import { useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
 
 import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
 import { BottomButton } from '@/components/common/buttons';
-import { DefaultInput } from '@/components/common/input';
+import * as Layout from '@/components/common/layout';
+import * as Style from '@/components/savingamount/styles';
 import { InputRegExp } from '@/constant';
 import { Medium } from '@/styles/font';
 
@@ -54,29 +54,29 @@ const SavingAmount = () => {
   };
 
   return (
-    <Container>
-      <InputContainer>
-        <InputBox>
-          <Span> {store.product.title} </Span>
+    <Layout.VStack margin='103px 0 0' height='100%' justifyContent='space-around'>
+      <Layout.VStack alignItems='flex-start' gap='16px'>
+        <Layout.HStack alignItems='center' gap='16px'>
+          <Style.Span> {store.product.title} </Style.Span>
           <Medium>을(를) 갖기 위해</Medium>
-        </InputBox>
-        <InputBox>
-          <Span>한달</Span>
+        </Layout.HStack>
+        <Layout.HStack alignItems='center' gap='16px'>
+          <Style.Span>한달</Style.Span>
           <Medium>동안</Medium>
-        </InputBox>
-        <InputBox>
-          <Input
+        </Layout.HStack>
+        <Layout.HStack alignItems='center' gap='16px'>
+          <Style.Input
+            onChange={e => handleChange(e)}
             pattern='[0-9]*'
             inputMode='decimal'
             value={amount}
-            onChange={e => handleChange(e)}
           />
           <Medium>원을 모은다면?</Medium>
-        </InputBox>
-      </InputContainer>
-      <ButtonBox onClick={handleSubmit}>
+        </Layout.HStack>
+      </Layout.VStack>
+      <Layout.Flex onClick={handleSubmit} justifyContent='center'>
         <BottomButton>다음으로</BottomButton>
-      </ButtonBox>
+      </Layout.Flex>
 
       {showModal && (
         <NoticeModal onClose={() => setShowModal(false)} message='숫자만 입력해주세요!' />
@@ -84,47 +84,8 @@ const SavingAmount = () => {
       {typingModal && (
         <NoticeModal onClose={() => setTypingModal(false)} message='모든 칸을 채워주세요!' />
       )}
-    </Container>
+    </Layout.VStack>
   );
 };
-
-const Container = styled.div`
-  margin-top: 101px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-around;
-`;
-
-const ButtonBox = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const InputBox = styled.div`
-  display: flex;
-  width: 310px;
-  align-items: center;
-  gap: 16px;
-`;
-const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const Span = styled.span`
-  ${DefaultInput}
-  display: flex;
-  align-items: center;
-  min-height: 50px;
-`;
-
-const Input = styled.input`
-  ${DefaultInput}
-
-  height: 50px;
-`;
 
 export default SavingAmount;
