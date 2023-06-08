@@ -10,7 +10,7 @@ import TwitterButton from '@/components/common/share/TwitterButton';
 import { sharedMessage } from '@/constant';
 
 const ShareButtons = () => {
-  const { title = '', text = '', url = '' } = sharedMessage;
+  const { title = '', url = '' } = sharedMessage;
   return (
     <ShareButtonsContainer>
       <FacebookButton pageUrl={url} />
