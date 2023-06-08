@@ -22,6 +22,7 @@ function About() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setExperienceOnboarding(AFTER_ABOUT), []);
+
   const scrollHandler = () => {
     if (scrollClickCount < 1) {
       setPageNum(prev => prev + 1);
@@ -63,19 +64,19 @@ export default About;
 
 const AboutContents = [
   {
-    mainTexts: ['Search for Stuff', '물건 탐색하기'],
-    subTexts: ['살 예정이 있었던, 혹은 사고 싶었던', '물건을 검색해보세요!'],
+    mainTexts: ['Search for Stuff', '물건 탐색'],
+    subTexts: ['살 예정이 있었던, 혹은 사고 싶었던', '물건을 검색해보세요.'],
   },
   {
-    mainTexts: ['Enter Information', '정보 입력하기'],
-    subTexts: ['사고 싶었던 물건의 가격과', '나의 여유 금액을 입력해 보세요!'],
+    mainTexts: ['Enter Information', '금액 입력'],
+    subTexts: ['사고 싶었던 물건의 가격과', '나의 여유 금액을 입력해 보세요.'],
   },
   {
-    mainTexts: ['Input Result', '기회비용 확인 하기'],
-    subTexts: ['내가 물건을 사기 위해 걸리는 기간과', '기회비용을 알 수 있어요!'],
+    mainTexts: ['Input Result', '기회비용 확인'],
+    subTexts: ['내가 물건을 사기 위해 걸리는 기간과', '기회비용을 알 수 있어요.'],
   },
   {
-    mainTexts: ['Share with Friend', '공유하기'],
-    subTexts: ['소비사가 발행해준 영수증을', '친구들과 공유해보세요!'],
+    mainTexts: ['Share with Friend', '친구와 공유'],
+    subTexts: ['소비사가 발행해준 영수증을', '친구들과 공유해보세요.'],
   },
 ];
