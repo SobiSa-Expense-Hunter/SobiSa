@@ -1,12 +1,14 @@
 import { useRef } from 'react';
 
 import { toSvg } from 'html-to-image';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { DownloadIcon } from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import { Background, ModalContainer } from '@/components/common/Modal';
 import { CloseButton, ShareButton } from '@/components/common/buttons';
+import Card from '@/components/event/Card';
 import Certificate from '@/components/results/Certificate';
 import ShareButtons from '@/components/results/ShareButtons';
 import useModalAnimation from '@/hooks/useModalAnimation';
@@ -63,6 +65,7 @@ const toPng = async (node: HTMLDivElement) => {
 const CertificateAndShareModal = ({ onClose }: CertificateAndShareModalProps) => {
   const { show, animationAfterClose } = useModalAnimation(onClose);
   const ref = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const certificateDownload = () => {
     if (ref.current === null) {
@@ -77,6 +80,10 @@ const CertificateAndShareModal = ({ onClose }: CertificateAndShareModalProps) =>
     });
   };
 
+  const redirectHome = () => {
+    router.push({ pathname: '/' });
+  };
+
   return (
     <Portal>
       <Background show={show} />
@@ -85,12 +92,10 @@ const CertificateAndShareModal = ({ onClose }: CertificateAndShareModalProps) =>
           <CloseButton style={{ alignSelf: 'flex-end' }} onClick={animationAfterClose} />
           <Certificate ref={ref} />
           <ShareButtons />
-          <ShareButton
-            onClick={certificateDownload}
-            style={{ marginTop: -12, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}
-          >
+          <ModalButton onClick={certificateDownload}>
             이미지 저장하기! <DownloadIcon />
-          </ShareButton>
+          </ModalButton>
+          <ModalGrayButton onClick={redirectHome}>홈으로 돌아가기</ModalGrayButton>
         </CertificateAndShareWrapper>
       </CertificateAndShareContainer>
     </Portal>
@@ -127,4 +132,14 @@ const CertificateAndShareWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 32px;
+`;
+
+const ModalButton = styled(ShareButton)`
+  margin-top: -12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+`;
+
+const ModalGrayButton = styled(ModalButton)`
+  color: ${props => props.theme.colors.gray[4]};
+  background: ${props => props.theme.colors.gray[1]};
 `;
