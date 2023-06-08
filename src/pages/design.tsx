@@ -15,6 +15,7 @@ import {
   ModalSubButton,
   ShareButton,
 } from '@/components/common/buttons';
+import Card from '@/components/event/Card';
 import * as Font from '@/styles/font';
 import theme from '@/styles/theme';
 import { GrayRange } from '@root/style';
@@ -274,6 +275,10 @@ const design = () => {
               <Font.AwardXXLarge>AwardResultCost</Font.AwardXXLarge>
             </ItemContent>
           </MiniItemContentsWrapper>
+        </Article>
+        <Article>
+          <h2>Card</h2>
+          <Card />
         </Article>
       </Section>
     </Main>

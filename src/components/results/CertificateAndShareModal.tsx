@@ -87,30 +87,34 @@ const CertificateAndShareModal = ({ onClose }: CertificateAndShareModalProps) =>
   return (
     <Portal>
       <Background show={show} />
-      <CertificateAndShareContainer show={show} id='container'>
-        <CertificateAndShareWrapper>
-          <CloseButton style={{ alignSelf: 'flex-end' }} onClick={animationAfterClose} />
-          <Certificate ref={ref} />
-          <ShareButtons />
-          <ModalButton onClick={certificateDownload}>
-            이미지 저장하기! <DownloadIcon />
-          </ModalButton>
-          <ModalGrayButton onClick={redirectHome}>홈으로 돌아가기</ModalGrayButton>
-        </CertificateAndShareWrapper>
-      </CertificateAndShareContainer>
+      <Container show={show} id='container'>
+        <Wrapper>
+          <CertificateAndShareWrapper>
+            <CloseButton style={{ alignSelf: 'flex-end' }} onClick={animationAfterClose} />
+            <Certificate ref={ref} />
+            <ShareButtons />
+            <ModalButton onClick={certificateDownload}>
+              이미지 저장하기! <DownloadIcon />
+            </ModalButton>
+            <ModalGrayButton onClick={redirectHome}>홈으로 돌아가기</ModalGrayButton>
+          </CertificateAndShareWrapper>
+          <Card />
+        </Wrapper>
+      </Container>
     </Portal>
   );
 };
 export default CertificateAndShareModal;
 
-const CertificateAndShareContainer = styled(ModalContainer)`
+const Container = styled(ModalContainer)`
   background-color: transparent;
   width: 100%;
   max-width: 100%;
   max-height: 100%;
 
+  padding: 0;
   padding-top: 10vh;
-  padding-bottom: 10vh;
+  padding-bottom: 0;
 
   justify-content: flex-start;
   overflow: hidden;
@@ -132,6 +136,14 @@ const CertificateAndShareWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 32px;
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5vh;
 `;
 
 const ModalButton = styled(ShareButton)`
