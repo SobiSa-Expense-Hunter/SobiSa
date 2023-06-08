@@ -49,7 +49,7 @@ export const ModalButton = styled(Button)`
 export const ModalSubButton = styled(Button)`
   width: 128px;
   height: 38px;
-  background: ${props => props.theme.colors.gray[2]};
+  background: ${props => props.theme.colors.gray[1]};
   color: ${props => props.theme.colors.gray[4]};
 `;
 
