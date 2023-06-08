@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -7,9 +7,9 @@ import styled from 'styled-components';
 import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
 import { BottomButton, DefaultTagStyle } from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
+import SavingAmountOptions from '@/components/savingamount/SavingAmountOptions';
 import * as Style from '@/components/savingamount/styles';
 import { InputRegExp } from '@/constant';
-import useMouseScroll from '@/hooks/useMouseScroll';
 import * as Font from '@/styles/font';
 
 const NoticeModal = dynamic(() => import('@/components/modal/NoticeModal'), { ssr: false });
@@ -18,8 +18,6 @@ const SavingAmount = () => {
   const [amount, setAmount] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [typingModal, setTypingModal] = useState(false);
-  const dragScrollRef = useRef<HTMLDivElement>(null);
-  const { onMouseDown, onMouseEnter, onMouseLeave, onMouseMove } = useMouseScroll(dragScrollRef);
 
   const store = useSearchStore();
   const dispatch = useSearchDispatch();
@@ -34,27 +32,26 @@ const SavingAmount = () => {
     );
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     const numberReg = InputRegExp.numberAndComma;
     const emptystringReg = InputRegExp.emptyString;
+
     if (numberReg.test(value) || emptystringReg.test(value)) {
       setAmount(Number(value.replaceAll(',', '')).toLocaleString('ko-KR'));
-    } else {
-      setShowModal(true);
-    }
+    } else setShowModal(true);
   };
 
-  const handleSubmit = () => {
+  const handleInputSubmit = () => {
     if (!amount) {
       setTypingModal(true);
-    } else {
-      dispatch({
-        type: 'ADD_SAVINGAMOUNT',
-        item: Number(amount.replaceAll(',', '')),
-      });
-      router.push('/result');
+      return;
     }
+    dispatch({
+      type: 'ADD_SAVINGAMOUNT',
+      item: Number(amount.replaceAll(',', '')),
+    });
+    router.push('/result');
   };
 
   return (
@@ -77,30 +74,16 @@ const SavingAmount = () => {
 
         <Layout.HStack alignItems='center' gap='16px'>
           <Style.Input
-            onChange={e => handleChange(e)}
+            onChange={e => handleInputChange(e)}
             pattern='[0-9]*'
             inputMode='decimal'
             value={amount}
           />
           <Font.Medium>원을 모은다면?</Font.Medium>
         </Layout.HStack>
-        <HScroll
-          gap='6px'
-          maxWidth='310px'
-          ref={dragScrollRef}
-          onMouseDown={onMouseDown}
-          onMouseLeave={onMouseLeave}
-          onMouseEnter={onMouseEnter}
-          onMouseMove={onMouseMove}
-        >
-          <MoneyInputButton>전액</MoneyInputButton>
-          <MoneyInputButton>10,000원</MoneyInputButton>
-          <MoneyInputButton>50,000원</MoneyInputButton>
-          <MoneyInputButton>100,000원</MoneyInputButton>
-          <MoneyInputButton>200,000원</MoneyInputButton>
-        </HScroll>
+        <SavingAmountOptions productPrice={store.product.price || 0} setAmount={setAmount} />
       </Layout.VStack>
-      <Layout.Flex onClick={handleSubmit} justifyContent='center'>
+      <Layout.Flex onClick={handleInputSubmit} justifyContent='center'>
         <BottomButton>다음으로</BottomButton>
       </Layout.Flex>
 
@@ -126,7 +109,7 @@ const MoneyInputButton = styled.button`
 `;
 
 const HScroll = styled(Layout.HStack)`
-  overflow-x: scroll;
+  overflow-x: auto;
   word-break: keep-all;
   ::-webkit-scrollbar {
     display: none;

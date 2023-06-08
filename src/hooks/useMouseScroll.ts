@@ -7,7 +7,7 @@ function useMouseScroll(ref: RefObject<HTMLDivElement>) {
   const [isDown, setIsDown] = useState(false);
 
   const onMouseDown = (event: React.MouseEvent<HTMLElement>) => {
-    const offsetLeft = ref.current?.offsetLeft;
+    const offsetLeft = ref?.current?.offsetLeft;
     if (!offsetLeft) return;
     setIsDown(true);
     setStartX(event.pageX - offsetLeft);
@@ -15,7 +15,15 @@ function useMouseScroll(ref: RefObject<HTMLDivElement>) {
   };
 
   const onMouseLeave = () => setIsDown(false);
-  const onMouseEnter = () => setIsDown(false);
+
+  const onMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
+    const offsetLeft = ref?.current?.offsetLeft;
+    if (!offsetLeft || !isDown) return;
+    const x = event.pageX - offsetLeft;
+    const walk = x - startX;
+    // eslint-disable-next-line no-param-reassign
+    ref.current.scrollLeft = scrollLeft - walk;
+  };
 
   const onMouseMove = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -26,7 +34,7 @@ function useMouseScroll(ref: RefObject<HTMLDivElement>) {
     // eslint-disable-next-line no-param-reassign
     ref.current.scrollLeft = scrollLeft - walk;
   };
-  return { onMouseDown, onMouseLeave, onMouseEnter, onMouseMove };
+  return { onMouseDown, onMouseLeave, onMouseMove, onMouseEnter };
 }
 
 export default useMouseScroll;
