@@ -17,7 +17,7 @@ const ShareButtons = () => {
       <TwitterButton sendText={title} pageUrl={url} />
       <KakaoButton webUrl={url} />
       <LinkButton pageUrl={url} />
-      <NativeShareButton description={text} />
+      <NativeShareButton sharedMessage={sharedMessage} />
     </ShareButtonsContainer>
   );
 };
