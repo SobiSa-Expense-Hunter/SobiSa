@@ -14,13 +14,13 @@ import * as Font from '@/styles/font';
 function AboutInit(_: unknown, ref: ForwardedRef<HTMLDivElement>) {
   return (
     <Layout.VStack
-      height='100%'
+      maxHeight='822px'
       width='100%'
       padding='0 16px'
-      style={{ overflow: 'hidden' }}
       alignItems='center'
+      style={{ overflow: 'hidden' }}
     >
-      <Layout.VStack maxWidth='310px' width='100%'>
+      <Layout.VStack maxWidth='310px' height='100%' width='100%'>
         <MideaMargin />
         <motion.div
           style={{ transform: 'none', display: 'contents' }}
@@ -37,39 +37,46 @@ function AboutInit(_: unknown, ref: ForwardedRef<HTMLDivElement>) {
           <Font.Medium>주변의 경험들을 모아봤어요.</Font.Medium>
           <Layout.Box height='48px' />
         </motion.div>
-      </Layout.VStack>
 
-      <Layout.VStack gap='16px' alignItems='stretch'>
-        {CustomerOpinionContents.map(({ mainText, subText, subTextOrange }, idx) => (
-          <motion.div
-            key={uuid()}
-            initial={{ y: 30 * (idx + 1), opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ type: 'easyIn', duration: 0.5 }}
-          >
-            <CustomerBox
-              imgNum={idx + 1}
-              mainText={mainText}
-              subText={subText}
-              subTextOrange={subTextOrange}
-            />
-          </motion.div>
-        ))}
-      </Layout.VStack>
-
-      <motion.div
-        initial={{ y: 90, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ type: 'tween', duration: 0.5 }}
-      >
-        <Layout.Box height='29px' />
-        <Layout.VStack alignItems='center'>
-          <Image src='assets/image/about/dots.png' width={5} height={44} alt='dots' />
+        <Layout.VStack gap='16px' alignItems='stretch'>
+          {CustomerOpinionContents.map(({ mainText, subText, subTextOrange }, idx) => (
+            <motion.div
+              key={uuid()}
+              initial={{ y: 30 * (idx + 1), opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ type: 'easyIn', duration: 0.5 }}
+            >
+              <CustomerBox
+                imgNum={idx + 1}
+                mainText={mainText}
+                subText={subText}
+                subTextOrange={subTextOrange}
+              />
+            </motion.div>
+          ))}
         </Layout.VStack>
-      </motion.div>
 
-      <Layout.Box minHeight='40px' ref={ref} />
-      <Layout.VStack width='100%' maxWidth='310px' height='100vh'>
+        <motion.div
+          initial={{ y: 90, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: 'tween', duration: 0.5 }}
+        >
+          <Layout.Box height='29px' />
+          <Layout.VStack alignItems='center'>
+            <Image src='assets/image/about/dots.png' width={5} height={44} alt='dots' />
+          </Layout.VStack>
+        </motion.div>
+        <MideaMargin />
+      </Layout.VStack>
+
+      <Layout.VStack
+        ref={ref}
+        maxWidth='310px'
+        width='100%'
+        minHeight='822px'
+        justifyContent='flex-start'
+      >
+        <MideaMargin />
         <motion.div
           initial={{ y: 90, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -100,11 +107,6 @@ function AboutInit(_: unknown, ref: ForwardedRef<HTMLDivElement>) {
 AboutInit.displayName = 'AboutInit';
 
 export default forwardRef(AboutInit);
-
-const ImageBox = styled.div`
-  position: relative;
-  width: 100%;
-`;
 
 const MideaMargin = styled(Layout.Box)`
   @media (pointer: coarse) {
