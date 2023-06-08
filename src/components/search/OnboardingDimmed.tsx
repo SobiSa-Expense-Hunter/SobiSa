@@ -59,7 +59,7 @@ function OnboardingDimmed({
           }}
           onClick={animationAfterClose}
         >
-          소비사냥 하러 가기
+          시작하기
         </Button.BottomButton>
         <Background show={show} onClick={animationAfterClose} />
       </Portal>
