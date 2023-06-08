@@ -2,13 +2,20 @@ import styled, { css } from 'styled-components';
 
 interface FlexProps extends SizeAndMarginAndPaddingProps {
   flexDirection?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
-  justifyContent?: 'flex-start' | 'flex-end' | 'space-between' | 'center' | 'space-around';
+  justifyContent?:
+    | 'flex-start'
+    | 'flex-end'
+    | 'space-between'
+    | 'center'
+    | 'space-around'
+    | 'space-evenly';
   alignItems?: 'center' | 'flex-start' | 'flex-end' | 'stretch' | 'baseline';
   flexWrap?: 'nowrap' | 'wrap';
   gap?: string;
 }
 
 interface SizeAndMarginAndPaddingProps {
+  position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
   margin?: string;
   padding?: string;
   width?: string;
@@ -20,6 +27,7 @@ interface SizeAndMarginAndPaddingProps {
 }
 
 const SizeAndMarginAndPaddingProperty = css<SizeAndMarginAndPaddingProps>`
+  position: ${({ position }) => position || 'static'};
   width: ${({ width }) => width || ''};
   height: ${({ height }) => height || ''};
   margin: ${({ margin }) => margin || ''};
@@ -57,6 +65,6 @@ export const Fixed = styled.div`
 `;
 
 export const Box = styled.div<SizeAndMarginAndPaddingProps>`
-  display: 'block';
+  display: block;
   ${SizeAndMarginAndPaddingProperty}
 `;
