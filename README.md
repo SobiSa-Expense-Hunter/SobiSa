@@ -1,3 +1,9 @@
+# 소비사!: 소비사냥꾼
+
+![image](https://github.com/SobiSa-Expense-Hunter/SobiSa/assets/108770949/d4e29c2f-cbd1-4638-9545-e7b6a120ce86)
+
+## 🌐 배포 링크 : https://sobisa.vercel.app/
+
 ## 💸 서비스 소개
 
 내가 사고 싶은 그 물건, 정말 필요할까요? 소비사는 당신의 과소비를 걱정합니다.
@@ -8,11 +14,11 @@
 
 | about us 1 | about us 2 |
 | ---------- | ---------- |
-| A1         | B1         |
+| ![image](https://github.com/SobiSa-Expense-Hunter/SobiSa/assets/108770949/30f81139-85fa-45ff-b5e8-4aafe2b24e78) | ![image](https://github.com/SobiSa-Expense-Hunter/SobiSa/assets/108770949/61059e22-7644-4799-829c-0508f0527435) |
 
 | how to use 1 | how to use 2 | how to use 3 | how to use 4 |
 | ------------ | ------------ | ------------ | ------------ |
-| A1           | B1           | C1           | C1           |
+| ![image](https://github.com/SobiSa-Expense-Hunter/SobiSa/assets/108770949/161e424d-daef-4d21-877a-63bdb220efe7)           | ![image](https://github.com/SobiSa-Expense-Hunter/SobiSa/assets/108770949/01df99b0-d3f9-4f91-b58b-78dc3b7a9afb)|![image](https://github.com/SobiSa-Expense-Hunter/SobiSa/assets/108770949/90c2c2dc-efc7-472d-b67b-cadf1dfcf1b7) |![image](https://github.com/SobiSa-Expense-Hunter/SobiSa/assets/108770949/d4b63ce0-f193-42cf-839b-a5ac66da42b8)|
 
 ## 🔨 주요 기술 스택
 
@@ -24,7 +30,7 @@
  <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled components&logoColor=white"/>
 </div>
 
-## 🔨 프로젝트 정보
+## ✨ 프로젝트 정보
 
 ### 기간
 
