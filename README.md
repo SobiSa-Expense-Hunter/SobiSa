@@ -1,38 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 💸 서비스 소개
 
-## Getting Started
+내가 사고 싶은 그 물건, 정말 필요할까요? 소비사는 당신의 과소비를 걱정합니다.
 
-First, run the development server:
+고민하는 물건을 검색하고 그 물건을 사는 대신 할 수 있는 일을 알려드려요.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## 💸 서비스 요약
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| about us 1 | about us 2 |
+| ---------- | ---------- |
+| A1         | B1         |
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+| how to use 1 | how to use 2 | how to use 3 | how to use 4 |
+| ------------ | ------------ | ------------ | ------------ |
+| A1           | B1           | C1           | C1           |
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## 🔨 주요 기술 스택
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+<div>
+<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"/>
+<img src="https://img.shields.io/badge/-vercel-000000?style=for-the-badge&logo=vercel&logoColor=white"/>
+<img src="https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white&style=for-the-badge"/>
+<img src ="https://img.shields.io/badge/-TypeScript-informational?&style=for-the-badge&logo=TypeScript&logoColor=white" />
+ <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled components&logoColor=white"/>
+</div>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 🔨 프로젝트 정보
 
-## Learn More
+### 기간
 
-To learn more about Next.js, take a look at the following resources:
+> **Sobisa v 1.0.0** : 4월 26일 ~ 6월 8일
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 팀원
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| [@Seo0H](https://github.com/Seo0H) | [@shinpanda](https://github.com/shinpanda) | Rico   | [@Ryong-E](https://github.com/Ryong-E) |
+| ---------------------------------- | ------------------------------------------ | ------ | -------------------------------------- |
+| FE, PL                             | FE                                         | Design | FE                                     |
