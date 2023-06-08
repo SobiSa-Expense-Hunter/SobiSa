@@ -4,8 +4,8 @@ export const SearchAction = Object.freeze({
 });
 
 export const sharedMessage: ShareData = {
-  title: '소비사',
-  text: '소비 사냥꾼',
+  title: '소비사!: 소비사냥꾼',
+  text: '그 물건을 사는 대신 뭘 할 수 있을까요?',
   url: 'https://sobisa.vercel.app/',
 };
 

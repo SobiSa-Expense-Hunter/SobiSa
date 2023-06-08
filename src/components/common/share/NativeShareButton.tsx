@@ -3,20 +3,23 @@ import React, { useEffect, useState } from 'react';
 import { NavigatorShareIcon } from '@/assets/SocialIcons';
 import { ImageButton } from '@/components/common/buttons';
 
-const NativeShareButton = ({ description }: { description: string }) => {
+interface NativeShareButtonProps {
+  sharedMessage: ShareData;
+}
+
+const NativeShareButton = ({ sharedMessage }: NativeShareButtonProps) => {
   const [show, setShow] = useState(false);
-  const sendData: ShareData = { text: description };
 
   useEffect(() => {
-    if (!(navigator.share === undefined || navigator.canShare({ text: description }) === false)) {
+    if (!(navigator.share === undefined || navigator.canShare(sharedMessage) === false)) {
       setShow(true);
     }
-  }, [description]);
+  }, [sharedMessage]);
 
   return show ? (
     <ImageButton
       type='button'
-      onClick={() => navigator.share(sendData)}
+      onClick={() => navigator.share(sharedMessage)}
       style={{ background: '#EAEAEA' }}
     >
       <NavigatorShareIcon />
