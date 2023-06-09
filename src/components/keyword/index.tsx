@@ -45,7 +45,6 @@ function Keyword({ product, allKeyword }: { product: Product; allKeyword: string
   return (
     <Layout.VStack
       justifyContent='space-around'
-      margin='36px 0 0'
       height='100%'
       width='100%'
       maxWidth='310px'
