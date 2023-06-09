@@ -85,10 +85,13 @@ const Tag = styled(Font.SmallOrange)`
   border-radius: 24px;
 `;
 
-const Title = styled(Font.Medium)``;
+const Title = styled(Font.Medium)`
+  margin-left: 4px;
+`;
 const Description = styled(Font.Small)`
   color: ${props => props.theme.colors.gray[4]};
   margin-top: 4px;
+  margin-left: 4px;
 `;
 
 const Period = styled.span`
@@ -97,6 +100,8 @@ const Period = styled.span`
   margin-top: 11px;
   background: linear-gradient(360deg, transparent 0 10%, #ffc467 0 70%, transparent 0 10%);
   width: max-content;
+
+  margin-left: 4px;
 `;
 
 const EventButton = styled(Button)`
