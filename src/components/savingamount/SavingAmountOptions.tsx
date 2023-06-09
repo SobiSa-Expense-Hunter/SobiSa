@@ -1,11 +1,11 @@
-import { Dispatch, SetStateAction, useRef } from 'react';
+/* eslint-disable import/no-extraneous-dependencies */
+import { Dispatch, SetStateAction } from 'react';
 
+import ScrollContainer from 'react-indiana-drag-scroll';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
 import { DefaultTagStyle } from '@/components/common/buttons';
-import * as Layout from '@/components/common/layout';
-import useMouseScroll from '@/hooks/useMouseScroll';
 
 interface SavingAmountOptionsProps {
   productPrice: number;
@@ -13,28 +13,17 @@ interface SavingAmountOptionsProps {
 }
 
 function SavingAmountOptions({ productPrice, setAmount }: SavingAmountOptionsProps) {
-  const dragScrollRef = useRef<HTMLDivElement>(null);
-  const { onMouseDown, onMouseLeave, onMouseMove, onMouseEnter } = useMouseScroll(dragScrollRef);
   const savingsAmountOptions = [productPrice || 0, 10000, 50000, 100000, 200000];
 
   const sumAmountOptions = (value: number) => {
-    console.log(value);
     setAmount(prev => {
-      if (prev === '') return '0';
       const beforeAmount = Number(prev.replaceAll(',', ''));
       return (beforeAmount + value).toLocaleString('ko-KR');
     });
   };
 
   return (
-    <HScroll
-      gap='6px'
-      maxWidth='310px'
-      ref={dragScrollRef}
-      onMouseDown={onMouseDown}
-      onMouseOut={onMouseLeave}
-      onMouseOver={onMouseEnter}
-    >
+    <HScroll>
       {savingsAmountOptions.map((option, idx) => (
         <MoneyInputButton
           key={uuid()}
@@ -50,12 +39,12 @@ function SavingAmountOptions({ productPrice, setAmount }: SavingAmountOptionsPro
 
 export default SavingAmountOptions;
 
-const HScroll = styled(Layout.HStack)`
-  overflow-x: auto;
+const HScroll = styled(ScrollContainer)`
+  display: flex;
+  overflow-x: hidden;
   word-break: keep-all;
-  ::-webkit-scrollbar {
-    display: none;
-  }
+  max-width: 310px;
+  gap: 6px;
 `;
 
 const MoneyInputButton = styled.button`
