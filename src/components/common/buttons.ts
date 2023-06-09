@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const Button = styled.button`
+export const Button = styled.button`
   appearance: none;
   display: inline-flex;
   flex-direction: row;
