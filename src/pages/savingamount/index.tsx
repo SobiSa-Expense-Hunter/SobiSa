@@ -1,11 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Dispatch, SetStateAction } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
+import * as Icon from '@/assets/Icons';
 import { useSearchDispatch, useSearchStore } from '@/components/SearchProvider';
 import { BottomButton, DefaultTagStyle } from '@/components/common/buttons';
+import { DefaultInput } from '@/components/common/input';
 import * as Layout from '@/components/common/layout';
 import SavingAmountOptions from '@/components/savingamount/SavingAmountOptions';
 import * as Style from '@/components/savingamount/styles';
@@ -76,13 +78,7 @@ const SavingAmount = () => {
         </Layout.HStack>
 
         <Layout.HStack alignItems='center' gap='16px'>
-          <Style.Input
-            onChange={e => handleInputChange(e)}
-            pattern='[0-9]*'
-            inputMode='decimal'
-            value={amount}
-            ref={inputRef}
-          />
+          <AmoutInput onChange={handleInputChange} resetAmount={setAmount} amount={amount} />
           <Font.Medium>원을 모은다면?</Font.Medium>
         </Layout.HStack>
         <SavingAmountOptions productPrice={store.product.price || 0} setAmount={setAmount} />
@@ -102,3 +98,33 @@ const SavingAmount = () => {
 };
 
 export default SavingAmount;
+
+interface AmountInput {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  resetAmount: Dispatch<SetStateAction<string>>;
+  amount: string;
+}
+
+const AmoutInput = ({ onChange, resetAmount, amount }: AmountInput) => {
+  const [isFocus, setIsFocus] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => inputRef?.current?.focus(), []);
+
+  return (
+    <Style.InputBorder alignItems='center' focus={isFocus}>
+      <Style.Input
+        onChange={e => onChange(e)}
+        pattern='[0-9]*'
+        inputMode='decimal'
+        value={amount}
+        ref={inputRef}
+        onFocus={() => setIsFocus(true)}
+        onBlur={() => setIsFocus(false)}
+      />
+
+      <Style.ButtonStyleInit type='button' onClick={() => resetAmount('0')}>
+        <Style.InitializationIcon />
+      </Style.ButtonStyleInit>
+    </Style.InputBorder>
+  );
+};
