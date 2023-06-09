@@ -12,5 +12,8 @@ export const Span = styled.span`
 export const Input = styled.input`
   ${DefaultInput}
 
+  :focus {
+    border: solid 2px ${({ theme }) => theme.colors.mainColor};
+  }
   height: 50px;
 `;
