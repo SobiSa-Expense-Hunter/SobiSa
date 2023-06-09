@@ -13,7 +13,7 @@ const TwitterButton = ({ sendText, pageUrl }: TwitterButtonProps) => {
     window.open(`https://twitter.com/intent/tweet?text=${sendText}&url=${pageUrl}`);
   };
   return (
-    <ImageButton type='button' onClick={shareOnTwitter} style={{ background: '#00A1F6' }}>
+    <ImageButton type='button' onClick={shareOnTwitter}>
       <TwitterIconImg />
     </ImageButton>
   );

@@ -13,7 +13,7 @@ const FacebookButton = ({ pageUrl }: FacebookButtonProps) => {
   };
 
   return (
-    <ImageButton type='button' onClick={shareOnFacebook} style={{ background: '#1877F2' }}>
+    <ImageButton type='button' onClick={shareOnFacebook}>
       <FaceBookIconImg />
     </ImageButton>
   );
