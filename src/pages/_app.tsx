@@ -57,20 +57,46 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <SearchProvider>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          {getContent()}
-          <ReactQueryDevtools initialIsOpen={false} />
-          <Script
-            src='https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js'
-            integrity='sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx'
-            crossOrigin='anonymous'
-            onLoad={kakaoSDKInit}
-          />
-        </ThemeProvider>
-      </SearchProvider>
-    </QueryClientProvider>
+    <>
+      {/* ms-clarity */}
+      <Script strategy='afterInteractive' id='ms-clarity'>
+        {`
+          (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window, document, "clarity", "script", '${process.env.NEXT_PUBLIC_CLARITY_KEY}');
+        `}
+      </Script>
+      {/* Google Analytics */}
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+      />
+      <Script id='google-analytics' strategy='afterInteractive'>
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+            page_path: window.location.pathname,
+          });
+        `}
+      </Script>
+      <QueryClientProvider client={queryClient}>
+        <SearchProvider>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            {getContent()}
+            <ReactQueryDevtools initialIsOpen={false} />
+            <Script
+              src='https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js'
+              integrity='sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx'
+              crossOrigin='anonymous'
+              onLoad={kakaoSDKInit}
+            />
+          </ThemeProvider>
+        </SearchProvider>
+      </QueryClientProvider>
+    </>
   );
 }
