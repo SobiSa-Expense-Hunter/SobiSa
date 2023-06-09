@@ -6,9 +6,9 @@ import Indicator from '@/assets/Indicators';
 import { PATHS_ORDER } from '@/constant';
 
 const FooterContainer = styled.div`
-  padding: 5vh 0;
-  @supports (height: 5svh) {
-    padding: 5svh 0;
+  padding: 2vh 0;
+  @supports (height: 2svh) {
+    padding: 2svh 0;
   }
 `;
 

@@ -1,15 +1,18 @@
 import { ReactNode } from 'react';
 
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-import Header from '../common/Header';
 import Footer from '@/components/common/Footer';
+import Header from '@/components/common/Header';
 
 export default function AppLayout({ children }: { children: ReactNode }) {
+  const router = useRouter();
+
   return (
     <Centering>
       <FixedWidth>
-        <Header />
+        {router.asPath !== '/about' && <Header />}
         <Content>{children}</Content>
         <Footer />
       </FixedWidth>

@@ -18,14 +18,14 @@ declare module 'styled-components' {
       };
     };
     fontSize: {
-      xxs: '9pt';
-      xs: '10.5pt';
-      s: '12pt';
-      m: '14pt';
-      ml: '15pt';
-      l: '16pt';
-      xl: '21pt';
-      xxl: '27pt';
+      xxs: '12px';
+      xs: '14px';
+      s: '16px';
+      m: '14px';
+      ml: '20px';
+      l: '21px';
+      xl: '28px';
+      xxl: '36px';
     };
     size: {
       mobile: string;
