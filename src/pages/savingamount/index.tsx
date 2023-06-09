@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -18,10 +18,13 @@ const SavingAmount = () => {
   const [amount, setAmount] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [typingModal, setTypingModal] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const store = useSearchStore();
   const dispatch = useSearchDispatch();
   const router = useRouter();
+
+  useEffect(() => inputRef?.current?.focus(), []);
 
   if (store.product.title === undefined || store.product.title === '') {
     return (
@@ -78,6 +81,7 @@ const SavingAmount = () => {
             pattern='[0-9]*'
             inputMode='decimal'
             value={amount}
+            ref={inputRef}
           />
           <Font.Medium>원을 모은다면?</Font.Medium>
         </Layout.HStack>
@@ -98,20 +102,3 @@ const SavingAmount = () => {
 };
 
 export default SavingAmount;
-
-const MoneyInputButton = styled.button`
-  ${DefaultTagStyle}
-
-  :hover {
-    color: white;
-    background-color: ${({ theme }) => theme.colors.gray[2]};
-  }
-`;
-
-const HScroll = styled(Layout.HStack)`
-  overflow-x: auto;
-  word-break: keep-all;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`;
