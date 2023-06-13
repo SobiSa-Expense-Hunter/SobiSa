@@ -21,7 +21,7 @@ const KakaoButton = ({ webUrl }: KakaoButtonProps) => {
   };
 
   return (
-    <ImageButton type='button' onClick={onClick} style={{ background: '#FFE812' }}>
+    <ImageButton type='button' onClick={onClick}>
       <KakaoIconImg />
     </ImageButton>
   );

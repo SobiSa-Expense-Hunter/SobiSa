@@ -19,8 +19,8 @@ export const FaceBookIconImg = () => {
     <Image
       src={`${SOCIAL_PATH}/facebook.png`}
       alt='페이스북'
-      width={34}
-      height={34}
+      width={50}
+      height={50}
       style={{ objectFit: 'contain' }}
     />
   );
@@ -30,8 +30,8 @@ export const KakaoIconImg = () => {
     <Image
       src={`${SOCIAL_PATH}/kakao.png`}
       alt='카카오톡'
-      width={34}
-      height={34}
+      width={50}
+      height={50}
       style={{ objectFit: 'contain' }}
     />
   );
@@ -41,8 +41,8 @@ export const TwitterIconImg = () => {
     <Image
       src={`${SOCIAL_PATH}/twitter.png`}
       alt='트위터'
-      width={34}
-      height={34}
+      width={50}
+      height={50}
       style={{ objectFit: 'contain' }}
     />
   );

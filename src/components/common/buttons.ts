@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const Button = styled.button`
+export const Button = styled.button`
   appearance: none;
   display: inline-flex;
   flex-direction: row;
@@ -80,4 +80,16 @@ export const CloseButton = styled(Button)`
   background-repeat: no-repeat;
   background-position: center center;
   filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.25));
+`;
+
+export const DefaultTagStyle = css`
+  color: ${({ theme }) => theme.colors.gray[3]};
+  background: ${({ theme }) => theme.colors.gray[0]};
+
+  padding: 10px 15px;
+  border-radius: 10px;
+  border-style: none;
+
+  font-family: 'Pretendard Variable';
+  font-weight: 600;
 `;

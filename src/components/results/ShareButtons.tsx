@@ -10,14 +10,14 @@ import TwitterButton from '@/components/common/share/TwitterButton';
 import { sharedMessage } from '@/constant';
 
 const ShareButtons = () => {
-  const { title = '', text = '', url = '' } = sharedMessage;
+  const { title = '', url = '' } = sharedMessage;
   return (
     <ShareButtonsContainer>
       <FacebookButton pageUrl={url} />
       <TwitterButton sendText={title} pageUrl={url} />
       <KakaoButton webUrl={url} />
       <LinkButton pageUrl={url} />
-      <NativeShareButton description={text} />
+      <NativeShareButton sharedMessage={sharedMessage} />
     </ShareButtonsContainer>
   );
 };

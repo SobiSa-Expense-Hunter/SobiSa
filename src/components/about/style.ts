@@ -13,8 +13,9 @@ export const AboutFont = {
   `,
 };
 
-export const Highlight = styled.div`
+export const Highlight = styled.span`
   display: inline-block;
   height: 1.3em;
+  width: fit-content;
   background: linear-gradient(to top, ${({ theme }) => theme.colors.subColor} 60%, transparent 20%);
 `;
