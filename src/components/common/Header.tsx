@@ -41,11 +41,11 @@ const Button = styled.button`
 const HeaderWrapper = styled.header`
   display: flex;
   position: sticky;
-  top: 0;
+  top: -1px;
   align-items: center;
   width: 310px;
-  height: 41px;
-  min-height: 41px;
+  height: 42px;
+  min-height: 42px;
   background-color: white;
   padding: 5vh 0 2vh;
   @media (max-width: 768px) {
