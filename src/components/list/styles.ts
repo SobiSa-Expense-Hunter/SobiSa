@@ -28,7 +28,10 @@ export const StyledListContainer = styled.div<{ select?: boolean }>`
 
 export const Scroll = styled.div`
   flex: auto;
-  height: 100%;
+  height: calc(100% - 15vh - 45px);
+  @supports (height: 10svh) {
+    height: calc(100% - 15svh - 45px);
+  }
   overflow-y: auto;
   padding-bottom: 50px;
   padding: 15px 15px;
