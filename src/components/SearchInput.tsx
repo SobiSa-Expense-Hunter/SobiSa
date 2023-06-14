@@ -80,6 +80,7 @@ const SearchInputContainer = styled.div`
   max-width: 310px;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.mainColor};
+  z-index: 1;
 `;
 const SearchInputBox = styled.div`
   width: 80%;
