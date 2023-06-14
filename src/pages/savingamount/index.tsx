@@ -60,7 +60,7 @@ const SavingAmount = () => {
   };
 
   return (
-    <Layout.VStack margin='103px 0 0' height='100%' justifyContent='space-around'>
+    <Layout.VStack height='100%' justifyContent='space-around'>
       <Layout.VStack alignItems='flex-start' gap='16px'>
         <Layout.HStack alignItems='center' gap='16px'>
           <Style.Span> {`${store.product.price?.toLocaleString()} ₩`} </Style.Span>

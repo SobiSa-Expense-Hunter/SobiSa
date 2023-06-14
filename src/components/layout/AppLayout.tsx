@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import Footer from '@/components/common/Footer';
 import Header from '@/components/common/Header';
@@ -13,7 +13,11 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     <Centering>
       <FixedWidth>
         {router.asPath !== '/about' && <Header />}
-        <Content>{children}</Content>
+        {router.asPath.includes('/list') ? (
+          <Content heightRestrict>{children}</Content>
+        ) : (
+          <Content>{children}</Content>
+        )}
         <Footer />
       </FixedWidth>
     </Centering>
@@ -51,15 +55,15 @@ export const FixedWidth = styled.div`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 `;
 
-const Content = styled.div`
+const Content = styled.div<{ heightRestrict?: boolean }>`
   flex: auto;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100% - 15vh - 45px);
+  height: ${({ heightRestrict }) => (heightRestrict ? 'calc(100% - 15vh - 45px)' : 'inherit')};
   @supports (height: 10svh) {
-    height: calc(100% - 15svh - 45px);
+    height: ${({ heightRestrict }) => (heightRestrict ? 'calc(100% - 15svh - 45px)' : 'inherit')};
   }
 `;
