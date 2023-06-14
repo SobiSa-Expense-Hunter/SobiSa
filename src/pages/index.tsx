@@ -53,7 +53,12 @@ function Home() {
   }
 
   return (
-    <Layout.VStack margin='20px 0 0' width='100%' alignItems='center'>
+    <Layout.VStack
+      margin='20px 0 0'
+      width='100%'
+      alignItems='center'
+      style={{ overflow: 'hidden' }}
+    >
       {experienceOnboarding === AFTER_ABOUT && searchInputPositionAndSize && (
         <OnboardingDimmed
           searchInputInfo={searchInputPositionAndSize}
