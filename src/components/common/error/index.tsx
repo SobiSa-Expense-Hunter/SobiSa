@@ -14,8 +14,13 @@ interface ErrorProps {
 
 function CustomError({ mainTitle, subTextLines, buttonText }: ErrorProps) {
   return (
-    <Layout.VStack alignItems='center' height='100%' justifyContent='space-around'>
-      <Layout.VStack alignItems='center'>
+    <Layout.VStack
+      alignItems='center'
+      height='100%'
+      justifyContent='space-around'
+      style={{ overflow: 'hidden' }}
+    >
+      <Layout.VStack alignItems='center' style={{ overflow: 'auto' }}>
         <Image src='/graphics/notFound.gif' alt='not Found' height={220} width={220} unoptimized />
         <Layout.Box height='32px' />
         <Font.MediumOrange>{mainTitle}</Font.MediumOrange>
