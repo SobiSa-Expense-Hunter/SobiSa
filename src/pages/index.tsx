@@ -17,7 +17,7 @@ import { ONBOARDING, VISITED } from '@/constant/localstorage';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import * as Font from '@/styles/font';
 
-const OnboardingDimmed = dynamic(() => import('@/components/search/Onboarding'));
+const Onboarding = dynamic(() => import('@/components/search/Onboarding'));
 
 export interface SearchInputPositionAndSize {
   x: number;
@@ -50,7 +50,7 @@ function Home() {
   return (
     <Layout.VStack margin='20px 0 0' width='100%' alignItems='center'>
       {didWatchOnboarding === ONBOARDING.status.NOT_WATCHED && searchInputPositionAndSize && (
-        <OnboardingDimmed
+        <Onboarding
           searchInputInfo={searchInputPositionAndSize}
           setDidWatchOnboarding={setDidWatchOnboarding}
         />
