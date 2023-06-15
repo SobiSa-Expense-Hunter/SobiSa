@@ -8,20 +8,23 @@ import * as Icon from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import * as Button from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
+import { ONBOARDING } from '@/constant/localstorage';
 import useModalAnimation from '@/hooks/useModalAnimation';
 import * as Font from '@/styles/font';
 
 import type { SearchInputPositionAndSize } from '@/pages';
 import type { Variants } from 'framer-motion';
 
-function OnboardingDimmed({
+function Onboarding({
   searchInputInfo,
-  setLocalStorage,
+  setDidWatchOnboarding,
 }: {
   searchInputInfo: SearchInputPositionAndSize;
-  setLocalStorage: (value: string) => void;
+  setDidWatchOnboarding: (value: string) => void;
 }) {
-  const { show, animationAfterClose } = useModalAnimation(() => setLocalStorage('false'));
+  const { show, animationAfterClose } = useModalAnimation(() =>
+    setDidWatchOnboarding(ONBOARDING.status.WATCHED),
+  );
   const { x, y, width, height } = searchInputInfo;
 
   return (
@@ -107,4 +110,4 @@ const Background = styled.div<{ show: boolean }>`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-export default OnboardingDimmed;
+export default Onboarding;
