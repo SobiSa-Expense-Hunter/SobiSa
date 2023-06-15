@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import * as Icon from '@/assets/Icons';
 import { DefaultInput } from '@/components/common/input';
 import * as Layout from '@/components/common/layout';
+import * as Font from '@/styles/font';
 
 export const Span = styled.span`
   ${DefaultInput}
@@ -52,4 +53,8 @@ export const ButtonStyleInit = styled.button`
   padding: 0;
   overflow: visible;
   cursor: pointer;
+`;
+
+export const KeepAllFont = styled(Font.Medium)`
+  word-break: keep-all;
 `;
