@@ -57,6 +57,7 @@ export const FixedWidth = styled.div`
 
 const Content = styled.div<{ heightRestrict?: boolean }>`
   flex: auto;
+  overflow: hidden;
   width: 100%;
   display: flex;
   flex-direction: column;

@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, RefObject } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
 
 import { MainImage } from '@/assets/Images';
 import SearchInput from '@/components/SearchInput';
@@ -48,7 +49,7 @@ function Home() {
   if (isVisted === VISITED.status.INITIAL) router.push('/about');
 
   return (
-    <Layout.VStack margin='20px 0 0' width='100%' alignItems='center'>
+    <ScrollY width='100%' padding='30px 0 30px' alignItems='center' style={{ overflow: 'auto' }}>
       {didWatchOnboarding === ONBOARDING.status.NOT_WATCHED && searchInputPositionAndSize && (
         <Onboarding
           searchInputInfo={searchInputPositionAndSize}
@@ -63,13 +64,13 @@ function Home() {
       <Layout.VStack ref={searchInputRef} width='100%' alignItems='center'>
         <SearchInput />
       </Layout.VStack>
-      <Layout.HStack margin='66px 0 0' gap='8px'>
+      <Layout.HStack margin='10vh 0 ' gap='8px'>
         <FacebookButton pageUrl={url} />
         <TwitterButton pageUrl={url} sendText={text} />
         <KakaoButton webUrl={url} />
         <LinkButton pageUrl={url} />
       </Layout.HStack>
-    </Layout.VStack>
+    </ScrollY>
   );
 }
 export default Home;
@@ -115,3 +116,17 @@ function calculatePositionAndSizeOfSearchInput(
 
   return calculatePosition;
 }
+
+const ScrollY = styled(Layout.VStack)`
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-thumb {
+    width: 4px;
+    border-radius: 2px;
+    background-clip: padding-box;
+    border: 10px solid transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.gray[2]};
+  }
+`;
