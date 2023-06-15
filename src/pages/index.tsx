@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable import/no-cycle */
 import { useEffect, useState, useRef, RefObject } from 'react';
 
@@ -13,14 +14,11 @@ import KakaoButton from '@/components/common/share/KakaoButton';
 import LinkButton from '@/components/common/share/LinkButton';
 import TwitterButton from '@/components/common/share/TwitterButton';
 import { sharedMessage } from '@/constant';
+import { ONBOARDING, VISITED } from '@/constant/localstorage';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import * as Font from '@/styles/font';
 
-const OnboardingDimmed = dynamic(() => import('@/components/search/OnboardingDimmed'));
-
-export const EXPERIENCE_ONBOARDING = 'experienceOnboarding';
-export const IS_VISITED = 'visited';
-export const AFTER_ABOUT = 'afterAbout';
+const Onboarding = dynamic(() => import('@/components/search/Onboarding'));
 
 export interface SearchInputPositionAndSize {
   x: number;
@@ -32,10 +30,10 @@ export interface SearchInputPositionAndSize {
 function Home() {
   const { title = '', text = '', url = '' } = sharedMessage;
 
-  const [isVisted, setIsVisted] = useLocalStorage(IS_VISITED, '');
-  const [experienceOnboarding, setExperienceOnboarding] = useLocalStorage(
-    EXPERIENCE_ONBOARDING,
-    '',
+  const [isVisted, _] = useLocalStorage(VISITED.key, VISITED.status.INITIAL);
+  const [didWatchOnboarding, setDidWatchOnboarding] = useLocalStorage(
+    ONBOARDING.key,
+    ONBOARDING.status.INITIAL,
   );
   const [searchInputPositionAndSize, setSearchInputPositionAndSize] =
     useState<SearchInputPositionAndSize>();
@@ -48,17 +46,14 @@ function Home() {
     setSearchInputPositionAndSize(calculatePositionAndSizeOfSearchInput(searchInputRef));
   }, [searchInputRef]);
 
-  if (isVisted === '') {
-    setIsVisted(new Date().toDateString());
-    router.push('/about');
-  }
+  if (isVisted === VISITED.status.INITIAL) router.push('/about');
 
   return (
     <ScrollY width='100%' padding='30px 0 30px' alignItems='center' style={{ overflow: 'auto' }}>
-      {experienceOnboarding === AFTER_ABOUT && searchInputPositionAndSize && (
-        <OnboardingDimmed
+      {didWatchOnboarding === ONBOARDING.status.NOT_WATCHED && searchInputPositionAndSize && (
+        <Onboarding
           searchInputInfo={searchInputPositionAndSize}
-          setLocalStorage={setExperienceOnboarding}
+          setDidWatchOnboarding={setDidWatchOnboarding}
         />
       )}
       <Font.Medium>지금 뭘 사고 싶나요?</Font.Medium>
