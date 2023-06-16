@@ -16,7 +16,7 @@ import type { NaverProductResponse } from '@/types/naverShopApi';
 import type { Product } from '@/types/product';
 import type { UseInfiniteQueryResult } from '@tanstack/react-query';
 
-const SearchInput = dynamic(() => import('@/components/SearchInput'));
+const SearchInput = dynamic(() => import('@/components/common/SearchInput'));
 const CustomError = dynamic(() => import('@/components/common/error'));
 export interface ListPageProps {
   products: Product[];
