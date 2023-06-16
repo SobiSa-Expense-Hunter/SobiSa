@@ -4,14 +4,14 @@ import { NextRouter, useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { MagnifyingGlassIcon } from '@/assets/Icons';
-import useModal from '@/components/common/SearchInput/reducer';
 import NoticeModal from '@/components/modal/NoticeModal';
+import useNoticeModal from '@/hooks/useNoticeModal';
 import detectMobileDevice from '@/utils/checkMobileDivice';
 
 function SearchInput() {
   const router = useRouter();
   const [search, setSearch] = useState((router.query.search as string) || '');
-  const { modalState, dispatchModalState } = useModal();
+  const { modalState, dispatchModalState } = useNoticeModal();
   const autoFocusRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function SearchInput() {
     } catch (error) {
       if (!(error instanceof Error)) return;
       setSearch('');
-      dispatchModalState({ type: 'SHOW', payload: error.message });
+      dispatchModalState({ type: 'SHOW', message: error.message });
     }
   };
 

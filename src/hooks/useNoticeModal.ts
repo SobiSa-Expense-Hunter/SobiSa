@@ -1,5 +1,13 @@
 import { useReducer } from 'react';
 
+/**
+ * @info NoticeModal의 상태를 관리하는 hook
+ */
+export default function useNoticeModal() {
+  const [modalState, dispatchModalState] = useReducer(modalReducer, initialState);
+  return { modalState, dispatchModalState };
+}
+
 export const initialState = {
   show: false,
   message: '',
@@ -11,7 +19,7 @@ const modalReducer = (
   state: ModalState,
   action: {
     type: 'SHOW' | 'HIDE';
-    payload?: string;
+    message?: string;
   },
 ): ModalState => {
   switch (action.type) {
@@ -19,7 +27,7 @@ const modalReducer = (
       return {
         ...state,
         show: true,
-        message: action.payload || '',
+        message: action.message || '',
       };
     case 'HIDE':
       return {
@@ -31,10 +39,3 @@ const modalReducer = (
       return state;
   }
 };
-
-const useModal = () => {
-  const [modalState, dispatchModalState] = useReducer(modalReducer, initialState);
-  return { modalState, dispatchModalState };
-};
-
-export default useModal;
