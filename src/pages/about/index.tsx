@@ -37,26 +37,26 @@ function About() {
   };
 
   const nextPageHandler = () => {
-    if (pageNum < AboutContentsPage.length) setPageNum(prev => prev + 1);
+    if (pageNum < AboutContents.length) setPageNum(prev => prev + 1);
     else router.push('/');
   };
 
   return (
     <>
       {pageNum === 0 ? (
-        <>
+        <Layout.FixButtonBottom alignItems='center' justifyContent='center' maxWidth='100%'>
           <AboutInit ref={scrollRef} />
           <BottomButton onClick={scrollHandler}>다음으로</BottomButton>
-        </>
+        </Layout.FixButtonBottom>
       ) : (
-        <Layout.VStack height='100%' width='100%' justifyContent='center' maxWidth='310px'>
+        <Layout.FixButtonBottom justifyContent='center' maxWidth='310px'>
           <AboutContentsPage
             pageNum={pageNum}
             mainTexts={AboutContents[pageNum - 1].mainTexts}
             subTexts={AboutContents[pageNum - 1].subTexts}
           />
           <BottomButton onClick={nextPageHandler}>다음으로</BottomButton>
-        </Layout.VStack>
+        </Layout.FixButtonBottom>
       )}
     </>
   );
