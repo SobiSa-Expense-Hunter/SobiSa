@@ -3,16 +3,14 @@
 
 import { useState, useRef, useEffect } from 'react';
 
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
+import AboutContentsPage from '@/components/about/AboutContentsPage';
 import AboutInit from '@/components/about/AboutInit';
 import { BottomButton } from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
 import { ONBOARDING, VISITED } from '@/constant/localstorage';
 import useLocalStorage from '@/hooks/useLocalStorage';
-
-const AboutLayout = dynamic(() => import('@/components/about/AboutLayout'));
 
 function About() {
   const [pageNum, setPageNum] = useState(0);
@@ -39,7 +37,7 @@ function About() {
   };
 
   const nextPageHandler = () => {
-    if (pageNum < AboutContents.length) setPageNum(prev => prev + 1);
+    if (pageNum < AboutContentsPage.length) setPageNum(prev => prev + 1);
     else router.push('/');
   };
 
@@ -52,7 +50,7 @@ function About() {
         </>
       ) : (
         <Layout.VStack height='100%' width='100%' justifyContent='center' maxWidth='310px'>
-          <AboutLayout
+          <AboutContentsPage
             pageNum={pageNum}
             mainTexts={AboutContents[pageNum - 1].mainTexts}
             subTexts={AboutContents[pageNum - 1].subTexts}
