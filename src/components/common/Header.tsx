@@ -31,7 +31,7 @@ const Button = styled.button`
   outline: none;
   border: none;
   background: none;
-  height: 100%;
+
   display: flex;
   padding: 0;
   position: absolute;
@@ -41,18 +41,18 @@ const Button = styled.button`
 const HeaderWrapper = styled.header`
   display: flex;
   position: sticky;
-  top: 0;
+  top: -1px;
   align-items: center;
   width: 310px;
-  height: 41px;
-  min-height: 41px;
+  height: 42px;
+  min-height: 42px;
   background-color: white;
-  margin-top: 5vh;
+  padding: 5vh 0 2vh;
   @media (max-width: 768px) {
     width: 100%;
   }
-  @media (margin-top: 5svh) {
-    margin-top: 5vh;
+  @media (padding-top: 5svh) {
+    padding: 5svh 0 2svh;
   }
 `;
 

@@ -43,20 +43,15 @@ function Keyword({ product, allKeyword }: { product: Product; allKeyword: string
   };
 
   return (
-    <Layout.VStack
-      justifyContent='space-around'
-      height='100%'
-      width='100%'
-      maxWidth='310px'
-      alignItems='stretch'
-    >
-      <Layout.Box>
+    <Layout.FixButtonBottom alignItems='stretch' padding='0 0 30px 0'>
+      <Layout.VStack height='100%' justifyContent='center'>
         <Style.KeywordPageFont.Main>표시할 상품 키워드를 선택해 주세요.</Style.KeywordPageFont.Main>
         <Layout.Box height='4px' />
         <Style.KeywordPageFont.Sub>
           멋진 임명장을 위해선 7~14글자 사이가 좋아요!
         </Style.KeywordPageFont.Sub>
         <Layout.Box height='24px' />
+
         <Layout.HStack flexWrap='wrap' gap='8px 6px'>
           {allKeyword.map(keyword => (
             <Style.KeywordButton
@@ -68,7 +63,8 @@ function Keyword({ product, allKeyword }: { product: Product; allKeyword: string
             </Style.KeywordButton>
           ))}
         </Layout.HStack>
-        <Layout.Box margin='56px' />
+        <Layout.Box height='10%' />
+
         <Layout.VStack alignItems='stretch' gap='16px'>
           <Style.Span>{String(selectedKeywords).replaceAll(',', ' ')}</Style.Span>
           <Layout.HStack alignItems='center'>
@@ -78,9 +74,11 @@ function Keyword({ product, allKeyword }: { product: Product; allKeyword: string
             </Style.ResetBtn>
           </Layout.HStack>
         </Layout.VStack>
-      </Layout.Box>
+        <Layout.Box height='10%' />
+      </Layout.VStack>
+
       <BottomButton onClick={nextPageHandler}>다음으로</BottomButton>
-    </Layout.VStack>
+    </Layout.FixButtonBottom>
   );
 }
 

@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable import/no-cycle */
 import { useEffect, useState, useRef, RefObject } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
 
 import { MainImage } from '@/assets/Images';
 import SearchInput from '@/components/SearchInput';
@@ -12,14 +14,11 @@ import KakaoButton from '@/components/common/share/KakaoButton';
 import LinkButton from '@/components/common/share/LinkButton';
 import TwitterButton from '@/components/common/share/TwitterButton';
 import { sharedMessage } from '@/constant';
+import { ONBOARDING, VISITED } from '@/constant/localstorage';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import * as Font from '@/styles/font';
 
-const OnboardingDimmed = dynamic(() => import('@/components/search/OnboardingDimmed'));
-
-export const EXPERIENCE_ONBOARDING = 'experienceOnboarding';
-export const IS_VISITED = 'visited';
-export const AFTER_ABOUT = 'afterAbout';
+const Onboarding = dynamic(() => import('@/components/search/Onboarding'));
 
 export interface SearchInputPositionAndSize {
   x: number;
@@ -31,10 +30,10 @@ export interface SearchInputPositionAndSize {
 function Home() {
   const { title = '', text = '', url = '' } = sharedMessage;
 
-  const [isVisted, setIsVisted] = useLocalStorage(IS_VISITED, '');
-  const [experienceOnboarding, setExperienceOnboarding] = useLocalStorage(
-    EXPERIENCE_ONBOARDING,
-    '',
+  const [isVisted, _] = useLocalStorage(VISITED.key, VISITED.status.INITIAL);
+  const [didWatchOnboarding, setDidWatchOnboarding] = useLocalStorage(
+    ONBOARDING.key,
+    ONBOARDING.status.INITIAL,
   );
   const [searchInputPositionAndSize, setSearchInputPositionAndSize] =
     useState<SearchInputPositionAndSize>();
@@ -47,17 +46,14 @@ function Home() {
     setSearchInputPositionAndSize(calculatePositionAndSizeOfSearchInput(searchInputRef));
   }, [searchInputRef]);
 
-  if (isVisted === '') {
-    setIsVisted(new Date().toDateString());
-    router.push('/about');
-  }
+  if (isVisted === VISITED.status.INITIAL) router.push('/about');
 
   return (
-    <Layout.VStack margin='20px 0 0' width='100%' alignItems='center'>
-      {experienceOnboarding === AFTER_ABOUT && searchInputPositionAndSize && (
-        <OnboardingDimmed
+    <ScrollY width='100%' padding='30px 0 30px' alignItems='center' style={{ overflow: 'auto' }}>
+      {didWatchOnboarding === ONBOARDING.status.NOT_WATCHED && searchInputPositionAndSize && (
+        <Onboarding
           searchInputInfo={searchInputPositionAndSize}
-          setLocalStorage={setExperienceOnboarding}
+          setDidWatchOnboarding={setDidWatchOnboarding}
         />
       )}
       <Font.Medium>지금 뭘 사고 싶나요?</Font.Medium>
@@ -68,13 +64,13 @@ function Home() {
       <Layout.VStack ref={searchInputRef} width='100%' alignItems='center'>
         <SearchInput />
       </Layout.VStack>
-      <Layout.HStack margin='66px 0 0' gap='8px'>
+      <Layout.HStack margin='10vh 0 ' gap='8px'>
         <FacebookButton pageUrl={url} />
         <TwitterButton pageUrl={url} sendText={text} />
         <KakaoButton webUrl={url} />
         <LinkButton pageUrl={url} />
       </Layout.HStack>
-    </Layout.VStack>
+    </ScrollY>
   );
 }
 export default Home;
@@ -120,3 +116,17 @@ function calculatePositionAndSizeOfSearchInput(
 
   return calculatePosition;
 }
+
+const ScrollY = styled(Layout.VStack)`
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-thumb {
+    width: 4px;
+    border-radius: 2px;
+    background-clip: padding-box;
+    border: 10px solid transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.gray[2]};
+  }
+`;
