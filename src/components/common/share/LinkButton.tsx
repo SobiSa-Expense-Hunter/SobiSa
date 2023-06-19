@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { LinkIcon } from '@/assets/Icons';
+import Toast from '@/components/common/Toast';
 import { ImageButton } from '@/components/common/buttons';
 
 interface LinkButtonProps {
@@ -9,6 +10,7 @@ interface LinkButtonProps {
 
 const LinkButton = ({ pageUrl }: LinkButtonProps) => {
   const [show, setShow] = useState(false);
+  const [toastShow, setToastShow] = useState(false);
 
   useEffect(() => {
     setShow(true);
@@ -16,14 +18,21 @@ const LinkButton = ({ pageUrl }: LinkButtonProps) => {
 
   const shareOnLink = () => {
     navigator.clipboard.writeText(pageUrl).then(() => {
-      alert('url이 복사되었습니다');
+      setToastShow(true);
     });
   };
 
+  const toastHide = () => {
+    setToastShow(false);
+  };
+
   return show ? (
-    <ImageButton type='button' onClick={shareOnLink}>
-      <LinkIcon />
-    </ImageButton>
+    <>
+      <ImageButton type='button' onClick={shareOnLink}>
+        <LinkIcon />
+      </ImageButton>
+      {toastShow && <Toast msg='url이 복사되었습니다' toastHide={toastHide} />}
+    </>
   ) : null;
 };
 

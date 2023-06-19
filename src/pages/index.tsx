@@ -8,6 +8,7 @@ import styled from 'styled-components';
 
 import { MainImage } from '@/assets/Images';
 import SearchInput from '@/components/SearchInput';
+import Toast from '@/components/common/Toast';
 import * as Layout from '@/components/common/layout';
 import FacebookButton from '@/components/common/share/FacebookButton';
 import KakaoButton from '@/components/common/share/KakaoButton';
