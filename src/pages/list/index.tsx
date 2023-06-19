@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
@@ -14,13 +15,9 @@ function ListPage() {
   const [clearSearch, setClearSearch] = useState('');
 
   useEffect(() => {
-    try {
-      setClearSearch(isString(search));
-    } catch (error) {
-      if (!(error instanceof Error)) return;
-      dispatchModalState({ type: 'SHOW', message: error.message });
-    }
-  }, [dispatchModalState, search]);
+    if (isString(search)) setClearSearch(search);
+    else dispatchModalState({ type: 'SHOW', message: '검색어를 입력해주세요.' });
+  }, []);
 
   const onClose = () => {
     router.push('/');
@@ -34,7 +31,7 @@ function ListPage() {
 
 export default ListPage;
 
-function isString(value: unknown): string {
-  if (typeof value !== 'string') throw new Error('검색어를 입력해주세요.');
-  return value;
+function isString(value: unknown): value is string {
+  if (typeof value === 'string') return true;
+  return false;
 }
