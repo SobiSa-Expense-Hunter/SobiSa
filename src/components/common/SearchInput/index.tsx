@@ -4,38 +4,32 @@ import { NextRouter, useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { MagnifyingGlassIcon } from '@/assets/Icons';
+import NoticeModal from '@/components/modal/NoticeModal';
+import useNoticeModal from '@/hooks/useNoticeModal';
 import detectMobileDevice from '@/utils/checkMobileDivice';
 
-import NoticeModal from './modal/NoticeModal';
-
 function SearchInput() {
-  const [search, setSearch] = useState<string>('');
-  const [showModal, setShowModal] = useState<boolean>(false);
   const router = useRouter();
+  const [search, setSearch] = useState((router.query.search as string) || '');
+  const { modalState, dispatchModalState } = useNoticeModal();
   const autoFocusRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const isMobile = detectMobileDevice(window.navigator.userAgent);
-    if (isMobile && router.asPath === '/') return;
-
+    if (isMobile || router.asPath === '/') return;
     autoFocusRef.current?.focus();
   }, [router.asPath]);
 
-  const handleSearchKeyDownEvent = (event: React.KeyboardEvent<HTMLElement>) => {
-    if (event.key === 'Enter') searchParamOrShowAlert(router, search);
-  };
-
-  const handleSearchClickEvent = () => searchParamOrShowAlert(router, search);
-
-  function searchParamOrShowAlert(thisRouter: NextRouter, searchText: string) {
+  const onSearch = (event: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>) => {
     try {
-      checkSearchWord(search);
-      thisRouter.push({ pathname: '/list', query: { search: searchText } });
+      if (event.type === 'click' || ('key' in event && event.key === 'Enter'))
+        searchParam(router, checkSearchWord(search));
     } catch (error) {
+      if (!(error instanceof Error)) return;
       setSearch('');
-      setShowModal(true);
+      dispatchModalState({ type: 'SHOW', message: error.message });
     }
-  }
+  };
 
   return (
     <SearchInputContainer>
@@ -45,28 +39,35 @@ function SearchInput() {
           placeholder='살까 말까하는 그 물건...'
           value={search}
           onChange={e => setSearch(e.target.value)}
-          onKeyDown={handleSearchKeyDownEvent}
+          onKeyDown={onSearch}
           ref={autoFocusRef}
         />
       </SearchInputBox>
-      <SearchButton type='button' onClick={handleSearchClickEvent}>
+      <SearchButton type='button' onClick={onSearch}>
         <MagnifyingGlassIcon />
       </SearchButton>
-      {showModal && (
-        <NoticeModal onClose={() => setShowModal(false)} message='검색어를 입력해주세요!' />
+
+      {modalState.show && (
+        <NoticeModal
+          onClose={() => dispatchModalState({ type: 'HIDE' })}
+          message={modalState.message}
+        />
       )}
     </SearchInputContainer>
   );
 }
 
-function checkSearchWord(search: string) {
-  const isWhitespaceOnly = /^\s*$/.test(search);
-  if (!search || isWhitespaceOnly) {
-    throw new Error('검색어를 입력해주세요');
-  }
+function searchParam(thisRouter: NextRouter, searchText: string) {
+  thisRouter.push({ pathname: '/list', query: { search: searchText } });
 }
 
-export default SearchInput;
+function checkSearchWord(search: string) {
+  const isWhitespaceOnly = /^\s*$/.test(search);
+  const isSpecialCharIncluded = /[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]/.test(search);
+  if (!search || isWhitespaceOnly) throw new Error('검색어를 입력해주세요.');
+  if (isSpecialCharIncluded) throw new Error('특수문자를 제외하고 입력해주세요.');
+  return search.trim();
+}
 
 const SearchInputContainer = styled.div`
   box-sizing: border-box;
@@ -81,12 +82,14 @@ const SearchInputContainer = styled.div`
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.mainColor};
 `;
+
 const SearchInputBox = styled.div`
   width: 80%;
   height: 100%;
   background-color: white;
   border-radius: 6px 0 0 6px;
 `;
+
 const SearchEnterInput = styled.input`
   text-overflow: ellipsis;
   overflow: hidden;
@@ -99,6 +102,7 @@ const SearchEnterInput = styled.input`
   padding: 20px;
   max-width: 210px;
   color: ${({ theme }) => theme.colors.mainColor};
+
   ::placeholder,
   ::-webkit-input-placeholder {
     color: ${({ theme }) => theme.colors.gray[3]};
@@ -114,6 +118,7 @@ const SearchEnterInput = styled.input`
   line-height: 150%;
   letter-spacing: -0.022em;
 `;
+
 const SearchButton = styled.button`
   box-sizing: border-box;
   display: inline-flex;
@@ -127,3 +132,5 @@ const SearchButton = styled.button`
   border-radius: 0 5px 5px 0;
   cursor: pointer;
 `;
+
+export default SearchInput;

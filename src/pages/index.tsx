@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { MainImage } from '@/assets/Images';
-import SearchInput from '@/components/SearchInput';
+import SearchInput from '@/components/common/SearchInput';
 import * as Layout from '@/components/common/layout';
 import FacebookButton from '@/components/common/share/FacebookButton';
 import KakaoButton from '@/components/common/share/KakaoButton';
