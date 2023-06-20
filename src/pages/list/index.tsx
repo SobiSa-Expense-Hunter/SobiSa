@@ -10,14 +10,14 @@ import useNoticeModal from '@/hooks/useNoticeModal';
 function ListPage() {
   const router = useRouter();
   const { search } = router.query;
-
   const { modalState, dispatchModalState } = useNoticeModal();
   const [clearSearch, setClearSearch] = useState('');
 
   useEffect(() => {
+    if (!router.isReady) return;
     if (isString(search)) setClearSearch(search);
     else dispatchModalState({ type: 'SHOW', message: '검색어를 입력해주세요.' });
-  }, []);
+  }, [router]);
 
   const onClose = () => {
     router.push('/');
