@@ -5,8 +5,8 @@ import { useState, useRef, useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
-import AboutContentsPage from '@/components/about/AboutContentsPage';
 import AboutInit from '@/components/about/AboutInit';
+import AboutLayout from '@/components/about/layout';
 import { BottomButton } from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
 import { ONBOARDING, VISITED } from '@/constant/localstorage';
@@ -50,7 +50,7 @@ function About() {
         </Layout.FixButtonBottom>
       ) : (
         <Layout.FixButtonBottom justifyContent='center' maxWidth='310px'>
-          <AboutContentsPage
+          <AboutLayout
             pageNum={pageNum}
             mainTexts={AboutContents[pageNum - 1].mainTexts}
             subTexts={AboutContents[pageNum - 1].subTexts}

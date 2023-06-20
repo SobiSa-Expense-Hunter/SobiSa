@@ -20,7 +20,7 @@ interface AboutPageLayoutProps {
   subTexts: string[];
 }
 
-function AboutContentsPage({ pageNum, mainTexts, subTexts }: AboutPageLayoutProps) {
+function AboutLayout({ pageNum, mainTexts, subTexts }: AboutPageLayoutProps) {
   const [firstMainText, secondMainText] = mainTexts;
   return (
     <Layout.VStack style={{ overflow: 'hidden' }}>
@@ -64,7 +64,7 @@ function AboutContentsPage({ pageNum, mainTexts, subTexts }: AboutPageLayoutProp
   );
 }
 
-export default AboutContentsPage;
+export default AboutLayout;
 
 const ImageAnimation = ({ pageNum }: { pageNum: number }) => {
   const [imgSrc, setImgSrc] = useState(`assets/image/about/phone_mockup/${pageNum}.webp`);
