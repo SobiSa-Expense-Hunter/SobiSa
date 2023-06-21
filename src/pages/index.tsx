@@ -67,13 +67,23 @@ function Home() {
           setDidWatchOnboarding={setDidWatchOnboarding}
         />
       )}
+
       <Font.Medium>지금 뭘 사고 싶나요?</Font.Medium>
       <Font.Large>소비사와 같이 고민해 봐요!</Font.Large>
       <Layout.Box margin='16px 0px'>
         <MainImage width={220} height={220} />
       </Layout.Box>
-      <Layout.VStack ref={searchInputRef} width='100%' alignItems='center' gap='16px'>
-        <SearchInput />
+
+      <Layout.VStack gap='16px'>
+        {/**
+         * DESCRIPTION
+         * 해당 VStack 내부에 다른 컴포넌트를 넣으면 안됨.
+         * onboarding에서 사용되는 ref가 해당 컴포넌트 사이즈를 측정하기 때문.
+         */}
+        <Layout.VStack ref={searchInputRef} width='100%' alignItems='center'>
+          <SearchInput />
+        </Layout.VStack>
+
         <Layout.HScroll>
           {searchSuggestions.map(product => (
             <Button.LightGrayTag onClick={() => suggestionTagHandler(product)} key={uuid()}>
