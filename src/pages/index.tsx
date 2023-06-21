@@ -5,8 +5,10 @@ import { useEffect, useState, useRef, RefObject } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
 
 import { MainImage } from '@/assets/Images';
+import { useSearchDispatch } from '@/components/SearchProvider';
 import SearchInput from '@/components/common/SearchInput';
 import * as Button from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
@@ -16,8 +18,10 @@ import LinkButton from '@/components/common/share/LinkButton';
 import TwitterButton from '@/components/common/share/TwitterButton';
 import { sharedMessage } from '@/constant';
 import { ONBOARDING, VISITED } from '@/constant/localstorage';
+import searchSuggestions from '@/constant/searchSuggestions';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import * as Font from '@/styles/font';
+import { Product } from '@/types/product';
 
 const Onboarding = dynamic(() => import('@/components/search/Onboarding'));
 
@@ -41,11 +45,17 @@ function Home() {
 
   const searchInputRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const dispatch = useSearchDispatch();
 
   useEffect(() => {
     if (!searchInputRef.current) return;
     setSearchInputPositionAndSize(calculatePositionAndSizeOfSearchInput(searchInputRef));
   }, [searchInputRef]);
+
+  const suggestionTagHandler = (product: Product) => {
+    dispatch({ type: 'ADD_PRODUCT', item: product });
+    router.push('/savingamount');
+  };
 
   if (isVisted === VISITED.status.INITIAL) router.push('/about');
 
@@ -65,10 +75,11 @@ function Home() {
       <Layout.VStack ref={searchInputRef} width='100%' alignItems='center' gap='16px'>
         <SearchInput />
         <Layout.HScroll>
-          <Button.LightGrayTag>애플 비전프로</Button.LightGrayTag>
-          <Button.LightGrayTag>화성 여행</Button.LightGrayTag>
-          <Button.LightGrayTag>1 BTN</Button.LightGrayTag>
-          <Button.LightGrayTag>신라호텔 망고 빙수</Button.LightGrayTag>
+          {searchSuggestions.map(product => (
+            <Button.LightGrayTag onClick={() => suggestionTagHandler(product)} key={uuid()}>
+              {product.title}
+            </Button.LightGrayTag>
+          ))}
         </Layout.HScroll>
       </Layout.VStack>
 
