@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { v4 as uuid } from 'uuid';
 
-import * as Buttons from '@/components/common/buttons';
+import * as Button from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
 import * as Font from '@/styles/font';
 
@@ -34,7 +34,7 @@ function CustomError({ mainTitle, subTextLines, buttonText }: ErrorProps) {
         </Layout.VStack>
       </Layout.VStack>
       <Link href='/' replace>
-        <Buttons.BottomButton>{buttonText}</Buttons.BottomButton>
+        <Button.BottomButton>{buttonText}</Button.BottomButton>
       </Link>
     </Layout.FixButtonBottom>
   );
