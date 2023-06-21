@@ -1,4 +1,5 @@
 const { config } = require('process');
+const { version } = require('./package.json');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -33,6 +34,9 @@ const nextConfig = {
   images: {
     domains: ['shopping-phinf.pstatic.net', 'localhost'],
     unoptimized: true,
+  },
+  publicRuntimeConfig: {
+    version,
   },
 };
 
