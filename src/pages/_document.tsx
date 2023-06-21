@@ -68,7 +68,7 @@ class MyDocument extends Document {
             content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
           />
           <link rel='apple-touch-icon' sizes='114x114' href='assets/image/sobisa_logo.png' />
-          <link rel='icon' href='assets/image/favicon_1.png' />
+          <link rel='icon' href='assets/image/favicon.png' />
         </Head>
         <body>
           <div id='modal-root' />
