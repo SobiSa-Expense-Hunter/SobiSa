@@ -13,7 +13,7 @@ function useAutoCmp(params: string) {
 
   useEffect(() => {
     if (!params) return;
-    fetchData().then(res => setAutoCmpList(makeAutoCmpList(res)));
+    fetchData().then(res => setAutoCmpList(makeAutoCmpList(res).slice(0, 8)));
   }, [params, mode]);
 
   async function fetchData() {
