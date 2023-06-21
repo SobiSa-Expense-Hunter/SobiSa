@@ -1,23 +1,31 @@
+/* eslint-disable consistent-return */
 import { useState, useRef, useEffect } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 
 import { NextRouter, useRouter } from 'next/router';
 import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
 
 import { MagnifyingGlassIcon } from '@/assets/Icons';
+import * as Layout from '@/components/common/layout/index';
 import NoticeModal from '@/components/modal/NoticeModal';
+import useAutoCmp from '@/hooks/useAutoCmp';
 import useNoticeModal from '@/hooks/useNoticeModal';
-import detectMobileDevice from '@/utils/checkMobileDivice';
+import * as Font from '@/styles/font';
+import detectMobileDevice from '@/utils/checkMobileDevice';
 
 function SearchInput() {
   const router = useRouter();
   const [search, setSearch] = useState((router.query.search as string) || '');
+  const [isFocus, setIsFocus] = useState(false);
   const { modalState, dispatchModalState } = useNoticeModal();
-  const autoFocusRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { autoCmpList } = useAutoCmp(search);
 
   useEffect(() => {
     const isMobile = detectMobileDevice(window.navigator.userAgent);
     if (isMobile || router.asPath === '/') return;
-    autoFocusRef.current?.focus();
+    inputRef.current?.focus();
   }, [router.asPath]);
 
   const onSearch = (event: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>) => {
@@ -30,7 +38,6 @@ function SearchInput() {
       dispatchModalState({ type: 'SHOW', message: error.message });
     }
   };
-
   return (
     <SearchInputContainer>
       <SearchInputBox>
@@ -38,10 +45,15 @@ function SearchInput() {
           type='text'
           placeholder='살까 말까하는 그 물건...'
           value={search}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
           onChange={e => setSearch(e.target.value)}
           onKeyDown={onSearch}
-          ref={autoFocusRef}
+          ref={inputRef}
         />
+        {isFocus && search && autoCmpList.length > 1 && (
+          <AutoCmpContainer autoCmpList={autoCmpList} setSearch={setSearch} />
+        )}
       </SearchInputBox>
       <SearchButton type='button' onClick={onSearch}>
         <MagnifyingGlassIcon />
@@ -57,6 +69,27 @@ function SearchInput() {
   );
 }
 
+interface AutoCmpProps {
+  autoCmpList: string[];
+  setSearch: Dispatch<SetStateAction<string>>;
+}
+
+function AutoCmpContainer({ autoCmpList, setSearch }: AutoCmpProps) {
+  return (
+    <Relative>
+      <Absolute>
+        {autoCmpList.map(autoCmp => {
+          return (
+            <AutoCmp justifyContent='center' key={uuid()} onMouseDown={() => setSearch(autoCmp)}>
+              <Font.Medium>{autoCmp}</Font.Medium>
+            </AutoCmp>
+          );
+        })}
+      </Absolute>
+    </Relative>
+  );
+}
+
 function searchParam(thisRouter: NextRouter, searchText: string) {
   thisRouter.push({ pathname: '/list', query: { search: searchText } });
 }
@@ -69,13 +102,49 @@ function checkSearchWord(search: string) {
   return search.trim();
 }
 
-const SearchInputContainer = styled.div`
-  box-sizing: border-box;
+const AutoCmp = styled(Layout.VStack)`
   width: 100%;
-  height: 60px;
+  height: 1.5em;
+  border: gray 1px;
+  padding: 0 20px;
+
+  :hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.colors.gray[1]};
+  }
+`;
+
+const Relative = styled.div`
+  position: relative;
+  width: 100%;
+
+  /* 위치 보정 */
+  top: -10px;
+  left: -2px;
+
+  z-index: 1;
+`;
+
+const Absolute = styled.div`
+  position: absolute;
+  width: calc(100% + 4px);
+
+  padding: 10px 0;
+
+  background-color: white;
+  border: solid ${({ theme }) => theme.colors.mainColor};
+  border-width: 0 2px 2px 2px;
+  border-radius: 0 0 10px 10px;
+`;
+
+const SearchInputContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 60px;
   border: 2px solid ${({ theme }) => theme.colors.mainColor};
   border-radius: 8px;
   max-width: 310px;
