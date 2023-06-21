@@ -8,6 +8,7 @@ import styled from 'styled-components';
 
 import { MainImage } from '@/assets/Images';
 import SearchInput from '@/components/common/SearchInput';
+import * as Button from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
 import FacebookButton from '@/components/common/share/FacebookButton';
 import KakaoButton from '@/components/common/share/KakaoButton';
@@ -61,9 +62,16 @@ function Home() {
       <Layout.Box margin='16px 0px'>
         <MainImage width={220} height={220} />
       </Layout.Box>
-      <Layout.VStack ref={searchInputRef} width='100%' alignItems='center'>
+      <Layout.VStack ref={searchInputRef} width='100%' alignItems='center' gap='16px'>
         <SearchInput />
+        <Layout.HScroll>
+          <Button.LightGrayTag>애플 비전프로</Button.LightGrayTag>
+          <Button.LightGrayTag>화성 여행</Button.LightGrayTag>
+          <Button.LightGrayTag>1 BTN</Button.LightGrayTag>
+          <Button.LightGrayTag>신라호텔 망고 빙수</Button.LightGrayTag>
+        </Layout.HScroll>
       </Layout.VStack>
+
       <Layout.HStack margin='10vh 0 ' gap='8px'>
         <FacebookButton pageUrl={url} />
         <TwitterButton pageUrl={url} sendText={text} />
@@ -73,6 +81,7 @@ function Home() {
     </ScrollY>
   );
 }
+
 export default Home;
 
 function calculatePositionAndSizeOfSearchInput(
