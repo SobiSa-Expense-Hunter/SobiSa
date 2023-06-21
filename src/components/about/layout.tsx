@@ -67,12 +67,12 @@ function AboutLayout({ pageNum, mainTexts, subTexts }: AboutPageLayoutProps) {
 export default AboutLayout;
 
 const ImageAnimation = ({ pageNum }: { pageNum: number }) => {
-  const [imgSrc, setImgSrc] = useState(`assets/image/about/phone_mockup/${pageNum}.png`);
+  const [imgSrc, setImgSrc] = useState(`assets/image/about/phone_mockup/${pageNum}.webp`);
 
   useEffect(() => {
     if (pageNum !== 1) return;
     const timeout = setTimeout(() => {
-      setImgSrc(`assets/image/about/phone_mockup/1-1.png`);
+      setImgSrc(`assets/image/about/phone_mockup/1-1.webp`);
     }, 1000);
 
     return () => clearTimeout(timeout);
