@@ -6,7 +6,7 @@ const searchSuggestions: Product[] = [
     image:
       'https://wimg.mk.co.kr/meet/neds/2022/04/image_readtop_2022_367328_16508732825021261.jpg',
     price: 98000,
-    brand: 'apple',
+    brand: '신라호텔',
   },
   {
     title: 'APPLE 비전 프로',
