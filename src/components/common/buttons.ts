@@ -93,3 +93,25 @@ export const DefaultTagStyle = css`
   font-family: 'Pretendard Variable';
   font-weight: 600;
 `;
+
+export const LightGrayTag = styled.button`
+  color: ${({ theme }) => theme.colors.gray[2]};
+  background: #fcfcfe;
+
+  padding: 4px 10px;
+  max-height: 28px;
+
+  border: 1px solid ${({ theme }) => theme.colors.gray[1]};
+  border-radius: 4px;
+
+  white-space: nowrap;
+  font-family: 'Pretendard Variable';
+  font-weight: 600;
+  font-size: 13px;
+
+  :hover {
+    color: ${({ theme }) => theme.colors.gray[3]};
+    background-color: ${({ theme }) => theme.colors.gray[1]};
+    transition: all 200ms;
+  }
+`;

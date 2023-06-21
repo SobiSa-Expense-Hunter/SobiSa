@@ -51,3 +51,12 @@ export const AboutArrowIcon01 = () => {
 export const AboutArrowIcon02 = () => {
   return <Image src={`${ICON_PATH}/about/arrow2.svg`} width={64} height={18} alt='화살표02' />;
 };
+
+export const Info = ({ width, height }: Size) => {
+  return <Image src={`${ICON_PATH}/Info.svg`} width={width} height={height} alt='정보 아이콘' />;
+};
+
+interface Size {
+  width: number;
+  height: number;
+}
