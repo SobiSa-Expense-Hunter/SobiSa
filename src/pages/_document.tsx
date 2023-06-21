@@ -9,7 +9,6 @@ import Document, {
   DocumentContext,
   DocumentInitialProps,
 } from 'next/document';
-import Script from 'next/script';
 import { ServerStyleSheet } from 'styled-components';
 
 class MyDocument extends Document {
@@ -64,11 +63,12 @@ class MyDocument extends Document {
 
           <meta name='twitter:card' content='summary_large_image' />
 
-          <link rel='apple-touch-icon' sizes='114x114' href='assets/image/sobisa_logo.png' />
           <meta
             name='viewport'
             content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
           />
+          <link rel='apple-touch-icon' sizes='114x114' href='assets/image/sobisa_logo.png' />
+          <link rel='icon' href='assets/image/favicon_1.png' />
         </Head>
         <body>
           <div id='modal-root' />
