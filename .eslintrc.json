@@ -25,7 +25,13 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*.(test|spec).(ts|tsx)", "**/__test__/**/*"]
+        "devDependencies": [
+          "**/*.test.ts",
+          "**/*.test.tsx",
+          "**/*.spec.ts",
+          "**/*.spec.tsx",
+          "**/__test__/**/*"
+        ]
       }
     ],
     "import/order": [

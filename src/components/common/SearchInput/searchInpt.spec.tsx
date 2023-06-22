@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import mockRouter from 'next-router-mock';
 
 import { fireEvent, render, screen } from '@/__test__/utils/customRender';
