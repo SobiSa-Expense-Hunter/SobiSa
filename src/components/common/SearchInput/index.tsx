@@ -35,6 +35,7 @@ function SearchInput() {
     <SearchInputContainer>
       <SearchInputBox>
         <SearchEnterInput
+          aria-label='search-input'
           type='text'
           placeholder='살까 말까하는 그 물건...'
           value={search}
