@@ -5,6 +5,7 @@ import { NextRouter, useRouter } from 'next/router';
 
 import { MagnifyingGlassIcon } from '@/assets/Icons';
 import * as Style from '@/components/common/SearchInput/style';
+import * as Layout from '@/components/common/layout/index';
 import NoticeModal from '@/components/modal/NoticeModal';
 import useAutoCmp from '@/hooks/useAutoCmp';
 import useNoticeModal from '@/hooks/useNoticeModal';
@@ -38,8 +39,8 @@ function SearchInput() {
   };
 
   return (
-    <Style.SearchInputContainer>
-      <Style.SearchInputBox>
+    <Layout.HStack width='100%' height='60px' justifyContent='space-between' maxWidth='310px'>
+      <Style.SearchInputBox focus={isFocus} search={search}>
         <Style.SearchEnterInput
           type='text'
           placeholder='살까 말까하는 그 물건...'
@@ -50,10 +51,11 @@ function SearchInput() {
           onKeyDown={onSearch}
           ref={inputRef}
         />
-        {isFocus && search && autoCmpList.length > 1 && (
+        {isFocus && search && (
           <AutoCmpContainer autoCmpList={autoCmpList} setSearch={setSearch} state={state} />
         )}
       </Style.SearchInputBox>
+
       <Style.SearchButton type='button' onClick={onSearch}>
         <MagnifyingGlassIcon />
       </Style.SearchButton>
@@ -64,7 +66,7 @@ function SearchInput() {
           message={modalState.message}
         />
       )}
-    </Style.SearchInputContainer>
+    </Layout.HStack>
   );
 }
 
