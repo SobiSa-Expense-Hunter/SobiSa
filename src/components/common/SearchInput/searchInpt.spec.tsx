@@ -36,8 +36,8 @@ describe('<SearchInput /> 정상 동작 테스트', () => {
   });
 
   it('url params "search" 값이 있다면 해당 값이 input에 적용되어야 한다.', () => {
-    const { searchInput } = setup();
     mockRouter.setCurrentUrl(`?search=test`);
+    const { searchInput } = setup();
     expect(searchInput.value).toBe('test');
   });
 });
