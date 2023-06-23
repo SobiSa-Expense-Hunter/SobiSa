@@ -60,7 +60,13 @@ function Home() {
   if (isVisted === VISITED.status.INITIAL) router.push('/about');
 
   return (
-    <ScrollY width='100%' padding='30px 0 30px' alignItems='center' style={{ overflow: 'auto' }}>
+    <ScrollY
+      width='100%'
+      height='100%'
+      padding='30px 0 30px'
+      alignItems='center'
+      style={{ overflowX: 'hidden', overflowY: 'auto' }}
+    >
       {didWatchOnboarding === ONBOARDING.status.NOT_WATCHED && searchInputPositionAndSize && (
         <Onboarding
           searchInputInfo={searchInputPositionAndSize}
@@ -74,7 +80,7 @@ function Home() {
         <MainImage width={220} height={220} />
       </Layout.Box>
 
-      <Layout.VStack gap='16px'>
+      <Layout.VStack gap='16px' width='100%' maxWidth='310px'>
         {/**
          * DESCRIPTION
          * 해당 VStack 내부에 다른 컴포넌트를 넣으면 안됨.
