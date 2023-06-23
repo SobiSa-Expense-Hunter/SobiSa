@@ -50,6 +50,7 @@ function SearchInput() {
           onChange={e => setSearch(e.target.value)}
           onKeyDown={onSearch}
           ref={inputRef}
+          aria-label='search-input'
         />
         {isFocus && search && (
           <AutoCmpContainer autoCmpList={autoCmpList} setSearch={setSearch} state={state} />
