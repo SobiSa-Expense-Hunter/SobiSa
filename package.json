@@ -11,7 +11,7 @@
     "prettier": "prettier --check ./src",
     "prettier:fix": "prettier --write --check ./src",
     "prepare": "husky install",
-    "test": "jest --watch --passWithNoTests",
+    "test": "jest --watch --passWithNoTests --verbose",
     "test:ci": "jest --ci --passWithNoTests"
   },
   "dependencies": {
