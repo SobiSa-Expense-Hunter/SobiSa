@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Dispatch, SetStateAction } from 'react';
 
-import ScrollContainer from 'react-indiana-drag-scroll';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
 import { DefaultTagStyle } from '@/components/common/buttons';
+import * as Layout from '@/components/common/layout';
 
 interface SavingAmountOptionsProps {
   productPrice: number;
@@ -23,7 +23,7 @@ function SavingAmountOptions({ productPrice, setAmount }: SavingAmountOptionsPro
   };
 
   return (
-    <HScroll>
+    <Layout.HScroll>
       {savingsAmountOptions.map((option, idx) => (
         <MoneyInputButton
           key={uuid()}
@@ -33,19 +33,11 @@ function SavingAmountOptions({ productPrice, setAmount }: SavingAmountOptionsPro
           {idx === 0 ? '전액' : `${option.toLocaleString()}원`}
         </MoneyInputButton>
       ))}
-    </HScroll>
+    </Layout.HScroll>
   );
 }
 
 export default SavingAmountOptions;
-
-const HScroll = styled(ScrollContainer)`
-  display: flex;
-  overflow-x: hidden;
-  word-break: keep-all;
-  max-width: 310px;
-  gap: 6px;
-`;
 
 const MoneyInputButton = styled.button`
   ${DefaultTagStyle}

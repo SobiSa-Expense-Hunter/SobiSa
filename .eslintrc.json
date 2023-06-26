@@ -4,11 +4,7 @@
     "es6": true,
     "node": true
   },
-  "plugins": [
-    "import",
-    "@typescript-eslint",
-    "prettier"
-  ],
+  "plugins": ["import", "@typescript-eslint", "prettier"],
   "extends": [
     "airbnb",
     "airbnb-typescript",
@@ -26,6 +22,18 @@
     "react/react-in-jsx-scope": "off",
     "react/function-component-definition": "off",
     "@typescript-eslint/no-use-before-define": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.test.ts",
+          "**/*.test.tsx",
+          "**/*.spec.ts",
+          "**/*.spec.tsx",
+          "**/__test__/**/*"
+        ]
+      }
+    ],
     "import/order": [
       "error",
       {
@@ -37,24 +45,11 @@
             "position": "before"
           }
         ],
-        "pathGroupsExcludedImportTypes": [
-          "react"
-        ],
+        "pathGroupsExcludedImportTypes": ["react"],
         "groups": [
-          [
-            "builtin",
-            "external"
-          ],
-          [
-            "internal",
-            "parent",
-            "index"
-          ],
-          [
-            "sibling",
-            "type",
-            "object"
-          ]
+          ["builtin", "external"],
+          ["internal", "parent", "index"],
+          ["sibling", "type", "object"]
         ],
         "alphabetize": {
           "order": "asc"

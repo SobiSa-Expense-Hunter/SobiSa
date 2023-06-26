@@ -13,14 +13,8 @@ import * as Font from '@/styles/font';
 
 function AboutInit(_: unknown, ref: ForwardedRef<HTMLDivElement>) {
   return (
-    <Layout.VStack
-      maxHeight='822px'
-      width='100%'
-      padding='0 16px'
-      alignItems='center'
-      style={{ overflow: 'hidden' }}
-    >
-      <Layout.VStack maxWidth='310px' height='100%' width='100%'>
+    <Layout.VStack padding='0 16px' style={{ overflow: 'hidden' }}>
+      <Layout.VStack maxWidth='310px'>
         <MideaMargin />
         <motion.div
           style={{ transform: 'none', display: 'contents' }}
@@ -69,13 +63,7 @@ function AboutInit(_: unknown, ref: ForwardedRef<HTMLDivElement>) {
         <MideaMargin />
       </Layout.VStack>
 
-      <Layout.VStack
-        ref={ref}
-        maxWidth='310px'
-        width='100%'
-        minHeight='822px'
-        justifyContent='flex-start'
-      >
+      <Layout.VStack ref={ref} maxWidth='310px'>
         <MideaMargin />
         <motion.div
           initial={{ y: 90, opacity: 0 }}

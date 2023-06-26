@@ -1,25 +1,29 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable import/no-cycle */
 import { useEffect, useState, useRef, RefObject } from 'react';
 
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
 
 import { MainImage } from '@/assets/Images';
-import SearchInput from '@/components/SearchInput';
+import { useSearchDispatch } from '@/components/SearchProvider';
+import SearchInput from '@/components/common/SearchInput';
+import * as Button from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
 import FacebookButton from '@/components/common/share/FacebookButton';
 import KakaoButton from '@/components/common/share/KakaoButton';
 import LinkButton from '@/components/common/share/LinkButton';
 import TwitterButton from '@/components/common/share/TwitterButton';
 import { sharedMessage } from '@/constant';
+import { ONBOARDING, VISITED } from '@/constant/localstorage';
+import searchSuggestions from '@/constant/searchSuggestions';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import * as Font from '@/styles/font';
+import { Product } from '@/types/product';
 
-const OnboardingDimmed = dynamic(() => import('@/components/search/OnboardingDimmed'));
-
-export const EXPERIENCE_ONBOARDING = 'experienceOnboarding';
-export const IS_VISITED = 'visited';
-export const AFTER_ABOUT = 'afterAbout';
+const Onboarding = dynamic(() => import('@/components/search/Onboarding'));
 
 export interface SearchInputPositionAndSize {
   x: number;
@@ -31,52 +35,81 @@ export interface SearchInputPositionAndSize {
 function Home() {
   const { title = '', text = '', url = '' } = sharedMessage;
 
-  const [isVisted, setIsVisted] = useLocalStorage(IS_VISITED, '');
-  const [experienceOnboarding, setExperienceOnboarding] = useLocalStorage(
-    EXPERIENCE_ONBOARDING,
-    '',
+  const [isVisted, _] = useLocalStorage(VISITED.key, VISITED.status.INITIAL);
+  const [didWatchOnboarding, setDidWatchOnboarding] = useLocalStorage(
+    ONBOARDING.key,
+    ONBOARDING.status.INITIAL,
   );
   const [searchInputPositionAndSize, setSearchInputPositionAndSize] =
     useState<SearchInputPositionAndSize>();
 
   const searchInputRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const dispatch = useSearchDispatch();
 
   useEffect(() => {
     if (!searchInputRef.current) return;
     setSearchInputPositionAndSize(calculatePositionAndSizeOfSearchInput(searchInputRef));
   }, [searchInputRef]);
 
-  if (isVisted === '') {
-    setIsVisted(new Date().toDateString());
-    router.push('/about');
-  }
+  const suggestionTagHandler = (product: Product) => {
+    dispatch({ type: 'ADD_PRODUCT', item: product });
+    router.push('/savingamount');
+  };
+
+  if (isVisted === VISITED.status.INITIAL) router.push('/about');
 
   return (
-    <Layout.VStack margin='20px 0 0' width='100%' alignItems='center'>
-      {experienceOnboarding === AFTER_ABOUT && searchInputPositionAndSize && (
-        <OnboardingDimmed
+    <ScrollY
+      width='100%'
+      height='100%'
+      padding='30px 0 30px'
+      alignItems='center'
+      justifyContent='center'
+      style={{ overflowX: 'hidden', overflowY: 'auto' }}
+    >
+      {didWatchOnboarding === ONBOARDING.status.NOT_WATCHED && searchInputPositionAndSize && (
+        <Onboarding
           searchInputInfo={searchInputPositionAndSize}
-          setLocalStorage={setExperienceOnboarding}
+          setDidWatchOnboarding={setDidWatchOnboarding}
         />
       )}
+
       <Font.Medium>지금 뭘 사고 싶나요?</Font.Medium>
       <Font.Large>소비사와 같이 고민해 봐요!</Font.Large>
       <Layout.Box margin='16px 0px'>
         <MainImage width={220} height={220} />
       </Layout.Box>
-      <Layout.VStack ref={searchInputRef} width='100%' alignItems='center'>
-        <SearchInput />
+
+      <Layout.VStack gap='16px' width='100%' maxWidth='310px'>
+        {/**
+         * DESCRIPTION
+         * 해당 VStack 내부에 다른 컴포넌트를 넣으면 안됨.
+         * onboarding에서 사용되는 ref가 해당 컴포넌트 사이즈를 측정하기 때문.
+         */}
+        <Layout.VStack ref={searchInputRef} width='100%' alignItems='center'>
+          <SearchInput />
+        </Layout.VStack>
+
+        <Layout.HScroll>
+          {searchSuggestions.map(product => (
+            <Button.LightGrayTag onClick={() => suggestionTagHandler(product)} key={uuid()}>
+              {product.title}
+            </Button.LightGrayTag>
+          ))}
+        </Layout.HScroll>
       </Layout.VStack>
-      <Layout.HStack margin='66px 0 0' gap='8px'>
+
+      <Layout.HStack margin='5vh 0 ' gap='8px'>
         <FacebookButton pageUrl={url} />
         <TwitterButton pageUrl={url} sendText={text} />
         <KakaoButton webUrl={url} />
         <LinkButton pageUrl={url} />
       </Layout.HStack>
-    </Layout.VStack>
+    </ScrollY>
   );
 }
+
 export default Home;
 
 function calculatePositionAndSizeOfSearchInput(
@@ -120,3 +153,17 @@ function calculatePositionAndSizeOfSearchInput(
 
   return calculatePosition;
 }
+
+const ScrollY = styled(Layout.VStack)`
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-thumb {
+    width: 4px;
+    border-radius: 2px;
+    background-clip: padding-box;
+    border: 10px solid transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.gray[2]};
+  }
+`;

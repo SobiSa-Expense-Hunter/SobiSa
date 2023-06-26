@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
@@ -26,7 +24,7 @@ function Alternative({
 }: AlternativeProps) {
   const amounts = Math.floor(wantedProductPrice / price);
   if (amounts <= 0) return null;
-  const amountsLoop = Array.from({ length: amounts }, (_, i) => i + 1);
+  const amountsLoop = Array.from({ length: Math.min(amounts, 100) }, (_, i) => i + 1);
 
   return (
     <AlternativeWrapper key={title}>
@@ -36,7 +34,7 @@ function Alternative({
           {`(${price.toLocaleString()}원)`}
         </AlternativeInfo>
         <ExtraLarge style={{ textAlign: 'right', fontSize: '17pt' }}>
-          {amounts}&nbsp;
+          {amounts.toLocaleString()}&nbsp;
           {unit}
         </ExtraLarge>
       </AlternativeTextWrapper>
@@ -48,7 +46,7 @@ function Alternative({
             animate='hidden'
             transition={{
               ease: 'linear',
-              duration: amounts / 2,
+              duration: amountsLoop.length / 2,
               repeat: Infinity,
               repeatType: 'loop',
             }}

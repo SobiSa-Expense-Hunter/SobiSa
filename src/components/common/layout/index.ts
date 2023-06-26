@@ -1,6 +1,8 @@
+/* eslint-disable import/no-cycle */
+import ScrollContainer from 'react-indiana-drag-scroll';
 import styled, { css } from 'styled-components';
 
-interface FlexProps extends SizeAndMarginAndPaddingProps {
+export interface FlexProps extends SizeAndMarginAndPaddingProps {
   flexDirection?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
   justifyContent?:
     | 'flex-start'
@@ -68,3 +70,15 @@ export const Box = styled.div<SizeAndMarginAndPaddingProps>`
   display: block;
   ${SizeAndMarginAndPaddingProperty}
 `;
+
+export const HScroll = styled(ScrollContainer)`
+  display: flex;
+  overflow: hidden;
+  word-break: keep-all;
+  flex-direction: row;
+  width: 100%;
+  max-width: 310px;
+  gap: 6px;
+`;
+
+export { default as FixButtonBottom } from '@/components/common/layout/FixButtonBottom';

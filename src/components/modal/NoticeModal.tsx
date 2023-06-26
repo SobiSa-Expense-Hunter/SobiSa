@@ -21,7 +21,7 @@ const NoticeModal = ({ onClose, message }: SearchErrorModalProps) => {
 
   return (
     <Portal>
-      <Background show={show} />
+      <Background show={show} onClick={animationAfterClose} />
       <ModalContainer show={show}>
         <ModalBox>
           <ContentBox>

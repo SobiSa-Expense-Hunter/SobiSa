@@ -1,27 +1,29 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable react/jsx-no-useless-fragment */
+
 import { useState, useRef, useEffect } from 'react';
 
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import { AFTER_ABOUT, EXPERIENCE_ONBOARDING } from '..';
 import AboutInit from '@/components/about/AboutInit';
+import AboutLayout from '@/components/about/layout';
 import { BottomButton } from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
+import { ONBOARDING, VISITED } from '@/constant/localstorage';
 import useLocalStorage from '@/hooks/useLocalStorage';
-
-const AboutLayout = dynamic(() => import('@/components/about/AboutLayout'));
 
 function About() {
   const [pageNum, setPageNum] = useState(0);
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [_, setExperienceOnboarding] = useLocalStorage(EXPERIENCE_ONBOARDING, '');
+  const [_, setDidWatchOnboarding] = useLocalStorage(ONBOARDING.key, ONBOARDING.status.INITIAL);
+  const [__, setIsVisted] = useLocalStorage(VISITED.key, VISITED.status.INITIAL);
   let scrollClickCount = 1;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => setExperienceOnboarding(AFTER_ABOUT), []);
+  useEffect(() => {
+    setIsVisted(new Date().toDateString());
+    setDidWatchOnboarding(ONBOARDING.status.NOT_WATCHED);
+  }, [setDidWatchOnboarding, setIsVisted]);
 
   const scrollHandler = () => {
     if (scrollClickCount < 1) {
@@ -42,19 +44,19 @@ function About() {
   return (
     <>
       {pageNum === 0 ? (
-        <>
+        <Layout.FixButtonBottom alignItems='center' justifyContent='center' maxWidth='100%'>
           <AboutInit ref={scrollRef} />
           <BottomButton onClick={scrollHandler}>다음으로</BottomButton>
-        </>
+        </Layout.FixButtonBottom>
       ) : (
-        <Layout.VStack height='100%' width='100%' justifyContent='center' maxWidth='310px'>
+        <Layout.FixButtonBottom justifyContent='center' maxWidth='310px'>
           <AboutLayout
             pageNum={pageNum}
             mainTexts={AboutContents[pageNum - 1].mainTexts}
             subTexts={AboutContents[pageNum - 1].subTexts}
           />
           <BottomButton onClick={nextPageHandler}>다음으로</BottomButton>
-        </Layout.VStack>
+        </Layout.FixButtonBottom>
       )}
     </>
   );
