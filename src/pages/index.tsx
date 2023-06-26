@@ -39,7 +39,7 @@ function Home() {
   const [isVisited, _] = useLocalStorage(VISITED.key, VISITED.status.FALSE);
   const [didWatchOnboarding, setDidWatchOnboarding] = useLocalStorage(
     ONBOARDING.key,
-    ONBOARDING.status.FALSE,
+    ONBOARDING.status.NOT_WATCHED,
   );
   const [searchInputPositionAndSize, setSearchInputPositionAndSize] =
     useState<SearchInputPositionAndSize>();
