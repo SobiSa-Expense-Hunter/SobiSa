@@ -30,7 +30,8 @@
           "**/*.test.tsx",
           "**/*.spec.ts",
           "**/*.spec.tsx",
-          "**/__test__/**/*"
+          "**/__test__/**/*",
+          "jest.setup.js"
         ]
       }
     ],

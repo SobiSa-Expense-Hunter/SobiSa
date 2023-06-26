@@ -1,2 +1,4 @@
-// eslint-disable-next-line global-require
+/* eslint-disable global-require */
+import 'jest-localstorage-mock';
+
 jest.mock('next/router', () => require('next-router-mock'));
