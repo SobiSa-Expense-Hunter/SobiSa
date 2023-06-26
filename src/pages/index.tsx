@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable import/no-cycle */
 import { useEffect, useState, useRef, RefObject } from 'react';
@@ -35,10 +36,10 @@ export interface SearchInputPositionAndSize {
 function Home() {
   const { title = '', text = '', url = '' } = sharedMessage;
 
-  const [isVisted, _] = useLocalStorage(VISITED.key, VISITED.status.INITIAL);
+  const [isVisited, _] = useLocalStorage(VISITED.key, VISITED.status.FALSE);
   const [didWatchOnboarding, setDidWatchOnboarding] = useLocalStorage(
     ONBOARDING.key,
-    ONBOARDING.status.INITIAL,
+    ONBOARDING.status.FALSE,
   );
   const [searchInputPositionAndSize, setSearchInputPositionAndSize] =
     useState<SearchInputPositionAndSize>();
@@ -48,16 +49,16 @@ function Home() {
   const dispatch = useSearchDispatch();
 
   useEffect(() => {
+    if (isVisited === VISITED.status.FALSE) router.push('/about');
+
     if (!searchInputRef.current) return;
     setSearchInputPositionAndSize(calculatePositionAndSizeOfSearchInput(searchInputRef));
-  }, [searchInputRef]);
+  }, [searchInputRef, isVisited]);
 
   const suggestionTagHandler = (product: Product) => {
     dispatch({ type: 'ADD_PRODUCT', item: product });
     router.push('/savingamount');
   };
-
-  if (isVisted === VISITED.status.INITIAL) router.push('/about');
 
   return (
     <ScrollY
