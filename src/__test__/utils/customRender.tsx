@@ -10,9 +10,12 @@ import theme from '@/styles/theme';
 import type { RenderOptions } from '@testing-library/react';
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => (
-  <SearchProvider>
-    <ThemeProvider theme={theme}>{children}</ThemeProvider>
-  </SearchProvider>
+  <>
+    <div id='modal-root' />
+    <SearchProvider>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    </SearchProvider>
+  </>
 );
 
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
