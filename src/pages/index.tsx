@@ -24,7 +24,7 @@ import useLocalStorage from '@/hooks/useLocalStorage';
 import * as Font from '@/styles/font';
 import { Product } from '@/types/product';
 
-const Onboarding = dynamic(() => import('@/components/search/Onboarding'));
+const Onboarding = dynamic(() => import('@/components/main/Onboarding'));
 
 export interface SearchInputPositionAndSize {
   x: number;
