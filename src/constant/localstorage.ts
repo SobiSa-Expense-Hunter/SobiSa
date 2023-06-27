@@ -18,7 +18,9 @@ type LocalStorageStatusMap = {
   };
 };
 
-type LocalStorageImpl<K extends keyof LocalStorageStatusMap> = {
+export type LocalStorageKeys = keyof LocalStorageStatusMap;
+
+type LocalStorageImpl<K extends LocalStorageKeys> = {
   key: K;
   status: LocalStorageStatusMap[K];
 };
