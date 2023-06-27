@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { LinkIcon } from '@/assets/Icons';
 import Toast from '@/components/common/Toast';
@@ -31,7 +31,7 @@ const LinkButton = ({ pageUrl }: LinkButtonProps) => {
       <ImageButton type='button' onClick={shareOnLink}>
         <LinkIcon />
       </ImageButton>
-      {toastShow && <Toast msg='url이 복사되었습니다' toastHide={toastHide} />}
+      {toastShow && <Toast msg='링크가 복사되었습니다' toastHide={toastHide} />}
     </>
   ) : null;
 };

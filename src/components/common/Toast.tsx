@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
@@ -57,17 +57,19 @@ export default Toast;
 
 const ToastContainer = styled(motion.div)`
   position: absolute;
+  display: flex;
+  min-width: 19rem;
+  min-height: 3.4375rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
   bottom: 5vh;
-  width: max-content;
-  line-height: 30px;
+  line-height: 1.3125rem;
   text-align: center;
   color: white;
-  background-color: ${props => props.theme.colors.gray[6]};
-  opacity: 70%;
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
-  backdrop-filter: brightness(0.5);
-  padding: 4px 24px;
-  font-size: 15px;
+  font-size: ${props => props.theme.fontSize.xs};
   left: 50%;
   transform: translate(-50%, 0);
 `;
