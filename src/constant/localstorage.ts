@@ -1,18 +1,29 @@
 /**
  * ! DESCRIPTION
  * 로컬 스토리지의 KEY - VALUE 관리
- * @interface LocalStorageImpl 의 양식에 맞추어 해당 key가 가질 수 있는 값을 status에 작성
+ * @LocalStorageStatusMap 의 양식에 맞추어 해당 속성이 가질 있는 상태를 작성
+ * 이후, 하단에 해당 값 구현체 작성
  */
-export interface LocalStorageImpl {
-  key: 'onboarding' | 'visited' | 'test';
-  status: {
-    [key in string]: string;
+
+type LocalStorageStatusMap = {
+  onboarding: {
+    INITIAL: 'initial';
+    NOT_WATCHED: 'notWatched';
+    WATCHED: 'watched';
   };
-}
+  visited: {
+    TRUE: 'true';
+    FALSE: 'false';
+    DATE: string;
+  };
+};
 
-export type LocalStorageKeys = LocalStorageImpl['key'];
+type LocalStorageImpl<K extends keyof LocalStorageStatusMap> = {
+  key: K;
+  status: LocalStorageStatusMap[K];
+};
 
-export const ONBOARDING: LocalStorageImpl = {
+export const ONBOARDING: LocalStorageImpl<'onboarding'> = {
   key: 'onboarding',
   status: {
     INITIAL: 'initial',
@@ -21,7 +32,7 @@ export const ONBOARDING: LocalStorageImpl = {
   },
 };
 
-export const VISITED: LocalStorageImpl = {
+export const VISITED: LocalStorageImpl<'visited'> = {
   key: 'visited',
   status: {
     TRUE: 'true',
