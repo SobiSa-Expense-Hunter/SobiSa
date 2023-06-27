@@ -49,7 +49,7 @@ function Onboarding({
         </FixedFlexZIndex2>
 
         <FixedFlexZIndex2 style={{ top: y, left: x, width, height }}>
-          <Image src='assets/image/about/seachInput.png' fill alt='input img' />
+          <Image src='/assets/image/about/seachInput.png' fill alt='input img' />
         </FixedFlexZIndex2>
 
         <Button.BottomButton
