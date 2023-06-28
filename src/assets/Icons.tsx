@@ -2,8 +2,13 @@ import Image from 'next/image';
 
 const ICON_PATH = '/assets/icons';
 
-export const HamburgerIcon = () => {
-  return <Image src={`${ICON_PATH}/hamburger.svg`} width={50} height={50} alt='메뉴' />;
+interface Size {
+  width: number;
+  height: number;
+}
+
+export const HamburgerIcon = ({ width, height }: Size) => {
+  return <Image src={`${ICON_PATH}/hamburger.svg`} width={width} height={height} alt='메뉴' />;
 };
 
 export const LeftIcon = () => {
@@ -55,8 +60,3 @@ export const AboutArrowIcon02 = () => {
 export const Info = ({ width, height }: Size) => {
   return <Image src={`${ICON_PATH}/Info.svg`} width={width} height={height} alt='정보 아이콘' />;
 };
-
-interface Size {
-  width: number;
-  height: number;
-}
