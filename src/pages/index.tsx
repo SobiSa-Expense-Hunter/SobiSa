@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
 import { MainImage } from '@/assets/Images';
+import Toast from '@/components/common/Toast';
 import { useSearchDispatch } from '@/components/SearchProvider';
 import SearchInput from '@/components/common/SearchInput';
 import * as Button from '@/components/common/buttons';
@@ -66,6 +67,7 @@ function Home() {
       height='100%'
       padding='30px 0 30px'
       alignItems='center'
+      justifyContent='center'
       style={{ overflowX: 'hidden', overflowY: 'auto' }}
     >
       {didWatchOnboarding === ONBOARDING.status.NOT_WATCHED && searchInputPositionAndSize && (
@@ -100,7 +102,7 @@ function Home() {
         </Layout.HScroll>
       </Layout.VStack>
 
-      <Layout.HStack margin='10vh 0 ' gap='8px'>
+      <Layout.HStack margin='5vh 0 ' gap='8px'>
         <FacebookButton pageUrl={url} />
         <TwitterButton pageUrl={url} sendText={text} />
         <KakaoButton webUrl={url} />

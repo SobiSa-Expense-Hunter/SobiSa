@@ -8,6 +8,7 @@ import { DownloadIcon } from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import { Background, ModalContainer } from '@/components/common/Modal';
 import { CloseButton, ShareButton } from '@/components/common/buttons';
+import * as Layout from '@/components/common/layout';
 import Card from '@/components/event/Card';
 import Certificate from '@/components/results/Certificate';
 import ShareButtons from '@/components/results/ShareButtons';
@@ -99,7 +100,8 @@ const CertificateAndShareModal = ({ onClose }: CertificateAndShareModalProps) =>
             </ModalButton>
             <ModalGrayButton onClick={redirectHome}>홈으로 돌아가기</ModalGrayButton>
           </CertificateAndShareWrapper>
-          <Card />
+          {/* <Card /> */}
+          <Layout.Box height='20px' />
         </Wrapper>
       </Container>
     </Portal>
