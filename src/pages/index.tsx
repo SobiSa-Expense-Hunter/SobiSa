@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
 import { MainImage } from '@/assets/Images';
-import Toast from '@/components/common/Toast';
 import { useSearchDispatch } from '@/components/SearchProvider';
 import SearchInput from '@/components/common/SearchInput';
 import * as Button from '@/components/common/buttons';
