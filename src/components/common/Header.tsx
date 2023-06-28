@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-import { LeftIcon } from '@/assets/Icons';
+import * as Icon from '@/assets/Icons';
+import * as Layout from '@/components/common/layout';
 import { Medium } from '@/styles/font';
 
 const Header = () => {
@@ -11,9 +12,11 @@ const Header = () => {
 
   return (
     <HeaderWrapper>
-      {isHome ? null : (
+      {isHome ? (
+        <Layout.Box width='40px' height='40px' />
+      ) : (
         <Button onClick={() => router.back()}>
-          <LeftIcon />
+          <Icon.LeftIcon />
         </Button>
       )}
       <StyleTextLogo>
@@ -21,6 +24,13 @@ const Header = () => {
           <Medium>SOBISA!</Medium>
         </Link>
       </StyleTextLogo>
+      {isHome ? (
+        <Button onClick={() => router.push('/about')}>
+          <Icon.Info width={14} height={14} />
+        </Button>
+      ) : (
+        <Layout.Box width='40px' height='40px' />
+      )}
     </HeaderWrapper>
   );
 };
@@ -31,10 +41,15 @@ const Button = styled.button`
   outline: none;
   border: none;
   background: none;
+  width: 40px;
+  height: 40px;
 
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   padding: 0;
-  position: absolute;
   left: 0;
 `;
 

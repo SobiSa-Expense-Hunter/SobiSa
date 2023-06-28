@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 import { useRouter } from 'next/router';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import Footer from '@/components/common/Footer';
 import Header from '@/components/common/Header';

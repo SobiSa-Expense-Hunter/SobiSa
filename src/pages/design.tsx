@@ -6,8 +6,8 @@ import { LinkIcon, LoadingIcon, NoticeIcon, TopIcon } from '@/assets/Icons';
 import { ItemImage, LineImage, MainImage } from '@/assets/Images';
 import Indicator from '@/assets/Indicators';
 import { FaceBookIcon, KakaoIcon, TwitterIcon } from '@/assets/SocialIcons';
-import SearchInput from '@/components/SearchInput';
 import FrameName from '@/components/common/FrameName';
+import SearchInput from '@/components/common/SearchInput';
 import {
   BottomButton,
   ModalButton,
