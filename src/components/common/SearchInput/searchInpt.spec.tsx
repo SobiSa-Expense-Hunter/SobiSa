@@ -41,30 +41,30 @@ describe('<SearchInput /> 정상 동작 테스트', () => {
 
 describe('<SearchInput /> 검색 예외 처리 테스트', () => {
   describe('공백 검색 시 검색어 "검색어를 입력해주세요" 모달이 떠야 한다.', () => {
-    it('공백 한칸만 검색어로 들어왔을 경우', () => {
-      const { searchInput, searchButton } = setup();
+    it('공백 한칸만 검색어로 들어왔을 경우', async () => {
+      const { searchInput, searchButton, findByText } = setup();
       waitFor(() => search(' ', { searchInput, searchButton }));
-      expect(screen.findAllByText('검색어를 입력해주세요.')).toBeTruthy();
+      expect(await findByText('검색어를 입력해주세요.')).toBeTruthy();
     });
 
-    it('공백 여러칸이 검색어로 들어왔을 경우', () => {
-      const { searchInput, searchButton } = setup();
+    it('공백 여러칸이 검색어로 들어왔을 경우', async () => {
+      const { searchInput, searchButton, findByText } = setup();
       waitFor(() => search('           ', { searchInput, searchButton }));
-      expect(screen.findAllByText('검색어를 입력해주세요.')).toBeTruthy();
+      expect(await findByText('검색어를 입력해주세요.')).toBeTruthy();
     });
   });
 
   describe('특수문자 검색 시 검색어 "특수문자를 제외하고 입력해주세요." 모달이 떠야 한다.', () => {
-    it('특수문자만 있는 검색어가 들어왔을 경우 ', () => {
-      const { searchInput, searchButton } = setup();
+    it('특수문자만 있는 검색어가 들어왔을 경우 ', async () => {
+      const { searchInput, searchButton, findByText } = setup();
       waitFor(() => search('$', { searchInput, searchButton }));
-      expect(screen.findAllByText('특수문자를 제외하고 입력해주세요.')).toBeTruthy();
+      expect(await findByText('특수문자를 제외하고 입력해주세요.')).toBeTruthy();
     });
 
-    it('특수문자 포함한 검색어가 들어왔을 경우', () => {
-      const { searchInput, searchButton } = setup();
+    it('특수문자 포함한 검색어가 들어왔을 경우', async () => {
+      const { searchInput, searchButton, findByText } = setup();
       waitFor(() => search('$test', { searchInput, searchButton }));
-      expect(screen.findAllByText('특수문자를 제외하고 입력해주세요.')).toBeTruthy();
+      expect(await findByText('특수문자를 제외하고 입력해주세요.')).toBeTruthy();
     });
   });
 
