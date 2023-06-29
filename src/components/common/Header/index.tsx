@@ -7,7 +7,7 @@ import * as Style from '@/components/common/Header/style';
 import * as Layout from '@/components/common/layout';
 import * as Font from '@/styles/font';
 
-import SearchHistory from './SearchHistory';
+import SearchHistory from './SearchHistoryList';
 
 const Header = () => {
   const router = useRouter();

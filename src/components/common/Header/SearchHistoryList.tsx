@@ -1,34 +1,72 @@
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
 
+import * as Icon from '@/assets/Icons';
+import Portal from '@/components/Portal';
+import * as Style from '@/components/common/Header/style';
 import * as Layout from '@/components/common/layout';
+import searchSuggestions from '@/constant/searchSuggestions';
 import * as Font from '@/styles/font';
 
-const SearchHistory = ({ title }: { title: string }) => {
+import SearchHistory from './SearchHistory';
+import type { Cycle } from 'framer-motion';
+
+function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
   return (
-    <SearchHistoryBackground whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-      <Emoji width='14px' height='14px' />
-      <Font.Medium>{title}</Font.Medium>
-    </SearchHistoryBackground>
+    <Portal>
+      <Layout.VStack width='100%' height='100%' alignItems='center'>
+        <Style.Absolute width='100%' height='100%' alignItems='center'>
+          <Layout.VStack width='100%' height='100%' alignItems='flex-end'>
+            <Style.ListBox
+              variants={wrapperVariants}
+              initial='initial'
+              animate='animate'
+              exit='exit'
+            >
+              <Style.SearchHeader
+                width='100%'
+                alignItems='center'
+                justifyContent='flex-start'
+                margin='0 0 10px 0'
+              >
+                <Font.Large style={{ flex: 1 }}>이전 검색 내역</Font.Large>
+                <Style.Button
+                  onClick={() => toggleSideBar()}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.8 }}
+                >
+                  <Icon.HamburgerIcon width={40} height={40} />
+                </Style.Button>
+              </Style.SearchHeader>
+              <Style.Line />
+
+              <Layout.VStack alignItems='center' justifyContent='flex-start'>
+                {searchSuggestions.map(suggestion => (
+                  <SearchHistory title={suggestion?.title || ''} key={uuid()} />
+                ))}
+              </Layout.VStack>
+            </Style.ListBox>
+          </Layout.VStack>
+        </Style.Absolute>
+      </Layout.VStack>
+
+      <Style.Background />
+    </Portal>
   );
+}
+
+const wrapperVariants = {
+  initial: {
+    clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
+    transition: { duration: 0.4, ease: 'easeIn' },
+  },
+  animate: {
+    clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+    transition: { duration: 0.4, staggerChildren: 0.1, ease: 'easeIn' },
+  },
+  exit: {
+    clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
+    transition: { duration: 0.4, ease: 'easeIn' },
+  },
 };
 
-export default SearchHistory;
-
-const SearchHistoryBackground = styled(motion.div)`
-  display: flex;
-  width: 100%;
-  min-height: 61px;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 20px;
-  gap: 20px;
-  :hover {
-    cursor: pointer;
-    background-color: ${props => props.theme.colors.gray[1]};
-  }
-`;
-
-const Emoji = styled(Layout.Box)`
-  background-color: ${props => props.theme.colors.gray[2]};
-`;
+export default SearchHistoryList;
