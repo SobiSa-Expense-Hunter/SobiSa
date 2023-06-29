@@ -1,12 +1,4 @@
-import {
-  Dispatch,
-  ReactNode,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useReducer,
-} from 'react';
+import { Dispatch, ReactNode, createContext, useContext, useEffect, useReducer } from 'react';
 
 import { UserSelected } from '@/types/product';
 import { Action } from '@/types/search';
