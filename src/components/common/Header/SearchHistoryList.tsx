@@ -1,16 +1,25 @@
+import { useEffect, useState } from 'react';
+
+import localForage from 'localforage';
 import { v4 as uuid } from 'uuid';
 
 import * as Icon from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import * as Style from '@/components/common/Header/style';
 import * as Layout from '@/components/common/layout';
-import searchSuggestions from '@/constant/searchSuggestions';
 import * as Font from '@/styles/font';
+import { UserSearchHistory } from '@/types/product';
 
-import SearchHistory from './SearchHistory';
+import SearchHistory from './SearchHistoryBox';
 import type { Cycle } from 'framer-motion';
 
 function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
+  const [searchHistorys, setSearchHistory] = useState<UserSearchHistory[]>([]);
+
+  useEffect(() => {
+    getAllItems().then(res => setSearchHistory(res as UserSearchHistory[]));
+  }, []);
+
   return (
     <Portal>
       <Layout.VStack width='100%' height='100%' alignItems='center'>
@@ -40,8 +49,8 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
               <Style.Line />
 
               <Layout.VStack alignItems='center' justifyContent='flex-start'>
-                {searchSuggestions.map(suggestion => (
-                  <SearchHistory title={suggestion?.title || ''} key={uuid()} />
+                {searchHistorys.map(history => (
+                  <SearchHistory searchHistory={history} key={uuid()} />
                 ))}
               </Layout.VStack>
             </Style.ListBox>
@@ -52,6 +61,13 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
       <Style.Background />
     </Portal>
   );
+}
+
+async function getAllItems() {
+  const items = await localForage
+    .keys()
+    .then(keys => keys.map(key => localForage.getItem(key).then(data => data)));
+  return Promise.all(items);
 }
 
 const wrapperVariants = {

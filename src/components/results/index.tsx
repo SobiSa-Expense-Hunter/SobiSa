@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 
+import localForage from 'localforage';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
@@ -12,7 +14,9 @@ import AlternativesContext from '@/components/results/AlternativesContext';
 import CertificateAndShareModal from '@/components/results/CertificateAndShareModal';
 import alternatives from '@/constant/Alternatives';
 import { ExtraLarge, Large, LargeOrange, Medium } from '@/styles/font';
-import { Alternatives } from '@/types/result';
+
+import type { UserSearchHistory } from '@/types/product';
+import type { Alternatives } from '@/types/result';
 
 const getRandomAlternatives = (price: number) => {
   return alternatives.filter(obj => obj.price <= price).sort(() => 0.5 - Math.random());
@@ -43,10 +47,24 @@ function Result() {
     } else {
       newAlternatives = getRandomAlternatives(price);
     }
+
+    const thisAlternatives =
+      newAlternatives.length > 5 ? newAlternatives.slice(0, 3) : newAlternatives;
+
     setAlternativesContextValue({
-      alternatives: newAlternatives.length > 5 ? newAlternatives.slice(0, 3) : newAlternatives,
+      alternatives: thisAlternatives,
       isLessThanAlternatives,
     });
+
+    // TODO : Title 값에 빈 값이 들어올 수 있어 해당 코드 앞에서 title과 price의 유효성 검사 필요.
+    const userSearchedProduct: UserSearchHistory = {
+      product: { title, image, price },
+      Alternative_title: thisAlternatives.map(alternative => alternative.title),
+      search_date: new Date().toLocaleDateString(),
+      savingAmount,
+    };
+
+    localForage.setItem(title || '', userSearchedProduct);
   }, [price, savingAmount]);
 
   if (!title || !price) {
