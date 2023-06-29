@@ -1,3 +1,5 @@
+import type { Alternatives } from '@/types/result';
+
 export interface Product {
   title?: string;
   image?: string;
@@ -12,4 +14,8 @@ export interface Product {
 export interface UserSelected {
   product: Product;
   savingAmount: number;
+}
+export interface UserSearchHistory extends UserSelected {
+  Alternative_title: Alternatives['title'][];
+  search_date: string;
 }
