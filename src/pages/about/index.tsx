@@ -17,7 +17,7 @@ function About() {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [_, setDidWatchOnboarding] = useLocalStorage(ONBOARDING.key, ONBOARDING.status.INITIAL);
-  const [__, setIsVisted] = useLocalStorage(VISITED.key, VISITED.status.INITIAL);
+  const [__, setIsVisted] = useLocalStorage(VISITED.key, VISITED.status.DATE);
   let scrollClickCount = 1;
 
   useEffect(() => {
