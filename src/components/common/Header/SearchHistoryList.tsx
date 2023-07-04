@@ -14,13 +14,42 @@ import { UserSearchHistory } from '@/types/product';
 import SearchHistory from './SearchHistoryBox';
 import type { Cycle } from 'framer-motion';
 
+// TODO: Alert창 모달 또는 토스트 팝업 디자인 적용
 function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
   const [searchHistorys, setSearchHistory] = useState<UserSearchHistory[]>([]);
 
   useEffect(() => {
-    // TODO: 로딩 중, 에러 처리 로직 추가
-    getAllItems().then(res => setSearchHistory(res as UserSearchHistory[]));
+    getAllItems()
+      .then(res => setSearchHistory(res as UserSearchHistory[]))
+      .catch(err => {
+        console.log(err);
+        alert('검색 기록을 불러오는동안 문제가 발생했어요. 다시 시도해주세요.');
+      });
   }, []);
+
+  const deleteIndividual = (title: string | undefined) => {
+    if (!title) {
+      alert('타이틀이 부정확합니다.');
+      return;
+    }
+
+    localForage
+      .removeItem(title)
+      .then(() => {
+        setSearchHistory(searchHistorys.filter(history => history.product.title !== title));
+        alert(`${title}이/가 삭제되었어요.`);
+      })
+      .catch(err => console.log(err));
+  };
+
+  const deleteAll = () =>
+    localForage
+      .clear()
+      .then(() => {
+        setSearchHistory([]);
+        alert(`검색 기록이 초기화 되었어요.`);
+      })
+      .catch(err => console.log(err));
 
   return (
     <Portal>
@@ -52,11 +81,11 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
 
               <Layout.VStack alignItems='center' justifyContent='flex-start'>
                 {searchHistorys.map(history => (
-                  <SearchHistory searchHistory={history} key={uuid()} />
+                  <SearchHistory searchHistory={history} key={uuid()} onDelete={deleteIndividual} />
                 ))}
               </Layout.VStack>
 
-              <Buttons.Button>전체 삭제</Buttons.Button>
+              <Buttons.Button onClick={deleteAll}>전체 삭제</Buttons.Button>
             </Style.ListBox>
           </Layout.VStack>
         </Style.Absolute>

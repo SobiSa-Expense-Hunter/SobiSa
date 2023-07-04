@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
@@ -6,13 +7,20 @@ import * as Layout from '@/components/common/layout';
 import * as Font from '@/styles/font';
 import { UserSearchHistory } from '@/types/product';
 
-const SearchHistoryBox = ({ searchHistory }: { searchHistory: UserSearchHistory }) => {
+interface SearchHistoryBoxProps {
+  searchHistory: UserSearchHistory;
+  onDelete: (key: string | undefined) => void;
+}
+
+const SearchHistoryBox = ({ searchHistory, onDelete }: SearchHistoryBoxProps) => {
+  const { product: thisProduct, searchDate } = searchHistory;
+
   return (
     <SearchHistoryBackground whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
       <Emoji width='14px' height='14px' />
-      <Font.Medium>{searchHistory.product.title}</Font.Medium>
-      <Font.Small>{searchHistory.search_date}</Font.Small>
-      <DeleteButton>
+      <Font.Medium>{thisProduct.title}</Font.Medium>
+      <Font.Small>{searchDate}</Font.Small>
+      <DeleteButton onClick={() => onDelete(thisProduct.title)}>
         <Icons.Delete width={8} height={8} />
       </DeleteButton>
     </SearchHistoryBackground>
