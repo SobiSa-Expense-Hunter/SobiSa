@@ -60,7 +60,7 @@ function Result() {
     const userSearchedProduct: UserSearchHistory = {
       product: { title, image, price },
       Alternative_title: thisAlternatives.map(alternative => alternative.title),
-      search_date: new Date().toLocaleDateString(),
+      searchDate: new Date().toLocaleDateString(),
       savingAmount,
     };
 

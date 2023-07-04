@@ -17,5 +17,5 @@ export interface UserSelected {
 }
 export interface UserSearchHistory extends UserSelected {
   Alternative_title: Alternatives['title'][];
-  search_date: string;
+  searchDate: string;
 }
