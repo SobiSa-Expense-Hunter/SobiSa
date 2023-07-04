@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { LinkIcon } from '@/assets/Icons';
 import { ImageButton } from '@/components/common/buttons';
