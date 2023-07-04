@@ -6,6 +6,7 @@ import { v4 as uuid } from 'uuid';
 import * as Icon from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import * as Style from '@/components/common/Header/style';
+import * as Buttons from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
 import * as Font from '@/styles/font';
 import { UserSearchHistory } from '@/types/product';
@@ -17,6 +18,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
   const [searchHistorys, setSearchHistory] = useState<UserSearchHistory[]>([]);
 
   useEffect(() => {
+    // TODO: 로딩 중, 에러 처리 로직 추가
     getAllItems().then(res => setSearchHistory(res as UserSearchHistory[]));
   }, []);
 
@@ -53,6 +55,8 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                   <SearchHistory searchHistory={history} key={uuid()} />
                 ))}
               </Layout.VStack>
+
+              <Buttons.Button>전체 삭제</Buttons.Button>
             </Style.ListBox>
           </Layout.VStack>
         </Style.Absolute>

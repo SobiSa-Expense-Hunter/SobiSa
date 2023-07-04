@@ -60,3 +60,7 @@ export const AboutArrowIcon02 = () => {
 export const Info = ({ width, height }: Size) => {
   return <Image src={`${ICON_PATH}/Info.svg`} width={width} height={height} alt='정보 아이콘' />;
 };
+
+export const Delete = ({ width, height }: Size) => {
+  return <Image src={`${ICON_PATH}/delete.svg`} width={width} height={height} alt='삭제 아이콘' />;
+};

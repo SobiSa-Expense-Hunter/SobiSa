@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
+import * as Icons from '@/assets/Icons';
 import * as Layout from '@/components/common/layout';
 import * as Font from '@/styles/font';
 import { UserSearchHistory } from '@/types/product';
@@ -11,6 +12,9 @@ const SearchHistoryBox = ({ searchHistory }: { searchHistory: UserSearchHistory 
       <Emoji width='14px' height='14px' />
       <Font.Medium>{searchHistory.product.title}</Font.Medium>
       <Font.Small>{searchHistory.search_date}</Font.Small>
+      <DeleteButton>
+        <Icons.Delete width={8} height={8} />
+      </DeleteButton>
     </SearchHistoryBackground>
   );
 };
@@ -28,11 +32,19 @@ const SearchHistoryBackground = styled(motion.div)`
   gap: 20px;
 
   :hover {
-    cursor: pointer;
     background-color: ${props => props.theme.colors.gray[1]};
   }
 `;
 
 const Emoji = styled(Layout.Box)`
   background-color: ${props => props.theme.colors.gray[2]};
+`;
+
+const DeleteButton = styled.button`
+  cursor: pointer;
+  border: none;
+  background: none;
+
+  width: 20px;
+  height: 20px;
 `;
