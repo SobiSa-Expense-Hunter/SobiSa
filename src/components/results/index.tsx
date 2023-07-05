@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 import { ShareButton } from '@/components/common/buttons';
+import AlternativeCardList from '@/components/results/alternatives/AlternativeCardList';
 import AlternativesContext from '@/components/results/alternatives/AlternativesContext';
 import { AlternativeContext } from '@/components/results/alternatives/useAlternatives';
 import ResultShareModal from '@/components/results/result-share-modal/ResultShareModal';
-import AlternativeCardList from '@/components/results/ui/AlternativeCardList';
 import { ExtraLarge, Large, LargeOrange, Medium } from '@/styles/font';
 import { UserSelected } from '@/types/product';
 import getSavingsPeriod from '@/utils/alternatives';

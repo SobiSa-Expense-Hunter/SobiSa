@@ -1,4 +1,4 @@
-import * as Style from '@/components/results/style';
+import * as Style from '@/components/results/alternatives/style';
 import { ExtraLarge } from '@/styles/font';
 import getSavingsPeriod from '@/utils/alternatives';
 

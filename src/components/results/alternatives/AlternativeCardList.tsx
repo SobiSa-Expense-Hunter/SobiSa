@@ -1,7 +1,7 @@
+import AlternativeBigCard from '@/components/results/alternatives/AlternativeBigCard';
+import AlternativeSmallCard from '@/components/results/alternatives/AlternativeSmallCard';
+import * as Style from '@/components/results/alternatives/style';
 import { AlternativeContextSelector } from '@/components/results/alternatives/useAlternatives';
-import * as Style from '@/components/results/style';
-import AlternativeBigCard from '@/components/results/ui/AlternativeBigCard';
-import AlternativeSmallCard from '@/components/results/ui/AlternativeSmallCard';
 
 interface AlternativeCardListProps {
   alternatives: AlternativeContextSelector;
