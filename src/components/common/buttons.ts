@@ -72,6 +72,15 @@ export const ShareButton = styled(Button)`
   gap: 8px;
 `;
 
+export const ShareMainButton = styled(ShareButton)`
+  width: 151px;
+`;
+
+export const ShareSubButton = styled(ShareMainButton)`
+  background: ${props => props.theme.colors.gray[1]};
+  color: ${props => props.theme.colors.gray[4]};
+`;
+
 export const CloseButton = styled(Button)`
   width: 45px;
   height: 45px;

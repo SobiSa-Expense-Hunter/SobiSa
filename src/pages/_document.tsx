@@ -49,6 +49,7 @@ class MyDocument extends Document {
           <link
             href='https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap'
             rel='stylesheet'
+            crossOrigin='anonymous'
           />
 
           <meta property='viewport' content='initial-scale=1.0, width=device-width' />

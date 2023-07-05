@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 
-import { toPng } from 'html-to-image';
 import { useRouter } from 'next/router';
 
 import { DownloadIcon } from '@/assets/Icons';
@@ -8,15 +7,18 @@ import Portal from '@/components/Portal';
 import { Background } from '@/components/common/Modal';
 import { CloseButton } from '@/components/common/buttons';
 import Certificate from '@/components/results/certificate/Certificate';
+import Receipt from '@/components/results/receipt/Receipt';
 import ShareButtons from '@/components/results/result-share-modal/SNSShareButtons';
+import { toPng } from '@/components/results/result-share-modal/html-to-image';
 import * as Style from '@/components/results/result-share-modal/style';
 import useModalAnimation from '@/hooks/useModalAnimation';
 
 interface ResultShareModalProps {
   onClose: () => void;
+  isPurchase: boolean;
 }
 
-const ResultShareModal = ({ onClose }: ResultShareModalProps) => {
+const ResultShareModal = ({ onClose, isPurchase }: ResultShareModalProps) => {
   const { show, animationAfterClose } = useModalAnimation(onClose);
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -45,7 +47,7 @@ const ResultShareModal = ({ onClose }: ResultShareModalProps) => {
         <Style.Wrapper>
           <Style.ResultShareWrapper>
             <CloseButton style={{ alignSelf: 'flex-end' }} onClick={animationAfterClose} />
-            <Certificate ref={ref} />
+            {isPurchase ? <Receipt ref={ref} /> : <Certificate ref={ref} />}
             <ShareButtons />
             <Style.ModalButton onClick={certificateDownload}>
               이미지 저장하기! <DownloadIcon />

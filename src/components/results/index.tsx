@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ShareButton } from '@/components/common/buttons';
+import { ShareMainButton, ShareSubButton } from '@/components/common/buttons';
 import AlternativeCardList from '@/components/results/alternatives/AlternativeCardList';
 import AlternativesContext from '@/components/results/alternatives/AlternativesContext';
 import { AlternativeContext } from '@/components/results/alternatives/useAlternatives';
@@ -18,9 +18,15 @@ interface ResultProps {
 
 function Result({ userSelected, alternatives }: ResultProps) {
   const [showModal, setShowModal] = useState(false);
+  const [isPurchase, setIsPurchase] = useState(false);
 
   const toggleModal = () => {
     setShowModal(prev => !prev);
+  };
+
+  const handleClick = (decision: boolean) => {
+    setIsPurchase(decision);
+    toggleModal();
   };
 
   const {
@@ -68,12 +74,13 @@ function Result({ userSelected, alternatives }: ResultProps) {
             <Large style={{ fontWeight: 500 }}>
               이걸 보고도 갖고 싶으시다면, <br /> 임명장을 발급받아 보세요!
             </Large>
-            <ShareButton onClick={toggleModal} style={{ marginTop: 8 }}>
-              임명장 받기
-            </ShareButton>
+            <Style.CertificateButtonCoWrapper>
+              <ShareSubButton onClick={() => handleClick(true)}>살래요</ShareSubButton>
+              <ShareMainButton onClick={() => handleClick(false)}>안살래요</ShareMainButton>
+            </Style.CertificateButtonCoWrapper>
           </Style.CertificateContainer>
 
-          {showModal && <ResultShareModal onClose={toggleModal} />}
+          {showModal && <ResultShareModal onClose={toggleModal} isPurchase={isPurchase} />}
         </Style.ResultWrapper>
       </Style.ResultContainer>
     </AlternativesContext.Provider>

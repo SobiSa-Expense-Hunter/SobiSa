@@ -57,8 +57,14 @@ export const CertificateContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 56px;
+  gap: 64px;
   margin: 28px 0;
+`;
+
+export const CertificateButtonCoWrapper = styled.div`
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
 `;
 
 export const AlternativesContainer = styled.div`

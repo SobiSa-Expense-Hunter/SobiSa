@@ -12,7 +12,7 @@ const Certificate = (_: CertificateProps, ref: ForwardedRef<HTMLDivElement>) => 
   } = useSearchStore();
 
   return (
-    <Style.CertificateContainer>
+    <Style.CertificateContainer ref={ref}>
       <Style.ColumnFlex>
         <Style.CertificateMediumLargeText>
           무려{' '}

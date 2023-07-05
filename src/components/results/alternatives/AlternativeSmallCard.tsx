@@ -28,8 +28,7 @@ const AlternativeSmallCard = ({ alternative, productPrice }: AlternativeSmallCar
     <>
       <Style.AlternativeTextWrapper>
         <Style.AlternativeInfo>
-          {alternative.title}
-          {`(${alternative.price.toLocaleString()}원)`}
+          {alternative.title} {`(${Number(alternative.price).toLocaleString()}원)`}
         </Style.AlternativeInfo>
         <ExtraLarge style={{ textAlign: 'right', fontSize: '17pt' }}>
           {amounts.toLocaleString()}&nbsp;
