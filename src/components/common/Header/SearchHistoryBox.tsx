@@ -9,7 +9,7 @@ import { UserSearchHistory } from '@/types/product';
 
 interface SearchHistoryBoxProps {
   searchHistory: UserSearchHistory;
-  onDelete: (key: string | undefined) => void;
+  onDelete: (key: string) => void;
 }
 
 const SearchHistoryBox = ({ searchHistory, onDelete }: SearchHistoryBoxProps) => {
@@ -20,7 +20,8 @@ const SearchHistoryBox = ({ searchHistory, onDelete }: SearchHistoryBoxProps) =>
       <Emoji width='14px' height='14px' />
       <Font.Medium>{thisProduct.title}</Font.Medium>
       <Font.Small>{searchDate}</Font.Small>
-      <DeleteButton onClick={() => onDelete(thisProduct.title)}>
+      {/* Description : searchHistory data를 get 해오며 title이 빈 값은 삭제하는 로직 존재  */}
+      <DeleteButton onClick={() => onDelete(thisProduct.title as string)}>
         <Icons.Delete width={8} height={8} />
       </DeleteButton>
     </SearchHistoryBackground>

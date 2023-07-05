@@ -105,3 +105,10 @@ export const Background = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
 `;
+
+export const Href = styled.a`
+  span {
+    text-decoration: underline;
+    font-weight: 600;
+  }
+`;
