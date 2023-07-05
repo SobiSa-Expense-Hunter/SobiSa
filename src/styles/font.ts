@@ -91,3 +91,16 @@ export const AwardXXLarge = styled(NeoDunggeunmo)`
   font-size: ${({ theme }) => theme.fontSize.xxl};
   color: ${({ theme }) => theme.colors.gray[5]};
 `;
+
+// 임명장 폰트
+export const CertificateMediumLarge = styled(GamjaFlower)`
+  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontSize.ml};
+  color: ${({ theme }) => theme.colors.gray[6]};
+`;
+
+export const CertificateExtraLarge = styled(GamjaFlower)`
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: ${({ theme }) => theme.colors.gray[6]};
+`;

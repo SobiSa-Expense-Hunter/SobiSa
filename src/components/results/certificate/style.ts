@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { GamjaFlower } from '@/styles/font';
+import { CertificateExtraLarge, CertificateMediumLarge } from '@/styles/font';
 
 export const CertificateContainer = styled.div`
   position: relative;
@@ -28,16 +28,8 @@ export const ColumnFlex = styled.div`
   gap: 16px;
 `;
 
-export const CertificateMediumLarge = styled(GamjaFlower)`
-  font-weight: 600;
-  font-size: ${({ theme }) => theme.fontSize.ml};
-  color: ${({ theme }) => theme.colors.gray[6]};
+export const CertificateMediumLargeText = styled(CertificateMediumLarge)`
   background-color: #f3b1b2;
   border-radius: 16px;
 `;
-
-export const CertificateExtraLarge = styled(GamjaFlower)`
-  font-weight: 700;
-  font-size: 24px;
-  color: ${({ theme }) => theme.colors.gray[6]};
-`;
+export const CertificateExtraLargeText = styled(CertificateExtraLarge)``;

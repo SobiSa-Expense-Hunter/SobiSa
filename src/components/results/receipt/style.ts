@@ -86,7 +86,7 @@ export const TextSpacer = styled.div`
   border: 1px dashed ${props => props.theme.colors.gray[4]};
 `;
 
-export const AwardXSmallGray6 = styled(AwardXSmall)`
+export const AwardXSmallGray6Text = styled(AwardXSmall)`
   color: ${props => props.theme.colors.gray[6]};
 `;
 
@@ -98,7 +98,7 @@ export const Sticker = styled(motion.span)`
 
 export const StickerStamp = styled(motion.span)``;
 
-export const ProductName = styled(AwardXLarge)`
+export const ProductNameText = styled(AwardXLarge)`
   text-align: right;
   word-break: keep-all;
 `;

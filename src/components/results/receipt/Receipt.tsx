@@ -46,13 +46,13 @@ const Receipt = (_: ReceiptProps, ref: ForwardedRef<HTMLDivElement>) => {
             <AwardXXSmall>No.0001</AwardXXSmall>
             <AwardXXSmall>{date}</AwardXXSmall>
           </Style.SmallFlexEnd>
-          <Style.ProductName>{title}</Style.ProductName>
+          <Style.ProductNameText>{title}</Style.ProductNameText>
         </Style.ColumnFlexEndWithBorderBottom>
         {isLessThanAlternatives ? (
           <>
             <Style.ContentColumnFlex>
               <Style.ContentRowFlex>
-                <Style.AwardXSmallGray6>할부기간</Style.AwardXSmallGray6>
+                <Style.AwardXSmallGray6Text>할부기간</Style.AwardXSmallGray6Text>
                 <Style.TextSpacer />
                 <AwardXXSmall>일시불</AwardXXSmall>
               </Style.ContentRowFlex>
@@ -66,7 +66,7 @@ const Receipt = (_: ReceiptProps, ref: ForwardedRef<HTMLDivElement>) => {
             </Style.ContentColumnFlex>
             <Style.ContentColumnFlex>
               <Style.ContentRowFlex>
-                <Style.AwardXSmallGray6>기회비용</Style.AwardXSmallGray6>
+                <Style.AwardXSmallGray6Text>기회비용</Style.AwardXSmallGray6Text>
                 <Style.TextSpacer />
                 <AwardXXSmall>(저축 : {savingAmount.toLocaleString()}원)</AwardXXSmall>
               </Style.ContentRowFlex>
@@ -93,13 +93,13 @@ const Receipt = (_: ReceiptProps, ref: ForwardedRef<HTMLDivElement>) => {
           <>
             <Style.ContentColumnFlex>
               <Style.ContentRowFlex>
-                <Style.AwardXSmallGray6>할부기간</Style.AwardXSmallGray6>
+                <Style.AwardXSmallGray6Text>할부기간</Style.AwardXSmallGray6Text>
                 <Style.TextSpacer />
                 <AwardXXSmall>
                   {savingsPeriod === 1 ? '일시불' : `${savingsPeriod}개월`}
                 </AwardXXSmall>
               </Style.ContentRowFlex>
-              <Style.AwardXSmallGray6>기회비용</Style.AwardXSmallGray6>
+              <Style.AwardXSmallGray6Text>기회비용</Style.AwardXSmallGray6Text>
               <Style.SmallColumnFlex style={{ marginLeft: 20 }}>
                 {Object.values(data)
                   .flat(1)

@@ -14,14 +14,20 @@ const Certificate = (_: CertificateProps, ref: ForwardedRef<HTMLDivElement>) => 
   return (
     <Style.CertificateContainer>
       <Style.ColumnFlex>
-        <Style.CertificateMediumLarge>
-          무려 <Style.CertificateExtraLarge>{price.toLocaleString()}원</Style.CertificateExtraLarge>{' '}
+        <Style.CertificateMediumLargeText>
+          무려{' '}
+          <Style.CertificateExtraLargeText>
+            {price.toLocaleString()}원
+          </Style.CertificateExtraLargeText>{' '}
           하는
-        </Style.CertificateMediumLarge>
-        <Style.CertificateMediumLarge>
-          <Style.CertificateExtraLarge>{title}</Style.CertificateExtraLarge> 를 사기로 결심한
-        </Style.CertificateMediumLarge>
-        <Style.CertificateMediumLarge>당신에게 이 임명장을 바칩니다.</Style.CertificateMediumLarge>
+        </Style.CertificateMediumLargeText>
+        <Style.CertificateMediumLargeText>
+          <Style.CertificateExtraLargeText>{title}</Style.CertificateExtraLargeText> 를 사기로
+          결심한
+        </Style.CertificateMediumLargeText>
+        <Style.CertificateMediumLargeText>
+          당신에게 이 임명장을 바칩니다.
+        </Style.CertificateMediumLargeText>
       </Style.ColumnFlex>
     </Style.CertificateContainer>
   );
