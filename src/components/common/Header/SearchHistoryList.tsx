@@ -48,6 +48,10 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
       })
       .catch(err => console.log(err));
 
+  const selectHistory = (history: UserSearchHistory) => {
+    window.history.pushState(history, 'UserSearchHistory');
+    // Router.push('/history')
+  };
   return (
     <Portal>
       <Layout.VStack width='100%' height='100%' alignItems='center'>
@@ -83,6 +87,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                       searchHistory={history}
                       key={uuid()}
                       onDelete={deleteIndividual}
+                      onClick={selectHistory}
                     />
                   ))}
 

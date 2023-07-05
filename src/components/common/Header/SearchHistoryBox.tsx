@@ -10,13 +10,18 @@ import { UserSearchHistory } from '@/types/product';
 interface SearchHistoryBoxProps {
   searchHistory: UserSearchHistory;
   onDelete: (key: string) => void;
+  onClick: (history: UserSearchHistory) => void;
 }
 
-const SearchHistoryBox = ({ searchHistory, onDelete }: SearchHistoryBoxProps) => {
+const SearchHistoryBox = ({ searchHistory, onDelete, onClick }: SearchHistoryBoxProps) => {
   const { product: thisProduct, searchDate } = searchHistory;
 
   return (
-    <SearchHistoryBackground whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+    <SearchHistoryBackground
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={() => onClick(searchHistory)}
+    >
       <Emoji width='14px' height='14px' />
       <Font.Medium>{thisProduct.title}</Font.Medium>
       <Font.Small>{searchDate}</Font.Small>
