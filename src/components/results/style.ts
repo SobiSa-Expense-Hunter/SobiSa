@@ -134,7 +134,7 @@ export const AlternativeIcons = styled(motion.div)`
   letter-spacing: 4px;
 `;
 
-export const AlternativeIcon = styled.span<{ url: string }>`
+export const AlternativeIcon = styled(motion.span)<{ url: string }>`
   width: 24px;
   height: 24px;
   background-image: url('${props => props.url}');

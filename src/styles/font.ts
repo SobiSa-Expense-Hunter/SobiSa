@@ -15,6 +15,12 @@ const NeoDunggeunmo = styled.span`
   font-weight: 400;
 `;
 
+export const GamjaFlower = styled.span`
+  font-family: 'Gamja Flower';
+  line-height: 150%;
+  letter-spacing: -0.022em;
+`;
+
 // ------ 기본 폰트 ------
 export const Small = styled(DefalutFont)`
   font-weight: 500;

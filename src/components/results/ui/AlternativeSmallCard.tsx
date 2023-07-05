@@ -10,6 +10,7 @@ interface AlternativeSmallCardProps {
   };
   productPrice: number;
 }
+
 const slideVariants = {
   visible: {
     x: 0,

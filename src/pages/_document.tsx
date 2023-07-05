@@ -1,13 +1,12 @@
 /* eslint-disable react/no-danger */
-import React from 'react';
 
 import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
   DocumentContext,
   DocumentInitialProps,
+  Head,
+  Html,
+  Main,
+  NextScript,
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
@@ -45,6 +44,13 @@ class MyDocument extends Document {
             href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css'
             crossOrigin='anonymous'
           />
+
+          <link rel='preconnect' href='https://fonts.gstatic.com' />
+          <link
+            href='https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap'
+            rel='stylesheet'
+          />
+
           <meta property='viewport' content='initial-scale=1.0, width=device-width' />
 
           <title>소비사!: 소비사냥꾼</title>
