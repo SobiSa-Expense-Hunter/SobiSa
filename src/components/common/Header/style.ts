@@ -51,7 +51,7 @@ export const StyleTextLogo = styled(Font.Medium)`
 `;
 
 export const SearchHeader = styled(Layout.HStack)`
-  padding: 5vh calc(2vh + 16px) calc((100% - 80%) / 2);
+  padding: 5vh calc(1vh + 16px) calc((100% - 80%) / 2);
   height: 42px;
   min-height: 42px;
 

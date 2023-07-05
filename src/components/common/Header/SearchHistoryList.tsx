@@ -74,7 +74,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.8 }}
                 >
-                  <Icon.HamburgerIcon width={40} height={40} />
+                  <Icon.Delete width={10} height={10} />
                 </Style.Button>
               </Style.SearchHeader>
               <Style.Line />
