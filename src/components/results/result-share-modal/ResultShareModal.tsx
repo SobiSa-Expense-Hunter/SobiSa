@@ -6,6 +6,7 @@ import { DownloadIcon } from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import { Background } from '@/components/common/Modal';
 import { CloseButton } from '@/components/common/buttons';
+import * as Layout from '@/components/common/layout';
 import Certificate from '@/components/results/certificate/Certificate';
 import Receipt from '@/components/results/receipt/Receipt';
 import ShareButtons from '@/components/results/result-share-modal/SNSShareButtons';
@@ -44,8 +45,8 @@ const ResultShareModal = ({ onClose, isPurchase }: ResultShareModalProps) => {
     <Portal>
       <Background show={show} />
       <Style.Container show={show} id='container'>
-        <Style.Wrapper>
-          <Style.ResultShareWrapper>
+        <Layout.VStack width='100%' alignItems='center' gap='5vh'>
+          <Layout.VStack alignItems='center' gap='32px'>
             <CloseButton style={{ alignSelf: 'flex-end' }} onClick={animationAfterClose} />
             {isPurchase ? <Receipt ref={ref} /> : <Certificate ref={ref} />}
             <ShareButtons />
@@ -53,8 +54,8 @@ const ResultShareModal = ({ onClose, isPurchase }: ResultShareModalProps) => {
               이미지 저장하기! <DownloadIcon />
             </Style.ModalButton>
             <Style.ModalGrayButton onClick={redirectHome}>홈으로 돌아가기</Style.ModalGrayButton>
-          </Style.ResultShareWrapper>
-        </Style.Wrapper>
+          </Layout.VStack>
+        </Layout.VStack>
       </Style.Container>
     </Portal>
   );

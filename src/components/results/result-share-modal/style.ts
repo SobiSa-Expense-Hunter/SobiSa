@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { ModalContainer } from '@/components/common/Modal';
 import { ShareButton } from '@/components/common/buttons';
+import * as Layout from '@/components/common/layout';
 
 export const Container = styled(ModalContainer)`
   background-color: transparent;
@@ -28,21 +29,6 @@ export const Container = styled(ModalContainer)`
   }
 `;
 
-export const ResultShareWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-`;
-
-export const Wrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5vh;
-`;
-
 export const ModalButton = styled(ShareButton)`
   margin-top: -12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -53,7 +39,7 @@ export const ModalGrayButton = styled(ModalButton)`
   background: ${props => props.theme.colors.gray[1]};
 `;
 
-export const ShareButtonsContainer = styled.div`
+export const ShareButtonsContainer = styled(Layout.HStack)`
   display: flex;
   flex-direction: row;
   gap: 8px;

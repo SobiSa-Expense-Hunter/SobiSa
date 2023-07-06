@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
+import * as Layout from '@/components/common/layout';
 import { AwardXLarge, AwardXSmall } from '@/styles/font';
 
 export const ReceiptContainer = styled.div`
@@ -19,9 +20,7 @@ export const ReceiptWrapper = styled.div`
   }
 `;
 
-export const ColumnFlex = styled.div`
-  display: flex;
-  flex-direction: column;
+export const ColumnFlex = styled(Layout.VStack)`
   gap: 16px;
 `;
 
@@ -40,9 +39,7 @@ export const SmallFlexEnd = styled(ColumnFlexEnd)`
   gap: 8px;
 `;
 
-export const RowFlex = styled.div`
-  display: flex;
-  flex-direction: row;
+export const RowFlex = styled(Layout.HStack)`
   align-items: center;
   gap: 16px;
 `;

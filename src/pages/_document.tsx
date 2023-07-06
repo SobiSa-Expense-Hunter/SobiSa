@@ -39,19 +39,6 @@ class MyDocument extends Document {
     return (
       <Html lang='ko'>
         <Head>
-          <link
-            rel='stylesheet'
-            href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css'
-            crossOrigin='anonymous'
-          />
-
-          <link rel='preconnect' href='https://fonts.gstatic.com' />
-          <link
-            href='https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap'
-            rel='stylesheet'
-            crossOrigin='anonymous'
-          />
-
           <meta property='viewport' content='initial-scale=1.0, width=device-width' />
 
           <title>소비사!: 소비사냥꾼</title>
@@ -74,6 +61,19 @@ class MyDocument extends Document {
             name='viewport'
             content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
           />
+
+          <link
+            rel='stylesheet'
+            href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css'
+            crossOrigin='anonymous'
+          />
+          <link rel='preconnect' href='https://fonts.gstatic.com' />
+          <link
+            href='https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap'
+            rel='stylesheet'
+            crossOrigin='anonymous'
+          />
+
           <link rel='apple-touch-icon' sizes='114x114' href='assets/image/sobisa_logo.png' />
           <link rel='icon' href='assets/image/favicon.png' />
         </Head>

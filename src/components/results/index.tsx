@@ -1,13 +1,14 @@
 import { useState } from 'react';
 
 import { ShareMainButton, ShareSubButton } from '@/components/common/buttons';
+import * as Layout from '@/components/common/layout';
 import AlternativeCardList from '@/components/results/alternatives/AlternativeCardList';
 import AlternativesContext from '@/components/results/alternatives/AlternativesContext';
 import { AlternativeContext } from '@/components/results/alternatives/useAlternatives';
 import ResultShareModal from '@/components/results/result-share-modal/ResultShareModal';
-import { ExtraLarge, Large, LargeOrange, Medium } from '@/styles/font';
+import getSavingsPeriod from '@/components/results/utils';
+import * as Font from '@/styles/font';
 import { UserSelected } from '@/types/product';
-import getSavingsPeriod from '@/utils/alternatives';
 
 import * as Style from './style';
 
@@ -40,15 +41,15 @@ function Result({ userSelected, alternatives }: ResultProps) {
     <AlternativesContext.Provider value={alternatives}>
       <Style.ResultContainer>
         <Style.ResultWrapper>
-          <Style.ProductContainer>
+          <Layout.VStack alignItems='center' gap='16px' margin='16px 0'>
             <Style.ProductName>{title || ''}</Style.ProductName>
             <Style.ProductWrapper>
-              <ExtraLarge>{productPrice.toLocaleString()} 원</ExtraLarge>
-              <LargeOrange style={{ fontWeight: 500 }}>
+              <Font.ExtraLarge>{productPrice.toLocaleString()} 원</Font.ExtraLarge>
+              <Font.LargeOrange style={{ fontWeight: 500 }}>
                 {savingsPeriod === 1
                   ? '한달이면 살 수 있지만... 필요한가요?'
                   : `${savingsPeriod}개월동안 모아야 해요!`}
-              </LargeOrange>
+              </Font.LargeOrange>
             </Style.ProductWrapper>
             <Style.ProductImage
               src={image}
@@ -57,28 +58,28 @@ function Result({ userSelected, alternatives }: ResultProps) {
                 e.currentTarget.src = './assets/image/image.png';
               }}
             />
-          </Style.ProductContainer>
-          <Style.AlternativesContainer>
-            <Medium style={{ fontWeight: 500 }}>
+          </Layout.VStack>
+          <Layout.VStack alignItems='center' gap='32px' width='100%' margin='16px 0'>
+            <Font.Medium style={{ fontWeight: 500 }}>
               {alternatives.isLessThanAlternatives
                 ? `${savingAmount.toLocaleString()}원으로 할 수 있는 일...`
                 : `이걸 가지는 대신 할 수 있는 일...`}
-            </Medium>
+            </Font.Medium>
             <AlternativeCardList
               alternatives={alternatives.data}
               productPrice={productPrice}
               savingAmount={savingAmount}
             />
-          </Style.AlternativesContainer>
-          <Style.CertificateContainer>
-            <Large style={{ fontWeight: 500 }}>
+          </Layout.VStack>
+          <Layout.VStack alignItems='center' gap='64px' margin='28px 0'>
+            <Font.Large style={{ fontWeight: 500 }}>
               이걸 보고도 갖고 싶으시다면, <br /> 임명장을 발급받아 보세요!
-            </Large>
-            <Style.CertificateButtonCoWrapper>
+            </Font.Large>
+            <Layout.HStack gap='8px' alignItems='flex-start'>
               <ShareSubButton onClick={() => handleClick(true)}>살래요</ShareSubButton>
               <ShareMainButton onClick={() => handleClick(false)}>안살래요</ShareMainButton>
-            </Style.CertificateButtonCoWrapper>
-          </Style.CertificateContainer>
+            </Layout.HStack>
+          </Layout.VStack>
 
           {showModal && <ResultShareModal onClose={toggleModal} isPurchase={isPurchase} />}
         </Style.ResultWrapper>

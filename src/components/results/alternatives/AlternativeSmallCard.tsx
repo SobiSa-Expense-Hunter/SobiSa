@@ -1,5 +1,5 @@
 import * as Style from '@/components/results/alternatives/style';
-import { ExtraLarge } from '@/styles/font';
+import * as Font from '@/styles/font';
 
 interface AlternativeSmallCardProps {
   alternative: {
@@ -21,34 +21,37 @@ const slideVariants = {
 };
 
 const AlternativeSmallCard = ({ alternative, productPrice }: AlternativeSmallCardProps) => {
-  const amounts = Math.floor(productPrice / alternative.price);
-  if (amounts <= 0) return null;
-  const amountsLoop = Array.from({ length: Math.min(amounts, 100) }, (_, i) => i + 1);
+  const alternativeCounts = Math.floor(productPrice / alternative.price);
+  if (alternativeCounts <= 0) return null;
+  const alternativeCountsLoop = Array.from(
+    { length: Math.min(alternativeCounts, 100) },
+    (_, i) => i + 1,
+  );
   return (
     <>
       <Style.AlternativeTextWrapper>
         <Style.AlternativeInfo>
           {alternative.title} {`(${Number(alternative.price).toLocaleString()}원)`}
         </Style.AlternativeInfo>
-        <ExtraLarge style={{ textAlign: 'right', fontSize: '17pt' }}>
-          {amounts.toLocaleString()}&nbsp;
+        <Font.ExtraLarge style={{ textAlign: 'right', fontSize: '17pt' }}>
+          {alternativeCounts.toLocaleString()}&nbsp;
           {alternative.unit}
-        </ExtraLarge>
+        </Font.ExtraLarge>
       </Style.AlternativeTextWrapper>
       <Style.AlternativeIconsWrapper>
-        {amounts > 8 ? (
+        {alternativeCounts > 8 ? (
           <Style.AlternativeIcons
             variants={slideVariants}
             initial='visible'
             animate='hidden'
             transition={{
               ease: 'linear',
-              duration: amountsLoop.length / 2,
+              duration: alternativeCountsLoop.length / 2,
               repeat: Infinity,
               repeatType: 'loop',
             }}
           >
-            {amountsLoop.map(v => (
+            {alternativeCountsLoop.map(v => (
               <Style.AlternativeIcon
                 url={alternative.image || ''}
                 key={`${alternative.title}_${v}`}
@@ -57,7 +60,7 @@ const AlternativeSmallCard = ({ alternative, productPrice }: AlternativeSmallCar
           </Style.AlternativeIcons>
         ) : (
           <Style.AlternativeIcons>
-            {amountsLoop.map(v => (
+            {alternativeCountsLoop.map(v => (
               <Style.AlternativeIcon
                 url={alternative.image || ''}
                 key={`${alternative.title}_${v}`}

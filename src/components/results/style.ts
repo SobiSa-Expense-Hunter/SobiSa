@@ -27,14 +27,6 @@ export const ResultWrapper = styled.div`
   padding: 0px 16px;
 `;
 
-export const ProductContainer = styled.div`
-  margin: 16px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-`;
-
 export const ProductWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -51,27 +43,4 @@ export const ProductImage = styled.img`
   height: 220px;
   min-width: 220px;
   max-width: 90%;
-`;
-
-export const CertificateContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 64px;
-  margin: 28px 0;
-`;
-
-export const CertificateButtonCoWrapper = styled.div`
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 8px;
-`;
-
-export const AlternativesContainer = styled.div`
-  margin: 16px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-  width: 100%;
 `;

@@ -21,6 +21,7 @@ const useAlternatives = (userSelected: UserSelected) => {
     isLessThanAlternatives: false,
   });
 
+  // data.csv에서 기회비용 데이터 읽기
   const { readRemoteFile } = usePapaParse();
   const getAlternativesData = useCallback(() => {
     return new Promise<Alternatives[]>((resolve, reject) => {
@@ -50,6 +51,7 @@ const useAlternatives = (userSelected: UserSelected) => {
     savingAmount,
   } = userSelected;
 
+  // 기회비용을 랜덤으로 돌리는 함수
   const randomPick = (target: AlternativeContextSelector) => {
     Object.keys(target).forEach(key => {
       if (isAlternativesCategoryKey(key)) {
@@ -73,6 +75,8 @@ const useAlternatives = (userSelected: UserSelected) => {
         values.every(obj => obj.price > price),
       );
 
+      // necessary, funny: 상품의 가격 or 저축금액보다 적은 가격을 가진 기회비용 추출
+      // stable: 상품의 가격 or 저축금액보다 많은 가격을 가진 기회비용 추출
       const filteredData = () => {
         return isLess
           ? {

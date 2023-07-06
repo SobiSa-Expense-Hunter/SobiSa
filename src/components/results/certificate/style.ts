@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { CertificateExtraLarge, CertificateMediumLarge } from '@/styles/font';
+import * as Font from '@/styles/font';
 
 export const CertificateContainer = styled.div`
   position: relative;
@@ -20,16 +20,8 @@ export const CertificateContainer = styled.div`
   align-items: center;
 `;
 
-export const ColumnFlex = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-`;
-
-export const CertificateMediumLargeText = styled(CertificateMediumLarge)`
+export const CertificateMediumLargeText = styled(Font.CertificateMediumLarge)`
   background-color: #f3b1b2;
   border-radius: 16px;
 `;
-export const CertificateExtraLargeText = styled(CertificateExtraLarge)``;
+export const CertificateExtraLargeText = styled(Font.CertificateExtraLarge)``;

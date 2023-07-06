@@ -1,6 +1,6 @@
 import * as Style from '@/components/results/alternatives/style';
+import getSavingsPeriod from '@/components/results/utils';
 import { ExtraLarge } from '@/styles/font';
-import getSavingsPeriod from '@/utils/alternatives';
 
 interface AlternativeCardUIProps {
   alternative: {
@@ -11,21 +11,6 @@ interface AlternativeCardUIProps {
   };
   savingAmount: number;
 }
-
-const slideVariants = {
-  inactive: {
-    x: '-150%',
-  },
-  active: {
-    x: '-1000px',
-    transition: {
-      ease: [0.895, 0.03, 0.685, 0.22],
-      duration: 1,
-      repeat: Infinity,
-      repeatType: 'loop',
-    },
-  },
-};
 
 const AlternativeBigCard = ({ alternative, savingAmount }: AlternativeCardUIProps) => {
   const savingsPeriod = getSavingsPeriod(alternative.price, savingAmount);

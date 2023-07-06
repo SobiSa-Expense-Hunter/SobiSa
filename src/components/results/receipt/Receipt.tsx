@@ -10,9 +10,9 @@ import {
 } from '@/assets/Stickers';
 import { useSearchStore } from '@/components/SearchProvider';
 import AlternativesContext from '@/components/results/alternatives/AlternativesContext';
+import getSavingsPeriod from '@/components/results/utils';
 import { AwardSmallOrange, AwardXSmall, AwardXXLarge, AwardXXSmall } from '@/styles/font';
 import { AlternativesCategory } from '@/types/result';
-import getSavingsPeriod from '@/utils/alternatives';
 
 import * as Style from './style';
 

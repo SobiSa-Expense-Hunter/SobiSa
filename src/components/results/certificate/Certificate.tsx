@@ -1,6 +1,7 @@
 import { ForwardedRef, forwardRef } from 'react';
 
 import { useSearchStore } from '@/components/SearchProvider';
+import * as Layout from '@/components/common/layout';
 
 import * as Style from './style';
 
@@ -13,7 +14,7 @@ const Certificate = (_: CertificateProps, ref: ForwardedRef<HTMLDivElement>) => 
 
   return (
     <Style.CertificateContainer ref={ref}>
-      <Style.ColumnFlex>
+      <Layout.VStack gap='16px' justifyContent='center' alignItems='center'>
         <Style.CertificateMediumLargeText>
           무려{' '}
           <Style.CertificateExtraLargeText>
@@ -28,7 +29,7 @@ const Certificate = (_: CertificateProps, ref: ForwardedRef<HTMLDivElement>) => 
         <Style.CertificateMediumLargeText>
           당신에게 이 임명장을 바칩니다.
         </Style.CertificateMediumLargeText>
-      </Style.ColumnFlex>
+      </Layout.VStack>
     </Style.CertificateContainer>
   );
 };
