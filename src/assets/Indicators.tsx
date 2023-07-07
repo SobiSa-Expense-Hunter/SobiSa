@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
 const Indicator = ({ length, order }: { length: number; order: number }) => {
-  const [indexes, setIndexes] = useState<string[]>(Array.from({ length }, () => uuid()));
+  const [indexes] = useState(Array.from({ length }, () => uuid()));
 
   return (
     <AnimatePresence>

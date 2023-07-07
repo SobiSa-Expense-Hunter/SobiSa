@@ -1,12 +1,12 @@
 import { createContext } from 'react';
 
-import { Alternatives } from '@/types/result';
+import { AlternativeContextSelector } from '@/components/results/alternatives/useAlternatives';
 
 const AlternativesContext = createContext<{
-  alternatives: Alternatives[];
+  data: AlternativeContextSelector;
   isLessThanAlternatives: boolean;
 }>({
-  alternatives: [],
+  data: { necessary: [], funny: [], stable: [] },
   isLessThanAlternatives: false,
 });
 
