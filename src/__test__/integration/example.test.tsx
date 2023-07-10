@@ -8,10 +8,6 @@ jest.mock('@/hooks/useLocalStorage', () => {
   return jest.fn(() => [VISITED.status.TRUE, '_']);
 });
 
-jest.mock('@/components/SearchProvider', () => {
-  return { __esModule: true, useSearchDispatch: jest.fn(() => null) };
-});
-
 describe('<Home />', () => {
   it('메인 TEXT 로딩이 되어야 한다.', () => {
     render(<Home />);

@@ -15,6 +15,12 @@ const NeoDunggeunmo = styled.span`
   font-weight: 400;
 `;
 
+export const GamjaFlower = styled.span`
+  font-family: 'Gamja Flower';
+  line-height: 150%;
+  letter-spacing: -0.022em;
+`;
+
 // ------ 기본 폰트 ------
 export const Small = styled(DefalutFont)`
   font-weight: 500;
@@ -84,4 +90,17 @@ export const AwardXLarge = styled(NeoDunggeunmo)`
 export const AwardXXLarge = styled(NeoDunggeunmo)`
   font-size: ${({ theme }) => theme.fontSize.xxl};
   color: ${({ theme }) => theme.colors.gray[5]};
+`;
+
+// 임명장 폰트
+export const CertificateMediumLarge = styled(GamjaFlower)`
+  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontSize.ml};
+  color: ${({ theme }) => theme.colors.gray[6]};
+`;
+
+export const CertificateExtraLarge = styled(GamjaFlower)`
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: ${({ theme }) => theme.colors.gray[6]};
 `;
