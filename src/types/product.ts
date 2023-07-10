@@ -16,6 +16,6 @@ export interface UserSelected {
   savingAmount: number;
 }
 export interface UserSearchHistory extends UserSelected {
-  Alternative_title: Alternatives['title'][];
+  alternativeTitles: Alternatives['title'][];
   searchDate: string;
 }

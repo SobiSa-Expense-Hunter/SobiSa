@@ -15,7 +15,7 @@ export type AlternativeContextSelector = {
   [key in AlternativesCategory]?: Alternatives[];
 };
 
-const useAlternatives = (userSelected: UserSelected) => {
+const useAlternatives = (userSelected: UserSelected, isRequireRandom: boolean) => {
   const [alternatives, setAlternatives] = useState<AlternativeContext>({
     data: { necessary: [], funny: [], stable: [] },
     isLessThanAlternatives: false,
@@ -51,23 +51,6 @@ const useAlternatives = (userSelected: UserSelected) => {
     savingAmount,
   } = userSelected;
 
-  // 기회비용을 랜덤으로 돌리는 함수
-  const randomPick = (target: AlternativeContextSelector) => {
-    Object.keys(target).forEach(key => {
-      if (isAlternativesCategoryKey(key)) {
-        target[key]?.sort(() => 0.5 - Math.random());
-      }
-    });
-    // necessary 2개
-    // funny 1개
-    // stable 1개
-    return {
-      necessary: target.necessary?.slice(0, 2),
-      funny: target.funny?.slice(0, 1),
-      stable: target.stable?.slice(0, 1),
-    };
-  };
-
   useEffect(() => {
     (async () => {
       const data = await select(await getAlternativesData());
@@ -90,11 +73,10 @@ const useAlternatives = (userSelected: UserSelected) => {
               stable: data.stable?.filter(obj => obj.price > price),
             };
       };
-
       setAlternatives({
         ...alternatives,
         isLessThanAlternatives: isLess,
-        data: randomPick(filteredData()),
+        data: isRequireRandom ? randomPick(filteredData()) : filteredData(),
       });
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,3 +94,25 @@ const select = (data: Alternatives[]) =>
     acc[curr.category]?.push(curr);
     return acc;
   }, {} as AlternativeContextSelector);
+
+/**
+ * 기회비용을 랜덤으로 돌리는 함수
+ * @param target
+ * @returns {
+ *  necessary 2개
+ *  funny 1개
+ *  stable 1개
+ * }
+ */
+const randomPick = (target: AlternativeContextSelector) => {
+  Object.keys(target).forEach(key => {
+    if (isAlternativesCategoryKey(key)) {
+      target[key]?.sort(() => 0.5 - Math.random());
+    }
+  });
+  return {
+    necessary: target.necessary?.slice(0, 2),
+    funny: target.funny?.slice(0, 1),
+    stable: target.stable?.slice(0, 1),
+  };
+};
