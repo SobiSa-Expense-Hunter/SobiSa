@@ -13,10 +13,10 @@ import * as Buttons from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
 import * as Font from '@/styles/font';
 
-import type { UserSearchHistory } from '@/types/product';
-import type { Cycle } from 'framer-motion';
 import SearchHistory from './SearchHistoryBox';
 import useDataState from './useDataState';
+import type { UserSearchHistory } from '@/types/product';
+import type { Cycle } from 'framer-motion';
 
 // TODO: Alert창 모달 또는 토스트 팝업 디자인 적용
 function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
