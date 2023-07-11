@@ -23,7 +23,7 @@ const Certificate = (_: CertificateProps, ref: ForwardedRef<HTMLDivElement>) => 
           하는
         </Style.CertificateMediumLargeText>
         <Style.CertificateMediumLargeText>
-          <Style.CertificateExtraLargeText>{title}</Style.CertificateExtraLargeText> 를 사기로
+          <Style.CertificateExtraLargeText>{title}</Style.CertificateExtraLargeText> 를 안 사기로
           결심한
         </Style.CertificateMediumLargeText>
         <Style.CertificateMediumLargeText>
