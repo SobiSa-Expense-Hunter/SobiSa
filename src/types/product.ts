@@ -19,3 +19,7 @@ export interface UserSearchHistory extends UserSelected {
   alternativeTitles: Alternatives['title'][];
   searchDate: string;
 }
+
+export const isUserSearchHistory = (history: any): history is UserSearchHistory => {
+  return 'alternativeTitles' in history && 'searchDate' in history;
+};

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import { useSearchDispatch } from '@/components/SearchProvider';
+import CustomError from '@/components/common/error';
 import History from '@/components/history';
-import { UserSearchHistory } from '@/types/product';
+import { UserSearchHistory, isUserSearchHistory } from '@/types/product';
 
 function HistoryPage() {
   const [history, setHistory] = useState<UserSearchHistory | null>();
@@ -18,7 +19,15 @@ function HistoryPage() {
     });
   }, [dispatch]);
 
-  return history ? <History history={history} /> : null;
+  return history && isUserSearchHistory(history) ? (
+    <History history={history} />
+  ) : (
+    <CustomError
+      mainTitle='이전 검색 내역을 불러올 수 없습니다'
+      subTextLines={['잠시 후 다시 확인해주세요.']}
+      buttonText='이전으로'
+    />
+  );
 }
 
 export default HistoryPage;
