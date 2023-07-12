@@ -32,7 +32,7 @@ export const SearchInputBox = styled.div<{ focus: boolean; search: string }>`
 
   box-shadow: ${({ focus }) => (focus ? `0px 4px 10px  rgba(0, 0, 0, 0.1)` : 'none')};
 
-  z-index: ${({ focus }) => (focus ? '1' : '0')};
+  z-index: ${({ focus }) => (focus ? '1' : 'none')};
 `;
 
 export const SearchEnterInput = styled.input`

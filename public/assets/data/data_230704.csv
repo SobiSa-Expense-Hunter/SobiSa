@@ -1,0 +1,55 @@
+category,title,price,unit,image
+funny,네이버 쿠키,200,개 굽기,emoji_cookie.png
+funny,인형뽑기,1000,회 뽑기,emoji_doll.png
+funny,코인노래방,1000,번 가기,emoji_mike.png
+funny,소주,1800,병 사기,소주.png
+funny,카카오 이모티콘,2000,개 사기,카카오임티.png
+funny,생수 500ml,900,개 사기,생수.png
+funny,쓰래기봉투(20L),490,개 사기,쓰레기봉투.png
+funny,소멸성 실손보험 (다달이),9000,달 들기,실손보험.png
+funny,에버랜드,62000,번 가기,에버랜드.png
+funny,도수치료,100000,번 받기,도수치료.png
+funny,척추수술,1500000,번 받기,척추수술.png
+necessary,냉면,11000,그릇 먹기,emoji_noodles.png
+necessary,비빔밥,10200,그릇 먹기,emoji_bibimbap.png
+necessary,김치찌개백반,8000,번 먹기,emoji_kimchistew.png
+necessary,삼겹살(200g),20000,개 먹기,emoji_porkbelly.png
+necessary,자장면,7000,그릇 먹기,emoji_jajangmyeon.png
+necessary,삼계탕,16500,그릇 먹기,emoji_samgyetang.png
+necessary,국밥,8000,뚝배기 먹기,emoji_ricesoup.png
+necessary,김밥,3000,줄 먹기,emoji_gimbap.png
+necessary,쌀(80kg),183000,포대 먹기,쌀.png
+necessary,전철료(성인)카드,1250,번 탑승,emoji_subway.png
+necessary,시내버스(성인)카드,1200,번 탑승,버스.png
+necessary,택시료(중형),4800,번 탑승,택시.png
+necessary,상수도료(가정용),12680,번 납부,상하수도.png
+necessary,하수도료(가정용),8000,번 납부,상하수도.png
+necessary,라면(봉지 120g),700,봉지 먹기,라면.png
+necessary,커피(스타벅스),4500,번 마시기,커피.png
+necessary,커피(메가커피),2000,번 마시기,저가커피.png
+necessary,즉석밥(210g),1600,그릇 먹기,즉석밥.png
+necessary,생수(2L),1000,페트병 마시기,생수.png
+necessary,계란 한판,7300,판 먹기,계란한판.png
+necessary,껌,500,개 씹기,껌.png
+necessary,우유(서울우유 900ml),3050,갑 마시기,우유.png
+necessary,박카스,900,병 마시기,박카스.png
+necessary,삼각김밥,1000,개 먹기,삼각김밥.png
+necessary,맥주 4캔,11000,번 사기,맥주.png
+necessary,새우깡,1300,봉지 먹기,새우깡.png
+necessary,바나나 한송이,3700,송이 먹기,바나나.png
+necessary,닭가슴살,2000,팩 먹기,닭가슴살.png
+necessary,컷트,21000,번 자르기,머리커트.png
+necessary,넷플릭스,13500,달 시청,넷플.png
+necessary,웨이브,7900,달 시청,웨이브.png
+necessary,티빙,10900,달 시청,티빙.png
+necessary,후시딘,4500,통 바르기,척추수술.png
+necessary,게보린,5000,개 먹기,게보린.png
+necessary,까스활명수,1000,병 먹기,박카스.png
+stable,쏘나타DNB,23000000,대 구매,쏘나타.png
+stable,모닝,12000000,대 구매,레이.png
+stable,레이,13500000,대 구매,레이.png
+stable,티볼리,19000000,대 구매,티볼리.png
+stable,캐스퍼,14000000,대 구매,티볼리.png
+stable,서울 20평대 아파트 전세,300000000,채 소유,아파트.png
+stable,서울 20평대 아파트 매매,700000000,채 소유,아파트.png
+stable,서울 5평 원룸,400000,달 거주,원룸.png

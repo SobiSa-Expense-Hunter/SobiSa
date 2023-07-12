@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-param-reassign */
-import { useEffect, useState, useReducer } from 'react';
+import { useEffect, useState } from 'react';
 
 import localForage from 'localforage';
+import { useRouter } from 'next/router';
 import { v4 as uuid } from 'uuid';
 
 import * as Icon from '@/assets/Icons';
@@ -21,6 +22,7 @@ import type { Cycle } from 'framer-motion';
 function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
   const [searchHistorys, setSearchHistory] = useState<UserSearchHistory[]>([]);
   const [dataState, dispatchDataState] = useDataState();
+  const router = useRouter();
 
   useEffect(() => {
     dispatchDataState('IS_LOADING');
@@ -49,8 +51,8 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
       .catch(err => console.log(err));
 
   const selectHistory = (history: UserSearchHistory) => {
-    window.history.pushState(history, 'UserSearchHistory');
-    // Router.push('/history')
+    window.history.pushState(history, '', '/history');
+    router.push('/history');
   };
   return (
     <Portal>
