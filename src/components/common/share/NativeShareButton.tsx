@@ -8,7 +8,7 @@ interface NativeShareButtonProps {
 }
 
 const NativeShareButton = ({ sharedMessage }: NativeShareButtonProps) => {
-  const [show, setShow] = useState(false);
+  const [isShow, setShow] = useState(false);
 
   useEffect(() => {
     if (!(navigator.share === undefined || navigator.canShare(sharedMessage) === false)) {
@@ -16,7 +16,7 @@ const NativeShareButton = ({ sharedMessage }: NativeShareButtonProps) => {
     }
   }, [sharedMessage]);
 
-  return show ? (
+  return isShow ? (
     <ImageButton
       type='button'
       onClick={() => navigator.share(sharedMessage)}

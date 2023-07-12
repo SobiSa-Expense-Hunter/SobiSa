@@ -21,12 +21,12 @@ interface ChoseProductModalProps {
 }
 
 const ChoseProductModal = ({ onClose, onSubmit, title, image }: ChoseProductModalProps) => {
-  const { show, animationAfterClose } = useModalAnimation(onClose);
+  const { isShow, animationAfterClose } = useModalAnimation(onClose);
 
   return (
     <Portal>
-      <Background show={show} />
-      <ChoseModalContainer show={show}>
+      <Background show={isShow} />
+      <ChoseModalContainer show={isShow}>
         <ModalBox>
           <ContentBox>
             <Message>{title}</Message>

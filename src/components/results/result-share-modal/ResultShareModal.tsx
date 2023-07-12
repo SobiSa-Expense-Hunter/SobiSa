@@ -20,7 +20,7 @@ interface ResultShareModalProps {
 }
 
 const ResultShareModal = ({ onClose, isPurchase }: ResultShareModalProps) => {
-  const { show, animationAfterClose } = useModalAnimation(onClose);
+  const { isShow, animationAfterClose } = useModalAnimation(onClose);
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -43,8 +43,8 @@ const ResultShareModal = ({ onClose, isPurchase }: ResultShareModalProps) => {
 
   return (
     <Portal>
-      <Background show={show} />
-      <Style.Container show={show} id='container'>
+      <Background show={isShow} />
+      <Style.Container show={isShow} id='container'>
         <Layout.VStack width='100%' alignItems='center' gap='5vh'>
           <Layout.VStack alignItems='center' gap='32px'>
             <CloseButton style={{ alignSelf: 'flex-end' }} onClick={animationAfterClose} />

@@ -10,8 +10,8 @@ import MarginBox from '@/components/common/marginBox';
 import * as Font from '@/styles/font';
 
 const Card = () => {
-  const [show, setShow] = useState(true);
-  return show ? (
+  const [isShow, setIsShow] = useState(true);
+  return isShow ? (
     <CardContainer>
       <Layout.VStack
         style={{
@@ -35,7 +35,7 @@ const Card = () => {
           position: 'relative',
         }}
       >
-        <CloseButton type='button' onClick={() => setShow(prev => !prev)}>
+        <CloseButton type='button' onClick={() => setIsShow(prev => !prev)}>
           <Image src='/assets/icons/small_close.svg' width={10} height={10} alt='카드 닫기' />
         </CloseButton>
 

@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
  * @returns 모달의 상태, 모달 종료 함수
  */
 const useModalAnimation = (onClose: () => void) => {
-  const [show, setShow] = useState(true);
+  const [isShow, setIsShow] = useState(true);
   const animationTimer = useRef<NodeJS.Timer>();
 
   useEffect(() => {
@@ -19,11 +19,11 @@ const useModalAnimation = (onClose: () => void) => {
   }, []);
 
   const animationAfterClose = () => {
-    setShow(false);
+    setIsShow(false);
     animationTimer.current = setTimeout(() => {
       onClose();
     }, 200);
   };
-  return { show, animationAfterClose };
+  return { isShow, animationAfterClose };
 };
 export default useModalAnimation;

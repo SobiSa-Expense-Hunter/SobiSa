@@ -61,7 +61,7 @@ function SearchInput() {
         <MagnifyingGlassIcon />
       </Style.SearchButton>
 
-      {modalState.show && (
+      {modalState.isShow && (
         <NoticeModal
           onClose={() => dispatchModalState({ type: 'HIDE' })}
           message={modalState.message}

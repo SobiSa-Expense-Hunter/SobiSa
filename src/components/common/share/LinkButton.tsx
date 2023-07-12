@@ -9,29 +9,29 @@ interface LinkButtonProps {
 }
 
 const LinkButton = ({ pageUrl }: LinkButtonProps) => {
-  const [show, setShow] = useState(false);
-  const [toastShow, setToastShow] = useState(false);
+  const [isShow, setIsShow] = useState(false);
+  const [isToastShow, setIsToastShow] = useState(false);
 
   useEffect(() => {
-    setShow(true);
+    setIsShow(true);
   }, []);
 
   const shareOnLink = () => {
     navigator.clipboard.writeText(pageUrl).then(() => {
-      setToastShow(true);
+      setIsToastShow(true);
     });
   };
 
   const toastHide = () => {
-    setToastShow(false);
+    setIsToastShow(false);
   };
 
-  return show ? (
+  return isShow ? (
     <>
       <ImageButton type='button' onClick={shareOnLink}>
         <LinkIcon />
       </ImageButton>
-      {toastShow && <Toast msg='링크가 복사되었습니다' toastHide={toastHide} />}
+      {isToastShow && <Toast msg='링크가 복사되었습니다' toastHide={toastHide} />}
     </>
   ) : null;
 };

@@ -18,11 +18,11 @@ interface ResultProps {
 }
 
 function Result({ userSelected, alternatives }: ResultProps) {
-  const [showModal, setShowModal] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const [isPurchase, setIsPurchase] = useState(false);
 
   const toggleModal = () => {
-    setShowModal(prev => !prev);
+    setIsShowModal(prev => !prev);
   };
 
   const handleClick = (decision: boolean) => {
@@ -81,7 +81,7 @@ function Result({ userSelected, alternatives }: ResultProps) {
             </Layout.HStack>
           </Layout.VStack>
 
-          {showModal && <ResultShareModal onClose={toggleModal} isPurchase={isPurchase} />}
+          {isShowModal && <ResultShareModal onClose={toggleModal} isPurchase={isPurchase} />}
         </Style.ResultWrapper>
       </Style.ResultContainer>
     </AlternativesContext.Provider>

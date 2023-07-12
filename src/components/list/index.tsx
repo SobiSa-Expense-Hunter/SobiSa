@@ -27,17 +27,17 @@ export interface ListPageProps {
 const List = ({ search }: { search: string }) => {
   const router = useRouter();
   const { products, queryRes } = useSearchProducts(search);
-  const [showModal, setShowModal] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const [userSelected, setUserSelected] = useState<Product>();
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { ref, inView } = useInView();
+  const { ref, inView: isInView } = useInView();
   const dispatch = useSearchDispatch();
 
   const { fetchNextPage, isLoading, hasNextPage, isFetching, isError } = queryRes;
 
   useEffect(() => {
-    if (inView && hasNextPage) fetchNextPage();
-  }, [fetchNextPage, hasNextPage, inView]);
+    if (isInView && hasNextPage) fetchNextPage();
+  }, [fetchNextPage, hasNextPage, isInView]);
 
   if (isLoading || products === undefined)
     return (
@@ -64,7 +64,7 @@ const List = ({ search }: { search: string }) => {
 
   const listClickHandler = (product: Product) => {
     setUserSelected(product);
-    setShowModal(true);
+    setIsShowModal(true);
   };
 
   const topBtnHandler = () => {
@@ -82,7 +82,7 @@ const List = ({ search }: { search: string }) => {
     router.push('/keyword');
   };
 
-  const onClose = () => setShowModal(false);
+  const onClose = () => setIsShowModal(false);
 
   return (
     <>
@@ -103,7 +103,7 @@ const List = ({ search }: { search: string }) => {
               />
             ))}
 
-            {showModal && userSelected?.title && userSelected.image && (
+            {isShowModal && userSelected?.title && userSelected.image && (
               <ChoseProductModal
                 onClose={onClose}
                 onSubmit={onSubmit}

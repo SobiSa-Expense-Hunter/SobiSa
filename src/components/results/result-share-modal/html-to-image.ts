@@ -28,11 +28,11 @@ export const toPng = async (node: HTMLDivElement) => {
   if (context === null) return '';
 
   const img: HTMLImageElement = await createImage(svgDataUrl);
-  let done = false;
+  let isDone = false;
   const onFrame = () => {
     context.drawImage(img, 0, 0, width * multiple, height * multiple);
-    if (canvas.toDataURL('image/png', 1.0).length > 204800) done = true;
-    if (!done) {
+    if (canvas.toDataURL('image/png', 1.0).length > 204800) isDone = true;
+    if (!isDone) {
       window.requestAnimationFrame(onFrame);
     }
   };

@@ -14,8 +14,8 @@ const NoticeModal = dynamic(() => import('@/components/modal/NoticeModal'), { ss
 
 const SavingAmount = () => {
   const [amount, setAmount] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [typingModal, setTypingModal] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [isTypingModal, setIsTypingModal] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const store = useSearchStore();
@@ -40,12 +40,12 @@ const SavingAmount = () => {
 
     if (numberReg.test(value) || emptystringReg.test(value)) {
       setAmount(Number(value.replaceAll(',', '')).toLocaleString('ko-KR'));
-    } else setShowModal(true);
+    } else setIsShowModal(true);
   };
 
   const handleInputSubmit = () => {
     if (!amount) {
-      setTypingModal(true);
+      setIsTypingModal(true);
       return;
     }
     dispatch({
@@ -91,11 +91,11 @@ const SavingAmount = () => {
         <BottomButton>다음으로</BottomButton>
       </Layout.Flex>
 
-      {showModal && (
-        <NoticeModal onClose={() => setShowModal(false)} message='숫자만 입력해주세요!' />
+      {isShowModal && (
+        <NoticeModal onClose={() => setIsShowModal(false)} message='숫자만 입력해주세요!' />
       )}
-      {typingModal && (
-        <NoticeModal onClose={() => setTypingModal(false)} message='모든 칸을 채워주세요!' />
+      {isTypingModal && (
+        <NoticeModal onClose={() => setIsTypingModal(false)} message='모든 칸을 채워주세요!' />
       )}
     </Layout.FixButtonBottom>
   );

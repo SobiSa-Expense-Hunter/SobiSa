@@ -17,12 +17,12 @@ interface SearchErrorModalProps {
 }
 
 const NoticeModal = ({ onClose, message }: SearchErrorModalProps) => {
-  const { show, animationAfterClose } = useModalAnimation(onClose);
+  const { isShow, animationAfterClose } = useModalAnimation(onClose);
 
   return (
     <Portal>
-      <Background show={show} onClick={animationAfterClose} />
-      <ModalContainer show={show}>
+      <Background show={isShow} onClick={animationAfterClose} />
+      <ModalContainer show={isShow}>
         <ModalBox>
           <ContentBox>
             <NoticeIcon />

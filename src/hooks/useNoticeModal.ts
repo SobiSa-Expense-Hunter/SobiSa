@@ -9,7 +9,7 @@ export default function useNoticeModal() {
 }
 
 export const initialState = {
-  show: false,
+  isShow: false,
   message: '',
 };
 
@@ -26,13 +26,13 @@ const modalReducer = (
     case 'SHOW':
       return {
         ...state,
-        show: true,
+        isShow: true,
         message: action.message || '',
       };
     case 'HIDE':
       return {
         ...state,
-        show: false,
+        isShow: false,
         message: '',
       };
     default:
