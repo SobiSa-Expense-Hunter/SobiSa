@@ -64,3 +64,9 @@ export const Info = ({ width, height }: Size) => {
 export const Delete = ({ width, height }: Size) => {
   return <Image src={`${ICON_PATH}/delete.svg`} width={width} height={height} alt='삭제 아이콘' />;
 };
+
+export const DeleteOrange = ({ width, height }: Size) => {
+  return (
+    <Image src={`${ICON_PATH}/delete-orange.svg`} width={width} height={height} alt='삭제 아이콘' />
+  );
+};
