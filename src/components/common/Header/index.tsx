@@ -7,7 +7,7 @@ import * as Style from '@/components/common/Header/style';
 import * as Layout from '@/components/common/layout';
 import * as Font from '@/styles/font';
 
-import SearchHistory from './SearchHistoryList';
+import SearchHistoryList from './search-history';
 
 const Header = () => {
   const router = useRouter();
@@ -49,7 +49,7 @@ const Header = () => {
             <Icon.HamburgerIcon width={40} height={40} />
           </Style.Button>
           <AnimatePresence>
-            {isOpen && <SearchHistory toggleSideBar={toggleOpen} />}
+            {isOpen && <SearchHistoryList toggleSideBar={toggleOpen} />}
           </AnimatePresence>
         </>
       ) : (
