@@ -51,19 +51,16 @@ export const StyleTextLogo = styled(Font.Medium)`
 `;
 
 export const SearchHeader = styled(Layout.HStack)`
-  padding: 5vh calc(1vh + 16px) calc((100% - 80%) / 2);
+  padding: 5vh calc(1vh + 16px) 14px 60px;
   height: 42px;
   min-height: 42px;
 
-  @media (max-width: 768px) {
-    padding: 40px 0;
-  }
   @media (padding-top: 5svh) {
-    padding: 5svh 0 2svh;
+    padding: 5svh 0 2svh 60px;
   }
 
   @media (max-width: 768px) {
-    padding: 5vh 16px;
+    padding: 5vh 0 16px 60px;
   }
 `;
 

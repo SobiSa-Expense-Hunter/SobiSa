@@ -20,7 +20,7 @@ import type { Cycle } from 'framer-motion';
 
 // TODO: Alert창 모달 또는 토스트 팝업 디자인 적용
 function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
-  const [searchHistorys, setSearchHistory] = useState<UserSearchHistory[]>([]);
+  const [searchHistories, setSearchHistory] = useState<UserSearchHistory[]>([]);
   const [dataState, dispatchDataState] = useDataState();
   const router = useRouter();
 
@@ -31,11 +31,18 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
       .then(() => dispatchDataState('IS_SUCCESS'));
   }, []);
 
-  const deleteIndividual = (title: string) => {
+  const selectHistory = (e: React.MouseEvent, history: UserSearchHistory) => {
+    if (e.defaultPrevented) return;
+    window.history.pushState(history, '', '/history');
+    router.push('/history');
+  };
+
+  const deleteIndividual = (e: React.MouseEvent, title: string) => {
+    e.preventDefault();
     localForage
       .removeItem(title)
       .then(() => {
-        setSearchHistory(searchHistorys.filter(history => history.product.title !== title));
+        setSearchHistory(searchHistories.filter(history => history.product.title !== title));
         alert(`${title}이/가 삭제되었어요.`);
       })
       .catch(err => console.log(err));
@@ -50,10 +57,6 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
       })
       .catch(err => console.log(err));
 
-  const selectHistory = (history: UserSearchHistory) => {
-    window.history.pushState(history, '', '/history');
-    router.push('/history');
-  };
   return (
     <Portal>
       <Layout.VStack width='100%' height='100%' alignItems='center'>
@@ -69,7 +72,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                 width='100%'
                 alignItems='center'
                 justifyContent='flex-start'
-                margin='0 0 10px 0'
+                margin='0 0 13px 0'
               >
                 <Font.Large style={{ flex: 1 }}>이전 검색 내역</Font.Large>
                 <Style.Button
@@ -80,11 +83,10 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                   <Icon.Delete width={10} height={10} />
                 </Style.Button>
               </Style.SearchHeader>
-              <Style.Line />
 
               <Layout.VStack alignItems='center' justifyContent='flex-start'>
                 {dataState.isSuccess &&
-                  searchHistorys.map(history => (
+                  searchHistories.map(history => (
                     <SearchHistory
                       searchHistory={history}
                       key={uuid()}
@@ -95,7 +97,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
 
                 {dataState.isLoading && <Font.Medium>로딩중..</Font.Medium>}
 
-                {(searchHistorys.length === 0 || dataState.isError) && (
+                {(searchHistories.length === 0 || dataState.isError) && (
                   <Font.Medium>검색 내역이 없어요</Font.Medium>
                 )}
               </Layout.VStack>
@@ -121,12 +123,6 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
 }
 
 async function getAllItems() {
-  /**
-   * !Description
-   * /result에 직접 접근 시 indexed db key에 빈 값이 설정될 가능성이 있기 때문에
-   * 해당 데이터를 get을 하며 빈 값을 삭제하는 로직 추가
-   */
-  await localForage.removeItem('');
   const items = await localForage
     .keys()
     .then(keys =>
