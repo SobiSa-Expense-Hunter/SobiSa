@@ -22,6 +22,7 @@ const theme: DefaultTheme = {
     mobile: SIZE.mobile,
   },
   fontSize: {
+    xxxs: '10px',
     xxs: '12px',
     xs: '14px',
     s: '16px',
