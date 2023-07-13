@@ -109,3 +109,14 @@ export const Href = styled.a`
     font-weight: 600;
   }
 `;
+
+export const UserFormHref = styled(Layout.VStack)`
+  background: #faf5e9;
+`;
+
+export const TagRoundOrang = styled(Layout.Box)`
+  border-radius: 24px;
+  border: 1px solid ${({ theme }) => theme.colors.mainColor};
+`;
+
+export const Relative = styled(Layout.Box)``;
