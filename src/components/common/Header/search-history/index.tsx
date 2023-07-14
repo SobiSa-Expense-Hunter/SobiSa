@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-param-reassign */
 import { useEffect, useState } from 'react';
 
 import localForage from 'localforage';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { v4 as uuid } from 'uuid';
 
@@ -12,10 +10,10 @@ import Portal from '@/components/Portal';
 import * as Style from '@/components/common/Header/style';
 import * as Buttons from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
-import Card from '@/components/event/Card';
 import * as Font from '@/styles/font';
 
 import SearchHistory from './SearchHistoryBox';
+import UserResearchFormCard from './UserResearchFormCard';
 import useDataState from './useDataState';
 import type { UserSearchHistory } from '@/types/product';
 import type { Cycle } from 'framer-motion';
@@ -59,6 +57,13 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
       })
       .catch(err => console.log(err));
 
+  const openUserResearchForm = () => {
+    const researchFormURL =
+      'https://docs.google.com/forms/d/e/1FAIpQLSdTY6z7VlkzIfCBuZdNxEndCflzRoXr4w14CPYvknfNYKQCdQ/viewform';
+
+    window.open(researchFormURL, '_blank', 'noreferrer, noreferrer');
+  };
+
   return (
     <Portal>
       <Layout.VStack width='100%' height='100%' alignItems='center'>
@@ -77,6 +82,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                 margin='0 0 13px 0'
               >
                 <Font.Large style={{ flex: 1 }}>이전 검색 내역</Font.Large>
+
                 <Style.Button
                   onClick={() => toggleSideBar()}
                   whileHover={{ scale: 1.1 }}
@@ -105,56 +111,10 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
               </Layout.VStack>
 
               <Buttons.Button onClick={deleteAll}>전체 삭제</Buttons.Button>
-              {/* <Font.Medium>ios의 경우 검색 기록은 최대 7일간 보관돼요.</Font.Medium>
-              <Font.Medium>보관 기록은 최대 8개까지 볼 수 있어요.</Font.Medium> */}
-              <Style.Href
-                href='https://docs.google.com/forms/d/e/1FAIpQLSdTY6z7VlkzIfCBuZdNxEndCflzRoXr4w14CPYvknfNYKQCdQ/viewform'
-                target='_blank'
-                rel='noreferrer noreferrer'
-              >
-                <Font.Medium>소비사의 개선점이 있다면 알려주세요!</Font.Medium>
-              </Style.Href>
 
-              <Style.UserFormHref padding='20px 32px' width='100%' height='auto' gap='12px'>
-                <Layout.HStack width='100%'>
-                  <Layout.VStack
-                    alignItems='flex-start'
-                    justifyContent='center'
-                    width='auto'
-                    style={{ flex: 'none' }}
-                  >
-                    <Style.TagRoundOrang padding='0px 8px' margin='0 0 8px'>
-                      <Font.SmallOrange>수정제의</Font.SmallOrange>
-                    </Style.TagRoundOrang>
-                    <Font.Medium>소비사 서비스 개선을 도와주세요!</Font.Medium>
-                  </Layout.VStack>
-                  <Layout.VStack alignItems='flex-end' width='100%' margin='-12px -12px 0 0'>
-                    <Layout.Box
-                      width='100%'
-                      height='100%'
-                      maxWidth='63px'
-                      maxHeight='70px'
-                      position='absolute'
-                    >
-                      <Image
-                        src='assets/image/search-input/sobisa-with-sunglass-and-hello.png'
-                        fill
-                        alt='sobisa-with-sunglass-and-hello'
-                        style={{ objectFit: 'scale-down' }}
-                      />
-                    </Layout.Box>
-                  </Layout.VStack>
-                </Layout.HStack>
-                <Layout.HStack
-                  width='100%'
-                  alignItems='center'
-                  justifyContent='center'
-                  maxHeight='26px'
-                >
-                  <Font.Small style={{ flex: '1' }}>개선점 알리러 가기</Font.Small>
-                  <Buttons.LightGrayTag>바로가기</Buttons.LightGrayTag>
-                </Layout.HStack>
-              </Style.UserFormHref>
+              <Style.Href onClick={openUserResearchForm}>
+                <UserResearchFormCard />
+              </Style.Href>
             </Style.ListBox>
           </Layout.VStack>
         </Style.Absolute>

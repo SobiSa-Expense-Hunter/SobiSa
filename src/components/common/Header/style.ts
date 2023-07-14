@@ -103,11 +103,8 @@ export const Background = styled.div`
   z-index: 1;
 `;
 
-export const Href = styled.a`
-  span {
-    text-decoration: underline;
-    font-weight: 600;
-  }
+export const Href = styled(Layout.Box)`
+  cursor: pointer;
 `;
 
 export const UserFormHref = styled(Layout.VStack)`
@@ -118,5 +115,3 @@ export const TagRoundOrang = styled(Layout.Box)`
   border-radius: 24px;
   border: 1px solid ${({ theme }) => theme.colors.mainColor};
 `;
-
-export const Relative = styled(Layout.Box)``;
