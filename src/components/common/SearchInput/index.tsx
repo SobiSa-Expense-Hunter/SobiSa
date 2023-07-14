@@ -18,14 +18,7 @@ function SearchInput() {
   const [search, setSearch] = useState((router.query.search as string) || '');
   const [isFocus, setIsFocus] = useState(false);
   const { modalState, dispatchModalState } = useNoticeModal();
-  const inputRef = useRef<HTMLInputElement>(null);
   const { autoCmpList, state } = useAutoCmp(search);
-
-  useEffect(() => {
-    const isMobile = detectMobileDevice(window.navigator.userAgent);
-    if (isMobile || router.asPath === '/') return;
-    inputRef.current?.focus();
-  }, [router.asPath]);
 
   const onSearch = (event: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>) => {
     try {
@@ -49,7 +42,6 @@ function SearchInput() {
           onBlur={() => setIsFocus(false)}
           onChange={e => setSearch(e.target.value)}
           onKeyDown={onSearch}
-          ref={inputRef}
           aria-label='search-input'
         />
         {isFocus && search && (
