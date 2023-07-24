@@ -5,11 +5,12 @@ import localForage from 'localforage';
 import { useRouter } from 'next/router';
 import { v4 as uuid } from 'uuid';
 
-import * as Icon from '@/assets/Icons';
+import * as Icons from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import * as Style from '@/components/common/Header/style';
 import * as Buttons from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
+import ToolTip from '@/components/common/tooltip';
 import * as Font from '@/styles/font';
 
 import SearchHistory from './SearchHistoryBox';
@@ -22,6 +23,7 @@ import type { Cycle } from 'framer-motion';
 function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
   const [searchHistories, setSearchHistory] = useState<UserSearchHistory[]>([]);
   const [dataState, dispatchDataState] = useDataState();
+  const [isNoticeTooltipShow, setIsNoticeTooltipShow] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -82,15 +84,34 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                 margin='0 0 13px 0'
               >
                 <Font.Large style={{ flex: 1 }}>이전 검색 내역</Font.Large>
-
                 <Style.Button
-                  onClick={() => toggleSideBar()}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.8 }}
+                  onMouseOver={() => setIsNoticeTooltipShow(true)}
+                  onMouseLeave={() => setIsNoticeTooltipShow(false)}
                 >
-                  <Icon.Delete width={10} height={10} />
+                  <Icons.QuestionMark width={14} height={14} />
+                </Style.Button>
+                <Layout.Box width='8px' />
+                <Style.Button onClick={() => toggleSideBar()} whileTap={{ scale: 0.8 }}>
+                  <Icons.Delete width={10} height={10} />
                 </Style.Button>
               </Style.SearchHeader>
+
+              {isNoticeTooltipShow && (
+                <Layout.Box position='relative' width='100%' style={{ top: `-5px` }}>
+                  <Layout.Box position='absolute' width='100%'>
+                    <Style.ResponsivePosition
+                      alignItems='flex-end'
+                      justifyContent='space-between'
+                      width='100%'
+                    >
+                      <ToolTip arrowAlign='right' arrowPosition='top'>
+                        검색 기록은 최대 7일간 보관돼요. (ios 기준) <br />
+                        검색 기록은 최대 8개까지 볼 수 있어요.
+                      </ToolTip>
+                    </Style.ResponsivePosition>
+                  </Layout.Box>
+                </Layout.Box>
+              )}
 
               <Layout.VStack alignItems='center' justifyContent='flex-start'>
                 {dataState.isSuccess &&
@@ -110,8 +131,10 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                 )}
               </Layout.VStack>
 
-              <Buttons.Button onClick={deleteAll}>전체 삭제</Buttons.Button>
-
+              <Layout.HStack justifyContent='flex-end' width='100%' padding='20px'>
+                <Buttons.Button onClick={deleteAll}>모든 내역 삭제하기</Buttons.Button>
+              </Layout.HStack>
+              <Layout.Flex flex={1} />
               <Style.Href onClick={openUserResearchForm}>
                 <UserResearchFormCard />
               </Style.Href>

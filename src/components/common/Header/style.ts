@@ -8,8 +8,8 @@ export const Button = styled(motion.button)`
   outline: none;
   border: none;
   background: none;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 8px;
 
   display: flex;
@@ -56,11 +56,11 @@ export const SearchHeader = styled(Layout.HStack)`
   min-height: 42px;
 
   @media (padding-top: 5svh) {
-    padding: 5svh 0 2svh 60px;
+    padding: 5svh 20px 2svh 60px;
   }
 
   @media (max-width: 768px) {
-    padding: 5vh 0 16px 60px;
+    padding: 5vh 20px 16px 60px;
   }
 `;
 
@@ -103,7 +103,7 @@ export const Background = styled.div`
   z-index: 1;
 `;
 
-export const Href = styled(Layout.Box)`
+export const Href = styled.div`
   cursor: pointer;
 `;
 
@@ -114,4 +114,12 @@ export const UserFormHref = styled(Layout.VStack)`
 export const TagRoundOrang = styled(Layout.Box)`
   border-radius: 24px;
   border: 1px solid ${({ theme }) => theme.colors.mainColor};
+`;
+
+export const ResponsivePosition = styled(Layout.VStack)`
+  padding: 0 16%;
+
+  @media (max-width: 768px) {
+    padding: 0 8%;
+  }
 `;
