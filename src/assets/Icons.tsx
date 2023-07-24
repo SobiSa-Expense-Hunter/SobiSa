@@ -70,3 +70,9 @@ export const DeleteOrange = ({ width, height }: Size) => {
     <Image src={`${ICON_PATH}/delete-orange.svg`} width={width} height={height} alt='삭제 아이콘' />
   );
 };
+
+export const QuestionMark = ({ width, height }: Size) => {
+  return (
+    <Image src={`${ICON_PATH}/question_mark.svg`} width={width} height={height} alt='삭제 아이콘' />
+  );
+};
