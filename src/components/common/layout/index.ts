@@ -14,6 +14,7 @@ export interface FlexProps extends SizeAndMarginAndPaddingProps {
   alignItems?: 'center' | 'flex-start' | 'flex-end' | 'stretch' | 'baseline';
   flexWrap?: 'nowrap' | 'wrap';
   gap?: string;
+  flex?: 0 | 1;
 }
 
 interface SizeAndMarginAndPaddingProps {
@@ -47,6 +48,7 @@ const FlexProperty = css<FlexProps>`
   gap: ${({ gap }) => gap || '0'};
   flex-wrap: ${({ flexWrap }) => flexWrap || 'nowrap'};
   flex-direction: ${({ flexDirection }) => flexDirection || ''};
+  flex: ${({ flex }) => flex || ''};
 `;
 
 export const Flex = styled.div<FlexProps>`
