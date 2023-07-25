@@ -14,6 +14,7 @@ import Toast from '@/components/common/Toast';
 import * as Buttons from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
 import ToolTip from '@/components/common/tooltip';
+import LoadingSpinner from '@/components/list/LoadingSpinner';
 import * as Font from '@/styles/font';
 
 import SearchHistory from './SearchHistoryBox';
@@ -107,7 +108,6 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                 >
                   <Icons.QuestionMark width={14} height={14} />
                 </Style.Button>
-                <Layout.Box width='8px' />
                 <Style.Button onClick={() => toggleSideBar()} whileTap={{ scale: 0.8 }}>
                   <Icons.Delete width={10} height={10} />
                 </Style.Button>
@@ -131,7 +131,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                 </Layout.Box>
               )}
 
-              <Style.YScroll alignItems='center' justifyContent='flex-start'>
+              <Style.YScroll alignItems='center' justifyContent='flex-start' height='100%'>
                 {dataState.isSuccess &&
                   searchHistories.map(history => (
                     <SearchHistory
@@ -142,10 +142,16 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                     />
                   ))}
 
-                {dataState.isLoading && <Font.Medium>로딩중..</Font.Medium>}
+                {dataState.isLoading && (
+                  <Layout.VStack height='100%' justifyContent='center'>
+                    <LoadingSpinner />
+                  </Layout.VStack>
+                )}
 
-                {(searchHistories.length === 0 || dataState.isError) && (
-                  <Font.Medium>검색 내역이 없어요</Font.Medium>
+                {((!dataState.isLoading && searchHistories.length === 0) || dataState.isError) && (
+                  <Layout.VStack height='100%' justifyContent='center'>
+                    <Font.LargeOrange>검색 내역이 없어요.</Font.LargeOrange>
+                  </Layout.VStack>
                 )}
               </Style.YScroll>
 
