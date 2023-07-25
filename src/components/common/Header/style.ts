@@ -51,7 +51,7 @@ export const StyleTextLogo = styled(Font.Medium)`
 `;
 
 export const SearchHeader = styled(Layout.HStack)`
-  padding: 5vh calc(1vh + 16px) 14px 60px;
+  padding: 5vh calc(1vw + 16px) 14px 60px;
   height: 42px;
   min-height: 42px;
 
@@ -59,7 +59,7 @@ export const SearchHeader = styled(Layout.HStack)`
     padding: 5svh 20px 2svh 60px;
   }
 
-  @media (max-width: 768px) {
+  @media (width>= 768px) {
     padding: 5vh 20px 16px 60px;
   }
 `;
@@ -117,9 +117,9 @@ export const TagRoundOrang = styled(Layout.Box)`
 `;
 
 export const ResponsivePosition = styled(Layout.VStack)`
-  padding: 0 16%;
+  padding: 0 50px;
 
-  @media (max-width: 768px) {
-    padding: 0 8%;
+  @media (width >= 768px) {
+    padding: 0 calc(1vh + 16px + 30px);
   }
 `;
