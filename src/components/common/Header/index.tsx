@@ -17,19 +17,11 @@ const Header = () => {
   return (
     <Style.HeaderWrapper>
       {isHome ? (
-        <Style.Button
-          onClick={() => router.push('/about')}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.8 }}
-        >
+        <Style.Button onClick={() => router.push('/about')}>
           <Icon.Info width={14} height={14} />
         </Style.Button>
       ) : (
-        <Style.Button
-          onClick={() => router.back()}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.8 }}
-        >
+        <Style.Button onClick={() => router.back()}>
           <Icon.LeftIcon />
         </Style.Button>
       )}
@@ -41,11 +33,7 @@ const Header = () => {
 
       {isHome ? (
         <>
-          <Style.Button
-            onClick={() => toggleOpen()}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.8 }}
-          >
+          <Style.Button onClick={() => toggleOpen()}>
             <Icon.HamburgerIcon width={40} height={40} />
           </Style.Button>
           <AnimatePresence>
