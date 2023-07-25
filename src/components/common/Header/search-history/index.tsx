@@ -81,7 +81,12 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
   return (
     <Portal>
       <Layout.VStack width='100%' height='100%' alignItems='center'>
-        <Style.Absolute width='100%' height='100%' alignItems='center'>
+        <Style.Absolute
+          width='100%'
+          height='100%'
+          alignItems='center'
+          style={{ overflow: `hidden` }}
+        >
           <Layout.VStack width='100%' height='100%' alignItems='flex-end'>
             <Style.ListBox
               variants={wrapperVariants}
@@ -126,7 +131,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                 </Layout.Box>
               )}
 
-              <Layout.VStack alignItems='center' justifyContent='flex-start'>
+              <Style.YScroll alignItems='center' justifyContent='flex-start'>
                 {dataState.isSuccess &&
                   searchHistories.map(history => (
                     <SearchHistory
@@ -142,7 +147,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                 {(searchHistories.length === 0 || dataState.isError) && (
                   <Font.Medium>검색 내역이 없어요</Font.Medium>
                 )}
-              </Layout.VStack>
+              </Style.YScroll>
 
               <Layout.HStack justifyContent='flex-end' width='100%' padding='20px'>
                 <Buttons.Button onClick={deleteAllHistory}>모든 내역 삭제하기</Buttons.Button>

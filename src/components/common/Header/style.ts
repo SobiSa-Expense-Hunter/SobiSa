@@ -130,3 +130,23 @@ export const ToastBackground = styled.div`
     background-color: rgba(0, 0, 0, 0.8);
   }
 `;
+
+export const YScroll = styled(Layout.VStack)`
+  overflow: auto;
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-thumb {
+    width: 14px;
+    border-radius: 7px;
+    background-clip: padding-box;
+    border: 5px solid white;
+    margin-right: 5px;
+  }
+
+  ::-webkit-scrollbar-track-piece {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.gray[2]};
+  }
+`;
