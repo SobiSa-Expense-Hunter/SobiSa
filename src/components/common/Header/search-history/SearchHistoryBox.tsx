@@ -14,17 +14,20 @@ interface SearchHistoryBoxProps {
 }
 
 const SearchHistoryBox = ({ searchHistory, onDelete, onClick }: SearchHistoryBoxProps) => {
-  const { product: thisProduct, searchDate } = searchHistory;
+  const { product: thisProduct, searchDate: rawDate } = searchHistory;
+  const { searchDate, searchTime } = makeTimeFormat(rawDate);
   return (
     <SearchHistoryBackground onClick={e => onClick(e, searchHistory)}>
       {/* !NOTE : searchHistory[] data를 get 해오며 title이
-          빈 값은 삭제하는 로직이 부모 컴포넌트에 존재하기에
-          강제 형 변환 사용. Product data type이 모두 optional이기에 일단 해당 방법 사용 */}
+          빈 값은 삭제하는 로직이 부모 컴포넌트에 존재하기에 강제 형 변환 사용.
+          Product data type이 모두 optional이기에 일단 해당 방법 사용 */}
       <DeleteButton onClick={e => onDelete(e, thisProduct.title as string)} className='delete'>
         <Icons.DeleteOrange width={20} height={20} />
       </DeleteButton>
-      <Font.Medium style={{ flex: '1' }}>{thisProduct.title}</Font.Medium>
-      <Font.XSmall>{makeTimeFormat(searchDate)}</Font.XSmall>
+      <Font.Medium style={{ flex: '1', wordBreak: 'keep-all' }}>{thisProduct.title}</Font.Medium>
+      <DateFont>
+        {searchDate} <span className='gray'>{searchTime}</span>
+      </DateFont>
     </SearchHistoryBackground>
   );
 };
@@ -38,7 +41,10 @@ function makeTimeFormat(rawFullTime: string) {
   ampm = ampm === '오후' ? 'PM' : 'AM';
   time = time.slice(0, 4);
 
-  return `${year}.${month}.${date} ${ampm} ${time}`;
+  return {
+    searchDate: `${year}.${month}.${date}`,
+    searchTime: `${ampm} ${time}`,
+  };
 }
 
 const SearchHistoryBackground = styled(motion.div)`
@@ -47,7 +53,7 @@ const SearchHistoryBackground = styled(motion.div)`
   justify-content: flex-start;
 
   width: 100%;
-  min-height: 61px;
+  max-height: 61px;
   padding: 20px;
   gap: 20px;
 
@@ -68,4 +74,10 @@ const DeleteButton = styled.button`
 
   width: 20px;
   height: 20px;
+`;
+
+const DateFont = styled(Font.XSmall)`
+  .gray {
+    color: ${({ theme }) => theme.colors.gray[2]};
+  }
 `;
