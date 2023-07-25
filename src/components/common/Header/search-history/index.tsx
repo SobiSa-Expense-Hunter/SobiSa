@@ -1,5 +1,7 @@
+/* eslint-disable consistent-return */
+/* eslint-disable @typescript-eslint/default-param-last */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useReducer } from 'react';
 
 import localForage from 'localforage';
 import { useRouter } from 'next/router';
@@ -8,6 +10,7 @@ import { v4 as uuid } from 'uuid';
 import * as Icons from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import * as Style from '@/components/common/Header/style';
+import Toast from '@/components/common/Toast';
 import * as Buttons from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
 import ToolTip from '@/components/common/tooltip';
@@ -15,22 +18,28 @@ import * as Font from '@/styles/font';
 
 import SearchHistory from './SearchHistoryBox';
 import UserResearchFormCard from './UserResearchFormCard';
+import { historyToastReducer, initHistoryToastState } from './historyToastReducer';
 import useDataState from './useDataState';
 import type { UserSearchHistory } from '@/types/product';
 import type { Cycle } from 'framer-motion';
 
-// TODO: Alert창 모달 또는 토스트 팝업 디자인 적용
 function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
   const [searchHistories, setSearchHistory] = useState<UserSearchHistory[]>([]);
   const [dataState, dispatchDataState] = useDataState();
   const [isNoticeTooltipShow, setIsNoticeTooltipShow] = useState(false);
+  const [historyToastState, dispatchHistoryToastState] = useReducer(
+    historyToastReducer,
+    initHistoryToastState,
+  );
+
   const router = useRouter();
 
   useEffect(() => {
     dispatchDataState('IS_LOADING');
     getAllItems()
       .then(res => setSearchHistory(res as UserSearchHistory[]))
-      .then(() => dispatchDataState('IS_SUCCESS'));
+      .then(() => dispatchDataState('IS_SUCCESS'))
+      .catch(err => console.log(err));
   }, []);
 
   const selectHistory = (e: React.MouseEvent, history: UserSearchHistory) => {
@@ -39,25 +48,28 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
     router.push('/history');
   };
 
-  const deleteIndividual = (e: React.MouseEvent, title: string) => {
+  const deleteOneHistory = (e: React.MouseEvent, title: string) => {
     e.preventDefault();
     localForage
       .removeItem(title)
       .then(() => {
         setSearchHistory(searchHistories.filter(history => history.product.title !== title));
-        alert(`${title}이/가 삭제되었어요.`);
+        dispatchHistoryToastState({ type: 'DeleteOne', productName: title });
       })
       .catch(err => console.log(err));
   };
 
-  const deleteAll = () =>
+  const deleteAllHistory = () => {
+    if (searchHistories.length <= 0) return dispatchHistoryToastState({ type: 'NothingToDelete' });
+
     localForage
       .clear()
       .then(() => {
         setSearchHistory([]);
-        alert(`검색 기록이 초기화 되었어요.`);
+        dispatchHistoryToastState({ type: 'DeleteAll' });
       })
       .catch(err => console.log(err));
+  };
 
   const openUserResearchForm = () => {
     const researchFormURL =
@@ -120,7 +132,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                     <SearchHistory
                       searchHistory={history}
                       key={uuid()}
-                      onDelete={deleteIndividual}
+                      onDelete={deleteOneHistory}
                       onClick={selectHistory}
                     />
                   ))}
@@ -133,14 +145,24 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
               </Layout.VStack>
 
               <Layout.HStack justifyContent='flex-end' width='100%' padding='20px'>
-                <Buttons.Button onClick={deleteAll}>모든 내역 삭제하기</Buttons.Button>
+                <Buttons.Button onClick={deleteAllHistory}>모든 내역 삭제하기</Buttons.Button>
               </Layout.HStack>
               <Layout.Flex flex={1} />
+
               <Style.Href onClick={openUserResearchForm}>
                 <UserResearchFormCard />
               </Style.Href>
             </Style.ListBox>
           </Layout.VStack>
+
+          {historyToastState.isShow && (
+            <Style.ToastBackground>
+              <Toast
+                msg={historyToastState.msg}
+                toastHide={() => dispatchHistoryToastState({ type: 'Hide' })}
+              />
+            </Style.ToastBackground>
+          )}
         </Style.Absolute>
       </Layout.VStack>
 

@@ -123,3 +123,10 @@ export const ResponsivePosition = styled(Layout.VStack)`
     padding: 0 calc(1vh + 16px + 30px);
   }
 `;
+
+export const ToastBackground = styled.div`
+  z-index: 2;
+  div {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+`;
