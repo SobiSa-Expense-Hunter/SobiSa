@@ -97,7 +97,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
               </Style.SearchHeader>
 
               {isNoticeTooltipShow && (
-                <Layout.Box position='relative' width='100%' style={{ top: `-5px` }}>
+                <Layout.Box position='relative' width='100%' style={{ top: `-2px` }}>
                   <Layout.Box position='absolute' width='100%'>
                     <Style.ResponsivePosition
                       alignItems='flex-end'
@@ -105,8 +105,9 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                       width='100%'
                     >
                       <ToolTip arrowAlign='right' arrowPosition='top'>
-                        검색 기록은 최대 7일간 보관돼요. (ios 기준) <br />
                         검색 기록은 최대 8개까지 볼 수 있어요.
+                        <br />
+                        IOS의 경우 검색 기록은 최대 7일간 보관돼요.
                       </ToolTip>
                     </Style.ResponsivePosition>
                   </Layout.Box>
