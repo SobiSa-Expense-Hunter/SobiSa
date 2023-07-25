@@ -56,11 +56,11 @@ export const SearchHeader = styled(Layout.HStack)`
   min-height: 42px;
 
   @media (padding-top: 5svh) {
-    padding: 5svh 20px 2svh 60px;
+    padding: 5svh calc(1vw + 16px) 2svh 60px;
   }
 
   @media (width>= 768px) {
-    padding: 5vh 20px 16px 60px;
+    padding: 5vh calc(1vw + 16px) 16px 60px;
   }
 `;
 
@@ -79,6 +79,9 @@ export const ListBox = styled(motion.div)`
 
   width: 80%;
   height: 100vh;
+  /* for iphone safari 100vh bug fix */
+  height: -webkit-fill-available;
+  height: fill-available;
 
   z-index: 2;
   background: #ffffff;
