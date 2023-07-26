@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 
 export const Button = styled.button`
@@ -123,4 +124,34 @@ export const LightGrayTag = styled.button`
     background-color: ${({ theme }) => theme.colors.gray[1]};
     transition: all 200ms;
   }
+`;
+
+export const HeaderButton = styled(motion.button)`
+  outline: none;
+  border: none;
+  background: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  left: 0;
+
+  :hover {
+    background-color: ${props => props.theme.colors.gray[0]};
+    transition: all 500ms;
+  }
+`;
+
+export const TransparentButton = styled.button`
+  outline: none;
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
 `;

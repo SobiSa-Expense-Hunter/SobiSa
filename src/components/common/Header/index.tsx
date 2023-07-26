@@ -2,8 +2,9 @@ import { useCycle, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import * as Icon from '@/assets/Icons';
+import * as Icons from '@/assets/Icons';
 import * as Style from '@/components/common/Header/style';
+import * as Buttons from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
 import * as Font from '@/styles/font';
 
@@ -17,13 +18,13 @@ const Header = () => {
   return (
     <Style.HeaderWrapper>
       {isHome ? (
-        <Style.Button onClick={() => router.push('/about')}>
-          <Icon.Info width={14} height={14} />
-        </Style.Button>
+        <Buttons.HeaderButton onClick={() => router.push('/about')}>
+          <Icons.Info width={14} height={14} />
+        </Buttons.HeaderButton>
       ) : (
-        <Style.Button onClick={() => router.back()}>
-          <Icon.LeftIcon />
-        </Style.Button>
+        <Buttons.HeaderButton onClick={() => router.back()}>
+          <Icons.LeftIcon />
+        </Buttons.HeaderButton>
       )}
       <Style.StyleTextLogo>
         <Link href='/'>
@@ -33,9 +34,9 @@ const Header = () => {
 
       {isHome ? (
         <>
-          <Style.Button onClick={() => toggleOpen()}>
-            <Icon.HamburgerIcon width={40} height={40} />
-          </Style.Button>
+          <Buttons.HeaderButton onClick={() => toggleOpen()}>
+            <Icons.HamburgerIcon width={40} height={40} />
+          </Buttons.HeaderButton>
           <AnimatePresence>
             {isOpen && <SearchHistoryList toggleSideBar={toggleOpen} />}
           </AnimatePresence>

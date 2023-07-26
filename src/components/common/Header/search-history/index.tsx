@@ -9,7 +9,7 @@ import { v4 as uuid } from 'uuid';
 
 import * as Icons from '@/assets/Icons';
 import Portal from '@/components/Portal';
-import * as Style from '@/components/common/Header/style';
+import * as Style from '@/components/common/Header/search-history/style';
 import Toast from '@/components/common/Toast';
 import * as Buttons from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
@@ -102,21 +102,23 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                 margin='0 0 13px 0'
               >
                 <Font.Large style={{ flex: 1 }}>이전 검색 내역</Font.Large>
-                <Style.Button
+                <Buttons.TransparentButton
+                  style={{ height: '14px' }}
                   onMouseOver={() => setIsNoticeTooltipShow(true)}
                   onMouseLeave={() => setIsNoticeTooltipShow(false)}
                 >
                   <Icons.QuestionMark width={14} height={14} />
-                </Style.Button>
-                <Style.Button onClick={() => toggleSideBar()} whileTap={{ scale: 0.8 }}>
+                </Buttons.TransparentButton>
+                <Layout.Box width='8px' />
+                <Buttons.HeaderButton onClick={() => toggleSideBar()} whileTap={{ scale: 0.8 }}>
                   <Icons.Delete width={10} height={10} />
-                </Style.Button>
+                </Buttons.HeaderButton>
               </Style.SearchHeader>
 
               {isNoticeTooltipShow && (
                 <Layout.Box position='relative' width='100%' style={{ top: `-2px` }}>
                   <Layout.Box position='absolute' width='100%'>
-                    <Style.ResponsivePosition
+                    <Style.TooltipPosition
                       alignItems='flex-end'
                       justifyContent='space-between'
                       width='100%'
@@ -126,7 +128,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                         <br />
                         IOS의 경우 검색 기록은 최대 7일간 보관돼요.
                       </ToolTip>
-                    </Style.ResponsivePosition>
+                    </Style.TooltipPosition>
                   </Layout.Box>
                 </Layout.Box>
               )}
