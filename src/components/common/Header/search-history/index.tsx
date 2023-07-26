@@ -38,7 +38,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
   useEffect(() => {
     dispatchDataState('IS_LOADING');
     getAllItems()
-      .then(res => setSearchHistory(res as UserSearchHistory[]))
+      .then(items => setSearchHistory(sortBySearchDateDescending(items) as UserSearchHistory[]))
       .then(() => dispatchDataState('IS_SUCCESS'))
       .catch(err => console.log(err));
   }, []);
@@ -190,7 +190,12 @@ async function getAllItems() {
     .then(keys =>
       keys.map(key => localForage.getItem(key).then(data => data as UserSearchHistory)),
     );
+
   return Promise.all(items);
+}
+
+function sortBySearchDateDescending(items: UserSearchHistory[]) {
+  return items.sort((a, b) => new Date(b.searchDate).getTime() - new Date(a.searchDate).getTime());
 }
 
 const wrapperVariants = {

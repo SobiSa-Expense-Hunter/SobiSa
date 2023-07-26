@@ -19,7 +19,7 @@ function ResultPage() {
       (prev, curr) => [...prev, ...curr.map(item => item.title)],
       [] as string[],
     ),
-    searchDate: new Date().toLocaleString(),
+    searchDate: new Date(),
   };
 
   if (userSelected.product.title) localforage.setItem(userSelected.product.title, savedItem);

@@ -17,7 +17,7 @@ export interface UserSelected {
 }
 export interface UserSearchHistory extends UserSelected {
   alternativeTitles: Alternatives['title'][];
-  searchDate: string;
+  searchDate: Date;
 }
 
 export const isUserSearchHistory = (history: any): history is UserSearchHistory => {

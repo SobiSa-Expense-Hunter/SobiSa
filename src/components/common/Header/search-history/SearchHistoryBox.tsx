@@ -34,16 +34,14 @@ const SearchHistoryBox = ({ searchHistory, onDelete, onClick }: SearchHistoryBox
 
 export default SearchHistoryBox;
 
-function makeTimeFormat(rawFullTime: string) {
-  // !NOTE : raw data Format: 2023. 7. 12. 오후 5:03:12
-  let [year, month, date, ampm, time] = rawFullTime.replaceAll('.', '').split(' ');
-  year = year.slice(2);
-  ampm = ampm === '오후' ? 'PM' : 'AM';
-  time = time.slice(0, 4);
+function makeTimeFormat(rawDate: Date) {
+  const time = rawDate.getHours();
+  const ampm = time <= 12 ? `AM` : `PM`;
+  const minutes = rawDate.getMinutes();
 
   return {
-    searchDate: `${year}.${month}.${date}`,
-    searchTime: `${ampm} ${time}`,
+    searchDate: `${rawDate.getFullYear()}.${rawDate.getMonth()}.${rawDate.getDate()}`,
+    searchTime: `${ampm} ${time > 12 ? time - 12 : time}:${minutes}`,
   };
 }
 
