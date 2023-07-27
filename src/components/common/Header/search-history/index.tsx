@@ -7,26 +7,32 @@ import localForage from 'localforage';
 import { useRouter } from 'next/router';
 import { v4 as uuid } from 'uuid';
 
-import * as Icons from '@/assets/Icons';
 import Portal from '@/components/Portal';
-import * as Style from '@/components/common/Header/search-history/style';
 import Toast from '@/components/common/Toast';
 import * as Buttons from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
-import ToolTip from '@/components/common/tooltip';
 import LoadingSpinner from '@/components/list/LoadingSpinner';
 import * as Font from '@/styles/font';
+import isDataEmpty from '@/utils/isDataEmpty';
 
+import HistoryHeader from './Header';
 import SearchHistory from './SearchHistoryBox';
+import SearchHistoryNoticeTooltip from './Tooltip';
 import UserResearchFormCard from './UserResearchFormCard';
-import { historyToastReducer, initHistoryToastState } from './historyToastReducer';
-import useDataState from './useDataState';
+import * as Constants from './constants';
+import {
+  dataStateReducer,
+  historyToastReducer,
+  initDataState,
+  initHistoryToastState,
+} from './reducer';
+import * as Style from './style';
 import type { UserSearchHistory } from '@/types/product';
 import type { Cycle } from 'framer-motion';
 
 function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
   const [searchHistories, setSearchHistory] = useState<UserSearchHistory[]>([]);
-  const [dataState, dispatchDataState] = useDataState();
+  const [dataState, dispatchDataState] = useReducer(dataStateReducer, initDataState);
   const [isNoticeTooltipShow, setIsNoticeTooltipShow] = useState(false);
   const [historyToastState, dispatchHistoryToastState] = useReducer(
     historyToastReducer,
@@ -36,10 +42,10 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
   const router = useRouter();
 
   useEffect(() => {
-    dispatchDataState('IS_LOADING');
+    dispatchDataState({ type: 'IS_LOADING' });
     getAllItems()
-      .then(items => setSearchHistory(sortBySearchDateDescending(items) as UserSearchHistory[]))
-      .then(() => dispatchDataState('IS_SUCCESS'))
+      .then(res => setSearchHistory(res as UserSearchHistory[]))
+      .then(() => dispatchDataState({ type: 'IS_SUCCESS' }))
       .catch(err => console.log(err));
   }, []);
 
@@ -73,10 +79,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
   };
 
   const openUserResearchForm = () => {
-    const researchFormURL =
-      'https://docs.google.com/forms/d/e/1FAIpQLSdTY6z7VlkzIfCBuZdNxEndCflzRoXr4w14CPYvknfNYKQCdQ/viewform';
-
-    window.open(researchFormURL, '_blank', 'noreferrer, noreferrer');
+    window.open(Constants.researchFormURL, '_blank', 'noreferrer, noreferrer');
   };
 
   return (
@@ -90,48 +93,17 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
         >
           <Layout.VStack width='100%' height='100%' alignItems='flex-end'>
             <Style.ListBox
-              variants={wrapperVariants}
+              variants={Constants.wrapperVariants}
               initial='initial'
               animate='animate'
               exit='exit'
             >
-              <Style.SearchHeader
-                width='100%'
-                alignItems='center'
-                justifyContent='flex-start'
-                margin='0 0 13px 0'
-              >
-                <Font.Large style={{ flex: 1 }}>이전 검색 내역</Font.Large>
-                <Buttons.TransparentButton
-                  style={{ height: '14px' }}
-                  onMouseOver={() => setIsNoticeTooltipShow(true)}
-                  onMouseLeave={() => setIsNoticeTooltipShow(false)}
-                >
-                  <Icons.QuestionMark width={14} height={14} />
-                </Buttons.TransparentButton>
-                <Layout.Box width='8px' />
-                <Buttons.HeaderButton onClick={() => toggleSideBar()} whileTap={{ scale: 0.8 }}>
-                  <Icons.Delete width={10} height={10} />
-                </Buttons.HeaderButton>
-              </Style.SearchHeader>
+              <HistoryHeader
+                onNoticeTooltipShow={setIsNoticeTooltipShow}
+                onToggleSideBar={toggleSideBar}
+              />
 
-              {isNoticeTooltipShow && (
-                <Layout.Box position='relative' width='100%' style={{ top: `-2px` }}>
-                  <Layout.Box position='absolute' width='100%'>
-                    <Style.TooltipPosition
-                      alignItems='flex-end'
-                      justifyContent='space-between'
-                      width='100%'
-                    >
-                      <ToolTip arrowAlign='right' arrowPosition='top'>
-                        검색 기록은 최대 8개까지 볼 수 있어요.
-                        <br />
-                        IOS의 경우 검색 기록은 최대 7일간 보관돼요.
-                      </ToolTip>
-                    </Style.TooltipPosition>
-                  </Layout.Box>
-                </Layout.Box>
-              )}
+              {isNoticeTooltipShow && <SearchHistoryNoticeTooltip />}
 
               <Style.YScroll alignItems='center' justifyContent='flex-start' height='100%'>
                 {dataState.isSuccess &&
@@ -150,16 +122,18 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                   </Layout.VStack>
                 )}
 
-                {((!dataState.isLoading && searchHistories.length === 0) || dataState.isError) && (
-                  <Layout.VStack height='100%' justifyContent='center'>
-                    <Font.LargeOrange>검색 내역이 없어요.</Font.LargeOrange>
-                  </Layout.VStack>
-                )}
+                {(!dataState.isLoading && isDataEmpty(searchHistories)) ||
+                  (dataState.isError && (
+                    <Layout.VStack height='100%' justifyContent='center'>
+                      <Font.LargeOrange>검색 내역이 없어요.</Font.LargeOrange>
+                    </Layout.VStack>
+                  ))}
               </Style.YScroll>
 
               <Layout.HStack justifyContent='flex-end' width='100%' padding='20px'>
                 <Buttons.Button onClick={deleteAllHistory}>모든 내역 삭제하기</Buttons.Button>
               </Layout.HStack>
+
               <Layout.Flex flex={1} />
 
               <Style.Href onClick={openUserResearchForm}>
@@ -190,27 +164,7 @@ async function getAllItems() {
     .then(keys =>
       keys.map(key => localForage.getItem(key).then(data => data as UserSearchHistory)),
     );
-
   return Promise.all(items);
 }
-
-function sortBySearchDateDescending(items: UserSearchHistory[]) {
-  return items.sort((a, b) => new Date(b.searchDate).getTime() - new Date(a.searchDate).getTime());
-}
-
-const wrapperVariants = {
-  initial: {
-    clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
-    transition: { duration: 0.4, ease: 'easeIn' },
-  },
-  animate: {
-    clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-    transition: { duration: 0.4, staggerChildren: 0.1, ease: 'easeIn' },
-  },
-  exit: {
-    clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
-    transition: { duration: 0.4, ease: 'easeIn' },
-  },
-};
 
 export default SearchHistoryList;
