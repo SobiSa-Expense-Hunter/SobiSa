@@ -93,7 +93,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
         >
           <Layout.VStack width='100%' height='100%' alignItems='flex-end'>
             <Style.ListBox
-              variants={Constants.wrapperVariants}
+              variants={Constants.openClosedAnimationVariants}
               initial='initial'
               animate='animate'
               exit='exit'
