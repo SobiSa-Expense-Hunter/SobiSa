@@ -2,8 +2,13 @@ import Image from 'next/image';
 
 const ICON_PATH = '/assets/icons';
 
-export const HamburgerIcon = () => {
-  return <Image src={`${ICON_PATH}/hamburger.svg`} width={50} height={50} alt='메뉴' />;
+interface Size {
+  width: number;
+  height: number;
+}
+
+export const HamburgerIcon = ({ width, height }: Size) => {
+  return <Image src={`${ICON_PATH}/hamburger.svg`} width={width} height={height} alt='메뉴' />;
 };
 
 export const LeftIcon = () => {
@@ -56,7 +61,18 @@ export const Info = ({ width, height }: Size) => {
   return <Image src={`${ICON_PATH}/Info.svg`} width={width} height={height} alt='정보 아이콘' />;
 };
 
-interface Size {
-  width: number;
-  height: number;
-}
+export const Delete = ({ width, height }: Size) => {
+  return <Image src={`${ICON_PATH}/delete.svg`} width={width} height={height} alt='삭제 아이콘' />;
+};
+
+export const DeleteOrange = ({ width, height }: Size) => {
+  return (
+    <Image src={`${ICON_PATH}/delete-orange.svg`} width={width} height={height} alt='삭제 아이콘' />
+  );
+};
+
+export const QuestionMark = ({ width, height }: Size) => {
+  return (
+    <Image src={`${ICON_PATH}/question_mark.svg`} width={width} height={height} alt='삭제 아이콘' />
+  );
+};
