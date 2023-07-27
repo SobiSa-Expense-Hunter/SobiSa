@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import * as Icons from '@/assets/Icons';
 import * as Font from '@/styles/font';
 import { UserSearchHistory } from '@/types/product';
+import makeTimeFormat from '@/utils/makeTimeFormat';
 
 interface SearchHistoryBoxProps {
   searchHistory: UserSearchHistory;
@@ -33,17 +34,6 @@ const SearchHistoryBox = ({ searchHistory, onDelete, onClick }: SearchHistoryBox
 };
 
 export default SearchHistoryBox;
-
-function makeTimeFormat(rawDate: Date) {
-  const time = rawDate.getHours();
-  const ampm = time <= 12 ? `AM` : `PM`;
-  const minutes = rawDate.getMinutes();
-
-  return {
-    searchDate: `${rawDate.getFullYear()}.${rawDate.getMonth()}.${rawDate.getDate()}`,
-    searchTime: `${ampm} ${time > 12 ? time - 12 : time}:${minutes}`,
-  };
-}
 
 const SearchHistoryBackground = styled(motion.div)`
   display: flex;
