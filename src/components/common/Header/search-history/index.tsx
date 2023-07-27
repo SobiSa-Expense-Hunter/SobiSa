@@ -44,7 +44,7 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
   useEffect(() => {
     dispatchDataState({ type: 'IS_LOADING' });
     getAllItems()
-      .then(res => setSearchHistory(res as UserSearchHistory[]))
+      .then(items => setSearchHistory(sortBySearchDateDescending(items) as UserSearchHistory[]))
       .then(() => dispatchDataState({ type: 'IS_SUCCESS' }))
       .catch(err => console.log(err));
   }, []);
@@ -122,12 +122,11 @@ function SearchHistoryList({ toggleSideBar }: { toggleSideBar: Cycle }) {
                   </Layout.VStack>
                 )}
 
-                {(!dataState.isLoading && isDataEmpty(searchHistories)) ||
-                  (dataState.isError && (
-                    <Layout.VStack height='100%' justifyContent='center'>
-                      <Font.LargeOrange>검색 내역이 없어요.</Font.LargeOrange>
-                    </Layout.VStack>
-                  ))}
+                {!dataState.isLoading && (isDataEmpty(searchHistories) || dataState.isError) && (
+                  <Layout.VStack height='100%' justifyContent='center'>
+                    <Font.LargeOrange>검색 내역이 없어요.</Font.LargeOrange>
+                  </Layout.VStack>
+                )}
               </Style.YScroll>
 
               <Layout.HStack justifyContent='flex-end' width='100%' padding='20px'>
@@ -165,6 +164,10 @@ async function getAllItems() {
       keys.map(key => localForage.getItem(key).then(data => data as UserSearchHistory)),
     );
   return Promise.all(items);
+}
+
+function sortBySearchDateDescending(items: UserSearchHistory[]) {
+  return items.sort((a, b) => new Date(b.searchDate).getTime() - new Date(a.searchDate).getTime());
 }
 
 export default SearchHistoryList;
