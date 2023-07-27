@@ -29,10 +29,38 @@ export const historyToastReducer = (
   }
 };
 
-/**
- * @description: 이전 검색 내역 토스트의 초기 상태
- */
 export const initHistoryToastState = {
   isShow: false,
   msg: '',
+};
+
+/**
+ * @description: 데이터 패칭 상태를 관리하는 리듀서
+ */
+
+export const dataStateReducer = (
+  state: typeof initDataState,
+  action: {
+    type: 'IS_LOADING' | 'IS_SUCCESS' | 'IS_ERROR';
+  },
+): typeof initDataState => {
+  switch (action.type) {
+    case 'IS_SUCCESS': {
+      return { isSuccess: true, isLoading: false, isError: false };
+    }
+    case 'IS_LOADING': {
+      return { isSuccess: false, isLoading: true, isError: false };
+    }
+    case 'IS_ERROR': {
+      return { isSuccess: false, isLoading: false, isError: true };
+    }
+    default:
+      throw new Error('Unhandled Action');
+  }
+};
+
+export const initDataState = {
+  isSuccess: false,
+  isLoading: false,
+  isError: false,
 };
