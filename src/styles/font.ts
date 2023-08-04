@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const DefalutFont = styled.span`
+const DefaultFont = styled.span`
   font-family: 'Pretendard Variable';
   font-style: normal;
   line-height: 150%;
@@ -22,7 +22,12 @@ export const GamjaFlower = styled.span`
 `;
 
 // ------ 기본 폰트 ------
-export const Small = styled(DefalutFont)`
+export const XSmall = styled(DefaultFont)`
+  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontSize.xxxs};
+`;
+
+export const Small = styled(DefaultFont)`
   font-weight: 500;
   font-size: ${({ theme }) => theme.fontSize.xxs};
 `;
@@ -31,7 +36,7 @@ export const SmallOrange = styled(Small)`
   color: ${({ theme }) => theme.colors.mainColor};
 `;
 
-export const Medium = styled(DefalutFont)`
+export const Medium = styled(DefaultFont)`
   font-weight: 500;
   font-size: ${({ theme }) => theme.fontSize.xs};
   color: ${({ theme }) => theme.colors.gray[6]};
@@ -41,7 +46,7 @@ export const MediumOrange = styled(Medium)`
   color: ${({ theme }) => theme.colors.mainColor};
 `;
 
-export const Large = styled(DefalutFont)`
+export const Large = styled(DefaultFont)`
   font-weight: 600;
   font-size: ${({ theme }) => theme.fontSize.s};
   color: ${({ theme }) => theme.colors.gray[6]};
@@ -51,7 +56,7 @@ export const LargeOrange = styled(Large)`
   color: ${({ theme }) => theme.colors.mainColor};
 `;
 
-export const ExtraLarge = styled(DefalutFont)`
+export const ExtraLarge = styled(DefaultFont)`
   font-weight: 600;
   font-size: ${({ theme }) => theme.fontSize.ml};
   color: ${({ theme }) => theme.colors.gray[6]};

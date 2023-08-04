@@ -1,3 +1,5 @@
+import type { Alternatives } from '@/types/result';
+
 export interface Product {
   title?: string;
   image?: string;
@@ -13,3 +15,11 @@ export interface UserSelected {
   product: Product;
   savingAmount: number;
 }
+export interface UserSearchHistory extends UserSelected {
+  alternativeTitles: Alternatives['title'][];
+  searchDate: Date;
+}
+
+export const isUserSearchHistory = (history: any): history is UserSearchHistory => {
+  return 'alternativeTitles' in history && 'searchDate' in history;
+};

@@ -6,6 +6,7 @@ import * as Icon from '@/assets/Icons';
 import Portal from '@/components/Portal';
 import * as Button from '@/components/common/buttons';
 import * as Layout from '@/components/common/layout';
+import ToolTip from '@/components/common/tooltip';
 import { ONBOARDING } from '@/constant/localstorage';
 import * as Font from '@/styles/font';
 
@@ -78,7 +79,9 @@ function Onboarding({
             <FixedFlexZIndex2
               style={{ top: y + 35, left: x + 170, width: '133px', height: '37px' }}
             >
-              <Image src='/assets/image/onboarding_bubble.png' alt='onboarding bubble img' fill />
+              <ToolTip arrowPosition='bottom' arrowAlign='left'>
+                이런 것도 검색해 보세요!
+              </ToolTip>
             </FixedFlexZIndex2>
           </FadeInOut>
         )}
