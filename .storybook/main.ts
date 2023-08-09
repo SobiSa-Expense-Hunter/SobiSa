@@ -9,6 +9,7 @@ const config: StorybookConfig = {
       titlePrefix: 'Design System',
     },
   ],
+  staticDirs: ['../public'],
   addons: ['@storybook/addon-essentials', '@storybook/addon-styling', '@storybook/addon-viewport'],
   framework: {
     name: '@storybook/nextjs',
