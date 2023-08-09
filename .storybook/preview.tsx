@@ -15,6 +15,7 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/,
       },
+      hideNoControlsWarning: true,
     },
     layout: 'centered',
     docs: {
