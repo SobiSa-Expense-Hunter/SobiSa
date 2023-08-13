@@ -1,5 +1,5 @@
-import AlternativeBigCard from '@/components/results/alternatives/AlternativeBigCard';
-import AlternativeSmallCard from '@/components/results/alternatives/AlternativeSmallCard';
+import AlternativeBigCard from '@/components/results/alternatives/big-card/AlternativeBigCard';
+import AlternativeSmallCard from '@/components/results/alternatives/small-card/AlternativeSmallCard';
 import * as Style from '@/components/results/alternatives/style';
 import { AlternativeContextSelector } from '@/components/results/alternatives/useAlternatives';
 
