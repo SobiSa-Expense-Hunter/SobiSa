@@ -1,13 +1,14 @@
 import { Meta, Title, IconGallery, IconItem } from '@storybook/blocks';
 
 import * as IconExample from './Icons';
+import * as SocialIconExample from './SocialIcons';
 
 <Meta title='Assets/Icons' />
 
 # Icons
 
 <IconGallery>
-  <IconItem name='mobile'>
+  <IconItem name='LeftIcon'>
     <IconExample.LeftIcon />
   </IconItem>
   <IconItem name='LinkIcon'>
@@ -54,5 +55,31 @@ import * as IconExample from './Icons';
   </IconItem>
   <IconItem name='QuestionMark'>
     <IconExample.QuestionMark width={50} height={50} />
+  </IconItem>
+</IconGallery>
+
+# SocialIcons
+
+<IconGallery>
+  <IconItem name='FaceBookIcon'>
+    <SocialIconExample.FaceBookIcon />
+  </IconItem>
+  <IconItem name='FaceBookIconImg'>
+    <SocialIconExample.FaceBookIconImg />
+  </IconItem>
+  <IconItem name='KakaoIcon'>
+    <SocialIconExample.KakaoIcon />
+  </IconItem>
+  <IconItem name='KakaoIconImg'>
+    <SocialIconExample.KakaoIconImg />
+  </IconItem>
+  <IconItem name='TwitterIcon'>
+    <SocialIconExample.TwitterIcon />
+  </IconItem>
+  <IconItem name='TwitterIconImg'>
+    <SocialIconExample.TwitterIconImg />
+  </IconItem>
+  <IconItem name='NavigatorShareIcon'>
+    <SocialIconExample.NavigatorShareIcon />
   </IconItem>
 </IconGallery>
