@@ -5,7 +5,7 @@ import * as Style from '@/components/results/alternatives/style';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Common/AlternativeSmallCard',
+  title: 'Alternatives/AlternativeSmallCard',
   component: AlternativeSmallCard,
   tags: ['autodocs'],
   argTypes: {
