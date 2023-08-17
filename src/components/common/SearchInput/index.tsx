@@ -9,7 +9,6 @@ import * as Layout from '@/components/common/layout/index';
 import NoticeModal from '@/components/modal/NoticeModal';
 import useAutoCmp from '@/hooks/useAutoCmp';
 import useNoticeModal from '@/hooks/useNoticeModal';
-import detectMobileDevice from '@/utils/checkMobileDevice';
 
 import AutoCmpContainer from './AutoCmpContainer';
 

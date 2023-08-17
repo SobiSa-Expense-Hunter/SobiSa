@@ -25,6 +25,7 @@ export const SearchInputBox = styled.div<{ focus: boolean; search: string }>`
   width: 80%;
   height: 100%;
 
+  background-color: white;
   border: 2px solid ${({ theme, focus }) => (focus ? 'none' : theme.colors.mainColor)};
   border-right-style: none;
   border-radius: ${({ focus, search }) =>
