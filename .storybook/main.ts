@@ -18,15 +18,6 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  managerHead: head => `
-  ${head}
-  <link
-    href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap"
-    rel="stylesheet"
-    crossorigin="anonymous"
-  />
-
-`,
   webpackFinal: async config => {
     if (config?.resolve?.alias === undefined) return config;
     config.resolve.alias['@'] = path.resolve(__dirname, '../src/');
