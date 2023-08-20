@@ -1,0 +1,87 @@
+import { Meta, Typeset } from '@storybook/blocks';
+
+<Meta title='Assets/Typography' />
+
+export const typography = {
+  type: {
+    primary: 'Pretendard Variable',
+    receipt: 'NeoDunggeunmo',
+    certificate: 'Gamja Flower',
+  },
+  weight: {
+    regular: '400',
+    bold: '500',
+    extrabold: '600',
+    black: '700',
+  },
+  size: {
+    xxxs: 10,
+    xxs: 12,
+    xs: 14,
+    s: 16,
+    m: 14,
+    ml: 20,
+    l: 21,
+    xl: 28,
+    xxl: 36,
+  },
+};
+
+export const SampleText = '소비사 프로젝트 샘플 텍스트입니다.';
+
+# Typography
+
+**Font:** Pretendard Variable, NeoDunggeunmo, GamjaFlower
+
+**Weights:** 400(regular), 500(bold), 600(extrabold), 700(black)
+
+<Typeset
+  fontSizes={[
+    Number(typography.size.xxxs),
+    Number(typography.size.xxs),
+    Number(typography.size.xs),
+    Number(typography.size.s),
+    Number(typography.size.m),
+    Number(typography.size.ml),
+    Number(typography.size.l),
+    Number(typography.size.xl),
+    Number(typography.size.xxl),
+  ]}
+  fontWeight={typography.weight.regular}
+  sampleText={SampleText}
+  fontFamily={typography.type.primary}
+/>
+
+<Typeset
+  fontSizes={[
+    Number(typography.size.xxxs),
+    Number(typography.size.xxs),
+    Number(typography.size.xs),
+    Number(typography.size.s),
+    Number(typography.size.m),
+    Number(typography.size.ml),
+    Number(typography.size.l),
+    Number(typography.size.xl),
+    Number(typography.size.xxl),
+  ]}
+  fontWeight={typography.weight.regular}
+  sampleText={SampleText}
+  fontFamily={typography.type.receipt}
+/>
+
+<Typeset
+  fontSizes={[
+    Number(typography.size.xxxs),
+    Number(typography.size.xxs),
+    Number(typography.size.xs),
+    Number(typography.size.s),
+    Number(typography.size.m),
+    Number(typography.size.ml),
+    Number(typography.size.l),
+    Number(typography.size.xl),
+    Number(typography.size.xxl),
+  ]}
+  fontWeight={typography.weight.regular}
+  sampleText={SampleText}
+  fontFamily={typography.type.certificate}
+/>
