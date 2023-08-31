@@ -76,6 +76,7 @@ class MyDocument extends Document {
 
           <link rel='apple-touch-icon' sizes='114x114' href='assets/image/sobisa_logo.png' />
           <link rel='icon' href='assets/image/favicon.png' />
+          <link rel='manifest' href='manifest.json' />
         </Head>
         <body>
           <div id='modal-root' />
