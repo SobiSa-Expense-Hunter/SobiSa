@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { Dispatch, SetStateAction, memo } from 'react';
+import { memo } from 'react';
 
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
@@ -9,28 +9,16 @@ import * as Layout from '@/components/common/layout';
 
 interface SavingAmountOptionsProps {
   productPrice: number;
-  setAmount: Dispatch<SetStateAction<string>>;
+  setAmount: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 function SavingAmountOptions({ productPrice, setAmount }: SavingAmountOptionsProps) {
   const savingsAmountOptions = makeDynamicAssistVal(productPrice);
 
-  const sumAmountOptions = (value: number) => {
-    setAmount(prev => {
-      const beforeAmount = Number(prev.replaceAll(',', ''));
-      if (beforeAmount + value > productPrice) return productPrice.toLocaleString('ko-KR');
-      return (beforeAmount + value).toLocaleString('ko-KR');
-    });
-  };
-
   return (
     <Layout.HScroll>
       {savingsAmountOptions.map((option, idx) => (
-        <MoneyInputButton
-          key={uuid()}
-          value={option}
-          onClick={e => sumAmountOptions(Number(e.currentTarget.value))}
-        >
+        <MoneyInputButton key={uuid()} value={option} onClick={e => setAmount(e)}>
           {idx === 0 ? '전액' : `${option.toLocaleString()}원`}
         </MoneyInputButton>
       ))}
