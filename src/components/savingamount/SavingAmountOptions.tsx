@@ -31,21 +31,24 @@ export default memo(SavingAmountOptions);
 /**
  *
  * @param productPrice 기존 상품 가격
- * @returns Number[] - 기존 상품 가격을 넘지 않는 동적인 보조 버튼 값 배열
+ * @returns Number[] - 기존 상품 가격을 넘지 않는 동적인 보조 버튼 값 배열. idx 0은 productPrice
  */
 function makeDynamicAssistVal(productPrice: number) {
   const productDigit = String(productPrice).length;
 
   // 1000원 단위 이하일 경우
-  if (productDigit <= 4) return [0, 100, 500, 1000];
+  if (productDigit <= 4) return [productPrice, 100, 500, 1000];
 
   // 10000원 단위 이상일 경우, defaultAssist 최소 1000원부터 시작
   const defaultAssist = Number(`1${`0`.repeat(productDigit - 2)}`);
 
   // 값 중 productPrice보다 큰 값 제거
-  return Array.from({ length: 4 }, (_, idx) => defaultAssist * (idx * 5)).filter(
+  const values = Array.from({ length: 4 }, (_, idx) => defaultAssist * (idx * 5)).filter(
     val => val < productPrice,
   );
+  values[0] = productPrice;
+
+  return values;
 }
 
 const MoneyInputButton = styled.button`
