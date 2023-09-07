@@ -12,9 +12,7 @@ import TextHolder from '@/components/savingamount/TextHolder';
 import * as Style from '@/components/savingamount/styles';
 import { InputRegExp } from '@/constant';
 
-// TODO :전액 BTN 자체에 값 부여하는 방법
-// TODO :store - amount 관심사 분리
-
+// TODO : store - amount 관심사 분리
 type AmountChangeEvent =
   | React.ChangeEvent<HTMLInputElement>
   | React.MouseEvent<HTMLButtonElement, MouseEvent>;
@@ -36,16 +34,16 @@ const SavingAmount = () => {
 
       switch (event.type) {
         case 'click': {
-          const value = Number(
+          const addAmount = Number(
             (event as React.MouseEvent<HTMLButtonElement, MouseEvent>).currentTarget.value,
           );
           const beforeAmount = Number(amount.replaceAll(',', ''));
 
-          if (beforeAmount + value > product.price) {
+          if (beforeAmount + addAmount > product.price) {
             setAmount(product.price.toLocaleString('ko-KR'));
             break;
           }
-          setAmount((beforeAmount + value).toLocaleString('ko-KR'));
+          setAmount((beforeAmount + addAmount).toLocaleString('ko-KR'));
           break;
         }
 
@@ -67,7 +65,7 @@ const SavingAmount = () => {
   );
 
   const handleInputSubmit = () => {
-    if (!amount) {
+    if (!amount || amount === '0') {
       setTypingModal(true);
       return;
     }
