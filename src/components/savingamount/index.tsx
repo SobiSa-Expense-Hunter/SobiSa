@@ -34,25 +34,24 @@ const SavingAmount = () => {
 
       switch (event.type) {
         case 'click': {
-          const addAmount = Number(
+          const clickAmount = Number(
             (event as React.MouseEvent<HTMLButtonElement, MouseEvent>).currentTarget.value,
           );
-          const beforeAmount = Number(amount.replaceAll(',', ''));
+          const beforeSaveAmount = Number(amount.replaceAll(',', ''));
 
-          if (beforeAmount + addAmount > product.price) {
+          if (beforeSaveAmount + clickAmount > product.price) {
             setAmount(product.price.toLocaleString('ko-KR'));
             break;
           }
-          setAmount((beforeAmount + addAmount).toLocaleString('ko-KR'));
+          setAmount((beforeSaveAmount + clickAmount).toLocaleString('ko-KR'));
           break;
         }
 
         case 'change': {
           const { value } = event.target as HTMLInputElement;
-          const numberReg = InputRegExp.numberAndComma;
-          const emptyStringReg = InputRegExp.emptyString;
+          const { numberAndComma, emptyString } = InputRegExp;
 
-          if (numberReg.test(value) || emptyStringReg.test(value)) {
+          if (numberAndComma.test(value) || emptyString.test(value)) {
             setAmount(Number(value.replaceAll(',', '')).toLocaleString('ko-KR'));
           } else setShowModal(true);
           break;
