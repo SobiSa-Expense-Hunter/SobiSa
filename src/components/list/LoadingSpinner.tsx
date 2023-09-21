@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import styled, { keyframes } from 'styled-components';
 
 import * as SVG from '@/assets/Icons';
@@ -23,4 +25,4 @@ const SpinnerWrapper = styled.div`
   animation: ${rotation} 1s linear infinite;
 `;
 
-export default LoadingSpinner;
+export default memo(LoadingSpinner);
