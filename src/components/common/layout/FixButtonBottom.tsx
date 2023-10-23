@@ -1,6 +1,7 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable import/no-cycle */
 import type { ReactNode } from 'react';
+import { memo } from 'react';
 
 import * as Layout from '@/components/common/layout';
 
@@ -29,4 +30,4 @@ function FixButtonBottom({
   );
 }
 
-export default FixButtonBottom;
+export default memo(FixButtonBottom);

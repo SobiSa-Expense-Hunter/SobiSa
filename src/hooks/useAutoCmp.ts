@@ -1,5 +1,6 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 import { getNaverShopAutoCmp, getNaverMainAutoCmp } from '@/utils/api/getAutoCmp';
 
@@ -20,48 +21,60 @@ function useAutoCmp(params: string) {
 
   useEffect(() => {
     if (!params) return;
-    /**
-     * !DESCRIBE : 로딩스피너가 너무 빠르게 동작하면 깜빡거리듯 보여지기에 0.5초가 지나고 로딩 상태로 변경
-     */
-    const loadingTimeout = setTimeout(() => setState(STATE.LOADING), 500);
+
+    let debounceLoadingSpinner: ReturnType<typeof setTimeout>;
+    let debounceParams: ReturnType<typeof setTimeout>;
 
     try {
-      fetchData().then(res => {
-        setAutoCmpList(makeAutoCmpList(res).slice(0, 8));
-        clearTimeout(loadingTimeout);
-        setState(STATE.SUCCESS);
-      });
+      debounceLoadingSpinner = setTimeout(() => setState(STATE.LOADING), 500);
+      debounceParams = setTimeout(
+        () =>
+          fetchData().then(res => {
+            setAutoCmpList(makeAutoCmpList(res).slice(0, 8));
+            clearTimeout(debounceLoadingSpinner);
+            setState(STATE.SUCCESS);
+          }),
+        1000,
+      );
     } catch (error) {
-      clearTimeout(loadingTimeout);
       setState(STATE.ERROR);
     }
+
+    return () => {
+      setAutoCmpList(['']);
+      clearTimeout(debounceLoadingSpinner);
+      clearTimeout(debounceParams);
+    };
   }, [params, mode]);
 
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     let data: NaverShopAutoCmp | NaverMainAutoCmp;
     if (mode === AUTO_CMP_MODE.SHOP) data = await getNaverShopAutoCmp({ text: params });
     else data = await getNaverMainAutoCmp({ text: params });
     return data;
-  }
+  }, [params, mode]);
 
-  function makeAutoCmpList(rawData: NaverMainAutoCmp | NaverShopAutoCmp | undefined): string[] {
-    if (!rawData) return [];
-    let cleanData: string[] = [];
+  const makeAutoCmpList = useCallback(
+    (rawData: NaverMainAutoCmp | NaverShopAutoCmp | undefined): string[] => {
+      if (!rawData) return [];
+      let cleanData: string[] = [];
 
-    if ('answer' in rawData) {
-      cleanData = rawData.items[0].reduce((acc, data) => {
-        acc.push(data[0]);
-        return acc;
-      }, []);
-    } else {
-      cleanData = rawData.items[1].reduce<string[]>((acc, item) => {
-        acc.push(item[0][0]);
-        return acc;
-      }, []);
-    }
+      if ('answer' in rawData) {
+        cleanData = rawData.items[0].reduce((acc, data) => {
+          acc.push(data[0]);
+          return acc;
+        }, []);
+      } else {
+        cleanData = rawData.items[1].reduce<string[]>((acc, item) => {
+          acc.push(item[0][0]);
+          return acc;
+        }, []);
+      }
 
-    return cleanData;
-  }
+      return cleanData;
+    },
+    [params],
+  );
 
   return { autoCmpList, state };
 }
