@@ -12,7 +12,6 @@ import TextHolder from '@/components/savingamount/TextHolder';
 import * as Style from '@/components/savingamount/styles';
 import { InputRegExp } from '@/constant';
 
-// TODO : store - amount 관심사 분리
 type AmountChangeEvent =
   | React.ChangeEvent<HTMLInputElement>
   | React.MouseEvent<HTMLButtonElement, MouseEvent>;
