@@ -1,5 +1,8 @@
 const { config } = require('process');
 const { version } = require('./package.json');
+const withPWA = require('next-pwa')({
+  dest: 'public',
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -40,4 +43,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withPWA(nextConfig);

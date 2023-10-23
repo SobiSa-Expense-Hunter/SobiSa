@@ -4,10 +4,11 @@
   "dir": "ltr",
   "display": "standalone",
   "name": "소비사!:소비사냥꾼",
+  "short_name": "소비사",
   "orientation": "any",
   "scope": "/",
-  "short_name": "소비사",
   "start_url": "/",
+  "prefer_related_applications": "true",
   "theme_color": "#ffffff",
   "categories": ["entertainment", "lifestyle", "personalization", "shopping", "utilities"],
   "screenshots": [
@@ -46,22 +47,26 @@
     {
       "src": "https://sobisa.vercel.app/assets/image/favicon.png",
       "type": "image/png",
-      "sizes": "72x72"
+      "sizes": "72x72",
+      "purpose": "any maskable"
     },
     {
       "src": "https://sobisa.vercel.app/assets/image/sobisa_logo.png",
       "type": "image/png",
-      "sizes": "114x114"
+      "sizes": "114x114",
+      "purpose": "any maskable"
     },
     {
       "src": "https://sobisa.vercel.app/assets/image/sobisa_logo_512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     },
     {
       "src": "https://sobisa.vercel.app/assets/image/thumbnail_image.png",
       "type": "image/png",
-      "sizes": "800x420"
+      "sizes": "800x420",
+      "purpose": "any maskable"
     }
   ],
   "shortcuts": [
